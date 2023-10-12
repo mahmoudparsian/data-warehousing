@@ -1,2 +1,6 @@
 # data-warehousing
-This repository is a place for Data Warehousing Course at SCU
+
+* This repository is a place for Data Warehousing Course at SCU
+
+* Author: Mahmoud Parsian
+
