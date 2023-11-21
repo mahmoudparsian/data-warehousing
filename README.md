@@ -84,7 +84,7 @@
 <a href="https://github.com/mahmoudparsian/data-algorithms-with-spark/blob/master/README.md">
     <img 
         alt="Data Algorithms with Spark" 
-        src="images/Data_Algorithms_with_Spark_COVER_9781492082385.png"
+        src="images/Data_Algorithms_with_Spark_COVER.png"
         width="550" 
         height="600"
     >
