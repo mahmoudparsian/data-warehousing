@@ -1,13 +1,7 @@
 # data-warehousing
 
-<img 
-        alt="data-lakehouse" 
-        src="./web_docs/data_warehouse_image.png"
-        width="550" 
-        height="700"
->
 
-![](./web_docs/data_warehouse_image.png)
+![](./images/data_warehouse_image.png)
 
 
 ## 0. Git Repository
@@ -52,31 +46,31 @@
 
 ## 3.  [Instructor, Adjunct Professor: Mahmoud Parsian](https://www.scu.edu/business/isa/faculty/parsian/)
 
-## 4.  [Prerequisite](./web_docs/prerequisite.md)
+## 4.  [Prerequisite](./webdocs/prerequisite.md)
 
-## 5.  [Course Description & Concepts](./web_docs/course_description.md)
+## 5.  [Course Description & Concepts](./webdocs/course_description.md)
 
 ## 6.  [Glossary of Big Data, MapReduce, Spark, Data Warehousing](./slides/glossary/glossary_of_big_data_and_mapreduce.md)
 
-## 7.  [Required Books and Papers](./web_docs/required_books.md)
+## 7.  [Required Books and Papers](./webdocs/required_books.md)
 
-## 8.  [Optional Books and References](./web_docs/optional_books.md)
+## 8.  [Optional Books and References](./webdocs/optional_books.md)
 
-## 9.  [Required Software: MapReduce & Spark/PySpark](./web_docs/required_software.md)
+## 9.  [Required Software: MapReduce & Spark/PySpark](./webdocs/required_software.md)
 
 ## 10.  [Syllabus, Winter Quarter 2024](./syllabus/2024-01-Winter/README.md)
 
-## 11. [Grading and Class Conduct](./web_docs/grading_and_class_conduct.md)
+## 11. [Grading and Class Conduct](./webdocs/grading_and_class_conduct.md)
 
-## 12. [Python Tutorials](./web_docs/python_tutorials.md)
+## 12. [Python Tutorials](./webdocs/python_tutorials.md)
 
-## 13. [SQL Tutorials](./web_docs/sql_tutorials.md)
+## 13. [SQL Tutorials](./webdocs/sql_tutorials.md)
 
-## 14. [Office Hours](./web_docs/office_hours.md)
+## 14. [Office Hours](./webdocs/office_hours.md)
 
-## 15. [Midterm Exam](./web_docs/midterm_exam.md)
+## 15. [Midterm Exam](./webdocs/midterm_exam.md)
 
-## 16. [Final Exam](./web_docs/final_exam.md)
+## 16. [Final Exam](./webdocs/final_exam.md)
 
 ## 17. Mahmoud Parsian's Latest Books: 
 
