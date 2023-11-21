@@ -59,7 +59,7 @@
 
 ## 8.  [Optional Books and References](./webdocs/optional_books.md)
 
-## 9.  [Required Software: MapReduce & Spark/PySpark](./webdocs/required_software.md)
+## 9.  [Required Software: MySQL and Python](./webdocs/required_software.md)
 
 ## 10.  [Syllabus, Winter Quarter 2024](./syllabus/2024-01-Winter/README.md)
 
