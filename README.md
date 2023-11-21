@@ -3,24 +3,23 @@
 
 ![](./images/data_warehouse_image.png)
 
+---------
 
 ## 0. Git Repository
-
 
 * This repository is a place for **Data Warehousing** 
   Course (MSIS-2621) at Santa Clara University.
   
-  
 * [MSIS 2621: Business Intelligence and Data Warehousing](https://www.scu.edu/business/graduate-degrees/ms-programs/ms-information-systems/curriculum/)
 	* [Graduate School, Leavey School of Business](https://www.scu.edu/business/)
 	* [Department of Information Systems & Analytics](https://www.scu.edu/business/isa/)
-
 
 * Spring Quarter 2024 (January-March)
 	* Class room: Lucas Hall (LH) 310
 	* Office: 316U, Lucas Hall (LH)
 	* Office Hours: via scheduled Zoom and by appointment
 
+---------
 
 ## 1. Course Information: 
 	
@@ -33,6 +32,8 @@
 	collect,  process,  and  store  data  on  a  well 
 	integrated    cloud   based    data    platform). 
 
+----------
+
 ## 2. Class Meeting Dates & Hours
 
 * **Class meeting dates**: 
@@ -43,6 +44,8 @@
 * **Class hours**:  
 	* Tuesday 5:45 PM - 7:20 PM PST
 	* Thursday 5:45 PM - 7:20 PM PST
+
+-----------
 
 ## 3.  [Instructor, Adjunct Professor: Mahmoud Parsian](https://www.scu.edu/business/isa/faculty/parsian/)
 
