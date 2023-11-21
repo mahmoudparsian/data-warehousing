@@ -1,26 +1,21 @@
-How to use pymysql - 10 common examples
-https://snyk.io/advisor/python/pymysql/example
-----------------------
+# Using Python and MySQL
 
-data-warehousing (main *) % python3 -m pip install pymysql
-Collecting pymysql
-  Obtaining dependency information for pymysql 
-  from https://files.pythonhosted.org/packages/e5/30/20467e39523d0cfc2b6227902d3687a16364307260c75e6a1cb4422b0c62/PyMySQL-1.1.0-py3-none-any.whl.metadata
-  Downloading PyMySQL-1.1.0-py3-none-any.whl.metadata (4.4 kB)
-Downloading PyMySQL-1.1.0-py3-none-any.whl (44 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.8/44.8 kB 829.6 kB/s eta 0:00:00
-Installing collected packages: pymysql
-Successfully installed pymysql-1.1.0
-----------------------
+## How to Use `pymysql`
 
-~  % python3
-Python 3.11.4 (v3.11.4:d2340ef257, Jun  6 2023, 19:15:51) 
-[Clang 13.0.0 (clang-1300.0.29.30)] on darwin
-Type "help", "copyright", "credits" or "license" for more information.
+* [How to use pymysql - 10 common examples](https://snyk.io/advisor/python/pymysql/example)
+
+* How to Install `pymysql`
+
+	% python3 -m pip install pymysql
+
+* Sample program to read Parquet and Load to MySQL
+
+~~~python
+>>># Python 3.11.4
 
 >>> import pyarrow.parquet as pq
 
->>> parquet_file = '/Users/mparsian/Downloads/yellow_tripdata_2022-01.parquet'
+>>> parquet_file = '/tmp/yellow_tripdata_2022-01.parquet'
 >>> trips = pq.read_table(parquet_file)
 >>> trips
 pyarrow.Table
@@ -43,7 +38,7 @@ improvement_surcharge: double
 total_amount: double
 congestion_surcharge: double
 airport_fee: double
-----
+
 
 >>> trips_df = trips.to_pandas()
 >>> trips_df
@@ -63,9 +58,13 @@ airport_fee: double
 >>> # Connect String:
 >>> # mysql+pymysql://<username>:<password>@<host>/<dbname>[?<options>]
 
->>> connection_string = "mysql+pymysql://%s:%s@%s:%s/%s" % ('root', 'mp22pass', 'localhost', '3306', 'test')
+>>> db_user = "root"
+>>> db_password = "myrootpassword"
+>>> db_table = "test"
+
+>>> connection_string = "mysql+pymysql://%s:%s@%s:%s/%s" % (db_user, db_password, 'localhost', '3306', db_table)
 >>> connection_string
-'mysql+pymysql://root:mp22pass@localhost:3306/test'
+'mysql+pymysql://root:myrootpassword@localhost:3306/test'
 
 >>> from sqlalchemy import create_engine
 >>> engine = create_engine(connection_string)
@@ -77,6 +76,11 @@ Engine(mysql+pymysql://root:***@localhost:3306/test)
 
 2,463,931
 >>>
+~~~
 
+* Check MySQL Table
+
+~~~SQL
 select count(*) from my_table;
 2,463,931
+~~~
