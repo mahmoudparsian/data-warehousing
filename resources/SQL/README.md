@@ -1,7 +1,6 @@
 #SQL: Structured Query Language
 
-![](./sql_image.jpeg)
-
+<img src="./sql_image.jpeg" alt="sql" width="200" height="300">
 
 	Structured Query Language (SQL) is a 
 	programming language for storing and 
