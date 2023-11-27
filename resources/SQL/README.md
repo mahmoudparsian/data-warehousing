@@ -1,4 +1,4 @@
-#SQL: Structured Query Language
+# SQL: Structured Query Language
 
 <img src="./sql_image.jpeg" alt="sql" width="250" height="250">
 
