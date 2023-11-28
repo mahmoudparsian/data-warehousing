@@ -1,6 +1,6 @@
 # SQL: Structured Query Language
 
-<img src="./sql_image.jpeg" alt="sql" width="250" height="250">
+<img src="./sql_image.jpeg" alt="sql" width="350" height="250">
 
 	Structured Query Language (SQL) is a 
 	programming language for storing and 
