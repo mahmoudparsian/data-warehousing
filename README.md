@@ -60,7 +60,7 @@
 
 ## 6.  [Course Description & Concepts](./webdocs/course_description.md)
 
-## 7.  [Glossary of Big Data, MapReduce, Spark, Data Warehousing](./slides/glossary/glossary_of_big_data_and_mapreduce.md)
+## 7.  [Glossary of Big Data, MapReduce, Spark, Data Warehousing](https://github.com/mahmoudparsian/big-data-mapreduce-course/blob/master/slides/glossary/README.md)
 
 ## 8.  [Required Books and Papers](./webdocs/required_books.md)
 
