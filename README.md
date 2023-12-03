@@ -5,14 +5,12 @@
 
 ---------
 
-## 0. Git Repository
+## 1. Git Repository
 
-* This repository is a place for **Data Warehousing** 
-  Course (MSIS-2621) at Santa Clara University.
-  
-* [MSIS 2621: Business Intelligence and Data Warehousing](https://www.scu.edu/business/graduate-degrees/ms-programs/ms-information-systems/curriculum/)
-	* [Graduate School, Leavey School of Business](https://www.scu.edu/business/)
-	* [Department of Information Systems & Analytics](https://www.scu.edu/business/isa/)
+* This repository is a place for [Data Warehousing 
+  Course (MSIS-2621)](https://www.scu.edu/business/graduate-degrees/ms-programs/ms-information-systems/curriculum/)
+  at the [Department of Information Systems & Analytics](https://www.scu.edu/business/isa/).
+   
 
 * Spring Quarter 2024 (January-March)
 	* Class room: Lucas Hall (LH) 310
@@ -21,7 +19,7 @@
 
 ---------
 
-## 1. Course Information: 
+## 2. Course Information: 
 
 	Introduces the business, technology,  and managerial 
 	issues related to BI and DW solutions. Students will 
@@ -43,7 +41,7 @@
 
 ----------
 
-## 2. Class Meeting Dates & Hours
+## 3. Class Meeting Dates & Hours
 
 * **Class meeting dates**: 
 	* Start: January 9, 2024
@@ -56,35 +54,35 @@
 
 -----------
 
-## 3.  [Instructor, Adjunct Professor: Mahmoud Parsian](https://www.scu.edu/business/isa/faculty/parsian/)
+## 4.  [Instructor, Adjunct Professor: Mahmoud Parsian](https://www.scu.edu/business/isa/faculty/parsian/)
 
-## 4.  [Prerequisite](./webdocs/prerequisite.md)
+## 5.  [Prerequisite](./webdocs/prerequisite.md)
 
-## 5.  [Course Description & Concepts](./webdocs/course_description.md)
+## 6.  [Course Description & Concepts](./webdocs/course_description.md)
 
-## 6.  [Glossary of Big Data, MapReduce, Spark, Data Warehousing](./slides/glossary/glossary_of_big_data_and_mapreduce.md)
+## 7.  [Glossary of Big Data, MapReduce, Spark, Data Warehousing](./slides/glossary/glossary_of_big_data_and_mapreduce.md)
 
-## 7.  [Required Books and Papers](./webdocs/required_books.md)
+## 8.  [Required Books and Papers](./webdocs/required_books.md)
 
-## 8.  [Optional Books and References](./webdocs/optional_books.md)
+## 9.  [Optional Books and References](./webdocs/optional_books.md)
 
-## 9.  [Required Software: MySQL and Python](./webdocs/required_software.md)
+## 10.  [Required Software: MySQL and Python](./webdocs/required_software.md)
 
-## 10.  [Syllabus, Winter Quarter 2024](./syllabus/2024-01-Winter/README.md)
+## 11.  [Syllabus, Winter Quarter 2024](./syllabus/2024-01-Winter/README.md)
 
-## 11. [Grading and Class Conduct](./webdocs/grading_and_class_conduct.md)
+## 12. [Grading and Class Conduct](./webdocs/grading_and_class_conduct.md)
 
-## 12. [Python Tutorials](./webdocs/python_tutorials.md)
+## 13. [Python Tutorials](./webdocs/python_tutorials.md)
 
-## 13. [SQL Tutorials](./webdocs/sql_tutorials.md)
+## 14. [SQL Tutorials](./webdocs/sql_tutorials.md)
 
-## 14. [Office Hours](./webdocs/office_hours.md)
+## 15. [Office Hours](./webdocs/office_hours.md)
 
-## 15. [Midterm Exam](./webdocs/midterm_exam.md)
+## 16. [Midterm Exam](./webdocs/midterm_exam.md)
 
-## 16. [Final Exam](./webdocs/final_exam.md)
+## 17. [Final Exam](./webdocs/final_exam.md)
 
-## 17. Mahmoud Parsian's Latest Books: 
+## 18. Mahmoud Parsian's Latest Books: 
 
 -------
 
