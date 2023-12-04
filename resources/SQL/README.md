@@ -1,13 +1,13 @@
 # SQL: Structured Query Language
 
-<img src="./sql_image.jpeg" alt="sql" width="350" height="250">
+<img src="./sql_image.jpeg" alt="sql" width="400" height="270">
 
 		Structured Query Language (SQL) is 
 		a programming language for storing 
 		and  processing  information  in a 
 		relational database.
 
-1. [The SQL Tutorial for Data Analysis](/https://mode.com/sql-tutorial/introduction-to-sql)
+1. [The SQL Tutorial for Data Analysis](https://mode.com/sql-tutorial/introduction-to-sql)
 
 2. [Introduction to SQL by Larry Snyder](./introduction_to_SQL_by_Larry_Snyder.pdf)
 
