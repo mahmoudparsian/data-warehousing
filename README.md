@@ -66,9 +66,9 @@
 
 ## 9.  [Optional Books and References](./webdocs/optional_books.md)
 
-## 10.  [Required Software: MySQL and Python](./webdocs/required_software.md)
+## 10. [Required Software: MySQL and Python](./webdocs/required_software.md)
 
-## 11.  [Syllabus, Winter Quarter 2024](./syllabus/2024-01-Winter/README.md)
+## 11. [Syllabus, Winter Quarter 2024](./syllabus/2024-Winter-Quarter/README.md)
 
 ## 12. [Grading and Class Conduct](./webdocs/grading_and_class_conduct.md)
 
