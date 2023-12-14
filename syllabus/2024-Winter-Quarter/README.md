@@ -10,7 +10,7 @@
 
 	* [Chapters 1 & 2 from Sherman book](https://www.amazon.com/Business-Intelligence-Guidebook-Integration-Analytics-ebook/dp/B00PLOC3R8/ref=sr_1_1)
 	* [Chapter  1 & 2 from The-Data-Lakehouse](https://www.databricks.com/wp-content/uploads/2021/10/The-Data-Lakehouse.pdf)
-	* [Introduction to Data Warehousing by Michael Bohlen -- slides 71 pages](~/resources/data_warehousing/data_warehousing_by_Michael_Bohlen_slides_71_pages.pdf)
+	* [Introduction to Data Warehousing by Michael Bohlen -- slides 71 pages](/resources/data_warehousing/data_warehousing_by_Michael_Bohlen_slides_71_pages.pdf)
 ----------
 ### Week 1, Date: 1/11/2023 
 1. Course Overview – Introduction to key concepts
@@ -20,7 +20,7 @@
 
 	* [Chapters 1 & 2 from Sherman book](https://www.amazon.com/Business-Intelligence-Guidebook-Integration-Analytics-ebook/dp/B00PLOC3R8/ref=sr_1_1)
 	* [Chapters 1 & 2 from The-Data-Lakehouse](https://www.databricks.com/wp-content/uploads/2021/10/The-Data-Lakehouse.pdf)
-	* [Introduction to Data Warehousing by Michael Bohlen -- slides 71 pages](~/resources/data_warehousing/data_warehousing_by_Michael_Bohlen_slides_71_pages.pdf)
+	* [Introduction to Data Warehousing by Michael Bohlen -- slides 71 pages](/resources/data_warehousing/data_warehousing_by_Michael_Bohlen_slides_71_pages.pdf)
 
 ----------
 ----------
