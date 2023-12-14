@@ -30,7 +30,8 @@ https://www.databricks.com/wp-content/uploads/2021/10/The-Data-Lakehouse.pdf)
 
 
 ### Week 2, Date: 1/16/2023 
-1. BI Application Architectures2. ETL Concepts
+1. BI Application Architectures
+2. ETL Concepts
 3. Introduction to DW Project
 4. Introduction to Group Project
 
@@ -43,7 +44,8 @@ https://www.databricks.com/wp-content/uploads/2021/10/The-Data-Lakehouse.pdf)
 
 ----------
 ### Week 2, Date: 1/18/2023 
-1. BI Application Architectures2. ETL Concepts
+1. BI Application Architectures
+2. ETL Concepts
 3. Introduction to DW Project
 4. Introduction to Group Project
 
@@ -59,7 +61,8 @@ https://www.databricks.com/wp-content/uploads/2021/10/The-Data-Lakehouse.pdf)
 
 ### Week 3, Date: 1/23/2023 
 1. Data Modeling
-2. Dimensional Modeling3. Drilling Down, Snow flaked dimensions
+2. Dimensional Modeling
+3. Drilling Down, Snow flaked dimensions
 
 * Required Readings:
 
@@ -71,7 +74,8 @@ https://www.databricks.com/wp-content/uploads/2021/10/The-Data-Lakehouse.pdf)
 ----------
 ### Week 3, Date: 1/25/2023 
 1. Data Modeling
-2. Dimensional Modeling3. Drilling Down, Snow flaked dimensions
+2. Dimensional Modeling
+3. Drilling Down, Snow flaked dimensions
 
 * Required Readings:
 
@@ -79,6 +83,87 @@ https://www.databricks.com/wp-content/uploads/2021/10/The-Data-Lakehouse.pdf)
 	* [Chapters 10, 11 from The-Data-Lakehouse](
 https://www.databricks.com/wp-content/uploads/2021/10/The-Data-Lakehouse.pdf)
 
+
+----------
+----------
+### Week 4, Date: 1/30/2023 
+1. Data Integration & ETL
+
+* Required Readings:
+
+	* [Chapter 11 from Sherman book](https://www.amazon.com/Business-Intelligence-Guidebook-Integration-Analytics-ebook/dp/B00PLOC3R8/ref=sr_1_1)
+	* [Chapter 12  from The-Data-Lakehouse](
+https://www.databricks.com/wp-content/uploads/2021/10/The-Data-Lakehouse.pdf)
+
+----------
+### Week 4, Date: 2/1/2023 
+1. Data Integration & ETL
+
+
+* Required Readings:
+
+	* [Chapters 11 from Sherman book](https://www.amazon.com/Business-Intelligence-Guidebook-Integration-Analytics-ebook/dp/B00PLOC3R8/ref=sr_1_1)
+	* [Chapters 12, 13 from The-Data-Lakehouse](
+https://www.databricks.com/wp-content/uploads/2021/10/The-Data-Lakehouse.pdf)
+
+----------
+----------
+
+### Week 5, Date: 2/6/2023 
+1. Data Integration & ETL
+
+* Required Readings:
+
+	* [Chapter 11 from Sherman book](https://www.amazon.com/Business-Intelligence-Guidebook-Integration-Analytics-ebook/dp/B00PLOC3R8/ref=sr_1_1)
+	* [Chapter 12  from The-Data-Lakehouse](
+https://www.databricks.com/wp-content/uploads/2021/10/The-Data-Lakehouse.pdf)
+
+----------
+### Week 5, Date: 2/8/2023 
+1. Data Integration & ETL
+
+* Required Readings:
+
+	* [Chapters 11 from Sherman book](https://www.amazon.com/Business-Intelligence-Guidebook-Integration-Analytics-ebook/dp/B00PLOC3R8/ref=sr_1_1)
+	* [Chapters 12, 13 from The-Data-Lakehouse](
+https://www.databricks.com/wp-content/uploads/2021/10/The-Data-Lakehouse.pdf)
+
+----------
+----------
+
+### Week 6, Date: 2/13/2023 
+
+----------
+### Week 6, Date: 2/15/2023 
+
+----------
+----------
+
+### Week 7, Date: 2/20/2023 
+
+----------
+### Week 7, Date: 2/22/2023 
+
+----------
+----------
+### Week 8, Date: 2/27/2023 
+
+----------
+### Week 8, Date: 2/29/2023 
+
+----------
+----------
+### Week 9, Date: 3/5/2023 
+
+----------
+### Week 9, Date: 3/7/2023 
+
+----------
+----------
+### Week 10, Date: 3/12/2023 
+
+----------
+### Week 10, Date: 3/14/2023 
 
 ----------
 ----------
