@@ -1,4 +1,6 @@
-1. [A Case Study for DATA WAREHOUSING - MS project](./A_CASE_STUDY_FOR_DATA_WAREHOUSING_MS_project.pdf)
+## Case Studies for Data Warehousing
+
+1. [A Case Study for Data Warehousing - MS project](./A_CASE_STUDY_FOR_DATA_WAREHOUSING_MS_project.pdf)
 
 2. [Practical Data Warehousing: Successful Cases](https://dataforest.ai/blog/practical-data-warehousing-successful-cases)
 
