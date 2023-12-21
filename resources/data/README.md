@@ -8,8 +8,11 @@ trip distances, itemized fares, rate types,
 payment types, and driver-reported passenger 
 counts. 
 
+## Data for 10 Years
 
-* Yellow Taxi Trip Records: 10 years: Years 2014 - 2023
+* **Yellow Taxi** Trip Records: Years 2014 - 2023
 
-* Green Taxi Trip Records: 10 years: Years 2014 - 2023
+* **Green Taxi** Trip Records:  Years 2014 - 2023
+
+-------
 

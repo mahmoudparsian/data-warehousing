@@ -9,7 +9,7 @@
 
 * This repository is a place for [Data Warehousing 
   Course (MSIS-2621)](https://www.scu.edu/business/graduate-degrees/ms-programs/ms-information-systems/curriculum/)
-  at the [Department of Information Systems & Analytics](https://www.scu.edu/business/isa/).
+  at the [Department of Information Systems & Analytics, Santa Clara University](https://www.scu.edu/business/isa/).
    
 
 * Spring Quarter 2024 (January-March)
