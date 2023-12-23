@@ -56,31 +56,31 @@
 
 ## 4.  [Instructor, Adjunct Professor: Mahmoud Parsian](https://www.scu.edu/business/isa/faculty/parsian/)
 
-## 5.  [Prerequisite](./webdocs/prerequisite.md)
+## 5.  [Prerequisite](./webdocs/docs/prerequisite.md)
 
-## 6.  [Course Description & Concepts](./webdocs/course_description.md)
+## 6.  [Course Description & Concepts](./webdocs/docs/course_description.md)
 
 ## 7.  [Glossary of Big Data, MapReduce, Spark, Data Warehousing](https://github.com/mahmoudparsian/big-data-mapreduce-course/blob/master/slides/glossary/README.md)
 
-## 8.  [Required Books and Papers](./webdocs/required_books.md)
+## 8.  [Required Books and Papers](./webdocs/docs/required_books.md)
 
-## 9.  [Optional Books and References](./webdocs/optional_books.md)
+## 9.  [Optional Books and References](./webdocs/docs/optional_books.md)
 
-## 10. [Required Software: MySQL and Python](./webdocs/required_software.md)
+## 10. [Required Software: MySQL and Python](./webdocs/docs/required_software.md)
 
 ## 11. [Syllabus, Winter Quarter 2024](./syllabus/2024-Winter-Quarter/README.md)
 
-## 12. [Grading and Class Conduct](./webdocs/grading_and_class_conduct.md)
+## 12. [Grading and Class Conduct](./webdocs/docs/grading_and_class_conduct.md)
 
-## 13. [Python Tutorials](./webdocs/python_tutorials.md)
+## 13. [Python Tutorials](./webdocs/docs/python_tutorials.md)
 
-## 14. [SQL Tutorials](./webdocs/sql_tutorials.md)
+## 14. [SQL Tutorials](./webdocs/docs/sql_tutorials.md)
 
-## 15. [Office Hours](./webdocs/office_hours.md)
+## 15. [Office Hours](./webdocs/docs/office_hours.md)
 
-## 16. [Midterm Exam](./webdocs/midterm_exam.md)
+## 16. [Midterm Exam](./webdocs/docs/midterm_exam.md)
 
-## 17. [Final Exam](./webdocs/final_exam.md)
+## 17. [Final Exam](./webdocs/docs/final_exam.md)
 
-## 18. [Mahmoud Parsian's Published Books](./webdocs/mahmoud_parsian_books.md)
+## 18. [Mahmoud Parsian's Published Books](./webdocs/docs/mahmoud_parsian_books.md)
 
