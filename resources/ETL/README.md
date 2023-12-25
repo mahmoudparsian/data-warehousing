@@ -2,33 +2,55 @@
 
 ------
 
-## ETL in Picture 
+## 1. ETL in Picture 
 
 <img src="./etl-process-explained-diagram.png" height=380 width=620>
 
 ------
 
-## What is ETL? 
+## 2. What is ETL? 
 
-	Extract, transform, and load (ETL) is 
-	the process of combining data from multiple 
-	sources into a large, central repository 
-	called a data warehouse. 
+	Extract, transform, and load (ETL) is the process 
+	of combining data from multiple sources into a large, 
+	central repository called a data warehouse. 
 	
-	ETL uses a set of business rules to clean 
-	and organize raw data and prepare it for 
-	storage, data analytics, and machine learning 
-	(ML). You can address specific business 
-	intelligence needs through data analytics 
-	(such as predicting the outcome of business 
-	decisions, generating reports and dashboards, 
-	reducing operational inefficiency, and more).
+	ETL uses a set of business rules to clean and organize 
+	raw data and prepare it for storage, data analytics, 
+	and machine learning (ML). You can address specific 
+	business intelligence needs through data analytics 
+	(such as predicting the outcome of business decisions, 
+	generating reports and dashboards, reducing operational 
+	inefficiency, and more).
 	
 	source: https://aws.amazon.com/what-is/etl/
 	
 -------
-	
-## ETL References
+
+## 3. The ETL Process
+
+* The most underestimated process in DW development
+* The most time-consuming process in DW development
+* Up to 80% of the development time is spent on ETL!
+
+### 3.1 Extract
+
+* Extract relevant data
+* Extraction can be from many data sources
+
+### 3.2 Transform
+
+* Transform data to DW format
+* Build DW keys, etc.
+* Cleansing of data
+
+### 3.3 Load
+
+* Load data into DW
+* Build aggregates, etc.
+
+-------
+
+## 4. ETL References
 
 1. [What is ETL? by IBM](https://www.ibm.com/topics/etl)
 
