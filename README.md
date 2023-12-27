@@ -1,5 +1,4 @@
-# data-warehousing
-
+# data-warehousing </br> Winter Quarter 2024 (January-March)
 
 ![](./data_warehouse_image.png)
 
@@ -11,33 +10,33 @@
   Course (MSIS-2621)](https://www.scu.edu/business/graduate-degrees/ms-programs/ms-information-systems/curriculum/)
   at the [Department of Information Systems & Analytics, Santa Clara University](https://www.scu.edu/business/isa/).
    
+* Class room: Lucas Hall (LH) TBDL
 
-* Winter Quarter 2024 (January-March)
-	* Class room: Lucas Hall (LH) TBDL
-	* Office: 316U, Lucas Hall (LH)
-	* Office Hours: via scheduled Zoom and by appointment
+* Office: 316U, Lucas Hall (LH)
+
+* Office Hours: via scheduled Zoom and by appointment
 
 ---------
 
 ## 2. Course Information: 
 
-	Introduces the business, technology,  and managerial 
-	issues related to BI and DW solutions. Students will 
-	acquire  practical  skills  in  collecting  business 
-	requirements,  planning,  defining,   designing  and 
-	developing a BI solution.   Emphasis  is  placed  on 
-	learning how to derive business value from BI and DW 
-	solutions.   Hands-on  experience  will  be obtained 
-	using a variety of BI tools. 
+	This Data-Warehousing course introduces the  business, 
+	technology, and managerial issues related  to BI   and 
+	DW solutions.   Students will acquire practical skills 
+	in    collecting   business   requirements,  planning, 
+	defining,  designing  and  developing  a  BI solution. 
+	Emphasis  is placed on learning how to derive business 
+	value from BI and  DW solutions.  Hands-on  experience 
+	will  be obtained using a variety of BI tools. 
 
-	This course  is  about   data  warehousing   and its 
-	role  in  carrying out modern  business intelligence 
-	for  actionable  insight  to  address  new  business 
-	needs. A data warehouses is the central component of 
-	a  modern  data  stack (a modern  data  stack  is  a 
-	combination  of  various  software   tools  used  to 
-	collect,   process,  and  store   data  on  a   well 
-	integrated cloud based data platform). 
+	This course is  about  data  warehousing  and its role 
+	in  carrying  out  modern  business  intelligence  for 
+	actionable  insight  to  address  new  business needs. 
+	A data warehouses is the central component of a modern 
+	data  stack (a modern  data stack  is a combination of 
+	various software tools  used to collect, process,  and 
+	store  data  on a  well integrated  cloud  based  data 
+	platform). 
 
 ----------
 
