@@ -12,8 +12,8 @@
   at the [Department of Information Systems & Analytics, Santa Clara University](https://www.scu.edu/business/isa/).
    
 
-* Spring Quarter 2024 (January-March)
-	* Class room: Lucas Hall (LH) 310
+* Winter Quarter 2024 (January-March)
+	* Class room: Lucas Hall (LH) TBDL
 	* Office: 316U, Lucas Hall (LH)
 	* Office Hours: via scheduled Zoom and by appointment
 
