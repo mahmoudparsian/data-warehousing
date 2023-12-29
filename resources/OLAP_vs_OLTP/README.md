@@ -22,7 +22,7 @@ data architecture, performance, and requirements.
 |     | Data Warehouse (OLAP)                        | Operational Database (OLTP)               |
 | --- | -------------------------------------------- | ----------------------------------------- |
 |  1  |Involves historical processing of information | Involves day-to-day processing            |
-|  2  |OLAP systems are used by knowledge workers such as executives, managers, and analysts     | OLAP systems are used by clerks, DBAs, or database professionals |
+|  2  |OLAP systems are used by knowledge workers such as executives, managers, and analysts     | OLTP systems are used by clerks, DBAs, or database professionals |
 |  3  |Useful in analyzing the business              | Useful in running the business    |
 |  4  |It focuses on Information out                 | It focuses on Data in |
 |  5  |Based on Star/Snowflake schema                | Based on Entitiy-Relationship Model |
@@ -33,7 +33,7 @@ data architecture, performance, and requirements.
 |  10 |Number of records accessed in millions     | Number of records accessed in tens |
 |  11 |Database size is from 100 GB to 100 TB     | Database size is from 100 MB to 100 GB |
 |  12 |Highly flexible                      | Provides high performance|
-|  13 |Result of queries returned in 1 to 10 seconds | Result of queries returned in 1 to 2 seconds |
+|  13 |Result of queries returned in 1 to 10 seconds (or even longer)| Result of queries returned in 1 to 2 seconds |
 
 
 
