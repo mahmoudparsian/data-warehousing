@@ -37,4 +37,4 @@ data architecture, performance, and requirements.
 |  14. READ/WRITE        |Database is READ only     | Database is READ/WRITE |
 |  15. DB design         | Subject-oriented         | Application-oriented |
 |  16. Unit of work      | Complex query |Short, simple transaction 
-
+|  17. Usage             |Ad-hoc         | Repetitive 
