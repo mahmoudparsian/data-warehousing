@@ -34,7 +34,7 @@ data architecture, performance, and requirements.
 |  11. DB Size           |Database size is from 100 GB to 100 TB     | Database size is from 100 MB to 100 GB |
 |  12. Environment       |Highly flexible                      | Provides high performance|
 |  13. Performance       |Result of queries returned in 1 to 10 seconds (or even longer)| Result of queries returned in 1 to 2 seconds |
-|  14. READ/WRITE        |Database is READ only     | Database is READ/WRITE |
+|  14. Access            |Database is READ only     | Database is READ/WRITE |
 |  15. DB design         | Subject-oriented         | Application-oriented |
 |  16. Unit of work      | Complex query |Short, simple transaction 
 |  17. Usage             |Ad-hoc         | Repetitive 
