@@ -34,6 +34,7 @@ data architecture, performance, and requirements.
 |  11 |Database size is from 100 GB to 100 TB     | Database size is from 100 MB to 100 GB |
 |  12 |Highly flexible                      | Provides high performance|
 |  13 |Result of queries returned in 1 to 10 seconds (or even longer)| Result of queries returned in 1 to 2 seconds |
+|  14 |Database is READ only     | Database is READ/WRITE |
 
 
 
