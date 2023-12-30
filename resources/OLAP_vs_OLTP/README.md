@@ -35,6 +35,37 @@ data architecture, performance, and requirements.
 |  12. Environment       |Highly flexible                      | Provides high performance|
 |  13. Performance       |Result of queries returned in 1 to 10 seconds (or even longer)| Result of queries returned in 1 to 2 seconds |
 |  14. Access            |Database is READ only     | Database is READ/WRITE |
-|  15. DB design         | Subject-oriented         | Application-oriented |
-|  16. Unit of work      | Complex query |Short, simple transaction 
+|  15. DB design         |Subject-oriented         | Application-oriented |
+|  16. Unit of work      |Complex query |Short, simple transaction 
 |  17. Usage             |Ad-hoc         | Repetitive 
+
+----------
+
+# OLAP Operations
+
+	OLAP operations extract insights from the 
+	data stored in multidimensional hypercubes. 
+	These actions consist of the following:
+
+---------
+
+# Drill Down
+![](./olap_operation_example_Drill_Down.png)
+
+----------
+# Roll Up
+![](./olap_operation_example_Roll_Up.png)
+
+----------
+# Dice
+![](./olap_operation_example_Dice.png)
+
+----------
+# Slice
+![](./olap_operation_example_Slice.png)
+
+----------
+# Pivot
+![](./olap_operation_example_Pivot.png)
+
+----------
