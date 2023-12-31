@@ -64,3 +64,4 @@
 
 6. [Build an ETL Data Pipeline using Python](https://blog.det.life/build-an-etl-data-pipeline-using-python-139c6875b046)
 
+7. [Setting Up ETL Using Python Simplified 101](https://hevodata.com/learn/etl-using-python/)
