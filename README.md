@@ -30,7 +30,8 @@
 	defining,  designing  and  developing  a  BI solution. 
 	Emphasis  is placed on learning how to derive business 
 	value from BI and  DW solutions.  Hands-on  experience 
-	will  be obtained using a variety of BI tools. 
+	will  be obtained  by building a small  data-warehouse 
+	and using a variety of BI tools. 
 
 	This course is  about  data  warehousing  and its role 
 	in  carrying  out  modern  business  intelligence  for 
