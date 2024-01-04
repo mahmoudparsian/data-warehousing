@@ -1,6 +1,6 @@
 # data-warehousing </br> Winter Quarter 2024 (January-March)
 
-![](./data_warehouse_image.png)
+![](./webdocs/images/data_warehouse_image.png)
 
 ---------
 
