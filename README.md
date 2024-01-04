@@ -19,9 +19,12 @@
 ---------
 
 ## 2. Course Information: 
-
-	This Data-Warehousing course introduces the  business, 
-	technology, and managerial issues related  to BI   and 
+	A data warehouse  is  a  subject-oriented, integrated, 
+	non-volatile  and time-variant collection of  data  in 
+	support of management’s decisions.
+	
+	This data-warehousing course introduces the  business, 
+	technology, and managerial issues related  to  BI  and 
 	DW solutions.   Students will acquire practical skills 
 	in    collecting   business   requirements,  planning, 
 	defining,  designing  and  developing  a  BI solution. 
