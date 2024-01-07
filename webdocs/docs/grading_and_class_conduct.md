@@ -1,18 +1,18 @@
 # Grading and Class Conduct Policies
 
-## Grade Distribution:
+## Assignments & Grade Distribution:
 
 Midterm and final exams are closed book/notes.
 
-  Assignments                   | %    
-  ------------------------------|----
-  1. Project Implementation     | 50% 
-  2. Project Documentation      | 15%     
-  3. Project Presentation       | 15%     
-  4. Midterm Exam               | 10%     
-  5. Final Exam                 | 10%  
-  ______________________________|_______
-  Total                         | 100% 
+Assignments                     | %    
+--------------------------------|----
+`1. Project Implementation`     | 50% 
+`2. Project Documentation`      | 15%     
+`3. Project Presentation`       | 15%     
+`4. Midterm Exam`               | 10%     
+`5. Final Exam`                 | 10%  
+--------------------------------|----
+Total                           | 100% 
 
 
 ## Letter Grade Distribution:
