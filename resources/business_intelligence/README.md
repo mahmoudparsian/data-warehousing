@@ -27,3 +27,5 @@
 2. [What is Business Intelligence and Why does it Matter](./what_is_Business_Intelligence_and_Why_does_it_Matter.pdf)
 
 3. [Business Intelligence by Solomon Negash](./business_intelligence_by_Solomon_Negash.pdf)
+
+4. [15 Real World Business Intelligence Examples](https://www.knowledgehut.com/blog/business-intelligence-and-visualization/business-intelligence-examples)
