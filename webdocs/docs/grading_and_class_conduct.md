@@ -4,15 +4,15 @@
 
 Midterm and final exams are closed book/notes.
 
-  Assignments                | %    
-  ---------------------------|----
-  Project Implementation     | 60% 
-  Project Documentation      | 10%     
-  Project Presentation       | 10%     
-  Midterm Exam               | 10%     
-  Final Exam                 | 10%  
-  ___________________________|_______
-  Total                      | 100% 
+  Assignments                   | %    
+  ------------------------------|----
+  1. Project Implementation     | 50% 
+  2. Project Documentation      | 15%     
+  3. Project Presentation       | 15%     
+  4. Midterm Exam               | 10%     
+  5. Final Exam                 | 10%  
+  ______________________________|_______
+  Total                         | 100% 
 
 
 ## Letter Grade Distribution:
