@@ -60,9 +60,9 @@ airport_fee: double
 
 >>> db_user = "root"
 >>> db_password = "myrootpassword"
->>> db_table = "test"
+>>> db_name = "test"
 
->>> connection_string = "mysql+pymysql://%s:%s@%s:%s/%s" % (db_user, db_password, 'localhost', '3306', db_table)
+>>> connection_string = "mysql+pymysql://%s:%s@%s:%s/%s" % (db_user, db_password, 'localhost', '3306', db_name)
 >>> connection_string
 'mysql+pymysql://root:myrootpassword@localhost:3306/test'
 

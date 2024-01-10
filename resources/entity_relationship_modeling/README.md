@@ -12,7 +12,7 @@ specifies relationships that can exist between entities
 In software engineering, an ER model is commonly formed 
 to represent things a business needs to remember in order 
 to perform business processes. Consequently, the ER model 
-becomes an abstract data model,[1] that defines a data or 
+becomes an abstract data model, that defines a data or 
 information structure which can be implemented in a database, 
 typically a relational database.
 
@@ -22,7 +22,7 @@ with variants of the idea existing previously, but today
 it is commonly used for teaching students the basics of 
 data base structure. Some ER models show super and subtype 
 entities connected by generalization-specialization 
-relationships,[4] and an ER model can be used also in the 
+relationships, and an ER model can be used also in the 
 specification of domain-specific ontologies.
 
 ## References and Tutorials 
