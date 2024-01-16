@@ -53,15 +53,15 @@
 -------
 ## 4. Sample ETL Program
 
-	[`create_parquet.py`](./create_parquet.py)
-	[`etl_read_parquet_from_file_transform_and_load_to_mysql.py`](./etl_read_parquet_from_file_transform_and_load_to_mysql.py)
+	[Create Parquet File](./create_parquet.py)
+	[ETL: 1. extract, 2. transform, and 3. load](./etl_read_parquet_from_file_transform_and_load_to_mysql.py)
 
 -------
 
 ## 5. Sample ELT Program
 
 	[`create_parquet.py`](./create_parquet.py)
-	[`elt_read_parquet_from_file_and_load_to_mysql_then_transform.py`](.elt_read_parquet_from_file_and_load_to_mysql_then_transform.py)
+	[ETL: 1. extract, 2. load, and 3. transform](.elt_read_parquet_from_file_and_load_to_mysql_then_transform.py)
 
 -------
 
