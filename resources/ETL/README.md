@@ -1,10 +1,19 @@
 # ETL: Extract Transform Load
 
 ------
+## 1. ETL and LET in Pictures 
 
-## 1. ETL in Picture 
+### 1.1 ETL in Picture 
 
 <img src="./etl-process-explained-diagram.png" height=380 width=620>
+
+### 1.2 ETL vs ELT 
+
+<img src="./ETL_vs_ELT.jpg" height=380 width=620>
+
+### 1.3 ETL vs ELT 
+
+<img src="./ETL_vs_ELT_2_.jpg" height=380 width=620>
 
 ------
 
