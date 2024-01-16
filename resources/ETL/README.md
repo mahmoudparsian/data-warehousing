@@ -13,7 +13,7 @@
 
 ### 1.3 ETL vs ELT 
 
-<img src="./ETL_vs_ELT_2_.jpg" height=380 width=620>
+<img src="./ETL_vs_ELT_2.jpg" height=380 width=620>
 
 ------
 
