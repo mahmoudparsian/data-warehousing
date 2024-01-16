@@ -1,0 +1,25 @@
+% spark-submit create_parquet.py
+24/01/15 16:14:13 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+employees =  [('alex', 'Ames', '1/21/2020', 34000, 1200), ('alex', 'Sunnyvale', '3/22/2020', 32000, 1500), ('alex', 'Cupertino', '1/24/2020', 40000, 400), ('mary', 'Ames', '2/20/2020', 38000, 800), ('mary', 'Stanford', '1/19/2022', 45000, 500), ('mary', 'Campbell', '9/20/2023', 55000, 600), ('jeff', 'Ames', '12/21/2021', 60000, 700), ('jeff', 'Sunnyvale', '4/10/2021', 70000, 300), ('jane', 'Austin', '5/16/2022', 80000, 800)]
+df.count():  9
+df.collect():  [Row(name='alex', city='Ames', date_created='1/21/2020', salary=34000, bonus=1200), Row(name='alex', city='Sunnyvale', date_created='3/22/2020', salary=32000, bonus=1500), Row(name='alex', city='Cupertino', date_created='1/24/2020', salary=40000, bonus=400), Row(name='mary', city='Ames', date_created='2/20/2020', salary=38000, bonus=800), Row(name='mary', city='Stanford', date_created='1/19/2022', salary=45000, bonus=500), Row(name='mary', city='Campbell', date_created='9/20/2023', salary=55000, bonus=600), Row(name='jeff', city='Ames', date_created='12/21/2021', salary=60000, bonus=700), Row(name='jeff', city='Sunnyvale', date_created='4/10/2021', salary=70000, bonus=300), Row(name='jane', city='Austin', date_created='5/16/2022', salary=80000, bonus=800)]
++----+---------+------------+------+-----+
+|name|     city|date_created|salary|bonus|
++----+---------+------------+------+-----+
+|alex|     Ames|   1/21/2020| 34000| 1200|
+|alex|Sunnyvale|   3/22/2020| 32000| 1500|
+|alex|Cupertino|   1/24/2020| 40000|  400|
+|mary|     Ames|   2/20/2020| 38000|  800|
+|mary| Stanford|   1/19/2022| 45000|  500|
+|mary| Campbell|   9/20/2023| 55000|  600|
+|jeff|     Ames|  12/21/2021| 60000|  700|
+|jeff|Sunnyvale|   4/10/2021| 70000|  300|
+|jane|   Austin|   5/16/2022| 80000|  800|
++----+---------+------------+------+-----+
+
+root
+ |-- name: string (nullable = true)
+ |-- city: string (nullable = true)
+ |-- date_created: string (nullable = true)
+ |-- salary: long (nullable = true)
+ |-- bonus: long (nullable = true)

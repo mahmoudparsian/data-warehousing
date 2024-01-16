@@ -51,8 +51,21 @@
 * Build aggregates, etc.
 
 -------
+## 4. Sample ETL Program
 
-## 4. ETL References
+	[`create_parquet.py`](./create_parquet.py)
+	[`etl_read_parquet_from_file_transform_and_load_to_mysql.py`](./etl_read_parquet_from_file_transform_and_load_to_mysql.py)
+
+-------
+
+## 5. Sample ELT Program
+
+	[`create_parquet.py`](./create_parquet.py)
+	[`elt_read_parquet_from_file_and_load_to_mysql_then_transform.py`](.elt_read_parquet_from_file_and_load_to_mysql_then_transform.py)
+
+-------
+
+## 6. ETL References
 
 1. [Understanding ETL by O'reilly](./Understanding-ETL-by-Oreilly.pdf)
 
