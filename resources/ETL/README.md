@@ -53,7 +53,7 @@
 -------
 ## 4. Sample ETL Program
 
-4.1 [Create Parquet File](./create_parquet.py)
+4.1 [Create Parquet File by PySpark (as a data source)](./create_parquet.py)
 
 4.2 [ETL: 1. extract, 2. transform, and 3. load](./etl_read_parquet_from_file_transform_and_load_to_mysql.py)
 
@@ -61,7 +61,7 @@
 
 ## 5. Sample ELT Program
 
-5.1 [`create_parquet.py`](./create_parquet.py)
+5.1 [Create Parquet File by PySpark (as a data source)](./create_parquet.py)
 
 5.2 [ETL: 1. extract, 2. load, and 3. transform](./elt_read_parquet_from_file_and_load_to_mysql_then_transform.py)
 
