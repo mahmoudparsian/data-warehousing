@@ -1,7 +1,7 @@
 # ETL: Extract Transform Load
 
 ------
-## 1. ETL and LET in Pictures 
+## 1. ETL and ELT in Pictures 
 
 ### 1.1 ETL in Picture 
 
@@ -17,8 +17,9 @@
 
 ------
 
-## 2. What is ETL? 
+## 2. What is ETL and ELT? 
 
+### 2.1 ETL
 	Extract, transform, and load (ETL) is the 
 	process of combining data from multiple 
 	sources into a large, central repository 
@@ -34,7 +35,19 @@
 	reducing operational inefficiency, and more).
 	
 	source: https://aws.amazon.com/what-is/etl/
-	
+
+### 2.2 ELT
+
+	ELT, which stands for “Extract, Load, Transform,” 
+	is another type of data integration process, similar 
+	to its counterpart ETL, “Extract, Transform, Load”. 
+	This process moves raw data from a source system to 
+	a destination resource, such as a data warehouse. 
+	While similar to ETL, ELT is a fundamentally different 
+	approach to data pre-processing which has only more 
+	recently gained adoption with the transition to 
+	cloud environments.
+
 -------
 
 ## 3. The ETL Process
