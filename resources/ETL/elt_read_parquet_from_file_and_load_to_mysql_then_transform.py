@@ -86,7 +86,13 @@ df.to_sql(name = db_table, con = db_connection, if_exists = 'append', index = Fa
 # 3. TRANSFORM...
 #-------------------
 """
-mysql> CREATE TABLE new_emps select name, city, date_created, salary, bonus, SUBSTRING_INDEX(date_created, '/', 1) AS month, SUBSTRING_INDEX(SUBSTRING_INDEX(date_created,'/', 2), '/',-1)  AS day, SUBSTRING_INDEX(date_created, '/', -1) as year  from employees;
+-- create a new table from select of another table
+mysql> CREATE TABLE new_emps 
+         select name, city, date_created, salary, bonus, 
+                SUBSTRING_INDEX(date_created, '/', 1) AS month, 
+                SUBSTRING_INDEX(SUBSTRING_INDEX(date_created,'/', 2), '/',-1)  AS day,
+                SUBSTRING_INDEX(date_created, '/', -1) as year  
+            from employees;
 Query OK, 9 rows affected (0.02 sec)
 Records: 9  Duplicates: 0  Warnings: 0
 
