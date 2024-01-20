@@ -26,7 +26,6 @@
   A data cube enables data to be modeled and viewed in multiple 
   dimensions. It is defined by dimensions and facts.
 
-![](./tabular_representation.png)
   
 ![](./multi-dimensional-data-model.png)
 

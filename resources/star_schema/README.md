@@ -9,7 +9,7 @@
 
 -------
 
-## 2. [What is a a Star Schema?](./what_is_a_star_schema_introduction.md)
+## 2. [What is a Star Schema?](./what_is_a_star_schema_introduction.md)
 
 -----
 
