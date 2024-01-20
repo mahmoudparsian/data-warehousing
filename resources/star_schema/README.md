@@ -10,6 +10,14 @@
 
 * The star schema design is optimized for querying 
   large data sets.
+  
+* **Fact tables** and **dimension tables** are key 
+  components of a schema in a data warehouse. A 
+  **fact table** contains records that combine attributes 
+  from different **dimension tables**. These records 
+  allow users to analyze different aspects of their 
+  business, which can aid in decision-making and 
+  improving the business. 
 
 ------
 
@@ -38,4 +46,6 @@
 
 10. [Designing the Star Schema in Data Warehousing: with 2 Examples](https://www.geeksforgeeks.org/designing-the-star-schema-in-data-warehousing/)
 
-11. [Star Schema Examples](./examples)
+11. [Fact Table vs. Dimension Table - Differences Between The Two](https://www.simplilearn.com/fact-table-vs-dimension-table-article)
+
+12. [Star Schema Examples](./examples)
