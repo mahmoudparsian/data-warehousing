@@ -1,14 +1,17 @@
 # Star Schema
 
 * What is a **star schema**? A star schema is a 
-**multi-dimensional data model** used to organize 
-data in a database so that it is easy to understand 
-and analyze. Star schemas can be applied to data 
-warehouses, databases, data marts, and other tools. 
+  **multi-dimensional data model** used to organize 
+  data in a database so that it is easy to understand 
+  and analyze. 
+
+* Star schemas can be applied to data warehouses, 
+  databases, data marts, and other tools. 
 
 * The star schema design is optimized for querying 
-large data sets.
+  large data sets.
 
+------
 
 ## 1. [Stock Trading Example (class presentation)](./star_schema_a_hands_on_approach_to_modeling.adoc.pdf)
 
