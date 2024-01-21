@@ -95,7 +95,7 @@
 
 ------
 
-##7. [ETL Pipeline for NYC Taxi Trip Data](./ETL_Pipeline_for_NYC_Taxi_Trip_Data.pdf)
+## 7. [ETL Pipeline for NYC Taxi Trip Data](./ETL_Pipeline_for_NYC_Taxi_Trip_Data.pdf)
 
 -------
 
