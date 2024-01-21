@@ -101,7 +101,7 @@ instead called summary tables). A fact table
 usually contains facts with the same level of 
 aggregation.
 
-![](./https://learndatamodeling.com/wp-content/uploads/2015/07/star_schema.gif)
+![](https://learndatamodeling.com/wp-content/uploads/2015/07/star_schema.gif)
 
 
 In the example sales fact table is connected to 
