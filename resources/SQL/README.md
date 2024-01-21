@@ -15,5 +15,7 @@
 
 4. [SQL for DW by Michael Bohlen (slides: 65 pages)](./sql_for_DW_by_Michael_Bohlen_slides_65_pages.pdf)
 
-5. [DuckDB SQL documentation](https://duckdb.org/docs/sql/introduction)
+5. [SQL Joins 101](./SQL_Joins_101.pdf)
+
+6. [DuckDB SQL documentation](https://duckdb.org/docs/sql/introduction)
 
