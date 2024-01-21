@@ -20,19 +20,17 @@
 ## 2. What is ETL and ELT? 
 
 ### 2.1 ETL
-	Extract, transform, and load (ETL) is the 
-	process of combining data from multiple 
-	sources into a large, central repository 
-	called a data warehouse. 
+	Extract, transform, and load (ETL) is the process 
+	of combining data from multiple sources into a 
+	large, central repository called a data warehouse. 
 	
-	ETL uses a set of business rules to clean 
-	and organize raw data and prepare it for 
-	storage, data analytics, and machine learning 
-	(ML). You can address specific business 
-	intelligence needs through data analytics 
-	(such as predicting the outcome of business 
-	decisions, generating reports and dashboards, 
-	reducing operational inefficiency, and more).
+	ETL uses a set of business rules to clean and organize 
+	raw data and prepare it for storage, data analytics, 
+	and machine learning (ML). You can address specific 
+	business intelligence needs through data analytics 
+	(such as predicting the outcome of business decisions, 
+	generating reports and dashboards, reducing operational 
+	inefficiency, and more).
 	
 	source: https://aws.amazon.com/what-is/etl/
 
@@ -93,7 +91,11 @@
 
 -------
 
-## 6. ETL References
+## 6. [Data Cleaning with SQL](./Data_Cleaning_with_SQL.pdf)
+
+-------
+
+## 7. ETL References
 
 1. [Understanding ETL by O'reilly](./Understanding-ETL-by-Oreilly.pdf)
 
