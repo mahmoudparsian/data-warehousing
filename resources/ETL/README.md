@@ -93,9 +93,13 @@
 
 ## 6. [Data Cleaning with SQL](./Data_Cleaning_with_SQL.pdf)
 
+------
+
+##7. [ETL Pipeline for NYC Taxi Trip Data](./ETL_Pipeline_for_NYC_Taxi_Trip_Data.pdf)
+
 -------
 
-## 7. ETL References
+## 8. ETL References
 
 1. [Understanding ETL by O'reilly](./Understanding-ETL-by-Oreilly.pdf)
 
