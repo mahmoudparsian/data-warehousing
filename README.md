@@ -1,5 +1,10 @@
 # data-warehousing </br> Winter Quarter 2024 (January-March)
 
+		Where do you store a petabyte of 
+		data for  business intelligence? 
+		A  data warehouse, that’s where. 
+
+
 ![](./webdocs/images/data_warehouse_image.png)
 
 ---------

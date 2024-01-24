@@ -2,6 +2,8 @@
 
 ![](./what_is_star_schema.png)
 
+## Introduction to Star Schema
+
 * What is a **star schema**? A star schema is a 
   **multi-dimensional data model** used to organize 
   data in a database so that it is easy to understand 
@@ -26,7 +28,29 @@
   A data cube enables data to be modeled and viewed in multiple 
   dimensions. It is defined by dimensions and facts.
 
-  
+## Types of Tables in Star Schema
+
+The star schema consists of two types of tables:
+
+#### Facts Tables
+
+* **Facts**: Metrics of a business process. 
+These are generally numeric and additive (e.g. 
+amount of an invoice or the number of invoices), 
+or quantitative. The fact table also contain keys 
+pointing to relevant dimension tables. There is 
+just one fact table at the center of the star schema.
+
+#### Dimensions Tables
+
+* **Dimensions**: The where, when, what, etc. (e.g. 
+date/time, locations, goods sold). These typically 
+contain qualitative information. There are multiple 
+dimension tables in the schema, all of which are 
+related to the fact table.
+
+## Sample Multi-Dimensional Models
+
 ![](./multi-dimensional-data-model.png)
 
 ![](./data-cube.webp)
