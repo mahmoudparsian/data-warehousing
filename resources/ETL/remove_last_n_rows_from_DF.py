@@ -1,6 +1,7 @@
 # Import Required Libraries
 import pandas as pd
- 
+import sys
+
 # Create a dictionary for the dataframe
 dict = {
   'Name': ['Alex', 'Bob', 'Jane', 'Ted', 'Abi', 'Al', 'Rafa'],
@@ -16,7 +17,9 @@ print('df=', df)
 
 
 # Number of rows to drop
-n = 3
+# n = 3
+n = int(sys.argv[1])
+print('n=', n)
  
 # Dropping last n rows using drop
 df.drop(df.tail(n).index, inplace = True)
