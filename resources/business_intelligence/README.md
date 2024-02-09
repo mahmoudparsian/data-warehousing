@@ -22,10 +22,12 @@
 	
 ## Required Readings
 
-1. [Business Intelligence: What it is and its importance](./business_intelligence_what_it_is_and_importance.pdf)
+1. [Metabase — Business intelligence for everyone](./Metabase_Business_Intelligence_for_everyone_Medium.pdf)
 
-2. [What is Business Intelligence and Why does it Matter](./what_is_Business_Intelligence_and_Why_does_it_Matter.pdf)
+2. [Business Intelligence: What it is and its importance](./business_intelligence_what_it_is_and_importance.pdf)
 
-3. [Business Intelligence by Solomon Negash](./business_intelligence_by_Solomon_Negash.pdf)
+3. [What is Business Intelligence and Why does it Matter](./what_is_Business_Intelligence_and_Why_does_it_Matter.pdf)
 
-4. [15 Real World Business Intelligence Examples](https://www.knowledgehut.com/blog/business-intelligence-and-visualization/business-intelligence-examples)
+4. [Business Intelligence by Solomon Negash](./business_intelligence_by_Solomon_Negash.pdf)
+
+5. [15 Real World Business Intelligence Examples](https://www.knowledgehut.com/blog/business-intelligence-and-visualization/business-intelligence-examples)
