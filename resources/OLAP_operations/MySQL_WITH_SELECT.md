@@ -147,11 +147,11 @@ Output
 The above query produces the following output −
 
 ~~~sql
-ID	FIRST_NAME	LAST_NAME		EMAIL				PHONE
-102	Vinay		Bhattacharya	ramya@mymail.com	NULL
-101	Ramya		Rama Priya		ramya@mymail.com	NULL
-102	Vinay		Bhattacharya	vinay@mymail.com	NULL
-101	Ramya		Rama Priya		vinay@mymail.com	NULL
+ID    FIRST_NAME  LAST_NAME     EMAIL              PHONE
+102   Vinay       Bhattacharya  ramya@mymail.com   NULL
+101   Ramya       Rama Priya    ramya@mymail.com   NULL
+102   Vinay       Bhattacharya  vinay@mymail.com   NULL
+101   Ramya       Rama Priya    vinay@mymail.com   NULL
 ~~~
 
 ------
@@ -190,9 +190,9 @@ with gene_averages as
 Output
 
 ~~~sql
-GENE_ID		S	SUM  P	N	Z
-100289341	4	2	 0	2	0
-100669346	3	2	 0	1	0
+GENE_ID    S  SUM  P   N   Z
+100289341  4  2    0   2   0
+100669346  3  2    0   1   0
 ...
 ~~~
 
