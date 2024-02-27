@@ -11,7 +11,7 @@
 	       dataset, which is also sometimes called a hypercube 
 	       if the number of dimensions is greater than three.
 
-![](./OLAP_Cube.svg.png)
+![](./images/OLAP_Cube.svg.png)
 
 
 	1. Understanding and utilizing the SQL 
@@ -37,10 +37,10 @@
 	   multidimensional storage methods are all ways 
 	   to get to the data faster.
 	   
-![](./entire_view_of_data_cube.png)
+![](./images/entire_view_of_data_cube.png)
 
 
-![](./cube_4q_sw_sgm.gif)
+![](./images/cube_4q_sw_sgm.gif)
 
 
 
@@ -117,7 +117,7 @@ Combination           Count
 # Cube with Totals
 
 
-![](./cube_with_totals.png)
+![](./images/cube_with_totals.png)
 
 
 
