@@ -1,0 +1,120 @@
+ETL_Excel_Python_MySQL  % python3 load_excel_Electric_Vehicle_to_mysql.py
+excel_file= Electric_Vehicle_Population_Data.xlsx
+excel_dataframe=         VIN (1-10)    County  ...                                   Electric Utility 2020 Census Tract
+0       5YJXCAE26J    Yakima  ...                                         PACIFICORP      5.307700e+10
+1       JHMZC5F37M    Kitsap  ...                             PUGET SOUND ENERGY INC      5.303509e+10
+2       5YJ3E1EB0K      King  ...       CITY OF SEATTLE - (WA)|CITY OF TACOMA - (WA)      5.303301e+10
+3       1N4AZ0CP5D      King  ...       CITY OF SEATTLE - (WA)|CITY OF TACOMA - (WA)      5.303301e+10
+4       5YJSA1E21H  Thurston  ...                             PUGET SOUND ENERGY INC      5.306701e+10
+...            ...       ...  ...                                                ...               ...
+130438  7SAYGDEE6P    Pierce  ...  BONNEVILLE POWER ADMINISTRATION||CITY OF TACOM...      5.305307e+10
+130439  1N4BZ1CV7N    Pierce  ...  BONNEVILLE POWER ADMINISTRATION||CITY OF TACOM...      5.305306e+10
+130440  5YJYGDEE8M      King  ...       CITY OF SEATTLE - (WA)|CITY OF TACOMA - (WA)      5.303301e+10
+130441  5YJXCBE22L    Island  ...  BONNEVILLE POWER ADMINISTRATION||PUD 1 OF SNOH...      5.302997e+10
+130442  5YJ3E1EA5M    Pierce  ...  BONNEVILLE POWER ADMINISTRATION||CITY OF TACOM...      5.305307e+10
+
+[130443 rows x 17 columns]
+col=::VIN (1-10)::
+col=::County::
+col=::City::
+col=::State::
+col=::Postal Code::
+col=::Model Year::
+col=::Make::
+col=::Model::
+col=::Electric Vehicle Type::
+col=::Clean Alternative Fuel Vehicle (CAFV) Eligibility::
+col=::Electric Range::
+col=::Base MSRP::
+col=::Legislative District::
+col=::DOL Vehicle ID::
+col=::Vehicle Location::
+col=::Electric Utility::
+col=::2020 Census Tract::
+
+ Revised column names:
+
+col=::VIN::
+col=::County::
+col=::City::
+col=::State::
+col=::Postal_Code::
+col=::Model_Year::
+col=::Make::
+col=::Model::
+col=::Electric_Vehicle_Type::
+col=::CAFV_Eligibility::
+col=::Electric_Range::
+col=::Base_MSRP::
+col=::Legislative_District::
+col=::DOL_Vehicle_ID::
+col=::Vehicle_Location::
+col=::Electric_Utility::
+col=::Census_Tract_2020::
+conn=::<sqlalchemy.engine.base.Connection object at 0x10de113d0>::
+ETL_Excel_Python_MySQL  %
+ETL_Excel_Python_MySQL  % mysql -h localhost -u root -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.1.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use test;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> desc ev_table;
++-----------------------+--------+------+-----+---------+-------+
+| Field                 | Type   | Null | Key | Default | Extra |
++-----------------------+--------+------+-----+---------+-------+
+| index                 | bigint | YES  | MUL | NULL    |       |
+| VIN                   | text   | YES  |     | NULL    |       |
+| County                | text   | YES  |     | NULL    |       |
+| City                  | text   | YES  |     | NULL    |       |
+| State                 | text   | YES  |     | NULL    |       |
+| Postal_Code           | double | YES  |     | NULL    |       |
+| Model_Year            | bigint | YES  |     | NULL    |       |
+| Make                  | text   | YES  |     | NULL    |       |
+| Model                 | text   | YES  |     | NULL    |       |
+| Electric_Vehicle_Type | text   | YES  |     | NULL    |       |
+| CAFV_Eligibility      | text   | YES  |     | NULL    |       |
+| Electric_Range        | bigint | YES  |     | NULL    |       |
+| Base_MSRP             | bigint | YES  |     | NULL    |       |
+| Legislative_District  | double | YES  |     | NULL    |       |
+| DOL_Vehicle_ID        | bigint | YES  |     | NULL    |       |
+| Vehicle_Location      | text   | YES  |     | NULL    |       |
+| Electric_Utility      | text   | YES  |     | NULL    |       |
+| Census_Tract_2020     | double | YES  |     | NULL    |       |
++-----------------------+--------+------+-----+---------+-------+
+18 rows in set (0.01 sec)
+
+mysql> select count(*) from ev_table;
++----------+
+| count(*) |
++----------+
+|   130443 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> select * from ev_table limit 5;
++-------+------------+----------+---------+-------+-------------+------------+--------+---------+----------------------------------------+-----------------------------------------+----------------+-----------+----------------------+----------------+-----------------------------+----------------------------------------------+-------------------+
+| index | VIN        | County   | City    | State | Postal_Code | Model_Year | Make   | Model   | Electric_Vehicle_Type                  | CAFV_Eligibility                        | Electric_Range | Base_MSRP | Legislative_District | DOL_Vehicle_ID | Vehicle_Location            | Electric_Utility                             | Census_Tract_2020 |
++-------+------------+----------+---------+-------+-------------+------------+--------+---------+----------------------------------------+-----------------------------------------+----------------+-----------+----------------------+----------------+-----------------------------+----------------------------------------------+-------------------+
+|     0 | 5YJXCAE26J | Yakima   | Yakima  | WA    |       98908 |       2018 | TESLA  | MODEL X | Battery Electric Vehicle (BEV)         | Clean Alternative Fuel Vehicle Eligible |            238 |         0 |                   14 |      141151601 | POINT (-120.56916 46.58514) | PACIFICORP                                   |       53077001100 |
+|     1 | JHMZC5F37M | Kitsap   | Poulsbo | WA    |       98370 |       2021 | HONDA  | CLARITY | Plug-in Hybrid Electric Vehicle (PHEV) | Clean Alternative Fuel Vehicle Eligible |             47 |         0 |                   23 |      171566447 | POINT (-122.64681 47.73689) | PUGET SOUND ENERGY INC                       |       53035090400 |
+|     2 | 5YJ3E1EB0K | King     | Seattle | WA    |       98199 |       2019 | TESLA  | MODEL 3 | Battery Electric Vehicle (BEV)         | Clean Alternative Fuel Vehicle Eligible |            220 |         0 |                   36 |        9426525 | POINT (-122.40092 47.65908) | CITY OF SEATTLE - (WA)|CITY OF TACOMA - (WA) |       53033005803 |
+|     3 | 1N4AZ0CP5D | King     | Seattle | WA    |       98119 |       2013 | NISSAN | LEAF    | Battery Electric Vehicle (BEV)         | Clean Alternative Fuel Vehicle Eligible |             75 |         0 |                   36 |      211807760 | POINT (-122.3684 47.64586)  | CITY OF SEATTLE - (WA)|CITY OF TACOMA - (WA) |       53033005804 |
+|     4 | 5YJSA1E21H | Thurston | Lacey   | WA    |       98516 |       2017 | TESLA  | MODEL S | Battery Electric Vehicle (BEV)         | Clean Alternative Fuel Vehicle Eligible |            210 |         0 |                   22 |      185810306 | POINT (-122.75379 47.06316) | PUGET SOUND ENERGY INC                       |       53067012226 |
++-------+------------+----------+---------+-------+-------------+------------+--------+---------+----------------------------------------+-----------------------------------------+----------------+-----------+----------------------+----------------+-----------------------------+----------------------------------------------+-------------------+
+5 rows in set (0.00 sec)
+
+mysql>

@@ -5,15 +5,15 @@
 
 ### 1.1 ETL in Picture 
 
-<img src="./etl-process-explained-diagram.png" height=380 width=620>
+<img src="./ETL_docs/etl-process-explained-diagram.png" height=380 width=620>
 
 ### 1.2 ETL vs ELT 
 
-<img src="./ETL_vs_ELT.jpg" height=380 width=620>
+<img src="./ETL_docs/ETL_vs_ELT.jpg" height=380 width=620>
 
 ### 1.3 ETL vs ELT 
 
-<img src="./ETL_vs_ELT_2.jpg" height=380 width=620>
+<img src="./ETL_docs/ETL_vs_ELT_2.jpg" height=380 width=620>
 
 ------
 
@@ -73,35 +73,35 @@
 -------
 ## 4. Sample ETL Program
 
-4.1.0 [Create Parquet File by PySpark (as a data source)](./create_parquet.py)
+4.1.0 [Create Parquet File by PySpark (as a data source)](./ETL_Parquet_Python_MySQL/create_parquet.py)
 
-4.1.1 [Create Parquet File by PySpark (log file)](./create_parquet.py.log)
+4.1.1 [Create Parquet File by PySpark (log file)](./ETL_Parquet_Python_MySQL/create_parquet.py.log)
 
-4.2 [ETL: 1. extract, 2. transform, and 3. load](./etl_read_parquet_from_file_transform_and_load_to_mysql.py)
+4.2 [ETL: 1. extract, 2. transform, and 3. load](./ETL_Parquet_Python_MySQL/etl_read_parquet_from_file_transform_and_load_to_mysql.py)
 
 -------
 
 ## 5. Sample ELT Program
 
-5.1.0 [Create Parquet File by PySpark (as a data source)](./create_parquet.py)
+5.1.0 [Create Parquet File by PySpark (as a data source)](./ETL_Parquet_Python_MySQL/create_parquet.py)
 
-5.1.1 [Create Parquet File by PySpark (log file)](./create_parquet.py.log)
+5.1.1 [Create Parquet File by PySpark (log file)](./ETL_Parquet_Python_MySQL/create_parquet.py.log)
 
-5.2 [ETL: 1. extract, 2. load, and 3. transform](./elt_read_parquet_from_file_and_load_to_mysql_then_transform.py)
+5.2 [ETL: 1. extract, 2. load, and 3. transform](./ETL_Parquet_Python_MySQL/elt_read_parquet_from_file_and_load_to_mysql_then_transform.py)
 
 -------
 
-## 6. [Data Cleaning with SQL](./Data_Cleaning_with_SQL.pdf)
+## 6. [Data Cleaning with SQL](./ETL_docs/Data_Cleaning_with_SQL.pdf)
 
 ------
 
-## 7. [ETL Pipeline for NYC Taxi Trip Data](./ETL_Pipeline_for_NYC_Taxi_Trip_Data.pdf)
+## 7. [ETL Pipeline for NYC Taxi Trip Data](./ETL_docs/ETL_Pipeline_for_NYC_Taxi_Trip_Data.pdf)
 
 -------
 
 ## 8. ETL References
 
-1. [Understanding ETL by O'reilly](./Understanding-ETL-by-Oreilly.pdf)
+1. [Understanding ETL by O'reilly](./ETL_docs/Understanding-ETL-by-Oreilly.pdf)
 
 2. [What is ETL? by IBM](https://www.ibm.com/topics/etl)
 
