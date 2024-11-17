@@ -8,7 +8,14 @@
 ------
 
 # What is a Data Warehousing
- 
+
+	Data warehousing is a process of collecting,
+	storing, and managing data from different 
+	sources to support business decision-making. 
+	It involves the integration of data from various 
+	operational systems into a central repository, 
+	known as a data warehouse.
+	
 <font size="5"> 
 Data warehousing is a process of collecting, <br>
 storing, and managing data from different <br>
@@ -118,3 +125,8 @@ Data Mining
 The process of discovering patterns and relationships in data stored in the data warehouse.
 Data mining techniques help uncover hidden insights and support predictive analysis.
 
+------
+
+# References
+
+1. [Data Warehousing Concepts for Beginners by Rahul Sounder](https://medium.com/@sounder.rahul/data-warehousing-concepts-for-beginners-data-engineers-76c31be60087)
