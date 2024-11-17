@@ -4,7 +4,7 @@
 		the "father of data warehousing":
 		
 		"a data warehouse is defined as a 
-		"1. subject-oriented,  
+		 1. subject-oriented,  
 		 2. integrated, 
 		 3. time-variant, and 
 		 4. non-volatile 
