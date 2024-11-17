@@ -8,6 +8,7 @@
 ------
 
 # What is a Data Warehousing
+## What is a Data Warehousing
 
 	Data warehousing is a process of collecting,
 	storing, and managing data from different 
