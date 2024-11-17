@@ -156,19 +156,19 @@
 
 ### Key points about operational systems:
 
-* Focus on transactions:
+* **Focus on transactions**:
 			
 			They are primarily designed to 
 			handle high volumes of routine 
 			transactions efficiently. 
 
-* Real-time processing:
+* **Real-time processing**:
 
 		Many operational systems require 
 		near-instantaneous data processing 
 		to support timely decision-making. 
 
-* Data integration:
+* **Data integration**:
 
 		They often integrate data from 
 		multiple   sources   within an 
