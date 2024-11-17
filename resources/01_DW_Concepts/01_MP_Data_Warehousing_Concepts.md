@@ -7,48 +7,88 @@
 
 ------
 
-# What is a Data Warehousing
 ## What is a Data Warehousing
 
-	Data warehousing is a process of collecting,
-	storing, and managing data from different 
-	sources to support business decision-making. 
-	It involves the integration of data from various 
-	operational systems into a central repository, 
-	known as a data warehouse.
+	Data warehousing is a process of 
+	collecting, storing, and managing 
+	data from different sources to 
+	support business decision-making. 
 	
-<font size="5"> 
-Data warehousing is a process of collecting, <br>
-storing, and managing data from different <br>
-sources to support business decision-making. <br>
-It involves the integration of data from various <br>
-operational systems into a central repository, <br>
-known as a data warehouse.
-</font>
-
-# What is a Data Warehouse
-<font size="5"> 
-A centralized repository that stores integrated, <br>
-historical data from various sources. <br>
-It is optimized for reporting and analysis <br>
-rather than transaction processing.
-</font>
-
-# ETL (Extract, Transform, Load)
-<font size="5"> 
-The process of extracting data from source <br> 
-systems, transforming it to meet the data  <br>
-warehouse’s requirements, and loading it into <br>
-the data warehouse.
-
-ETL ensures that data is cleansed, standardized, <br>
-and integrated before being stored in the data warehouse.
+	It involves the integration of data 
+	from various operational systems into 
+	a central repository, known as a 
+	data warehouse.
+	
 
 
-ETL stands for <b>"extract, transform, and load"</b>. <br>
-It's a process that combines data from multiple <br>
-sources into a single database or data warehouse. <br>
-The data is then cleaned, organized, and prepared <br>
+## What is a Data Warehouse
+	A centralized repository that stores 
+	integrated historical data from 
+	various sources. 
+
+	It is optimized for reporting and analysis 
+	rather than transaction processing.
+
+-------
+
+## What is an Operational System
+
+	An operational system is a company's 
+	infrastructure that supports its 
+	day-to-day operations. It's made 
+	up of hardware and software, and 
+	includes things like networking, 
+	power systems, HVAC, and IT. 
+	
+	The purpose of an operational system 
+	is to help a business run smoothly 
+	and effectively. 
+
+### Characteristics of an Operational System
+
+Here are some characteristics of an operational system:
+
+* Efficient processing
+		
+		An operational system is designed to 
+		process transactions efficiently while 
+		maintaining the integrity of the data. 
+
+* Self-service
+
+		Staff, customers, suppliers, and other 
+		partners should be able to access the 
+		system and interact with the data that's 
+		relevant to them. 
+
+* Up to date
+
+		An operational system needs to be kept 
+		up to date to run smoothly. 
+
+* Automated
+
+		An automated solution can save time, effort, 
+		and cost compared to manual interaction. 
+
+------
+
+## ETL (Extract, Transform, Load)
+
+	The process of extracting data from 
+	source systems, transforming it to 
+	meet the data warehouse’s requirements, 
+	and loading it into the data warehouse.
+
+	ETL ensures that data is cleansed, 
+	standardized, and integrated before 
+	being stored in the data warehouse.
+
+
+ETL stands for <b>"extract, transform, and load"</b>. 
+It's a process that combines data from multiple 
+sources into a single database or data warehouse. 
+The data is then cleaned, organized, and prepared 
 for storage, analysis, and machine learning. 
 
 Here are the three steps of the ETL process:
