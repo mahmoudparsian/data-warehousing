@@ -13,7 +13,7 @@
 
 ------
 
-## Data Warehouse Architecture
+## Classic Data Warehouse Architecture
 
 ![](./data_warehouse_architecture_01.webp)
 
@@ -26,25 +26,29 @@
 
 ## What is a Data Warehousing
 
-	Data warehousing is a process of 
+	1. Data warehousing is a process of 
 	collecting, storing, and managing 
 	data from different sources to 
 	support business decision-making. 
 	
-	It involves the integration of data 
-	from various operational systems into 
-	a central repository, known as a 
-	data warehouse.
+	2. It involves the integration of data 
+	from  various  operational  systems 
+	into a central repository, known as 
+	a data warehouse.
 	
 
 
 ## What is a Data Warehouse
-	A centralized repository that stores 
-	integrated historical data from 
-	various sources. 
+	1. A centralized repository that stores 
+	   integrated historical data from 
+	   various sources. 
 
-	It is optimized for reporting and analysis 
-	rather than transaction processing.
+	2. It is optimized for reporting and analysis 
+	   rather than transaction processing.
+	
+	3. For practical reasons and performance, 
+	   operational database and data warehouse 
+	   operate and use separate databases.
 
 -------
 
@@ -124,24 +128,24 @@
 
 ## What is an Operational System
 
-	An operational system is a company's 
+	1. An operational system is a company's 
 	infrastructure that supports its 
 	day-to-day operations. It's made 
 	up of hardware and software, and 
 	includes things like networking, 
-	power systems, HVAC, and IT.
+	power systems, and IT.
 	
-	An operational system is a term used 
+	2. An operational system is a term used 
 	in data warehousing to refer to a 
 	system that is used to process the 
 	day-to-day transactions of an organization. 
 	
-	These systems are designed in a manner 
+	3. These systems are designed in a manner 
 	that processing of day-to-day transactions 
 	is performed efficiently and the integrity 
 	of the transactional data is preserved. 
 	
-	The purpose of an operational system 
+	4. The purpose of an operational system 
 	is to help a business run smoothly 
 	and effectively. 
 	
@@ -176,26 +180,26 @@
 
 Here are some characteristics of an operational system:
 
-* Efficient processing
+* **Efficient processing**:
 		
 		An operational system is designed 
 		to process transactions efficiently 
 		while maintaining the integrity of 
 		the data. 
 
-* Self-service
+* **Self-service**:
 
 		Staff, customers, suppliers, and 
 		other partners should be able to 
 		access the system and interact with 
 		the data that's relevant to them. 
 
-* Up to date
+* **Up to date**:
 
 		An operational system needs to be 
 		kept up to date to run smoothly. 
 
-* Automated
+* **Automated**:
 
 		An automated solution can save 
 		time, effort, and cost compared 
@@ -205,22 +209,22 @@ Here are some characteristics of an operational system:
 
 ## ETL (Extract, Transform, Load)
 
-	The process of extracting data from 
+	1. The process of extracting data from 
 	source systems, transforming it to 
 	meet the data warehouse’s requirements, 
 	and loading it into the data warehouse.
 
-	ETL ensures that data is cleansed, 
+	2. ETL ensures that data is cleansed, 
 	standardized, and integrated before 
 	being stored in the data warehouse.
 
 
-	ETL = "Extract, Transform, and Load". 
+	3. ETL = "Extract, Transform, and Load". 
 	It's a process that combines data from 
 	multiple sources into a single database 
 	or data warehouse. 
 	
-	The data is then cleaned, organized, 
+	4. The data is then cleaned, organized, 
 	and prepared for storage, analysis, 
 	and machine learning.
 	
@@ -230,16 +234,16 @@ Here are some characteristics of an operational system:
 
 ![](./ETL-in-3-steps.webp)
 
-* Extract:
+* **Extract**:
 
 		Data is extracted from one or more systems 
 
-* Transform:
+* **Transform**:
 
 		The data is cleaned and organized using 
 		business rules 
 
-* Load:
+* **Load**:
 
 		The data is loaded into a target repository, 
 		such as a data warehouse or data lake 
@@ -316,7 +320,7 @@ Here are some characteristics of an operational system:
 
 
 
-* Fact Table: 
+* **Fact Table**: 
 
 		At the center of the star schema is 
 		the fact table. This table contains 
@@ -327,7 +331,7 @@ Here are some characteristics of an operational system:
 		Examples include sales revenue, quantity 
 		sold, or profit.
 
-* Dimension Tables: 
+* **Dimension Tables**: 
 
 		Surrounding the fact table are dimension 
 		tables. Each dimension table represents 
@@ -339,7 +343,7 @@ Here are some characteristics of an operational system:
 		Examples of dimensions could be time, 
 		geography, product, or customer.
 
-* Relationships: 
+* **Relationships**: 
 
 		The fact table and dimension tables 
 		are connected through relationships 
@@ -351,7 +355,7 @@ Here are some characteristics of an operational system:
 		allow for the integration of data 
 		across different dimensions.
 
-* Attributes: 
+* **Attributes**: 
 
 		Each dimension table contains attributes 
 		that provide details about the dimension. 
@@ -367,14 +371,14 @@ Here are some characteristics of an operational system:
 
 ## Advantages of the Star Schema:
 
-* Simplicity: 
+* **Simplicity**: 
 
 		The star schema is straightforward 
 		and easy to understand. Its simplicity 
 		makes it user-friendly for both database 
 		administrators and end-users.
 		
-* Query Performance: 
+* **Query Performance**: 
 
 		The star schema is designed for optimal 
 		query performance. Queries can be executed 
@@ -382,7 +386,7 @@ Here are some characteristics of an operational system:
 		efficient joins between the fact table 
 		and dimension tables.
 
-* Flexibility: 
+* **Flexibility**: 
 
 		The star schema is flexible and adaptable 
 		to changes in business requirements. New 
@@ -390,13 +394,14 @@ Here are some characteristics of an operational system:
 		can be modified without significant impact 
 		on the overall structure.
 
-* Scalability: 
+* **Scalability**: 
 
 		The star schema is scalable, making it 
 		suitable for large data warehouses. As 
 		the volume of data grows, the star schema 
 		can handle it effectively, provided proper 
 		indexing and optimization are implemented.
+
 
 ## Disadvantages of the Star Schema
 
@@ -414,21 +419,22 @@ Here are some characteristics of an operational system:
 
 # Snowflake Schema
 
-	The snowflake schema is another type 
+	1. The snowflake schema is another type 
 	of dimensional  data model  used  in 
 	data warehousing, similar to the star 
 	schema. 
 	
-	Like the star schema, it organizes data 
+	2. Like the star schema, it organizes data 
 	for efficient querying and reporting, 
 	but the snowflake schema takes a more 
 	normalized approach to the structure. 
 	
-	The term “snowflake” refers to the shape 
+	3. The term “snowflake” refers to the shape 
 	the schema takes on when visualized: a 
 	central fact table surrounded by dimension 
 	tables that are further normalized into a 
 	branching, snowflake-like pattern.
+	
 
 ## General Structure of Snowflake Schema
 ![](./snowflake_schema_structure.png)
@@ -436,7 +442,7 @@ Here are some characteristics of an operational system:
 ## Example of Snowflake Schema
 ![](./snowflake_schema_example_01.webp)
 
-* Fact Table: 
+* **Fact Table**: 
 
 		At the center of the star schema is the 
 		fact table. This table contains quantitative 
@@ -447,7 +453,7 @@ Here are some characteristics of an operational system:
 		Examples include sales revenue, quantity 
 		sold, or profit.
 
-* Dimension Tables: 
+* **Dimension Tables**: 
 
 		Surrounding the fact table are dimension 
 		tables. Each dimension table represents a 
@@ -460,7 +466,7 @@ Here are some characteristics of an operational system:
 		Examples of dimensions could be time, 
 		geography, product, or customer.
 
-* Sub-Dimensions: 
+* **Sub-Dimensions**: 
 
 		Each dimension table in the snowflake 
 		schema can have sub-dimensions or related 
@@ -469,7 +475,7 @@ Here are some characteristics of an operational system:
 		redundancy by separating data into 
 		different tables.
 
-* Normalization: 
+* **Normalization**: 
 
 		The snowflake schema employs normalization 
 		techniques by breaking down dimension tables 
@@ -478,7 +484,7 @@ Here are some characteristics of an operational system:
 		but can result in more complex queries due 
 		to additional joins.
 
-* Relationships: 
+* **Relationships**: 
 
 		The fact table and dimension tables are 
 		connected through relationships established 
@@ -487,7 +493,7 @@ Here are some characteristics of an operational system:
 		These relationships allow for the integration 
 		of data across different dimensions.
 
-* Attributes: 
+* **Attributes**: 
 
 		Each dimension table contains attributes 
 		that provide details about the dimension. 
@@ -501,14 +507,14 @@ Here are some characteristics of an operational system:
 
 ## Advantages of the Snowflake Schema:
 
-* Reduced Redundancy: 
+* **Reduced Redundancy**: 
 
 		The snowflake schema reduces data 
 		redundancy by normalizing dimension 
 		tables. This can save storage space 
 		and improve data integrity.
 		
-* Easier Maintenance: 
+* **Easier Maintenance**: 
 
 		Because of the normalization, making 
 		changes to the schema, such as updating 
@@ -516,14 +522,14 @@ Here are some characteristics of an operational system:
 		more straightforward and less prone 
 		to errors.
 		
-* Improved Data Integrity: 
+* **Improved Data Integrity**: 
 
 		Normalization can enhance data integrity 
 		by reducing the risk of update anomalies 
 		that can occur when redundant data is 
 		stored in multiple places.
 
-* Suitability for Hierarchical Data: 
+* **Suitability for Hierarchical Data**: 
 
 		The snowflake schema is well-suited 
 		for  representing  hierarchical 
@@ -532,19 +538,20 @@ Here are some characteristics of an operational system:
 
 ## Trade-offs with the Snowflake Schema:
 
-* Query Performance: 
+* **Query Performance**: 
 
 		Due to the normalization and increased 
 		number of joins, query performance in 
 		a snowflake schema may be slightly slower 
 		compared to a star schema.
 
-* Complexity: 
+* **Complexity**: 
 
 		The snowflake schema can be more complex 
 		to understand and work with, especially 
 		for users who are not familiar with the 
 		structure.
+
 
 ## Choice between a Star schema and a Snowflake schema		
 		The choice between a star schema and a 
