@@ -54,27 +54,27 @@
 
 ## Explanation of 4 points of a Data Warehouse:
 
-* Subject-oriented:
+* **Subject-oriented**:
 
 		A data warehouse is designed to analyze 
 		data related to specific business subjects 
 		like sales, customers, or products, rather 
 		than handling day-to-day transactions. 
 
-* Integrated:
+* **Integrated**:
 
 		Data from different sources is consolidated 
 		and transformed to ensure  consistency  in 
 		format and meaning before being stored in 
 		the warehouse. 
 
-* Time-variant:
+* **Time-variant**:
 
 		Data in a warehouse is organized with a 
 		time dimension, allowing users to analyze 
 		trends and patterns over different time periods. 
 
-* Non-volatile:
+* **Non-volatile**:
 
 		Once data is loaded into a data warehouse, 
 		it is not modified or deleted, preserving 
