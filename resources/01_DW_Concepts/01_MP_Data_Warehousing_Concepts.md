@@ -1,5 +1,15 @@
 # Data Warehousing Concepts
 
+		According to Bill Inmon, considered
+		the "father of data warehousing":
+		
+		"a data warehouse is defined as a 
+		"1. subject-oriented,  
+		 2. integrated, 
+		 3. time-variant, and 
+		 4. non-volatile 
+		collection of data in support of 
+		management's decision making process."
 
 ------
 
@@ -70,15 +80,45 @@
 
 * **Time-variant**:
 
-		Data in a warehouse is organized with a 
-		time dimension, allowing users to analyze 
-		trends and patterns over different time periods. 
+		Data in a warehouse is organized with 
+		a time dimension,  allowing  users to 
+		analyze  trends  and  patterns over 
+		different time periods. 
 
 * **Non-volatile**:
 
 		Once data is loaded into a data warehouse, 
 		it is not modified or deleted, preserving 
 		historical data for analysis. 
+
+------
+
+## What is the purpose of building a Data Warehouse? 
+
+		The primary purpose of building a data warehouse 
+		is to create a centralized repository where large
+		amounts of data from various sources can be
+		consolidated, cleaned, and stored for analysis,
+		enabling businesses to extract valuable insights 
+		and make data-driven decisions through reporting 
+		and business intelligence tools; essentially 
+		providing a single source of truth for historical 
+		data to support informed decision-making across 
+		the organization. 
+		
+		1. What are the top-10 products sold last week?
+
+		2. What are the top-10 most profitable products
+
+		3. What was the most common method for payments?
+
+		4. What state was the most profitable for PC slaes
+
+		5. What state was the least profitable for iPhone slaes
+
+		6. What is the % of customers (male, female) 
+		   for buying product X
+
 
 ------
 
@@ -104,6 +144,10 @@
 	The purpose of an operational system 
 	is to help a business run smoothly 
 	and effectively. 
+	
+### Example of an Operational System
+
+![](./operational_system_example_01.png)
 
 
 ### Key points about operational systems:
@@ -176,8 +220,9 @@ Here are some characteristics of an operational system:
 	multiple sources into a single database 
 	or data warehouse. 
 	
-	The data is then cleaned, organized, and 
-	prepared for storage, analysis, and machine learning.
+	The data is then cleaned, organized, 
+	and prepared for storage, analysis, 
+	and machine learning.
 	
 ![](./etl_process_example_01.png) 
 
@@ -273,13 +318,14 @@ Here are some characteristics of an operational system:
 
 * Fact Table: 
 
-		At the center of the star schema is the 
-		fact table. This table contains quantitative 
-		data, often numeric measures or metrics, that
-		represent the business processes being analyzed. 
+		At the center of the star schema is 
+		the fact table. This table contains 
+		quantitative  data,  often  numeric 
+		measures or metrics, that represent 
+		the business processes being analyzed. 
 			
-		Examples include sales revenue, quantity sold, 
-		or profit.
+		Examples include sales revenue, quantity 
+		sold, or profit.
 
 * Dimension Tables: 
 
@@ -295,12 +341,15 @@ Here are some characteristics of an operational system:
 
 * Relationships: 
 
-		The fact table and dimension tables are 
-		connected through relationships established 
-		by keys. A primary key in a dimension table 
-		is linked to a foreign key in the fact table. 
-		These relationships allow for the integration 
-		of data across different dimensions.
+		The fact table and dimension tables 
+		are connected through relationships 
+		established by keys. 
+		
+		A primary key in a dimension table 
+		is linked to a foreign key in the 
+		fact table.  These  relationships 
+		allow for the integration of data 
+		across different dimensions.
 
 * Attributes: 
 
@@ -320,9 +369,9 @@ Here are some characteristics of an operational system:
 
 * Simplicity: 
 
-		The star schema is straightforward and 
-		easy to understand. Its simplicity makes 
-		it user-friendly for both database 
+		The star schema is straightforward 
+		and easy to understand. Its simplicity 
+		makes it user-friendly for both database 
 		administrators and end-users.
 		
 * Query Performance: 
@@ -352,16 +401,16 @@ Here are some characteristics of an operational system:
 ## Disadvantages of the Star Schema
 
 	1. Denormalized data can cause integrity 
-	   issues. ...
+	   issues. 
 
 	2. Maintenance may appear simple at the 
 	   beginning, but the larger data warehouse 
-	   you need to maintain, the harder it becomes 
-	   (due to data redundancy).
+	   you need to  maintain, the  harder  it 
+	   becomes (due to data redundancy).
 
-	3. Disk space: It requires a lot more disk 
-	   space than snowflake schema to store the 
-	   same amount of data.
+	3. Disk space: It requires a lot more 
+	   disk space than snowflake schema to 
+	   store the same amount of data.
 
 # Snowflake Schema
 
@@ -395,8 +444,8 @@ Here are some characteristics of an operational system:
 		that represent the business processes being 
 		analyzed.
 		
-		Examples include sales revenue, quantity sold, 
-		or profit.
+		Examples include sales revenue, quantity 
+		sold, or profit.
 
 * Dimension Tables: 
 
