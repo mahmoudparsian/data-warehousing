@@ -38,7 +38,7 @@
 	
 
 
-## What is a Data Warehouse
+## What is a Data Warehouse (take 1)
 	1. A centralized repository that stores 
 	   integrated historical data from 
 	   various sources. 
@@ -50,6 +50,26 @@
 	   operational database and data warehouse 
 	   operate and use separate databases.
 
+
+## What is a Data Warehouse? (take 2)
+
+		1. A data warehouse is a repository of data. 
+
+		2. Data Warehousing (DW) is a process to 
+		   collect as well as  manage  data from 
+		   different sources to improve the ease 
+		   of data access and deriving insights 
+		   from this data. 
+		   
+		3. A Data warehouse is typically used to 
+		   link and analyse  organizational  and 
+		   transactional data from heterogeneous 
+		   sources. 
+		   
+		4. The data warehouse is the centrepiece 
+		   of the Business Intelligence repository 
+		   which is used mainly for data analysis 
+		   and reporting.
 -------
 
 ## 4 key points of the Data Warehouse
@@ -70,10 +90,14 @@
 
 * **Subject-oriented**:
 
-		A data warehouse is designed to analyze 
+		1. A data warehouse is designed to analyze 
 		data related to specific business subjects 
 		like sales, customers, or products, rather 
 		than handling day-to-day transactions. 
+		
+		2. A data warehouse contains data about a 
+		few well-defined subjects rather than 
+		the enterprise as a whole.
 
 * **Integrated**:
 
@@ -273,12 +297,22 @@ Here are some characteristics of an operational system:
 
 ## Data Mart
 
-	A subset of a data warehouse that 
-	is designed for a specific business 
-	line, department, or function.
+	1. A subset of a data warehouse that 
+	   is designed for a specific business 
+	   line, department, or function.
 
-	Data marts can be independent or 
-	linked to the main data warehouse.
+	2. Data marts can be independent or 
+	   linked to the main data warehouse.
+	
+	3. A data mart is a subset of a data 
+	   warehouse. It is specially designed 
+	   for a particular function within an 
+	   organization such as sales, finance 
+	   or marketing. 
+	   
+	4. In an independent data mart, data can 
+	   collect directly from different types 
+	   of data sources.
 
 
 ## Dimensional Modeling
