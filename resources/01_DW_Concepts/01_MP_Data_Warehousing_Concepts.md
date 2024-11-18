@@ -15,12 +15,12 @@
 
 ## Classic Data Warehouse Architecture
 
-![](./data_warehouse_architecture_01.webp)
+![](./images/data_warehouse_architecture_01.webp)
 
 -------
 
 ## Modern Data Warehouse Architecture
-![](./datawarehouse_datalake_lakehouse_by_Databricks.png)
+![](./images/datawarehouse_datalake_lakehouse_by_Databricks.png)
 
 ------
 
@@ -151,7 +151,7 @@
 	
 ### Example of an Operational System
 
-![](./operational_system_example_01.png)
+![](./images/operational_system_example_01.png)
 
 
 ### Key points about operational systems:
@@ -228,11 +228,11 @@ Here are some characteristics of an operational system:
 	and prepared for storage, analysis, 
 	and machine learning.
 	
-![](./etl_process_example_01.png) 
+![](./images/etl_process_example_01.png) 
 
 ## 3 steps of the ETL process:
 
-![](./ETL-in-3-steps.webp)
+![](./images/ETL-in-3-steps.webp)
 
 * **Extract**:
 
@@ -249,7 +249,7 @@ Here are some characteristics of an operational system:
 		such as a data warehouse or data lake 
 
 --------
-![](./etl_process_example_02.png)
+![](./images/etl_process_example_02.png)
 --------
 
 ## Example of an ETL
@@ -267,7 +267,7 @@ Here are some characteristics of an operational system:
 	then placing it in a format suitable 
 	for analysis
 
-![](./etl_process_example_03.png)
+![](./images/etl_process_example_03.png)
 
 ---------
 
@@ -313,10 +313,10 @@ Here are some characteristics of an operational system:
 		introduces some data redundancy. 
 
 ## Star Schema Example-1
-![](./star_schema_example_01.webp)
+![](./images/star_schema_example_01.webp)
 
 ## Star Schema Example-2
-![](./star_schema_example_03.png)
+![](./images/star_schema_example_03.png)
 
 
 
@@ -437,10 +437,10 @@ Here are some characteristics of an operational system:
 	
 
 ## General Structure of Snowflake Schema
-![](./snowflake_schema_structure.png)
+![](./images/snowflake_schema_structure.png)
 	
 ## Example of Snowflake Schema
-![](./snowflake_schema_example_01.webp)
+![](./images/snowflake_schema_example_01.webp)
 
 * **Fact Table**: 
 
