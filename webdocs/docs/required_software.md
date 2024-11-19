@@ -10,9 +10,13 @@
 
 ## 2. [Python Programming Language](https://www.python.org)
 
+* for ETL
+
 ------
 
-## 3. Tableau: for wide range of data visualization 
+## 3. [Tableau](https://www.tableau.com) 
+
+* for wide range of data visualization 
 
 ------
 
