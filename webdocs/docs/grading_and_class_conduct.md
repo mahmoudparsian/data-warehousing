@@ -20,6 +20,7 @@
 		be reported to the SCU authorities.
 		
 
+
 ## Assignments & Grade Distribution:
 
 Midterm and final exams are closed book/notes.
@@ -34,8 +35,9 @@ Assignments                    | %
 3. Midterm Exam                | 10%     
 4. Final Exam                  | 20%  
 5. Bonus (for exceptional work)| 2%  
----                            | ---
+--                             | --
 Total                          | 100% 
+
 
 
 ## Letter Grade Distribution:
