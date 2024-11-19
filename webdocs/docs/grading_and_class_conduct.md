@@ -36,8 +36,7 @@ Assignments                       | %
 3. Midterm Exam                   | 10%     
 4. Final Exam                     | 20%  
 5. Bonus (for exceptional work).  | 2%  
---                                | --
-Total                             | 100% 
+**Total**                         | **100%**
 
 
 
