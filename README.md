@@ -27,9 +27,9 @@
 
 ## 7. [Glossary of Big Data, MapReduce, Spark, Data Warehousing](https://github.com/mahmoudparsian/big-data-mapreduce-course/blob/master/slides/glossary/README.md)
 
-## 8. [Required Books and Papers](./webdocs/docs/required_books.md)
+## 8. [Required Books](./webdocs/docs/required_books.md)
 
-## 9. [Required Software: MySQL and Python](./webdocs/docs/required_software.md)
+## 9. [Required Software: MySQL, Python, Tableau](./webdocs/docs/required_software.md)
 
 ## 10. [Syllabus, Winter Quarter 2025](./syllabus/2025-Winter-Quarter/README.md)
 
