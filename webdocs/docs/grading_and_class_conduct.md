@@ -1,5 +1,25 @@
 # Grading and Class Conduct Policies
 
+## Plagiarism
+
+		Plagiarism is the act of taking 
+		someone else's ideas, words, or 
+		work and presenting them as your 
+		own without giving proper credit. 
+
+		You can get help from anyone and 
+		any resource to understands how 
+		to solve your assignments.  But, 
+		when you  submit  your  solution, 
+		the solution has to be yours and 
+		yours only, you may not copy 
+		any solution from anywhere.
+		
+		Plagiarism is not accepted at all
+		and will not be tolerated and will 
+		be reported to the SCU authorities.
+		
+
 ## Assignments & Grade Distribution:
 
 Midterm and final exams are closed book/notes.
@@ -8,12 +28,13 @@ Assignments                    | %
 -------------------------------|----
 1. Homework/Assignment         | 40% 
 2. Group Project               |
-      2.1 Implementation           | 10%     
-      2.2 Documentation            | 10%     
-      2.3 Presentation             | 10%   
+      2.1 Implementation       | 10%     
+      2.2 Documentation        | 10%     
+      2.3 Presentation         | 10%   
 3. Midterm Exam                | 10%     
 4. Final Exam                  | 20%  
----  |---
+5. Bonus (for exceptional work)| 2%  
+---                            | ---
 Total                          | 100% 
 
 
