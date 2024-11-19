@@ -8,12 +8,14 @@ intelligence for actionable insight to address
 new business needs.
 
 * What is a data warehouse? A data warehouses 
-is the central component of a modern data stack 
-(a modern data stack is a combination of various 
+is the central component of a modern data stack: 
+a modern data stack is a combination of various 
 software tools used to collect, process, and 
 store data on a well-integrated cloud-based data 
-platform).  Data warehouses have solved the 
-problem of analyzing massive amounts of structured, 
+platform.  
+
+* Data warehouses have solved the problem of 
+analyzing massive amounts of structured, 
 semi-structured, and non-structured data and are 
 cost-effective, performant and easy to use. Note 
 that non-structured (such as images and log data) 
@@ -43,11 +45,12 @@ to prototype to production.
 
 ## Learning Outcomes/Objectives: 
 
-* Implement data ingest techniques (ETL) 
+* Implement data ingestion techniques (ETL) 
 * Write SQL for data analytics, including time series 
 * Transform data using SQL and Big Data Analytics
 * Compare modern and classic strategies of data modeling 
 * Understand data warehouse architecture 
 * Maintain data quality 
 * Create reports, analysis & visualizations
+* Write OLAP queries
 

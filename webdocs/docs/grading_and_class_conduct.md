@@ -4,50 +4,36 @@
 
 Midterm and final exams are closed book/notes.
 
-Assignments                     | %    
---------------------------------|----
-`1. Project Implementation`     | 50% 
-`2. Project Documentation`      | 15%     
-`3. Project Presentation`       | 15%     
-`4. Midterm Exam`               | 10%     
-`5. Final Exam`                 | 10%  
---------------------------------|----
-Total                           | 100% 
+Assignments                    | %    
+-------------------------------|----
+1. Homework/Assignment         | 40% 
+2. Group Project               |
+      2.1 Implementation           | 10%     
+      2.2 Documentation            | 10%     
+      2.3 Presentation             | 10%   
+3. Midterm Exam                | 10%     
+4. Final Exam                  | 20%  
+---  |---
+Total                          | 100% 
 
 
 ## Letter Grade Distribution:
 
-
-Grade | Scale of 1 to 4
-------|----------------
-A     | 4.0
-A-    | 3.7
-B+    | 3.3
-B     | 3.0
-B-    | 2.7
-C+    | 2.3
-C     | 2.0
-C-    | 1.7
-F     | 0.0
-
-
-## Grading Scale 
-
-Letter Grade | Percentage Points
--------------| -----------------
-A+           | 100 – 97
-A            | 96.9 – 93
-A-           | 92.9 – 90
-B+           | 89.9 – 87
-B            | 86.9 – 83
-B-           | 82.9 – 80
-C+           | 79.9 – 77
-C            | 76.9 – 73
-C-           | 72.9 – 70
-D+           | 69.9 – 67
-D            | 66.9 – 63
-D-           | 62.9 – 60
-F            | Below 60
+Letter Grade | Percentage Points | Scale of 1 to 4
+-------------| ------------------|----------------
+A+           | 100 – 97          | 4.0
+A            | 96.9 – 94         | 4.0
+A-           | 93.9 – 90         | 3.7
+B+           | 89.9 – 87         | 3.3
+B            | 86.9 – 83         | 3.0
+B-           | 82.9 – 80         | 2.7
+C+           | 79.9 – 77         | 2.3
+C            | 76.9 – 73         | 2.0
+C-           | 72.9 – 70         | 1.7
+D+           | 69.9 – 67         | 1.3
+D            | 66.9 – 63         | 1.0
+D-           | 62.9 – 60         | 0.7
+F            | Below 60          | 0.0
 
 
 
