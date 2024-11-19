@@ -2,6 +2,8 @@
 
 ## Plagiarism
 
+[Plagiarism: Don't let it happen to you!](https://libguides.scu.edu/plagiarism/conduct)
+
 		Plagiarism is the act of taking 
 		someone else's ideas, words, or 
 		work and presenting them as your 
