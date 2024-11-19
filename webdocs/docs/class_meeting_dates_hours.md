@@ -9,10 +9,10 @@
 	* Tuesday 5:45 PM - 7:20 PM PST
 	* Thursday 5:45 PM - 7:20 PM PST
 	
-* Class room: TBDL, Lucas Hall (LH)
+## Class room: Lucas Hall 308
 
-* Office: 316U, Lucas Hall (LH)
+## Office: 316U, Lucas Hall (LH)
 
-* Office Hours: via scheduled Zoom and by appointment
+## Office Hours: via scheduled Zoom and by appointment
 
 
