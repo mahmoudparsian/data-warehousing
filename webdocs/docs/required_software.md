@@ -12,4 +12,8 @@
 
 ------
 
-## 3. Shell Programming (very basic)
+## 3. Tableau: for wide range of data visualization 
+
+------
+
+## 4. Shell Programming (very basic, for automation)
