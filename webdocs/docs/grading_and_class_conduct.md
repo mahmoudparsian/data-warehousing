@@ -26,17 +26,17 @@
 Midterm and final exams are closed book/notes.
 
 
-Assignments                       | %    
-----------------------------------|----
-1. Homework/Assignment            | 40% 
-2. Group Project                  | 30%
-      2.1 Project Implementation  | 10%     
-      2.2 Project Documentation   | 10%     
-      2.3 Project Presentation    | 10%   
-3. Midterm Exam                   | 10%     
-4. Final Exam                     | 20%  
-5. Bonus (for exceptional work).  | 2%  
-**Total**                         | **100%**
+Assignments                         | % 
+------------------------------------|----
+`1.` Homework/Assignment            | 40 
+`2.` Group Project                  | 30 
+      `2.1` Project Implementation  | 10 
+      `2.2` Project Documentation   | 10 
+      `2.3` Project Presentation    | 10 
+`3.` Midterm Exam                   | 10 
+`4.` Final Exam                     | 20 
+`5.` Bonus (for exceptional work)   | 2 
+**Total**                           | **100**
 
 
 
