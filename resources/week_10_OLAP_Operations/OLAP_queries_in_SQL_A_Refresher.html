@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml" lang="en-US">
+
+<div id="content" class="single">
+<div id="post-header" class>
+<h1 id="title">OLAP queries in SQL: A Refresher</h1>
+
+<p>
+Source: https://www.kdnuggets.com/2018/09/olap-queries-sql-refresher.html
+<p>
+
+<p class="excerpt">
+Based on the recent book - Principles of Database Management - The Practical Guide to Storing, Managing and Analyzing Big and Small Data - this post examines how OLAP queries can be implemented in SQL.
+</p>
+<div style="height: 45px;"> 
+
+<p>The below article is based on our recent book: Principles of Database Management - The Practical Guide to Storing, Managing and Analyzing Big and Small Data (See <a href="http://www.pdbmbook.com">www.pdbmbook.com</a>).</p>
+<p>In this article, we zoom in on how OLAP queries can be implemented in SQL. To facilitate the execution of OLAP queries and data aggregation, SQL-99 introduced three extensions to the GROUP BY statement: the CUBE, ROLLUP and GROUPING SETS operator.</p>
+<p>The <strong>CUBE </strong>operator computes a union of GROUP BY’s on every subset of the specified attribute types.  Its result set represents a multidimensional cube based upon the source table.  
+Consider the following SALESTABLE.</p>
+<table class="wc" border="1" cellspacing="2" cellpadding="3">
+<tbody>
+<tr class="wch">
+<td><strong>PRODUCT</strong></td>
+<td><strong>QUARTER</strong></td>
+<td><strong>REGION</strong></td>
+<td><strong>SALES</strong></td>
+</tr>
+<tr>
+<td>A</td>
+<td>Q1</td>
+<td>Europe</td>
+<td>10</td>
+</tr>
+<tr>
+<td>A</td>
+<td>Q1</td>
+<td>America</td>
+<td>20</td>
+</tr>
+<tr>
+<td>A</td>
+<td>Q2</td>
+<td>Europe</td>
+<td>20</td>
+</tr>
+<tr>
+<td>A</td>
+<td>Q2</td>
+<td>America</td>
+<td>50</td>
+</tr>
+<tr>
+<td>A</td>
+<td>Q3</td>
+<td>America</td>
+<td>20</td>
+</tr>
+<tr>
+<td>A</td>
+<td>Q4</td>
+<td>Europe</td>
+<td>10</td>
+</tr>
+<tr>
+<td>A</td>
+<td>Q4</td>
+<td>America</td>
+<td>30</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Q1</td>
+<td>Europe</td>
+<td>40</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Q1</td>
+<td>America</td>
+<td>60</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Q2</td>
+<td>Europe</td>
+<td>20</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Q2</td>
+<td>America</td>
+<td>10</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Q3</td>
+<td>America</td>
+<td>20</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Q4</td>
+<td>Europe</td>
+<td>10</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Q4</td>
+<td>America</td>
+<td>40</td>
+</tr>
+</tbody>
+</table>
+<p style="text-align: center; color: grey;"><em>Examples SALESTABLE.</em></p>
+<p>We can now formulate the following SQL query:</p>
+<div style="width: 98%; border: 1px solid #ccc; overflow: auto; padding-left: 10px; padding-bottom: 10px; padding-top: 10px;">
+<pre> 
+<strong>SELECT</strong> QUARTER, REGION, <strong>SUM</strong>(SALES)
+<strong>FROM</strong> SALESTABLE
+<strong>GROUP BY CUBE</strong> (QUARTER, REGION)
+</pre>
+</div>
+<p>Basically, this query computes the union of 2² = 4 groupings of the 
+SALESTABLE being: 
+<pre>
+
+   {(quarter,region), (quarter), (region), ()}, 
+
+</pre>
+where () denotes an empty group list representing the total aggregate across 
+the entire SALESTABLE.  In other words, since quarter has 4 values and region 2 values, the resulting multiset will have 4*2+4*1+1*2+1 or 15 tuples as you can see illustrated in Table 1.  NULL values have been added in the dimension columns Quarter and Region to indicate the aggregation that took place.  They can be easily replaced by the more meaningful ‘ALL’ if desired.  More specifically, we can add 2 CASE clauses as follows:</p>
+<div style="width: 98%; border: 1px solid #ccc; overflow: auto; padding-left: 10px; padding-bottom: 10px; padding-top: 10px;">
+<pre> 
+<strong>SELECT CASE WHEN</strong> grouping(QUARTER) = 1 <strong>THEN</strong> 'All' <strong>ELSE</strong> QUARTER <strong>END AS </strong>QUARTER, 
+<strong>       CASE WHEN</strong> grouping(REGION) = 1 <strong>THEN</strong> 'All' <strong>ELSE</strong> REGION <strong>END AS</strong> REGION, 
+<strong>       SUM</strong>(SALES)
+<strong>FROM</strong> SALESTABLE
+<strong>GROUP BY CUBE</strong> (QUARTER, REGION)
+</pre>
+</div>
+<p>The <strong>grouping()</strong> function returns 1 in case a NULL value is generated during the aggregation and 0 otherwise.  This distinguishes the generated NULLs and the possible real NULLs stemming from the data.  We will not add this to the subsequent OLAP queries so as to not unnecessarily complicate them.</p>
+<p>Also, observe the NULL value for Sales in the fifth row.  This represents an attribute combination which is not present in the original SALESTABLE since apparently no products were sold in Q3 in Europe.  Remark that besides SUM() also other SQL aggregator functions such as MIN(), MAX(), COUNT() and AVG() can be used in the SELECT statement.</p>
+<table class="wc" border="1" width="400" cellspacing="2" cellpadding="3">
+<tbody>
+<tr class="wch">
+<td><strong>QUARTER</strong></td>
+<td><strong>REGION</strong></td>
+<td><strong>SALES</strong></td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>Europe</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>America</td>
+<td>80</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>Europe</td>
+<td>40</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>America</td>
+<td>60</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>Europe</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>America</td>
+<td>40</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>Europe</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>America</td>
+<td>80</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>NULL</td>
+<td>130</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>NULL</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>NULL</td>
+<td>40</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>NULL</td>
+<td>90</td>
+</tr>
+<tr>
+<td>NULL</td>
+<td>Europe</td>
+<td>110</td>
+</tr>
+<tr>
+<td>NULL</td>
+<td>America</td>
+<td>250</td>
+</tr>
+<tr>
+<td>NULL</td>
+<td>NULL</td>
+<td>360</td>
+</tr>
+</tbody>
+</table>
+<p><b>Table 1: Result from SQL query with Cube operator.</b></p>
+<p>The <strong>ROLLUP</strong> operator computes the union on every prefix of the list of specified attribute types, from the most detailed up to the grand total.  It is especially useful to generate reports containing both subtotals and totals.  The key difference between the ROLLUP and CUBE operator is that the former generates a result set showing the aggregates for a hierarchy of values of the specified attribute types, whereas the latter generates a result set showing the aggregates for all combinations of values of the selected attribute types.  Hence, the order in which the attribute types are mentioned is important for the ROLLUP but not for the CUBE operator.  Consider the following query:</p>
+<div style="width: 98%; border: 1px solid #ccc; overflow: auto; padding-left: 10px; padding-bottom: 10px; padding-top: 10px;">
+<pre> 
+<strong>SELECT</strong> QUARTER, REGION, <strong>SUM</strong>(SALES)
+<strong>FROM</strong> SALESTABLE
+<strong>GROUP BY ROLLUP</strong> (QUARTER, REGION)
+</pre>
+</div>
+<p>This query generates the union of three groupings {(quarter,region), (quarter}, ()} where () again represents the full aggregation.  The resulting multiset will thus have 4*2+4+1 or 13 rows and is displayed in Table 2.  You can see that the region dimension is first rolled up followed by the quarter dimension.  Note the two rows which have been left out when compared to the result of the CUBE operator in Table 1.</p>
+<table class="wc" border="1" cellspacing="2" cellpadding="3">
+<tbody>
+<tr class="wch">
+<td><strong>QUARTER</strong></td>
+<td><strong>REGION</strong></td>
+<td><strong>SALES</strong></td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>Europe</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>America</td>
+<td>80</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>Europe</td>
+<td>40</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>America</td>
+<td>60</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>Europe</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>America</td>
+<td>40</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>Europe</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>America</td>
+<td>80</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>NULL</td>
+<td>130</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>NULL</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>NULL</td>
+<td>40</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>NULL</td>
+<td>90</td>
+</tr>
+<tr>
+<td>NULL</td>
+<td>NULL</td>
+<td>360</td>
+</tr>
+</tbody>
+</table>
+<p><b>Table 2: Result from SQL query with ROLLUP operator.</b></p>
+<p>Whereas the previous example applied the GROUP BY ROLLUP construct to two completely independent dimensions, it can also be applied to attribute types that represent different aggregation levels (and hence different levels of detail) along the same dimension.  For example, suppose the SALESTABLE tuples represented more detailed sales data at the individual city level and that the table contained three location related columns: City, Country and Region.  We could then formulate the following ROLLUP query, yielding sales totals respectively per city, per country, per region and the grand total:</p>
+<div style="width: 98%; border: 1px solid #ccc; overflow: auto; padding-left: 10px; padding-bottom: 10px; padding-top: 10px;">
+<pre> 
+<strong>SELECT</strong> REGION, COUNTRY, CITY, <strong>SUM</strong>(SALES)
+<strong>FROM</strong> SALESTABLE
+<strong>GROUP BY ROLLUP</strong> (REGION, COUNTRY, CITY)
+</pre>
+</div>
+<p>Note that in that case the SALESTABLE would include the attribute types City, Country and Region in a single table.  Since the three attribute types represent different levels of detail in the same dimension, they are transitively dependent on one another, illustrating the fact that these data warehouse data are indeed denormalized.</p>
+<p>The <strong>GROUPING SETS</strong> operator generates a result set equivalent to that generated by a UNION ALL of multiple simple GROUP BY clauses.  Consider the following example:</p>
+<div style="width: 98%; border: 1px solid #ccc; overflow: auto; padding-left: 10px; padding-bottom: 10px; padding-top: 10px;">
+<pre> 
+<strong>SELECT</strong> QUARTER, REGION, <strong>SUM</strong>(SALES)
+<strong>FROM</strong> SALESTABLE
+<strong>GROUP BY GROUPING SETS</strong> ((QUARTER), (REGION))
+</pre>
+</div>
+<p>This query is equivalent to:</p>
+<div style="width: 98%; border: 1px solid #ccc; overflow: auto; padding-left: 10px; padding-bottom: 10px; padding-top: 10px;">
+<pre> 
+<strong>SELECT</strong> QUARTER, NULL, <strong>SUM</strong>(SALES)
+<strong>FROM</strong> SALESTABLE
+<strong>GROUP BY </strong>QUARTER
+<strong>UNION ALL
+SELECT</strong> NULL, REGION, <strong>SUM</strong>(SALES)
+<strong>FROM</strong> SALESTABLE
+<strong>GROUP BY </strong>REGION
+</pre>
+</div>
+<p>The result is given in Table 3.</p>
+<table class="wc" border="1" cellspacing="2" cellpadding="3">
+<tbody>
+<tr class="wch">
+<td><strong>QUARTER</strong></td>
+<td><strong>REGION</strong></td>
+<td><strong>SALES</strong></td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>NULL</td>
+<td>130</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>NULL</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>NULL</td>
+<td>40</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>NULL</td>
+<td>90</td>
+</tr>
+<tr>
+<td>NULL</td>
+<td>Europe</td>
+<td>110</td>
+</tr>
+<tr>
+<td>NULL</td>
+<td>America</td>
+<td>250</td>
+</tr>
+</tbody>
+</table>
+<p><b>Table 3: Result from SQL query with GROUPING SETS operator</b></p>
+<p>Multiple CUBE, ROLLUP and GROUPING SETS statements can be used in a single SQL query.  Different combinations of CUBE, ROLLUP and GROUPING SETS can generate equivalent result sets.  Consider the following query:</p>
+<div style="width: 98%; border: 1px solid #ccc; overflow: auto; padding-left: 10px; padding-bottom: 10px; padding-top: 10px;">
+<pre> 
+<strong>SELECT</strong> QUARTER, REGION, <strong>SUM</strong>(SALES)
+<strong>FROM</strong> SALESTABLE
+<strong>GROUP BY CUBE</strong> (QUARTER, REGION)
+</pre>
+</div>
+<p>This query is equivalent to:</p>
+<div style="width: 98%; border: 1px solid #ccc; overflow: auto; padding-left: 10px; padding-bottom: 10px; padding-top: 10px;">
+<pre> 
+<strong>SELECT</strong> QUARTER, REGION, <strong>SUM</strong>(SALES)
+<strong>FROM</strong> SALESTABLE
+<strong>GROUP BY GROUPING SETS</strong> ((QUARTER, REGION), (QUARTER), (REGION), ())
+</pre>
+</div>
+<p>Likewise, the following query:</p>
+<div style="width: 98%; border: 1px solid #ccc; overflow: auto; padding-left: 10px; padding-bottom: 10px; padding-top: 10px;">
+<pre> 
+<strong>SELECT</strong> QUARTER, REGION, <strong>SUM</strong>(SALES)
+<strong>FROM</strong> SALESTABLE
+<strong>GROUP BY ROLLUP</strong> (QUARTER, REGION)
+</pre>
+</div>
+<p>is identical to:</p>
+<div style="width: 98%; border: 1px solid #ccc; overflow: auto; padding-left: 10px; padding-bottom: 10px; padding-top: 10px;">
+<pre> 
+<strong>SELECT</strong> QUARTER, REGION, <strong>SUM</strong>(SALES)
+<strong>FROM</strong> SALESTABLE
+<strong>GROUP BY GROUPING SETS</strong> ((QUARTER, REGION), (QUARTER),())
+</pre>
+</div>
+<p>Given the amount of data to be aggregated and retrieved, OLAP SQL queries may get very time consuming.  One way to speed up performance is by turning some of these OLAP queries into materialized views.  For example, an SQL query with a CUBE operator can be used to precompute aggregations on a selection of dimensions of which the results can then be stored as a materialized view.  A disadvantage of view materialization is that extra efforts are needed to regularly refresh these materialized views, although it can be noted that usually companies are fine with a close to current version of the data such that the synchronization can be done overnight or at fixed time intervals.</p>
+<p>For more information, we are happy to refer to our recent book: <a href="http://www.pdbmbook.com">Principles of Database Management - The Practical Guide to Storing, Managing and Analyzing Big and Small Data</a>.</p>
+<p><b>Bio</b>: <strong><a href="https://www.linkedin.com/in/wilfried-lemahieu-458397/">Wilfried Lemahieu</a></strong> is a professor at KU Leuven (Belgium) who's areas of research include Big data storage, integration and analytics, Data quality and Business process management and service orientation.</p>
+<p><strong><a href="https://www.linkedin.com/in/seppevandenbroucke/">Seppe vanden Broucke</a></strong> received a PhD in Applied Economics at KU Leuven, Belgium in 2014. Currently, Seppe is working as an assistant professor at the department of Decision Sciences and Information Management at KU Leuven. Seppe's research interests include business data mining and analytics, machine learning, process management, process mining. His work has been published in well-known international journals and presented at top conferences.</p>
+<p><a href="https://www.linkedin.com/in/bart-baesens-403bb83/"><strong>Bart Baesens</strong></a> is an associate professor at KU Leuven, and a lecturer at the University of Southampton (United Kingdom). He has done extensive research on analytics, customer relationship management, web analytics, fraud detection, and credit risk management. His findings have been published in well-known international journals (e.g. Machine Learning, Management Science, IEEE Transactions on Neural Networks, IEEE Transactions on Knowledge and Data Engineering, IEEE Transactions on Evolutionary Computation, Journal of Machine Learning Research, …) and presented at international top conferences.</p>
+<p><b>Related:</b></p>
+<ul class="three_ul">
+<li><a href="https://www.kdnuggets.com/2018/05/baesens-youtube-videos-database-management-sql-big-data-analytics-free.html">YouTube videos on database management, SQL, Datawarehousing, Business Intelligence, OLAP, Big Data, NoSQL databases, data quality, data governance and Analytics – free</a></li>
+<li><a href="https://www.kdnuggets.com/2018/07/r-python-execution-sql-server-jupyter.html">Remote Data Science: How to Send R and Python Execution to SQL Server from Jupyter Notebooks</a></li>
+<li><a href="https://www.kdnuggets.com/2018/07/sql-cheat-sheet.html">SQL Cheat Sheet</a></li>
+</ul>
+<p><a name="comments"></a></p>
+<div id="disqus_thread"></div>
+<p> <script type="rocketlazyloadscript" data-rocket-type="text/javascript">
+ var disqus_shortname = 'kdnuggets'; 
+ <!--(function() { var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true; dsq.src = 'https://kdnuggets.disqus.com/embed.js';-->
+ <!--(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq); })();-->
+ </script></p>
+
+</body>
+</html>
+
