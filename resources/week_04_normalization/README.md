@@ -8,30 +8,31 @@
 	integrity, and make the database more 
 	flexible: 
 
-	Eliminate redundancy: 
+	1. Eliminate redundancy: 
 		Redundant data wastes disk space 
 		and creates maintenance problems. 
 
-	Improve data integrity: 
+	2. Improve data integrity: 
 		Normalized relations mirror real-world 
 		concepts and their interrelationships. 
 
-	Make the database more flexible: 
-		A fully normalized database can be extended 
-		to accommodate new types of data without 
-		changing existing structure too much. 
+	3. Make the database more flexible: 
+		A fully normalized database can be 
+		extended to accommodate  new  types 
+		of data without changing existing 
+		structure too much. 
 
-	Here are some benefits of database normalization: 
+	4. Benefits of database normalization: 
 		1. Simplifies the query process 
 		2. Improves workflow 
 		3. Increases security 
-		4. Lessens costs. 
+		4. Lessens costs
 
-	Normalization is commonly used when dealing 
-	with large datasets. It involves breaking 
-	down a large, complex  table into  smaller 
-	and  simpler tables while  maintaining data 
-	relationships. 
+	5. Normalization is commonly used when dealing 
+		with large datasets. It involves breaking 
+		down a large, complex  table into  smaller 
+		and  simpler tables while  maintaining data 
+		relationships. 
 
 ## 2. Normal Forms in DBMS
 
