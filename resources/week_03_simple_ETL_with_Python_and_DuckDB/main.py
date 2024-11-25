@@ -8,15 +8,20 @@ import sys
 # Source:
 # 
 # This ETL program is copied from the following source:
-#     URL: https://github.com/InosRahul/DuckDB-ETL-Example 
-#     Author: Rahul Soni
+#     * URL: https://github.com/InosRahul/DuckDB-ETL-Example 
+#     * Author: Rahul Soni
 #
-# Slightly modified by Mahmoud Parsian (for educational purposes)
+# Modified by Mahmoud Parsian (for educational purposes)
+#     * Parametrized arguments passed by command line
+#     * Added more documentation and comments
 #----------------------------------------------------------------------
 
-# Configure logging
+#----------------------
+# Configure logging ...
+#----------------------
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
+
 
 CREATE_TABLE_VEHICLES = """
         DROP TABLE IF EXISTS vehicles CASCADE;
@@ -49,8 +54,11 @@ DESCRIBE_VEHICLES = """
     DESCRIBE vehicles
 """
 
-
+#----------------------------------------------------------------
+# insert every row of a CSV file as a record in a database table
+#----------------------------------------------------------------
 def insert_data(cursor: DuckDBPyConnection, csv_file_path: str):
+    logger.info("Data insertion started...")
     try:
         cursor.sql(
             f"INSERT INTO vehicles SELECT * FROM read_csv_auto('{csv_file_path}');"
@@ -133,12 +141,41 @@ def count_cars_by_model_year(cursor: DuckDBPyConnection):
         logger.error(f"Failed to count cars by model year: {str(e)}")
         return []
 
+#-----------------------------
+# Create output per year ...
+#-----------------------------
+def create_output_data(rows, output_dir: str):
+    
+    # create needed directories
+    os.makedirs(output_dir, exist_ok=True)
 
-def main(input_path_as_csv, duckdb_database_name):
+    for row in rows:
+        year, count = row
+        year_dir = os.path.join(output_dir, str(year))
+        os.makedirs(year_dir, exist_ok=True)
+        file_path = os.path.join(year_dir, f"{year}.txt")
 
-    # create a connection object
+        try:
+            with open(file_path, "w") as file:
+                file.write(f"Count: {count}")
+            logger.info(f"File saved: {file_path}")
+        except Exception as e:
+            logger.error(f"Failed to save file: {str(e)}")
+        #end-try
+    #end-for
+#end-def
+
+
+#------------------
+# main driver  ...
+#------------------
+def main(input_path_as_csv: str, duckdb_database_name: str, output_dir: str):
+
+    # create a database connection object
     conn = duckdb.connect(database=duckdb_database_name)
 
+    # conn.cursor() returns a copy of the DuckDB connection, 
+    # with a reference to the existing DuckDB database instance.
     cursor = conn.cursor()
 
     # Create vehicles table
@@ -165,26 +202,11 @@ def main(input_path_as_csv, duckdb_database_name):
 
     rows = count_cars_by_model_year(cursor)
 
-    output_dir = "data/results"
-    os.makedirs(output_dir, exist_ok=True)
-
-    for row in rows:
-        year, count = row
-
-        year_dir = os.path.join(output_dir, str(year))
-        os.makedirs(year_dir, exist_ok=True)
-
-        file_path = os.path.join(year_dir, f"{year}.parquet")
-
-        try:
-            with open(file_path, "w") as file:
-                file.write(f"Count: {count}")
-            logger.info(f"File saved: {file_path}")
-        except Exception as e:
-            logger.error(f"Failed to save file: {str(e)}")
+    # create output: one folder per year
+    create_output_data(rows, output_dir)
 
     conn.close()
-
+#end-def
 
 if __name__ == "__main__":
 
@@ -196,4 +218,8 @@ if __name__ == "__main__":
     # duckdb_database_name = "electric_vehicles_data"
     print("duckdb_database_name=", duckdb_database_name)
     
-    main(input_path_as_csv, duckdb_database_name)
+    output_dir = sys.argv[3]
+    # output_dir = "/tmp/data/results"
+    print("output_dir=", output_dir)
+        
+    main(input_path_as_csv, duckdb_database_name, output_dir)
