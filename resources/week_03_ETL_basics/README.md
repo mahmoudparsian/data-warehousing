@@ -1,7 +1,6 @@
 # What is an ETL
 # ETL with Python
 
-### source: [ETL with Python by Dhiraj Patra](https://www.linkedin.com/pulse/etl-python-dhiraj-patra-my2cc/)
 
 # What is an ETL?
 
@@ -211,3 +210,80 @@ df.write.parquet(output_path)
 spark.stop()
 ~~~
 
+## Example-4: Python ETL
+
+Explanation:
+
+	1. Extract:
+			This example extracts data from a CSV 
+			file (sales_data.csv) and a SQLite 
+			database (customer_data.db).
+
+	2. Transform:
+			2.1 The transform_data function cleans 
+			    the data by removing null values.
+
+			2.2 It then joins the two dataframes 
+			    on the customer_id column.
+
+			2.3 Finally, it creates a new column total_sales 
+			    by multiplying quantity and price.
+
+	3. Load:
+			The load_data function loads the transformed 
+			data into a new SQLite database (sales_analysis.db).
+
+
+~~~python
+
+#---------------------------
+# Import required libraries:
+#---------------------------
+#  Pandas: For data manipulation and cleaning.
+#  SQLAlchemy: For interacting with databases.
+import pandas as pd
+from sqlalchemy import create_engine
+
+# 1. Extract
+def extract_data():
+    # Extract data from CSV file
+    sales_data = pd.read_csv('sales_data.csv')
+    # Extract data from a database (example using SQLite)
+    engine = create_engine('sqlite:///customer_data.db')
+    customer_data = pd.read_sql_query('SELECT * FROM customers', engine)
+    return sales_data, customer_data
+
+# 2. Transform
+def transform_data(sales_data, customer_data):
+    # Clean and process data
+    sales_data.dropna(inplace=True)
+    customer_data.dropna(inplace=True)
+
+    # Join dataframes
+    merged_data = pd.merge(sales_data, customer_data, on='customer_id')
+
+    # Create a new column
+    merged_data['total_sales'] = merged_data['quantity'] * merged_data['price']
+    return merged_data
+
+# 3. Load
+def load_data(merged_data):
+    # Load data into a new database (example using SQLite)
+    engine = create_engine('sqlite:///sales_analysis.db')
+    merged_data.to_sql('sales_analysis', engine, if_exists='replace')
+
+#--------------
+# Run ETL ...
+#--------------
+if __name__ == '__main__':
+    sales_data, customer_data = extract_data()
+    transformed_data = transform_data(sales_data, customer_data)
+    load_data(transformed_data)
+~~~
+
+
+## References
+
+### 1. [ETL with Python by Dhiraj Patra](https://www.linkedin.com/pulse/etl-python-dhiraj-patra-my2cc/)
+
+### 2. [Apache Spark](https://spark.apache.org)
