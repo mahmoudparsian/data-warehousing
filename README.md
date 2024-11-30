@@ -31,7 +31,7 @@
 
 ## 9. [Required Software: MySQL, Python, Tableau](./webdocs/docs/required_software.md)
 
-## 10. [Syllabus, Winter Quarter 2025](./syllabus/2025-Winter-Quarter/README.md)
+## 10. [Syllabus, Winter Quarter 2025](./syllabus/README.md)
 
 ## 11. [Grading and Class Conduct](./webdocs/docs/grading_and_class_conduct.md)
 
