@@ -1,4 +1,4 @@
-##syllabus
+# syllabus
 
 [`week-01-course-outline-and-intro-to-DW`](week-01-course-outline-and-intro-to-DW)
 
