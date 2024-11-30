@@ -1,0 +1,8 @@
+% python3 read_records.py
+(1000, 'Alex', 'Smith', 'Highway 21')
+(2000, 'Bob', 'Smith', 'Highway 21')
+(3000, 'Peter', 'Jordan', 'Lowstreet 4')
+(4000, 'Amy', 'Jackson', 'Apple st 652')
+(5000, 'Hannah', 'Montana', 'Mountain 21')
+(6000, 'Michael', 'Taylor', 'Valley 345')
+(9000, 'Alex', 'Smith', 'Lowstreet 4')
