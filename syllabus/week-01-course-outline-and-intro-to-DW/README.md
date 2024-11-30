@@ -6,6 +6,8 @@
 
 * BI = Business Intelligence
 
+![](../README_DW_Inmon_Model.png)
+
 ## What is Data Warehousing?
 
 	1. Data warehousing (DW) is a technique of 
