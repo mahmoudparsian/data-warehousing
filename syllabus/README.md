@@ -2,26 +2,26 @@
 
 
 	Bill Inmon, known as the "Father 
-        of Data Warehousing", defines a data 
+	of Data Warehousing", defines a data 
 	warehouse (DW) as a collection of 
-        data that is: 
+	data that is: 
 
 	1. Subject-oriented: 
-               Focuses on a specific area, such as 
-	       sales, marketing, or distribution 
+          Focuses on a specific area, such as 
+          sales, marketing, or distribution 
 
 	2. Integrated: 
-               Combines different data types 
+	       Combines different data types 
 	       from various sources 
 
 	3. Non-volatile: 
-               Stable and doesn't change 
-	       once entered into the DW 
+         Stable and doesn't change  
+         once entered into the DW 
 
 	4. Time-variant: 
-               Analyzes changes over time, 
-	       and typically contains multiple 
-	       years of data 
+         Analyzes changes over time, 
+         and typically contains multiple 
+         years of data 
 
 ![](./README_DW_Inmon_Model.png)
 
