@@ -1,0 +1,268 @@
+Country_ID,Country_Name
+CNTR001, Afghanistan
+CNTR002, Akrotiri and Dhekelia (UK)
+CNTR003, Åland Islands (Finland)
+CNTR004, Albania
+CNTR005, Algeria
+CNTR006, American Samoa (US)
+CNTR007, Andorra
+CNTR008, Angola
+CNTR009, Anguilla (UK)
+CNTR010, Antigua and Barbuda
+CNTR011, Argentina
+CNTR012, Armenia
+CNTR013, Artsakh
+CNTR014, Aruba (Netherlands)
+CNTR015, Australia
+CNTR016, Austria
+CNTR017, Azerbaijan
+CNTR018, Bahamas
+CNTR019, Bahrain
+CNTR020, Bangladesh
+CNTR021, Barbados
+CNTR022, Belarus
+CNTR023, Belgium
+CNTR024, Belize
+CNTR025, Benin
+CNTR026, Bermuda (UK)
+CNTR027, Bhutan
+CNTR028, Bolivia
+CNTR029, Bosnia and Herzegovina
+CNTR030, Botswana
+CNTR031, Brazil
+CNTR032, Brunei
+CNTR033, Bulgaria
+CNTR034, Burkina Faso
+CNTR035, Burundi
+CNTR036, Cambodia
+CNTR037, Cameroon
+CNTR038, Canada
+CNTR039, Cape Verde
+CNTR040, Cayman Islands (UK)
+CNTR041, Central African Republic
+CNTR042, Chad
+CNTR043, Chile
+CNTR044, Chile
+CNTR045," China, People's Republic of"
+CNTR046, Christmas Island (Australia)
+CNTR047, Cocos (Keeling) Islands (Australia)
+CNTR048, Colombia
+CNTR049, Comoros
+CNTR050," Congo, Democratic Republic of the"
+CNTR051," Congo, Republic of the"
+CNTR052, Cook Islands (New Zealand)
+CNTR053, Costa Rica
+CNTR054, Côte d'Ivoire
+CNTR055, Croatia
+CNTR056, Cuba
+CNTR057, Curaçao (Netherlands)
+CNTR058, Cyprus
+CNTR059, Czech Republic
+CNTR060, Czech Republic
+CNTR061, Denmark
+CNTR062, Djibouti
+CNTR063, Dominica
+CNTR064, Dominican Republic
+CNTR065, East Timor
+CNTR066, Ecuador
+CNTR067, Ecuador
+CNTR068, Egypt
+CNTR069, El Salvador
+CNTR070, Equatorial Guinea
+CNTR071, Eritrea
+CNTR072, Estonia
+CNTR073, Eswatini
+CNTR074, Ethiopia
+CNTR075, Falkland Islands (UK)
+CNTR076, Faroe Islands (Denmark)
+CNTR077, Fiji
+CNTR078, Finland
+CNTR078, Finland
+CNTR079, France
+CNTR079, France
+CNTR080, French Guiana (France)
+CNTR081, French Polynesia (France)
+CNTR082, Gabon
+CNTR083," Gambia, The"
+CNTR084, Georgia
+CNTR085, Germany
+CNTR085, Germany
+CNTR086, Ghana
+CNTR087, Gibraltar (UK)
+CNTR088, Greece
+CNTR089, Greenland (Denmark)
+CNTR090, Grenada
+CNTR091, Guam (US)
+CNTR092, Guatemala
+CNTR093, Guernsey (UK)
+CNTR094, Guinea
+CNTR095, Guinea-Bissau
+CNTR096, Guyana
+CNTR097, Haiti
+CNTR098, Honduras
+CNTR099, Hungary
+CNTR100, Iceland
+CNTR100, Iceland
+CNTR101, India
+CNTR102, Indonesia
+CNTR102, Indonesia
+CNTR102, Indonesia
+CNTR103, Iran
+CNTR103, Iran
+CNTR104, Iraq
+CNTR105, Ireland
+CNTR106, Isle of Man (UK)
+CNTR107, Israel
+CNTR107, Israel
+CNTR108, Italy
+CNTR109, Jamaica
+CNTR110, Japan
+CNTR110, Japan
+CNTR111, Jersey (UK)
+CNTR112, Jordan
+CNTR113, Kazakhstan
+CNTR114, Kenya
+CNTR115, Kiribati
+CNTR116," Korea, North"
+CNTR116," Korea, South"
+CNTR117, Kosovo
+CNTR118, Kuwait
+CNTR119, Kyrgyzstan
+CNTR120, Laos
+CNTR121, Latvia
+CNTR122, Lebanon
+CNTR123, Lesotho
+CNTR124, Liberia
+CNTR125, Libya
+CNTR126, Liechtenstein
+CNTR127, Lithuania
+CNTR128, Luxembourg
+CNTR129, Madagascar
+CNTR130, Malawi
+CNTR131, Malaysia
+CNTR132, Maldives
+CNTR133, Mali
+CNTR134, Malta
+CNTR135, Marshall Islands
+CNTR136, Mauritania
+CNTR137, Mauritius
+CNTR138, Mayotte (France)
+CNTR139, Mexico
+CNTR140, Federated States of Micronesia
+CNTR141, Moldova
+CNTR142, Monaco
+CNTR143, Mongolia
+CNTR144, Montenegro
+CNTR145, Montserrat (UK)
+CNTR146, Morocco
+CNTR147, Mozambique
+CNTR148, Myanmar
+CNTR149, Namibia
+CNTR150, Nauru
+CNTR151,   Nepal
+CNTR152, Netherlands
+CNTR153, New Caledonia (France)
+CNTR154, New Zealand
+CNTR154, New Zealand
+CNTR155, Nicaragua
+CNTR156, Niger
+CNTR157, Nigeria
+CNTR158, Niue (New Zealand)
+CNTR159, Norfolk Island (Australia)
+CNTR160, North Macedonia
+CNTR161, Northern Cyprus
+CNTR162, Northern Mariana Islands (US)
+CNTR163, Norway
+CNTR164, Oman
+CNTR165, Pakistan
+CNTR166, Palau
+CNTR167, State of Palestine
+CNTR167, State of Palestine
+CNTR168, Panama
+CNTR169, Papua New Guinea
+CNTR170, Paraguay
+CNTR171, Peru
+CNTR172, Philippines
+CNTR172, Philippines
+CNTR173, Pitcairn Islands (UK)
+CNTR174, Poland
+CNTR175, Portugal
+CNTR175, Portugal
+CNTR176, Puerto Rico (US)
+CNTR176, Puerto Rico (US)
+CNTR177, Qatar
+CNTR178, Romania
+CNTR178, Romania
+CNTR179, Russia
+CNTR180, Rwanda
+CNTR181, Saint Barthélemy (France)
+CNTR182, Saint Helena (UK)
+CNTR183, Saint Kitts and Nevis
+CNTR184, Saint Lucia
+CNTR185, Saint Martin (France)
+CNTR186, Saint Pierre and Miquelon (France)
+CNTR187, Saint Vincent and the Grenadines
+CNTR188, Samoa
+CNTR189, San Marino
+CNTR190, São Tomé and Príncipe
+CNTR191, Saudi Arabia
+CNTR192, Senegal
+CNTR193, Serbia
+CNTR194, Seychelles
+CNTR195, Sierra Leone
+CNTR196, Singapore
+CNTR197, Sint Maarten (Netherlands)
+CNTR198, Slovakia
+CNTR199, Slovenia
+CNTR200, Solomon Islands
+CNTR201, Somalia
+CNTR202, Somaliland
+CNTR203, South Africa
+CNTR203, South Africa
+CNTR204, South Georgia and the South Sandwich Islands (UK)
+CNTR205, South Ossetia
+CNTR206, South Sudan
+CNTR207, Spain
+CNTR208, Sri Lanka
+CNTR209, Sudan
+CNTR209, Sudan
+CNTR210, Suriname
+CNTR211, Svalbard and Jan Mayen (Norway)
+CNTR212, Sweden
+CNTR213,  Switzerland
+CNTR214, Syria
+CNTR215, Taiwan
+CNTR215, Taiwan
+CNTR216, Tajikistan
+CNTR217, Tanzania
+CNTR218, Thailand
+CNTR218, Thailand
+CNTR219, Togo
+CNTR220, Tokelau (New Zealand)
+CNTR221, Tonga
+CNTR222, Transnistria (Moldova)
+CNTR223, Trinidad and Tobago
+CNTR224, Tunisia
+CNTR225, Turkey
+CNTR226, Turkmenistan
+CNTR227, Turks and Caicos Islands (UK)
+CNTR228, Tuvalu
+CNTR229, Uganda
+CNTR230, Ukraine
+CNTR230, Ukraine
+CNTR231, United Arab Emirates
+CNTR232, United Kingdom
+CNTR233, United States of America
+CNTR234, Uruguay
+CNTR235, Uzbekistan
+CNTR236, Vanuatu
+CNTR237,  Vatican City
+CNTR238, Venezuela
+CNTR239, Vietnam
+CNTR240," Virgin Islands, British (UK)"
+CNTR241," Virgin Islands, United States (US)"
+CNTR242, Wallis and Futuna (France)
+CNTR243, Western Sahara
+CNTR244, Yemen
+CNTR245, Zambia
+CNTR246, Zimbabwe

@@ -1,0 +1,263 @@
+Dealer_ID,Dealer_NM,Location_ID,Location_NM,Country_ID
+DLR0001,AC Cars Motors,LOC002,Kandahar,CNTR001
+DLR0002,Acura Motors,LOC004,Ayios Nikolaos,CNTR002
+DLR0003,Aixam-Mega (including Arola) Motors,LOC006,Jomala,CNTR003
+DLR0004,Alfa Romeo Motors,LOC008,Durrës,CNTR004
+DLR0005,Alpine Motors,LOC010,Oran,CNTR005
+DLR0006,Alvis Motors,LOC012,Nu'uuli,CNTR006
+DLR0007,"AMC, Eagle Motors",LOC014,Escaldes-Engordany,CNTR007
+DLR0008,Anadol Motors,LOC016,Huambo,CNTR008
+DLR0009,Ariel Motors,LOC018,The Valley,CNTR009
+DLR0010,ARO Motors,LOC020,All Saints,CNTR010
+DLR0011,Artega Motors,LOC022,Córdoba,CNTR011
+DLR0012,Asia Motors Motors,LOC024,Gyumri,CNTR012
+DLR0013,Aston Martin Motors,LOC026,Shusha,CNTR013
+DLR0014,Audi Motors,LOC028,Sint Nicolaas,CNTR014
+DLR0015,Autobianchi Motors,LOC030,Melbourne,CNTR015
+DLR0016,Auto-Union Motors,LOC032,Graz,CNTR016
+DLR0017,Auverland Motors,LOC034,Ganja,CNTR017
+DLR0018,Bentley Motors,LOC036,Freeport,CNTR018
+DLR0019,Bitter Motors,LOC038,Riffa,CNTR019
+DLR0020,BMW Motors,LOC040,Chittagong,CNTR020
+DLR0021,Bond Motors,LOC042,Speightstown,CNTR021
+DLR0022,Borgward (including Goliath and Lloyd) Motors,LOC044,Gomel,CNTR022
+DLR0023,Bristol Motors,LOC046,Antwerp,CNTR023
+DLR0024,British Leyland Motors,LOC048,San Ignacio,CNTR024
+DLR0025,Austin-Healey Motors,LOC050,Abomey-Calavi,CNTR025
+DLR0026,"Austin, Rover Motors",LOC052,Hamilton,CNTR026
+DLR0027,Bugatti Motors,LOC054,Phuntsholing,CNTR027
+DLR0028,Buick Motors,LOC056,El Alto,CNTR028
+DLR0029,Bytom Motors,LOC058,Banja Luka,CNTR029
+DLR0030,Cadillac Motors,LOC060,Francistown,CNTR030
+DLR0031,Caterham Motors,LOC062,Rio de Janeiro,CNTR031
+DLR0032,Checker Motors,LOC064,Kuala Belait,CNTR032
+DLR0033,Chevrolet Motors,LOC066,Plovdiv,CNTR033
+DLR0034,Chevrolet India Motors,LOC068,Bobo-Dioulasso,CNTR034
+DLR0035,Chrysler Motors,LOC070,Muyinga,CNTR035
+DLR0036,Chrysler Europe Motors,LOC072,Siem Reap,CNTR036
+DLR0037,Citroën Motors,LOC074,Yaoundé,CNTR037
+DLR0038,Cizeta-Moroder Motors,LOC076,Montreal,CNTR038
+DLR0039,Dacia Motors,LOC078,Mindelo,CNTR039
+DLR0040,"Daewoo, Saehan, Chevrolet Korea Motors",LOC080,Bodden Town,CNTR040
+DLR0041,DAF Motors,LOC082,Bimbo,CNTR041
+DLR0042,Daihatsu Motors,LOC084,Moundou,CNTR042
+DLR0043,Daimler Motors,LOC086,Puente Alto,CNTR043
+DLR0045,Delahaye Motors,LOC088,Beijing,CNTR045
+DLR0046,DeLorean Motors,LOC090,Poon Saan,CNTR046
+DLR0047,DeSoto Motors,LOC092,West Island,CNTR047
+DLR0048,De Tomaso Motors,LOC094,Medellín,CNTR048
+DLR0049,Dodge Motors,LOC096,Mutsamudu,CNTR049
+DLR0050,Donkervoort Motors,LOC098,Lubumbashi,CNTR050
+DLR0051,Edsel Motors,LOC100,Pointe-Noire,CNTR051
+DLR0052,e.GO Mobile Motors,LOC102,Amuri,CNTR052
+DLR0053,Eicher Polaris Motors,LOC104,Alajuela,CNTR053
+DLR0054,Elva Motors,LOC106,Bouaké,CNTR054
+DLR0055,Facel Vega Motors,LOC108,Split,CNTR055
+DLR0056,Ferrari Motors,LOC110,Santiago de Cuba,CNTR056
+DLR0057,Fiat Motors,LOC112,Sint Michiel,CNTR057
+DLR0058,Fiat do Brasil Motors,LOC114,Limassol,CNTR058
+DLR0059,Fiat India Motors,LOC116,Brno,CNTR059
+DLR0060,"Fisker, Karma Motors",LOC118,Ostrava,CNTR060
+DLR0061,Ford America Motors,LOC120,Aarhus,CNTR061
+DLR0062,Ford Australia Motors,LOC122,Ali Sabieh,CNTR062
+DLR0063,Ford do Brasil Motors,LOC124,Portsmouth,CNTR063
+DLR0064,Ford Europe Motors,LOC126,Santiago de los Caballeros,CNTR064
+DLR0065,Ford India Motors,LOC128,Dare,CNTR065
+DLR0066,Freightliner Motors,LOC130,Guayaquil,CNTR066
+DLR0067,FSO Motors,LOC132,Quito,CNTR067
+DLR0068,GAZ Motors,LOC134,Alexandria,CNTR068
+DLR0069,Geo Motors,LOC136,Santa Ana,CNTR069
+DLR0070,Gilbern Motors,LOC138,Malabo,CNTR070
+DLR0071,Ginetta Motors,LOC140,Keren,CNTR071
+DLR0072,Glas Motors,LOC142,Tartu,CNTR072
+DLR0073,GMC Motors,LOC144,Mbabane,CNTR073
+DLR0074,GTA Spano Motors,LOC146,Dire Dawa,CNTR074
+DLR0075,Gumpert Motors,LOC148,Mount Pleasant,CNTR075
+DLR0076,Healey Motors,LOC150,Klaksvík,CNTR076
+DLR0077,Heinkel Motors,LOC152,Suva,CNTR077
+DLR0078,Hennessey Motors,LOC154,Espoo,CNTR078
+DLR0079,Hillman Motors,LOC156,Tampere,CNTR078
+DLR0080,Hindustan Motors,LOC158,Marseille,CNTR079
+DLR0081,Holden Motors,LOC160,Lyon,CNTR079
+DLR0082,Honda Motors,LOC162,Saint-Laurent-du-Maroni,CNTR080
+DLR0083,Honda India Motors,LOC164,Faaa,CNTR081
+DLR0084,Hudson Motors,LOC166,Port-Gentil,CNTR082
+DLR0085,Humber Motors,LOC168,Brikama,CNTR083
+DLR0086,Hummer Motors,LOC170,Batumi,CNTR084
+DLR0087,Hyundai Motors,LOC172,Hamburg,CNTR085
+DLR0088,"IFA (including Trabant, Wartburg, Barkas) Motors",LOC174,Berlin,CNTR085
+DLR0089,Infiniti Motors,LOC176,Kumasi,CNTR086
+DLR0091,Invicta Motors,LOC178,Thessaloniki,CNTR088
+DLR0092,Isdera Motors,LOC180,Sisimiut,CNTR089
+DLR0093,Iso Motors,LOC182,Gouyave,CNTR090
+DLR0094,Isotta Fraschini Motors,LOC184,Yigo,CNTR091
+DLR0095,Isuzu Motors,LOC186,Quetzaltenango,CNTR092
+DLR0096,Iveco Motors,LOC188,Vale,CNTR093
+DLR0097,Jaguar Motors,LOC190,Nzérékoré,CNTR094
+DLR0098,Jeep Motors,LOC192,Gabú,CNTR095
+DLR0099,Jensen Motors,LOC194,Linden,CNTR096
+DLR0100,JPX Motors,LOC196,Gonaïves,CNTR097
+DLR0101,Kia Motors,LOC198,San Pedro Sula,CNTR098
+DLR0102,Koenigsegg Motors,LOC200,Debrecen,CNTR099
+DLR0103,KTM Motors,LOC202,Kópavogur,CNTR100
+DLR0104,Lada Motors,LOC204,Akureyri,CNTR100
+DLR0105,Lamborghini Motors,LOC206,Delhi,CNTR101
+DLR0106,Lancia Motors,LOC208,-,CNTR102
+DLR0107,Land Rover Motors,LOC210,-,CNTR102
+DLR0108,Lexus Motors,LOC212,-,CNTR102
+DLR0109,Ligier Motors,LOC214,Mashhad,CNTR103
+DLR0110,Lincoln Motors,LOC216,-,CNTR103
+DLR0111,Lotus Motors,LOC218,Basra,CNTR104
+DLR0112,LTI Motors,LOC220,Cork,CNTR105
+DLR0113,LuAZ Motors,LOC222,Ramsey,CNTR106
+DLR0114,Lynx Motors,LOC224,Tel Aviv,CNTR107
+DLR0115,Mahindra Motors,LOC226,-,CNTR107
+DLR0116,Marcos Motors,LOC228,Milan,CNTR108
+DLR0117,Marlin Motors,LOC230,Spanish Town,CNTR109
+DLR0118,Maruti Motors,LOC232,Yokohama,CNTR110
+DLR0119,Maserati Motors,LOC234,Osaka,CNTR110
+DLR0120,Mastretta Motors,LOC236,Saint Saviour,CNTR111
+DLR0121,"Matra (including Deutsch-Bonnet, René Bonnet) Motors",LOC238,Zarqa,CNTR112
+DLR0122,Mazda Motors,LOC240,Nur-Sultan,CNTR113
+DLR0123,Mazzanti Motors,LOC242,Mombasa,CNTR114
+DLR0124,McLaren Motors,LOC244,Bairiki,CNTR115
+DLR0125,Mercedes-Benz (including Maybach) Motors,LOC246,Hamhung,CNTR116
+DLR0126,Mercury Motors,LOC248,Busan,CNTR116
+DLR0127,Merkur Motors,LOC250,Prizren,CNTR117
+DLR0128,Messerschmitt Motors,LOC252,Al Jahra,CNTR118
+DLR0129,Mia Motors,LOC254,Osh,CNTR119
+DLR0130,Micro Motors,LOC256,Pakxe,CNTR120
+DLR0131,Mini Motors,LOC258,Daugavpils,CNTR121
+DLR0132,Mitsubishi Motors,LOC260,Tripoli,CNTR122
+DLR0133,Monica Motors,LOC262,Teyateyaneng,CNTR123
+DLR0134,Monteverdi Motors,LOC264,Ganta,CNTR124
+DLR0135,Morgan Motors,LOC266,Benghazi,CNTR125
+DLR0136,Moskwitch Motors,LOC268,Vaduz,CNTR126
+DLR0137,Nash Motors,LOC270,Kaunas,CNTR127
+DLR0138,Naza Motors,LOC272,Esch-sur-Alzette,CNTR128
+DLR0139,Nissan Motors,LOC274,Toamasina,CNTR129
+DLR0140,Nissan India Motors,LOC276,Blantyre,CNTR130
+DLR0141,Noble Motors,LOC278,George Town,CNTR131
+DLR0142,NSU Motors,LOC280,Addu City,CNTR132
+DLR0143,Oldsmobile Motors,LOC282,Sikasso,CNTR133
+DLR0145,Opel Motors,LOC284,Rita,CNTR135
+DLR0146,Packard Motors,LOC286,Nouadhibou,CNTR136
+DLR0147,Pagani Motors,LOC288,Beau Bassin-Rose Hill,CNTR137
+DLR0148,Panhard Motors,LOC290,Koungou,CNTR138
+DLR0149,Panoz Motors,LOC292,Ecatepec,CNTR139
+DLR0150,Panther Motors,LOC294,Palikir,CNTR140
+DLR0151,Peel Motors,LOC296,Tiraspol,CNTR141
+DLR0152,Perodua Motors,LOC298,La Condamine,CNTR142
+DLR0153,Peugeot Motors,LOC300,Erdenet,CNTR143
+DLR0154,PGO Motors,LOC302,Nik_i_,CNTR144
+DLR0155,Piaggio Motors,LOC304,Saint Peter's,CNTR145
+DLR0156,Plymouth Motors,LOC306,Fez,CNTR146
+DLR0157,Polestar Motors,LOC308,Matola,CNTR147
+DLR0158,"Pontiac, Asüna Motors",LOC310,Mandalay,CNTR148
+DLR0159,Porsche Motors,LOC312,Rundu,CNTR149
+DLR0160,Premier Motors,LOC314,Denigomudu,CNTR150
+DLR0161,Proton Motors,LOC316,Pokhara,CNTR151
+DLR0162,Puma Motors,LOC318,Rotterdam,CNTR152
+DLR0163,Ranger Motors,LOC320,Dumbéa,CNTR153
+DLR0164,Reliant Motors,LOC322,Christchurch,CNTR154
+DLR0165,Renault Motors,LOC324,Wellington,CNTR154
+DLR0166,Rivian Motors,LOC326,León,CNTR155
+DLR0167,Rolls-Royce Motors,LOC328,Zinder,CNTR156
+DLR0168,Saab Motors,LOC330,Kano,CNTR157
+DLR0169,SAIC Motor Motors,LOC332,Hakupu,CNTR158
+DLR0170,Saleen Motors,LOC334,Kingston,CNTR159
+DLR0171,Samsung Motors,LOC336,Bitola,CNTR160
+DLR0172,San Motors,LOC338,Famagusta,CNTR161
+DLR0173,Santa Matilde Motors,LOC340,Garapan[Note 3],CNTR162
+DLR0174,Santana Motors,LOC342,Bergen,CNTR163
+DLR0175,Saturn Motors,LOC344,Seeb,CNTR164
+DLR0176,Scion Motors,LOC346,Lahore,CNTR165
+DLR0177,Seat Motors,LOC348,Airai,CNTR166
+DLR0178,Shelby SuperCars Motors,LOC350,Hebron,CNTR167
+DLR0179,Simca Motors,LOC352,East Jerusalem,CNTR167
+DLR0180,Simca do Brasil Motors,LOC354,Colón,CNTR168
+DLR0181,Singer Motors,LOC356,Lae,CNTR169
+DLR0182,Skoda Motors,LOC358,Ciudad del Este,CNTR170
+DLR0183,Smart Motors,LOC360,Arequipa,CNTR171
+DLR0184,Spyker Motors,LOC362,Manila,CNTR172
+DLR0185,SsangYong Motors,LOC364,Metro Cebu,CNTR172
+DLR0186,Standard-Triumph Motors,LOC366,-,CNTR173
+DLR0187,Studebaker Motors,LOC368,Kraków,CNTR174
+DLR0188,Subaru Motors,LOC370,Vila Nova de Gaia,CNTR175
+DLR0189,Sunbeam Motors,LOC372,Porto,CNTR175
+DLR0190,Suzuki Motors,LOC374,Bayamón,CNTR176
+DLR0191,Tata Motors,LOC376,Ponce,CNTR176
+DLR0192,Tatra Motors,LOC378,Al Rayyan,CNTR177
+DLR0193,Tazzari Motors,LOC380,Ia_i,CNTR178
+DLR0194,Tesla Motors,LOC382,Constan_a,CNTR178
+DLR0195,Tornado Motors,LOC384,Saint Petersburg,CNTR179
+DLR0196,Toyota Motors,LOC386,Butare,CNTR180
+DLR0197,Toyota India Motors,LOC388,St. Jean,CNTR181
+DLR0198,Turner Motors,LOC390,Jamestown,CNTR182
+DLR0199,TVR Motors,LOC392,Charlestown,CNTR183
+DLR0200,UAZ Motors,LOC394,Gros Islet,CNTR184
+DLR0201,Vauxhall Motors,LOC396,Rambaud,CNTR185
+DLR0202,Venturi Motors,LOC398,Miquelon,CNTR186
+DLR0203,Volkswagen Motors,LOC400,Georgetown,CNTR187
+DLR0204,Volkswagen do Brasil Motors,LOC402,Vaitele,CNTR188
+DLR0205,Volkswagen South Africa Motors,LOC404,Borgo Maggiore,CNTR189
+DLR0206,Volvo Motors,LOC406,Trindade,CNTR190
+DLR0207,Westfield Motors,LOC408,Jeddah,CNTR191
+DLR0208,Wiesmann Motors,LOC410,Touba,CNTR192
+DLR0209,Zastava Motors,LOC412,Novi Sad,CNTR193
+DLR0210,ZAZ Motors,LOC414,Anse Etoile,CNTR194
+DLR0211,ZIL Motors,LOC416,Bo,CNTR195
+DLR0213,DKW Motors,LOC418,Cul De Sac,CNTR197
+DLR0214,Horch Motors,LOC420,Ko_ice,CNTR198
+DLR0215,Wanderer Motors,LOC422,Maribor,CNTR199
+DLR0216,Maybach  Motors,LOC424,Gizo,CNTR200
+DLR0217,Izh  Motors,LOC426,Hargeisa,CNTR201
+DLR0218,Lagonda  Motors,LOC428,Burao,CNTR202
+DLR0219,MG  Motors,LOC430,Durban,CNTR203
+DLR0220,Morris  Motors,LOC432,Cape Town[Note 5],CNTR203
+DLR0221,Austin  Motors,LOC434,Bird Island,CNTR204
+DLR0222,Riley  Motors,LOC436,Akhalgori,CNTR205
+DLR0223,Wolseley  Motors,LOC438,Yei,CNTR206
+DLR0224,Standard  Motors,LOC440,Barcelona,CNTR207
+DLR0225,Talbot  Motors,LOC442,Dehiwala-Mount Lavinia,CNTR208
+DLR0226,Das Motors,LOC444,Khartoum,CNTR209
+DLR0227,Ramani Motors,LOC446,Port Sudan,CNTR209
+DLR0228,Deccan Motors,LOC448,Lelydorp,CNTR210
+DLR0229,Herald Motors,LOC450,Barentsburg,CNTR211
+DLR0230,Zion Automobils,LOC452,Gothenburg,CNTR212
+DLR0231,Atlantic Motor Company,LOC454,Geneva,CNTR213
+DLR0232,2008 NRHP-listed,LOC456,Aleppo,CNTR214
+DLR0233,Blankinship Motor Company Building,LOC458,Taichung,CNTR215
+DLR0234,Bohn Motor Company Automobile Dealership,LOC460,Greater Kaohsiung,CNTR215
+DLR0235,Buick Automobile Company Building,LOC462,Khujand,CNTR216
+DLR0236,Cadillac Automobile Company Building,LOC464,Mwanza,CNTR217
+DLR0237,Casa de cadillac,LOC466,Nonthaburi,CNTR218
+DLR0238,Cass Motor Sales,LOC468,Pak Kret,CNTR218
+DLR0239,Claremore Auto Dealership,LOC470,Sokodé,CNTR219
+DLR0240,Clemens Automobile Company Building,LOC472,Atafu,CNTR220
+DLR0241,Colman Automotive Building,LOC474,Neiafu,CNTR221
+DLR0242,H Street Playhouse,LOC476,Bender,CNTR222
+DLR0243,Howard Motor Company Building,LOC478,San Fernando,CNTR223
+DLR0244,Hupmobile Building,LOC480,Sfax,CNTR224
+DLR0245,Jennings Ford Automobile Dealership,LOC482,Ankara,CNTR225
+DLR0246,Jones Motor Company,LOC484,Türkmenabat,CNTR226
+DLR0247,Kindel Building,LOC486,Honda Road,CNTR227
+DLR0248,AC Cars Motors,LOC488,Asau,CNTR228
+DLR0249,Acura Motors,LOC490,Gulu,CNTR229
+DLR0250,Aixam-Mega (including Arola) Motors,LOC492,Kharkiv,CNTR230
+DLR0251,Alfa Romeo Motors,LOC494,Donetsk,CNTR230
+DLR0252,Alpine Motors,LOC496,Abu Dhabi,CNTR231
+DLR0253,Alvis Motors,LOC498,Birmingham,CNTR232
+DLR0254,"AMC, Eagle Motors",LOC500,Los Angeles,CNTR233
+DLR0255,Anadol Motors,LOC502,Salto,CNTR234
+DLR0256,Ariel Motors,LOC504,Namangan,CNTR235
+DLR0257,ARO Motors,LOC506,Luganville,CNTR236
+DLR0259,Asia Motors Motors,LOC508,Maracaibo,CNTR238
+DLR0260,Aston Martin Motors,LOC510,Hanoi,CNTR239
+DLR0261,Audi Motors,LOC512,Spanish Town,CNTR240
+DLR0262,Autobianchi Motors,LOC514,Anna's Retreat,CNTR241
+DLR0263,Auto-Union Motors,LOC516,Utufua,CNTR242
+DLR0264,Auverland Motors,LOC518,Dakhla,CNTR243
+DLR0265,Bentley Motors,LOC520,Aden,CNTR244
+DLR0266,Bitter Motors,LOC522,Kitwe,CNTR245
+DLR0267,BMW Motors,LOC524,Bulawayo,CNTR246
