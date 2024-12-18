@@ -26,7 +26,7 @@
 
 ### Week-01: [`Course Outline and Introduction to Data Warehousing`](week-01-course-outline-and-intro-to-DW)
 
-### Week-02: [` Introduction to BI and Tableau`](week-02-intro-to-BI-and-Tableau)
+### Week-02: [`Introduction to BI and Tableau`](week-02-intro-to-BI-and-Tableau)
 
 ### Week-03: [`Introduction to ETL`](week-03-introduction-to-ETL)
 
@@ -34,7 +34,7 @@
 
 ### Week-05: [`ETL Detailed`](week-05_ETL_detailed)
 
-### Week-06: [` Introduction to Data Warehousing and Star Schema`](week-06-intro-to-Data-Warehousing-and-Star-Schema)
+### Week-06: [`Introduction to Data Warehousing and Star Schema`](week-06-intro-to-Data-Warehousing-and-Star-Schema)
 
 ### Week-07: [`Star Schema with Examples`](week-07-Star-Schema)
 
