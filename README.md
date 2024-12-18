@@ -3,6 +3,12 @@
 		Where do you store a petabyte of 
 		data for  business intelligence? 
 		A  data warehouse, that’s where. 
+		
+		Skills you will develop: 
+			Derive insights from data by 
+			building analytical, managerial 
+			and baseline technical skills.
+
 
 
 ![](./webdocs/images/data_warehouse_image.png)
