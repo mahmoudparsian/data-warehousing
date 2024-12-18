@@ -194,4 +194,9 @@ conn.close()
    - Create the necessary tables if they do not exist.
    - Insert data into the dimension and fact tables.
 
-This example demonstrates a basic ETL process to create a star schema in a MySQL database using Python. Adjust the column names and data types as needed for your specific use case.
+
+### Notes:
+
+* This example demonstrates a basic ETL process to create a star schema in a MySQL database using Python. 
+
+* Adjust the column names and data types as needed for your specific use case.
