@@ -10,12 +10,12 @@
 	     of data that is: 
 
 
-Data Warehouse feature    | Description  |
-------------------------- | -------------|
-1. **Subject-oriented**:  | Focuses on a specific area, such as sales, marketing, or distribution |
-2. **Integrated**:        | Combines different data types from various sources |
-3. **Non-volatile**:      | Stable and doesn't change once entered into the DW |
-4. **Time-variant**:      | Analyzes changes over time, and typically contains multiple years of data |
+| Data Warehouse feature    | Description  |
+| ------------------------- | -------------|
+| 1. **Subject-oriented**:  | Focuses on a specific area, such as sales, marketing, or distribution |
+| 2. **Integrated**:        | Combines different data types from various sources |
+| 3. **Non-volatile**:      | Stable and doesn't change once entered into the DW |
+| 4. **Time-variant**:      | Analyzes changes over time, and typically contains multiple years of data |
 
 	
 ![](./README_DW_Inmon_Model.png)
