@@ -18,7 +18,7 @@
 We'll use three CSV files representing sales, products, and stores:
 
 
-**sales.csv**
+### `sales.csv`
 
 ~~~
 date,product_id,store_id,quantity,price
@@ -28,7 +28,7 @@ date,product_id,store_id,quantity,price
 2024-12-02,3,2,3,40.00
 ~~~
 
-**products.csv**
+### `products.csv`
 
 ```
 product_id,product_name,category
@@ -37,7 +37,7 @@ product_id,product_name,category
 3,Gadget A,Gadgets
 ```
 
-**stores.csv**
+### `stores.csv`
 
 ```
 store_id,store_name,location
@@ -45,25 +45,39 @@ store_id,store_name,location
 2,Store Two,Los Angeles
 ```
 
-### Step-by-Step ETL Process
+## Step-by-Step ETL Process
 
-#### 1. Extract Data
+### 1. Extract Data
+
+In this step, we read data from multiple sources:
 
 ```python
 import pandas as pd
 
-# Load data from CSV files
+# Method-1: Load data from CSV files
 sales_data = pd.read_csv('sales.csv')
 product_data = pd.read_csv('products.csv')
 store_data = pd.read_csv('stores.csv')
 
-# EXERCISE: Load data from MySQL Tables
+# Method-2: EXERCISE: Load data from MySQL Tables
 sales_data = ...
 product_data = ...
 store_data = ...
 ```
 
-#### 2. Transform Data
+### 2. Transform Data
+
+In this step, we perform transformations:
+
+* create FACT and DIMENSION tables
+* clean up data
+* data conversions
+* data type conversions
+* create new columns
+* create derived columns
+* ...
+
+
 
 ```python
 # Convert date column to datetime
@@ -93,7 +107,7 @@ fact_sales['date'] = fact_sales['date'].dt.date
 fact_sales['total_sales'] = fact_sales['quantity'] * fact_sales['price']
 ```
 
-#### 3. Load Data into MySQL
+### 3. Load Data into MySQL
 
 #### 3.1 Create database Tables
 
@@ -152,6 +166,13 @@ CREATE TABLE IF NOT EXISTS fact_sales (
 ```
 
 #### 3.2 Load Data into MySQL
+
+	---- NOTE: ---------------------
+	In this example, we load data row-by-row, 
+	which might not be  an  ideal  case from 
+	performance point of view. You should use 
+	BULK-LOADERS to load rows from text (or 
+	Parquet) files
 
 ```python
 # Insert data into dimension tables
