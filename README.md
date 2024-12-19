@@ -1,6 +1,6 @@
 # data-warehousing </br> Winter Quarter 2025 </br> January-March 2025
 
-<details open>
+<details>
 
 <summary>
 
@@ -13,7 +13,7 @@ Data Warehouse?
 		data for  business intelligence? 
 		A  data warehouse, that’s where. 
 
-
+</details>
 
 <details open>
 
@@ -33,6 +33,7 @@ What is Data Warehousing?
 		and report on data.
 
 </details>
+
 
 <details open>
 
