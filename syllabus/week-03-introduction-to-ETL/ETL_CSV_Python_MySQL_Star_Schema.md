@@ -1,8 +1,8 @@
 # ETL to Create Star Schema using Python & MySQL
 
 	1. Using Python and MySQL, provide 
-	   a complete example of ETL to create 
-	   a star schema. 
+	   a complete  example of  ETL  to 
+	   create a star schema. 
 	
 	2. Provide sample input data as well.
 
@@ -12,6 +12,23 @@
 	
 	4. We'll start with sample input data and 
 	   then proceed with the ETL process.
+
+## High-Level Steps Explanation:
+
+1. **Extract**: Load the data from CSV files using `pandas`.
+
+2. **Transform**:
+   - Convert the `date` column to datetime format.
+   - Create a new `year` column from `date` 
+   - Create a new `quarter` column from `date` 
+   - Create dimension tables (`date_dim`, `product_dim`, `store_dim`).
+   - Create a fact table (`fact_sales`) with a calculated `total_sales` column.
+   
+3. **Load**:
+   - Establish a connection to MySQL.
+   - Create the necessary tables if they do not exist.
+   - Insert data into the dimension and fact tables.
+
 
 ## Sample Input Data
 
@@ -199,21 +216,6 @@ conn.commit()
 cursor.close()
 conn.close()
 ```
-
-### Explanation:
-1. **Extract**: Load the data from CSV files using `pandas`.
-
-2. **Transform**:
-   - Convert the `date` column to datetime format.
-   - Create a new `year` column from `date` 
-   - Create a new `quarter` column from `date` 
-   - Create dimension tables (`date_dim`, `product_dim`, `store_dim`).
-   - Create a fact table (`fact_sales`) with a calculated `total_sales` column.
-   
-3. **Load**:
-   - Establish a connection to MySQL.
-   - Create the necessary tables if they do not exist.
-   - Insert data into the dimension and fact tables.
 
 
 ### Notes:
