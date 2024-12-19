@@ -191,25 +191,47 @@ CREATE TABLE IF NOT EXISTS fact_sales (
 	BULK-LOADERS to load rows from text (or 
 	Parquet) files
 
-```python
-# Insert data into dimension tables
+#### Insert data into dimension tables
+
+```python 
+date_insert = """
+INSERT IGNORE INTO date_dim (date, year, quarter) 
+VALUES (%s, %s, %s)
+"""
 for _, row in date_dim.iterrows():
-    cursor.execute("INSERT IGNORE INTO date_dim (date) VALUES (%s, %s, %s)", (row['date'], row['year'], row['quarter']))
+    cursor.execute(date_insert, (row['date'], row['year'], row['quarter']))
 
+
+product_insert = """
+INSERT IGNORE INTO product_dim (product_id, product_name, category) 
+VALUES (%s, %s, %s)
+"""
 for _, row in product_dim.iterrows():
-    cursor.execute("INSERT IGNORE INTO product_dim (product_id, product_name, category) VALUES (%s, %s, %s)",
-                   (row['product_id'], row['product_name'], row['category']))
+    cursor.execute(product_insert,
+     (row['product_id'], row['product_name'], row['category']))
 
+
+store_insert = """
+INSERT IGNORE INTO store_dim (store_id, store_name, location)
+ VALUES (%s, %s, %s)
+"""
 for _, row in store_dim.iterrows():
-    cursor.execute("INSERT IGNORE INTO store_dim (store_id, store_name, location) VALUES (%s, %s, %s)",
-                   (row['store_id'], row['store_name'], row['location']))
+    cursor.execute(store_insert,
+     (row['store_id'], row['store_name'], row['location']))
+```
 
-# Insert data into fact table
-for _, row in fact_sales.iterrows():
-    cursor.execute("""
-    INSERT INTO fact_sales (date, product_id, store_id, quantity, price, total_sales)
+####  Insert data into fact table
+
+```python
+fact_insert = """
+    INSERT INTO fact_sales 
+    (date, product_id, store_id, quantity, price, total_sales)
     VALUES (%s, %s, %s, %s, %s, %s)
-    """, (row['date'], row['product_id'], row['store_id'], row['quantity'], row['price'], row['total_sales']))
+"""
+for _, row in fact_sales.iterrows():
+    cursor.execute(fact_insert, 
+    (row['date'], row['product_id'], row['store_id'], 
+     row['quantity'], row['price'], row['total_sales']))
 
 # Commit and close connection
 conn.commit()
