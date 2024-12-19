@@ -2,7 +2,11 @@
 
 In order to succeed in this class, you need to know the following.
 
+<details open>
+
+<summary>
 ## Database Management and Basics of SQL
+</summary>
 
 You need to know:
 
@@ -24,8 +28,15 @@ You need to know:
 	* Right join
 	* Full join
 
+</details>
 
+-------
+
+<details open>
+
+<summary>
 ## Basics of Python Programming Language
+</summary>
 
 You need to know:
 
@@ -39,3 +50,4 @@ You need to know:
 * Data structures: list, set, dictionary, tuples
 * How to read and write text files 
 
+</details>
