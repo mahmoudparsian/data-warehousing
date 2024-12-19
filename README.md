@@ -4,7 +4,7 @@
 
 <summary>
 
-Data Warehouse?
+## Data Warehouse?
 
 </summary>
 
@@ -19,18 +19,20 @@ Data Warehouse?
 
 <summary>
 
-What is Data Warehousing?
+## What is Data Warehousing?
 
 </summary>
 
-		Data warehousing (DW) is a technique of 
-		gathering and analyzing data from many 
-		sources to get valuable business insights. 
-		Typically, a data warehouse integrates 
-		and analyzes business data from many sources. 
-		The data warehouse is the basis of the business 
-		intelligence (BI) system, which can analyze 
-		and report on data.
+		Data warehousing (DW) is a technique 
+		of gathering and analyzing data from 
+		many sources to get valuable business 
+		insights. Typically, a data warehouse 
+		integrates and analyzes business data 
+		from many sources. 
+		
+		The data warehouse is the basis of the 
+		business intelligence (BI) system, which 
+		can analyze and report on data.
 
 </details>
 
@@ -39,7 +41,7 @@ What is Data Warehousing?
 
 <summary>
 
-Skills you will develop: 
+## Skills you will develop: 
 
 </summary>
 
