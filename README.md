@@ -1,20 +1,53 @@
 # data-warehousing </br> Winter Quarter 2025 </br> January-March 2025
 
+<details open>
+
+<summary>
 
 Data Warehouse?
+
+</summary>
+
 
 		Where do you store a petabyte of 
 		data for  business intelligence? 
 		A  data warehouse, that’s where. 
 
 
+
+<details open>
+
+<summary>
+
+What is Data Warehousing?
+
+</summary>
+
+		Data warehousing (DW) is a technique of 
+		gathering and analyzing data from many 
+		sources to get valuable business insights. 
+		Typically, a data warehouse integrates 
+		and analyzes business data from many sources. 
+		The data warehouse is the basis of the business 
+		intelligence (BI) system, which can analyze 
+		and report on data.
+
+</details>
+
+<details open>
+
+<summary>
+
 Skills you will develop: 
+
+</summary>
+
 
 		Derive insights from data by 
 		building analytical, managerial 
 		and baseline technical skills.
 
-
+</details>
 
 ![](./webdocs/images/data_warehouse_image.png)
 
