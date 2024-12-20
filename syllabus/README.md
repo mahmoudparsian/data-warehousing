@@ -20,6 +20,8 @@
 	
 ![](./README_DW_Inmon_Model.png)
 
+![](./README_DW_architecture.jpg)
+
 ---------
 
 # 10 Weeks
