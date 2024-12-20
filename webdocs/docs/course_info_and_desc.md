@@ -80,21 +80,31 @@
 
 ## 3. Learning Outcomes/Objectives:
 
-1. Implement data ingestion techniques (ETL)
+	1. Implement data ingestion techniques (ETL)
 
-2. Write simple ETL programs (extract, transform, and load)
+	2. Write simple ETL programs (extract, transform, and load)
 
-3. Write SQL for data analytics, including time series and ranking algorithms
+	3. Write SQL for data analytics, including time series and ranking algorithms
 
-4. Transform data using SQL and Big Data Analytics
+	4. Transform data using SQL and Big Data Analytics
 
-5. Compare modern and classic strategies of data modeling: star schema + more
+	5. Compare modern and classic strategies of data modeling: star schema + more
 
-6. Understand data warehouse architecture
+	6. Understand data warehouse architecture
 
-7. Maintain data quality
+	7. Maintain data quality
 
-8. Create reports, analysis & visualizations
+	8. Create reports, analysis & visualizations
 
-9. Write OLAP queries
+	9. Write OLAP queries
+
+	10. Use Join operations for SQL/OLAP queries
+
+	11. Implement a small Data Warehouse and Star Schema using ETL
+
+	12. Provide SQL/Business Intelligence from a built Data Warehouse
+
+
+
+
 
