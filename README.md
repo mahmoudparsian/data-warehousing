@@ -62,33 +62,35 @@
   Course (MSIS-2621)](https://www.scu.edu/business/graduate-degrees/ms-programs/ms-information-systems/curriculum/)
   at the [Department of Information Systems & Analytics, Santa Clara University](https://www.scu.edu/business/isa/).
 
-## 2. [Course Information & Description](./webdocs/docs/course_info_and_desc.md)
+## 2. [Instructor, Adjunct Professor: Mahmoud Parsian](https://www.scu.edu/business/isa/faculty/parsian/)
 
-## 3. [Class Meeting Dates & Hours](./webdocs/docs/class_meeting_dates_hours.md)
+## 3. [Teaching Assistant (TA): Padma Rishitha Pusapati](https://www.linkedin.com/in/padma-rishitha-pusapati-a4480b291/)
 
-## 4. [Instructor, Adjunct Professor: Mahmoud Parsian](https://www.scu.edu/business/isa/faculty/parsian/)
+## 4. [Course Information & Description](./webdocs/docs/course_info_and_desc.md)
 
-## 5. [Prerequisite](./webdocs/docs/prerequisite.md)
+## 5. [Class Meeting Dates & Hours](./webdocs/docs/class_meeting_dates_hours.md)
 
-## 6. [Glossary of Big Data, MapReduce, Spark, Data Warehousing](https://github.com/mahmoudparsian/big-data-mapreduce-course/blob/master/slides/glossary/README.md)
+## 6. [Prerequisite](./webdocs/docs/prerequisite.md)
 
-## 7. [Required Books](./webdocs/docs/required_books.md)
+## 7. [Glossary of Big Data, MapReduce, Spark, Data Warehousing](https://github.com/mahmoudparsian/big-data-mapreduce-course/blob/master/slides/glossary/README.md)
 
-## 8. [Required Software: MySQL, Python, Tableau](./webdocs/docs/required_software.md)
+## 8. [Required Books](./webdocs/docs/required_books.md)
 
-## 9. [Syllabus, Winter Quarter 2025](./syllabus/README.md)
+## 9. [Required Software: MySQL, Python, Tableau](./webdocs/docs/required_software.md)
 
-## 10. [Grading and Class Conduct](./webdocs/docs/grading_and_class_conduct.md)
+## 10. [Syllabus, Winter Quarter 2025](./syllabus/README.md)
 
-## 11. [Python Tutorials](./webdocs/docs/python_tutorials.md)
+## 11. [Grading and Class Conduct](./webdocs/docs/grading_and_class_conduct.md)
 
-## 12. [SQL Tutorials](./webdocs/docs/sql_tutorials.md)
+## 12. [Python Tutorials](./webdocs/docs/python_tutorials.md)
 
-## 13. [Office Hours](./webdocs/docs/office_hours.md)
+## 13. [SQL Tutorials](./webdocs/docs/sql_tutorials.md)
 
-## 14. [Midterm Exam](./webdocs/docs/midterm_exam.md)
+## 14. [Office Hours](./webdocs/docs/office_hours.md)
 
-## 15. [Final Exam](./webdocs/docs/final_exam.md)
+## 15. [Midterm Exam](./webdocs/docs/midterm_exam.md)
 
-## 16. [Mahmoud Parsian's Published Books](./webdocs/docs/mahmoud_parsian_books.md)
+## 16. [Final Exam](./webdocs/docs/final_exam.md)
+
+## 17. [Mahmoud Parsian's Published Books](./webdocs/docs/mahmoud_parsian_books.md)
 
