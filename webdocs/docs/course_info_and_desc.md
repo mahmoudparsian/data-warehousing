@@ -4,10 +4,10 @@
 
 	1. A data warehouse is a  
 	
-	   dw1) subject-oriented, 
-	   dw2) integrated,
-	   dw3) non-volatile, and 
-	   dw4) time-variant 
+	   1) subject-oriented, 
+	   2) integrated,
+	   3) non-volatile, and 
+	   4) time-variant 
 	   
 	   collection of data in support 
 	   of management’s decisions.
