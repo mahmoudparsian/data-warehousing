@@ -2,9 +2,15 @@
 
 ## 1. Course Information
 
-	1. A data warehouse  is  a  subject-oriented, integrated,
-	   non-volatile  and time-variant collection of  data  in
-	   support of management’s decisions.
+	1. A data warehouse is a  
+	
+	   dw1) subject-oriented, 
+	   dw2) integrated,
+	   dw3) non-volatile, and 
+	   dw4) time-variant 
+	   
+	   collection of data in support 
+	   of management’s decisions.
 
 	2. This data-warehousing course introduces the  business,
 	   technology, and managerial issues related  to  BI  and
