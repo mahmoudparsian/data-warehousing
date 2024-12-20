@@ -41,11 +41,13 @@
 	
 	* Star Schema 
 	
-## 3. What is data warehousing?
+## 3. What is data warehouse?
 
-## 4. Business Analysis & BI 
+## 4. What is data warehousing?
 
-## 5. Required Software:
+## 5. Business Analysis & BI 
+
+## 6. Required Software:
 
 	* MySQL database
 	
@@ -54,4 +56,4 @@
 	* Tableau
 
 
-## 5. Class Projects Overview
+## 7. Class Projects Overview
