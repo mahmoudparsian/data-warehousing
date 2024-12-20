@@ -68,6 +68,8 @@ store_id,store_name,location
 
 In this step, we read data from multiple sources:
 
+#### 1.1  Extract Data from CSV files ...
+
 ```python
 import pandas as pd
 
@@ -75,7 +77,10 @@ import pandas as pd
 sales_data = pd.read_csv('sales.csv')
 product_data = pd.read_csv('products.csv')
 store_data = pd.read_csv('stores.csv')
+```
 
+#### 1.2  Extract Data from database tables ...
+```python
 # Method-2: EXERCISE: Load data from MySQL Tables
 sales_data = ...
 product_data = ...
@@ -94,10 +99,26 @@ In this step, we perform transformations:
 * create derived columns
 * ...
 
-
+#### 2.1 Understand data type conversion
 
 ```python
-# Convert date column to datetime
+>>> import pandas as pd
+>>> d = '2024-12-18'
+>>> d2 = pd.to_datetime(d)
+>>> d
+'2024-12-18'
+>>> d2
+Timestamp('2024-12-18 00:00:00')
+>>> type(d)
+<class 'str'>
+>>> type(d2)
+<class 'pandas._libs.tslibs.timestamps.Timestamp'>
+```
+
+#### 2.2 Transformations ...
+
+```python
+# Convert date column to pandas datetime object
 sales_data['date'] = pd.to_datetime(sales_data['date'])
 
 # Create a date dimension
