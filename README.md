@@ -68,29 +68,31 @@
 
 ## 4. [Course Information & Description](./webdocs/docs/course_info_and_desc.md)
 
-## 5. [Class Meeting Dates & Hours](./webdocs/docs/class_meeting_dates_hours.md)
+## 5. [Academic Integrity](webdocs/docs/academic_integrity.md)
 
-## 6. [Prerequisite](./webdocs/docs/prerequisite.md)
+## 6. [Class Meeting Dates & Hours](./webdocs/docs/class_meeting_dates_hours.md)
 
-## 7. [Glossary of Big Data, MapReduce, Spark, Data Warehousing](https://github.com/mahmoudparsian/big-data-mapreduce-course/blob/master/slides/glossary/README.md)
+## 7. [Prerequisite](./webdocs/docs/prerequisite.md)
 
-## 8. [Required Books](./webdocs/docs/required_books.md)
+## 8. [Glossary of Big Data, MapReduce, Spark, Data Warehousing](https://github.com/mahmoudparsian/big-data-mapreduce-course/blob/master/slides/glossary/README.md)
 
-## 9. [Required Software: MySQL, Python, Tableau](./webdocs/docs/required_software.md)
+## 9. [Required Books](./webdocs/docs/required_books.md)
 
-## 10. [Syllabus, Winter Quarter 2025](./syllabus/README.md)
+## 10. [Required Software: MySQL, Python, Tableau](./webdocs/docs/required_software.md)
 
-## 11. [Grading and Class Conduct](./webdocs/docs/grading_and_class_conduct.md)
+## 11. [Syllabus, Winter Quarter 2025](./syllabus/README.md)
 
-## 12. [Python Tutorials](./webdocs/docs/python_tutorials.md)
+## 12. [Grading and Class Conduct](./webdocs/docs/grading_and_class_conduct.md)
 
-## 13. [SQL Tutorials](./webdocs/docs/sql_tutorials.md)
+## 13. [Python Tutorials](./webdocs/docs/python_tutorials.md)
 
-## 14. [Office Hours](./webdocs/docs/office_hours.md)
+## 14. [SQL Tutorials](./webdocs/docs/sql_tutorials.md)
 
-## 15. [Midterm Exam](./webdocs/docs/midterm_exam.md)
+## 15. [Office Hours](./webdocs/docs/office_hours.md)
 
-## 16. [Final Exam](./webdocs/docs/final_exam.md)
+## 16. [Midterm Exam](./webdocs/docs/midterm_exam.md)
 
-## 17. [Mahmoud Parsian's Published Books](./webdocs/docs/mahmoud_parsian_books.md)
+## 17. [Final Exam](./webdocs/docs/final_exam.md)
+
+## 18. [Mahmoud Parsian's Published Books](./webdocs/docs/mahmoud_parsian_books.md)
 
