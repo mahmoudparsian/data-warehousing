@@ -1,5 +1,7 @@
 # Academic Integrity
 
+[SCU Academic Integrity](https://www.scu.edu/academic-integrity/)
+
 1. Anything you submit for credit 
 is expected to be your own work
 
@@ -11,3 +13,4 @@ collaboration and cheating
 
 4. Attempt to gain credit for work you 
 did not do is misconduct
+
