@@ -55,11 +55,11 @@ Some important points:
 Syntax:
 
 ```sql
-SELECT col_1, function_name(col_2)
+SELECT col_1, col_2, function_name(col_3)
 
-FROM tablename
+FROM table_name
 
-GROUP BY column1, column2
+GROUP BY col_1, col_2
 
 HAVING Condition
 ```
