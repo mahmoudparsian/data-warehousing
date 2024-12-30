@@ -1,6 +1,6 @@
 # Sales Data Analysis Project with SQL
 
-## 1. Prepare Metadata
+## 1. Prepare Metadata Original 
 
 ~~~sql
 -- -----------------------------
@@ -9,13 +9,20 @@
 CREATE TABLE sales (
     sale_id INT PRIMARY KEY,
     sale_date DATE,
-    sale_year INT,
-    sale_quarter INT,
     product_id INT,
     quantity INT,
     price DECIMAL(10, 2)
 );
 ~~~
+
+## 2. Prepare Derived Metadata from Original 
+
+### 1.1 Derived Data
+
+* `year` is derived from `sale_date`
+* `quarter` is derived from `sale_date`
+
+### 1.2 Quarter Definition
 
 There are 4 quarters per year:
 
@@ -30,8 +37,26 @@ There are 4 quarters per year:
 
 ~~~
 
+### 1.3 Prepare Derived Metadata
 
-## 2. Populate Data
+~~~sql
+-- -----------------------------
+-- Create a table for sales data
+-- -----------------------------
+CREATE TABLE sales (
+    sale_id INT PRIMARY KEY,
+    sale_date DATE,
+    sale_year INT,         -- DERIVED
+    sale_quarter INT,      -- DERIVED
+    product_id INT,
+    quantity INT,
+    price DECIMAL(10, 2)
+);
+~~~
+
+
+
+## 3. Populate Data
 
 ~~~sql
 
@@ -51,7 +76,7 @@ VALUES
 ~~~
 
 
-## 3. Query Data
+## 4. Query Data
 
 ### Query-1: Calculate total sales
 
@@ -121,7 +146,7 @@ ORDER by total_sales DESC
 LIMIT 1;
 ~~~
 
-## Homework
+## 5. Homework
 
 ### Query-7: Find the best quarter per year of total sales
 
