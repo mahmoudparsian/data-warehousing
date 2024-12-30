@@ -17,12 +17,12 @@ CREATE TABLE sales (
 
 ## 2. Prepare Derived Metadata from Original 
 
-### 1.1 Derived Data
+### 2.1 Derived Data
 
 * `year` is derived from `sale_date`
 * `quarter` is derived from `sale_date`
 
-### 1.2 Quarter Definition
+### 2.2 Quarter Definition
 
 There are 4 quarters per year:
 
@@ -30,14 +30,14 @@ There are 4 quarters per year:
 -- -----------------------------------
 -- Note that each year has 4 quarters:
 -- -----------------------------------
-   Quarter 1: January (1), February (2), March (3)
-   Quarter 2: April (4), May (5), June (6)
-   Quarter 3: July (7), August (8), September (9)
-   Quarter 4: October (10), November (11), December (12)
+Quarter 1: January (1), February (2), March (3)
+Quarter 2: April (4), May (5), June (6)
+Quarter 3: July (7), August (8), September (9)
+Quarter 4: October (10), November (11), December (12)
 
 ~~~
 
-### 1.3 Prepare Derived Metadata
+### 2.3 Prepare Derived Metadata & Apply Transformations
 
 ~~~sql
 -- -----------------------------
