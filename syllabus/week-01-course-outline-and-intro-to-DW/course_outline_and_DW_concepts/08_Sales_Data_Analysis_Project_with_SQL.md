@@ -153,3 +153,5 @@ LIMIT 1;
 ### Query-8: Find the worst quarter per year of total sales
 
 ### Query-9: Find the best and worst quarter per year of total sales
+
+### Query-10: Find the best and worst quarter for all given years of total sales
