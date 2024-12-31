@@ -1,13 +1,13 @@
 # What is HAVING by in MySQL?
 
-	The MySQL HAVING clause allows filtering 
-	of aggregated  results produced by  the 
-	MySQL GROUP BY clause. In the same way 
+	1. The MySQL HAVING clause allows filtering 
+	of aggregated  results  produced by  the 
+	MySQL GROUP BY clause.  In the same way 
 	you used MySQL WHERE clause to restrict 
 	rows, you use the MySQL HAVING clause 
 	to restrict groups.
 	
-	What is HAVING clause in SQL with example?
+	2. What is HAVING clause in SQL with example?
 	The HAVING clause allows for filtering based 
 	on multiple aggregate values. For example, 
 	you can filter groups based on both the 
@@ -15,7 +15,15 @@
 	
 		HAVING SUM(column) > [value1] AND 
 		AVG(column) > [value2]
-		
+	
+	3. The SQL HAVING clause is a clause in SQL that 
+	lets you filter data AFTER it has been grouped 
+	with the GROUP BY clause.	4. If you want to filter data in your SQL query 
+	to remove rows based on certain criteria, you would 
+	use the WHERE clause.	5. However, you can’t use the WHERE clause with 
+	data from aggregate functions.
+	
+	
 # Syntax
 
 The `HAVING` clause was introduced in SQL to allow 
