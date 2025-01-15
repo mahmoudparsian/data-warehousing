@@ -30,7 +30,8 @@ Last updated date: January 11, 2025
 
 This project covers 30% of your overall grade.
 
-* 10 points: documentation
+*  3 points: Team and Data Presentation
+*  7 points: documentation
 * 10 points: implementation
 * 10 points: presentation with powerpoint and Tableau
 
