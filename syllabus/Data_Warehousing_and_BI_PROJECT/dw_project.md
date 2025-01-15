@@ -95,7 +95,7 @@ Components of your project should cover:
 
 	* How to build your star schema, logic and rationale 
 	* Star schema description: FACT table(s) and DIM tables
-	* BI queries and presentations: list of queries in English and SQL
+	* BI queries and presentations: list of 5 queries in English and SQL
 	* Tableau presentation
 	* Your recommendations based on 5 OLAP queries
 
