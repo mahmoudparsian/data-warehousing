@@ -37,16 +37,23 @@ This project covers 30% of your overall grade.
 
 ## 4. Data
 
-### Example:  NY Taxi Cab
+* must make sense for data warehousing
+* your data must span over years (3 to 5 years) 
+* with minimum of 1 to 10 million records
 
-But you may come up with other data by end of this 
-week (data selection must be finalized by end of 
-this week): your data must span over years (3 to 5 
-years) with minimum of 1 to 10 million records. If 
-you do not present a valid set of data, then randomlly, 
-I will assign Yellow Cab or Green Can data. If I do 
-not hear (as email) from you about new data, then I 
-will assign a data selection to your team. 
+### 4.1 data sets
+
+[1. New York Taxi Data: YELLOW Taxi](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page)
+
+[2. New York Taxi Data: GREEN Taxi](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page)
+
+[3. Million Song Dataset](http://millionsongdataset.com)
+
+[4. Chicago Data Portal, bike rides, 21.2 Million](https://data.cityofchicago.org/Transportation/Divvy-Trips/fg6s-gzvg/about_data)
+
+[5. Flights and Airports Data](https://www.kaggle.com/datasets/tylerx/flights-and-airports-data?select=raw-flight-data.csv)
+
+[6. City of Chicago, Taxi Trips](https://catalog.data.gov/dataset/taxi-trips-2024/resource/89b74374-dec6-473e-a143-8e7bb1dfa5b1)
 
 ## 5. Building Your DW Project
 
