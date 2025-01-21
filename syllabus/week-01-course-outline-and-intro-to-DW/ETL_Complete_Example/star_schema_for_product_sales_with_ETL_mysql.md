@@ -261,7 +261,174 @@ Finally, we can perform some OLAP queries to analyze the data.
 
 5. **Average Sales Amount by Customer Age Group:**
 
+   ```sql
+   SELECT
+       CASE
+           WHEN c.age < 20 THEN 'Under 20'
+           WHEN c.age BETWEEN 20 AND 29 THEN '20-29'
+           WHEN c.age BETWEEN 30 AND 39 THEN '30-39'
+           ELSE '40 and above'
+       END AS age_group,
+       AVG(s.total_amount) AS average_sales_amount
+   FROM sales_fact s
+   JOIN customers_dim c ON s.customer_id = c.customer_id
+   GROUP BY age_group;
+   ```
+
 6. **Find top-2 selling products per country**
+
+~~~sql
+WITH RankedSales AS (
+    SELECT
+        P.product_name as product,
+        L.country as country,
+        SUM(F.total_amount) AS total_sales,
+        RANK() OVER (PARTITION BY F.location_id ORDER BY SUM(F.total_amount) DESC) AS sales_rank
+    FROM sales_fact F
+    JOIN products_dim P on  F.product_id = P.product_id
+    JOIN locations_dim L on F.location_id = L.location_id
+    GROUP BY product, country
+)
+SELECT
+    product,
+    country,
+    total_sales,
+    sales_rank
+FROM RankedSales
+WHERE sales_rank <= 2
+ORDER BY country, sales_rank;
+~~~
+
+Explanation:
+
+~~~
+WITH RankedSales AS (...): This Common Table Expression (CTE)
+     calculates the total sales for each product in each
+     country and assigns a rank based on the total sales amount.
+
+SUM(total_amount): Aggregates the total sales amount for each
+    product within each country.
+
+RANK() OVER (PARTITION BY country ORDER BY SUM(total_amount) DESC):
+       Assigns a rank to each product within each country based on
+       the total sales amount, with the highest sales amount getting rank 1.
+
+SELECT ... FROM RankedSales WHERE sales_rank <= 2: Filters the
+    results to include only the top-2 products for each country.
+
+ORDER BY country, sales_rank: Orders the final results by country
+      and then by the rank.
+~~~
+
+### find the top-2 selling products per country
+
+	To find the top-2 selling products per country 
+	based on the total amount sold, you can use the 
+	following SQL query.
+	
+	This query uses window functions to rank the products 
+	by their total sales amount within each country and 
+	then filters to keep only the top-2 products for each country.
+
+~~~sql
+-- PARTITION BY F.location_id
+mysql> WITH RankedSales AS (
+    ->     SELECT
+    ->         P.product_name as product,
+    ->         L.country as country,
+    ->         SUM(F.total_amount) AS total_sales,
+    ->         RANK() OVER (PARTITION BY F.location_id ORDER BY SUM(F.total_amount) DESC) AS sales_rank
+    ->     FROM sales_fact F
+    ->     JOIN products_dim P on  F.product_id = P.product_id
+    ->     JOIN locations_dim L on F.location_id = L.location_id
+    ->     GROUP BY product, country
+    -> )
+    -> SELECT
+    ->     product,
+    ->     country,
+    ->     total_sales,
+    ->     sales_rank
+    -> FROM RankedSales
+    -> WHERE sales_rank <= 2
+    -> ORDER BY country, sales_rank;
++------------+---------+-------------+------------+
+| product    | country | total_sales | sales_rank |
++------------+---------+-------------+------------+
+| Cooler     | CANADA  |  2723400.00 |          1 |
+| Laptop     | CANADA  |  8253900.00 |          1 |
+| TV         | CANADA  |  7456260.00 |          1 |
+| Ladder     | CANADA  |  1061280.00 |          2 |
+| Ipad       | CANADA  |  6563900.00 |          2 |
+| Smartphone | CANADA  |  4184550.00 |          2 |
+| TV         | USA     | 19873520.00 |          1 |
+| Ipad       | USA     | 16804200.00 |          1 |
+| Ladder     | USA     |  2878200.00 |          1 |
+| Laptop     | USA     | 21704400.00 |          1 |
+| Cooler     | USA     |  7350900.00 |          1 |
+| Modem      | USA     |  4873000.00 |          1 |
+| Table      | USA     |  4157690.00 |          1 |
+| Tablet     | USA     |  6840680.00 |          2 |
+| Charger    | USA     |  1336445.00 |          2 |
+| Smartphone | USA     | 10792800.00 |          2 |
+| Cooker     | USA     |  1220900.00 |          2 |
+| Chair      | USA     |   964120.00 |          2 |
++------------+---------+-------------+------------+
+18 rows in set (0.57 sec)
+~~~
+
+
+~~~sql
+-- PARTITION BY L.country
+WITH RankedSales AS (
+    SELECT
+        P.product_name as product,
+        L.country as country,
+        SUM(F.total_amount) AS total_sales,
+        RANK() OVER (PARTITION BY L.country ORDER BY SUM(F.total_amount) DESC) AS sales_rank
+    FROM sales_fact F
+    JOIN products_dim P on  F.product_id = P.product_id
+    JOIN locations_dim L on F.location_id = L.location_id
+    GROUP BY product, country
+)
+SELECT
+    product,
+    country,
+    total_sales,
+    sales_rank
+FROM RankedSales
+WHERE sales_rank <= 2
+ORDER BY country, sales_rank;
+
+mysql> WITH RankedSales AS (
+    ->     SELECT
+    ->         P.product_name as product,
+    ->         L.country as country,
+    ->         SUM(F.total_amount) AS total_sales,
+    ->         RANK() OVER (PARTITION BY L.country ORDER BY SUM(F.total_amount) DESC) AS sales_rank
+    ->     FROM sales_fact F
+    ->     JOIN products_dim P on  F.product_id = P.product_id
+    ->     JOIN locations_dim L on F.location_id = L.location_id
+    ->     GROUP BY product, country
+    -> )
+    -> SELECT
+    ->     product,
+    ->     country,
+    ->     total_sales,
+    ->     sales_rank
+    -> FROM RankedSales
+    -> WHERE sales_rank <= 2
+    -> ORDER BY country, sales_rank;
++---------+---------+-------------+------------+
+| product | country | total_sales | sales_rank |
++---------+---------+-------------+------------+
+| Laptop  | CANADA  |  8253900.00 |          1 |
+| TV      | CANADA  |  7456260.00 |          2 |
+| Laptop  | USA     | 21704400.00 |          1 |
+| TV      | USA     | 19873520.00 |          2 |
++---------+---------+-------------+------------+
+4 rows in set (0.56 sec)
+~~~
+
 
 # Summary 
 

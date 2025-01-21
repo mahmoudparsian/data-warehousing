@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS products (
     product_id INT AUTO_INCREMENT PRIMARY KEY,
     product_name VARCHAR(50),
     category VARCHAR(50),
-    price DECIMAL(10, 2)
+    price INT
 );
 
 CREATE TABLE IF NOT EXISTS customers (
@@ -60,14 +60,14 @@ CREATE TABLE IF NOT EXISTS locations (
 
 -- Insert sample data into transactional tables
 INSERT INTO sales_transactions (product_id, customer_id, location_id, sale_date, quantity, total_amount) VALUES
-(1, 1, 1, '2025-01-01', 2, 1999.98),
-(2, 2, 2, '2025-01-02', 1, 499.99),
-(3, 3, 3, '2025-01-03', 3, 899.97);
+(1, 1, 1, '2025-01-01', 2, 1999),
+(2, 2, 2, '2025-01-02', 1, 499),
+(3, 3, 3, '2025-01-03', 3, 899);
 
 INSERT INTO products (product_name, category, price) VALUES
-('Laptop', 'Electronics', 999.99),
-('Smartphone', 'Electronics', 499.99),
-('Tablet', 'Electronics', 299.99);
+('Laptop', 'Electronics', 999),
+('Smartphone', 'Electronics', 499),
+('Tablet', 'Electronics', 299);
 
 INSERT INTO customers (customer_name, age, gender) VALUES
 ('Alice', 30, 'Female'),
@@ -106,12 +106,16 @@ def read_json(json_config_file):
 # Source and Target Database connection details
 #
 
+#-------------------------------------------------
 # Command Line Parameter 1: "db_config_source.json"
+#-------------------------------------------------
 # This is for a Transactional Database
 # db_config_source_file = "db_config_source.json"
 db_config_source_file = sys.argv[1]
 
+#-------------------------------------------------
 # Command Line Parameter 2: "db_config_target.json"
+#-------------------------------------------------
 # This is for a "Star Schema" Database
 # db_config_target_file = "db_config_target.json"
 db_config_target_file = sys.argv[2]
@@ -158,7 +162,9 @@ source_conn.close()
 # 2. Transform the data to fit the star schema
 #------------------------------------------
 
+#---------------------------------
 # Create the dates dimension table
+#---------------------------------
 dates_df = sales_df[['sale_date']].drop_duplicates().reset_index(drop=True)
 dates_df['date_id'] = dates_df.index + 1
 dates_df['date'] = pd.to_datetime(dates_df['sale_date'])
@@ -167,7 +173,9 @@ dates_df['month'] = dates_df['date'].dt.month
 dates_df['year'] = dates_df['date'].dt.year
 dates_df['quarter'] = dates_df['date'].dt.quarter
 
+#-----------------------
 # Create the fact table
+#-----------------------
 fact_sales_df = sales_df.merge(dates_df[['sale_date', 'date_id']], on='sale_date')
 fact_sales_df = fact_sales_df[['sale_id', 'product_id', 'customer_id', 'location_id', 'date_id', 'quantity', 'total_amount']]
 

@@ -172,13 +172,18 @@ test_dates(the_faker)
 # Command Line Parameters:
 #-------------------------
 
+#--------------------------------------------------
 # Command Line Parameter 1: "db_config_source.json"
+#--------------------------------------------------
+
 # This is for a Transactional Database
 # db_config_source_file = "db_config_source.json"
 db_config_source_file = sys.argv[1]
 source_db_config = read_json(db_config_source_file)
 
-# Command Line Parameter 2: 
+#---------------------------------------------------
+# Command Line Parameter 2: number_of_rows
+#---------------------------------------------------
 number_of_rows = int(sys.argv[2])
 print("number_of_rows=", number_of_rows)
 
