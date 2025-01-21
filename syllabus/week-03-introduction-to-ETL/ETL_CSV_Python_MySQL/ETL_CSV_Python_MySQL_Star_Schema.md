@@ -7,8 +7,11 @@
 	2. Provide sample input data as well.
 
 	3. Let's walk through a complete example 
-	   of ETL (Extract, Transform, Load) to 
-	   create a star schema using Python and MySQL. 
+	   of ETL: 
+	           1. Extract, 
+	           2. Transform, 
+	           3. Load 
+	   to create a star schema using Python and MySQL. 
 	
 	4. We'll start with sample input data and 
 	   then proceed with the ETL process.
@@ -18,11 +21,17 @@
 1. **Extract**: Load the data from CSV files using `pandas`.
 
 2. **Transform**:
-   - Convert the `date` column to datetime format.
-   - Create a new `year` column from `date` 
-   - Create a new `quarter` column from `date` 
-   - Create dimension tables (`date_dim`, `product_dim`, `store_dim`).
-   - Create a fact table (`fact_sales`) with a calculated `total_sales` column.
+
+   1. Convert the `date` column to datetime format.
+   2. Create a new `year` column from `date` 
+   3. Create a new `quarter` column from `date` 
+   4. Create dimension tables:
+       `date_dim`, 
+       `product_dim`, 
+       `store_dim`
+       
+   5. Create a fact table (`fact_sales`) with a 
+      calculated `total_sales` column.
    
 3. **Load**:
    - Establish a connection to MySQL.
