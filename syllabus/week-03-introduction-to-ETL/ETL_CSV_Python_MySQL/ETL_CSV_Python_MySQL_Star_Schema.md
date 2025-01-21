@@ -1,277 +1,402 @@
 # ETL to Create Star Schema using Python & MySQL
 
-	1. Using Python and MySQL, provide 
-	   a complete  example of  ETL  to 
-	   create a star schema. 
-	
-	2. Provide sample input data as well.
+## 1. Introduction
 
-	3. Let's walk through a complete example 
-	   of ETL: 
-	           1. Extract, 
-	           2. Transform, 
-	           3. Load 
-	   to create a star schema using Python and MySQL. 
-	
-	4. We'll start with sample input data and 
-	   then proceed with the ETL process.
+	Using python and mysql, provide a complete 
+	example of ETL to create a star schema by 
+	reading CSV files for sales transaction, 
+	products, customers and locations, then 
+	create a star schema with an added date 
+	dimension. Also provide sample CSV data 
+	for sales, products, customers, and locations
 
-## High-Level Steps Explanation:
+----
 
-1. **Extract**: Load the data from CSV files using `pandas`.
+	Here is a complete example of an ETL process 
+	using Python and MySQL to create a star schema 
+	from CSV files. The process includes reading 
+	CSV files for sales transactions, products, 
+	customers, and locations, and then creating a 
+	star schema with an added date dimension.
 
-2. **Transform**:
+## Sample CSV Data
 
-   1. Convert the `date` column to datetime format.
-   2. Create a new `year` column from `date` 
-   3. Create a new `quarter` column from `date` 
-   4. Create dimension tables:
-       `date_dim`, 
-       `product_dim`, 
-       `store_dim`
-       
-   5. Create a fact table (`fact_sales`) with a 
-      calculated `total_sales` column.
-   
-3. **Load**:
-   - Establish a connection to MySQL.
-   - Create the necessary tables if they do not exist.
-   - Insert data into the dimension and fact tables.
-
-
-## Sample Input Data
-
-We'll use three CSV files representing sales, products, and stores:
-
-
-### `sales.csv`
-
-~~~
-date,product_id,store_id,quantity,price
-2024-12-01,1,1,10,20.00
-2024-12-01,2,1,5,30.00
-2024-12-02,1,2,7,20.00
-2024-12-02,3,2,3,40.00
-~~~
-
-### `products.csv`
-
-```
-product_id,product_name,category
-1,Widget A,Widgets
-2,Widget B,Widgets
-3,Gadget A,Gadgets
+#### sales_transactions.csv
+```csv
+transaction_id,transaction_date,product_id,customer_id,location_id,quantity,total_amount
+1,2025-01-01,101,201,301,2,200.00
+2,2025-01-02,102,202,302,1,150.00
+3,2025-01-03,103,203,303,5,500.00
 ```
 
-### `stores.csv`
-
+#### products.csv
+```csv
+product_id,product_name,category,price
+101,ProductA,Category1,100.00
+102,ProductB,Category2,150.00
+103,ProductC,Category1,100.00
 ```
-store_id,store_name,location
-1,Store One,New York
-2,Store Two,Los Angeles
+
+#### customers.csv
+```csv
+customer_id,customer_name,email,phone
+201,John Doe,john@example.com,123-456-7890
+202,Jane Smith,jane@example.com,234-567-8901
+203,Bob Johnson,bob@example.com,345-678-9012
+```
+
+#### locations.csv
+```csv
+location_id,city,state,country
+301,New York,NY,USA
+302,Los Angeles,CA,USA
+303,Chicago,IL,USA
 ```
 
 ## Step-by-Step ETL Process
 
-### 1. Extract Data
-
-In this step, we read data from multiple sources:
-
-#### 1.1  Extract Data from CSV files ...
+#### Step 1: Reading CSV Files
+We will use the `pandas` library to read the CSV files.
 
 ```python
 import pandas as pd
 
-# Method-1: Load data from CSV files
-sales_data = pd.read_csv('sales.csv')
-product_data = pd.read_csv('products.csv')
-store_data = pd.read_csv('stores.csv')
+# Read CSV files
+transactions_df = pd.read_csv('sales_transactions.csv')
+products_df = pd.read_csv('products.csv')
+customers_df = pd.read_csv('customers.csv')
+locations_df = pd.read_csv('locations.csv')
 ```
 
-#### 1.2  Extract Data from database tables ...
-```python
-# Method-2: EXERCISE: Load data from MySQL Tables
-sales_data = ...
-product_data = ...
-store_data = ...
-```
-
-### 2. Transform Data
-
-In this step, we perform transformations:
-
-* create FACT and DIMENSION tables
-* clean up data
-* data conversions
-* data type conversions
-* create new columns
-* create derived columns
-* ...
-
-#### 2.1 Understand data type conversion
+#### Step 2: Creating a Date Dimension
+We will create a date dimension from the transaction date column.
 
 ```python
->>> import pandas as pd
->>> d = '2024-12-18'
->>> d2 = pd.to_datetime(d)
->>> d
-'2024-12-18'
->>> d2
-Timestamp('2024-12-18 00:00:00')
->>> type(d)
-<class 'str'>
->>> type(d2)
-<class 'pandas._libs.tslibs.timestamps.Timestamp'>
+import pandas as pd
+
+# Create date dimension
+min_date = pd.to_datetime(transactions_df['transaction_date']).min()
+max_date = pd.to_datetime(transactions_df['transaction_date']).max()
+date_range = pd.date_range(min_date, max_date, freq='D')
+
+date_dimension = pd.DataFrame({
+    'date_id': date_range,
+    'year': date_range.year,
+    'month': date_range.month,
+    'day': date_range.day,
+    'weekday': date_range.weekday,
+    'quarter': date_range.quarter
+})
 ```
 
-#### 2.2 Transformations ...
-
-```python
-# Convert date column to pandas datetime object
-sales_data['date'] = pd.to_datetime(sales_data['date'])
-
-# Create a date dimension
-date_dim = sales_data['date'].dt.date.unique()
-date_dim = pd.DataFrame(date_dim, columns=['date'])
-
-# Create 'year' column from a 'date' column
-date_dim['year'] = date_dim['date'].dt.year
-
-# Each year has 4 quarters: 1, 2, 3, 4
-# Create 'quarter' column from a 'date' column
-date_dim['quarter'] = date_dim['date'].dt.quarter
-
-
-# Create a product dimension
-product_dim = product_data[['product_id', 'product_name', 'category']]
-
-# Create a store dimension
-store_dim = store_data[['store_id', 'store_name', 'location']]
-
-# Create a fact table
-fact_sales = sales_data[['date', 'product_id', 'store_id', 'quantity', 'price']]
-fact_sales['date'] = fact_sales['date'].dt.date
-fact_sales['total_sales'] = fact_sales['quantity'] * fact_sales['price']
-```
-
-### 3. Load Data into MySQL
-
-#### 3.1 Create database Tables
+#### Step 3: Connecting to MySQL
+We will use the `mysql-connector-python` library to connect to the MySQL database.
 
 ```python
 import mysql.connector
 
-# Establish MySQL connection
+# Connect to MySQL
 conn = mysql.connector.connect(
-    host="localhost",
-    user="your_username",
-    password="your_password",
-    database="your_database"
+    host='localhost',
+    user='your_username',
+    password='your_password',
+    database='your_database'
 )
 cursor = conn.cursor()
-
-# Create tables
-# quarter: 1, 2, 3, 4
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS date_dim (
-    date DATE PRIMARY KEY,
-    year INT,
-    quarter INT
-)
-""")
-
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS product_dim (
-    product_id INT PRIMARY KEY,
-    product_name VARCHAR(255),
-    category VARCHAR(255)
-)
-""")
-
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS store_dim (
-    store_id INT PRIMARY KEY,
-    store_name VARCHAR(255),
-    location VARCHAR(255)
-)
-""")
-
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS fact_sales (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    date DATE,
-    product_id INT,
-    store_id INT,
-    quantity INT,
-    price DECIMAL(10, 2),
-    total_sales DECIMAL(10, 2),
-    FOREIGN KEY (date) REFERENCES date_dim(date),
-    FOREIGN KEY (product_id) REFERENCES product_dim(product_id),
-    FOREIGN KEY (store_id) REFERENCES store_dim(store_id)
-)
-""")
 ```
 
-#### 3.2 Load Data into MySQL
-
-	---- NOTE: ---------------------
-	In this example, we load data row-by-row, 
-	which might not be  an  ideal  case from 
-	performance point of view. You should use 
-	BULK-LOADERS to load rows from text (or 
-	Parquet) files
-
-#### Insert data into dimension tables
-
-```python 
-date_insert = """
-INSERT IGNORE INTO date_dim (date, year, quarter) 
-VALUES (%s, %s, %s)
-"""
-for _, row in date_dim.iterrows():
-    cursor.execute(date_insert, (row['date'], row['year'], row['quarter']))
-
-
-product_insert = """
-INSERT IGNORE INTO product_dim (product_id, product_name, category) 
-VALUES (%s, %s, %s)
-"""
-for _, row in product_dim.iterrows():
-    cursor.execute(product_insert,
-     (row['product_id'], row['product_name'], row['category']))
-
-
-store_insert = """
-INSERT IGNORE INTO store_dim (store_id, store_name, location)
- VALUES (%s, %s, %s)
-"""
-for _, row in store_dim.iterrows():
-    cursor.execute(store_insert,
-     (row['store_id'], row['store_name'], row['location']))
-```
-
-####  Insert data into fact table
+#### Step 4: Creating Tables in MySQL
+We will create tables for the star schema in MySQL.
 
 ```python
-fact_insert = """
-    INSERT INTO fact_sales 
-    (date, product_id, store_id, quantity, price, total_sales)
-    VALUES (%s, %s, %s, %s, %s, %s)
-"""
-for _, row in fact_sales.iterrows():
-    cursor.execute(fact_insert, 
-    (row['date'], row['product_id'], row['store_id'], 
-     row['quantity'], row['price'], row['total_sales']))
+# Create tables
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS DateDimension (
+    date_id DATE PRIMARY KEY,
+    year INT,
+    month INT,
+    day INT,
+    weekday INT,
+    quarter INT
+)''')
 
-# Commit and close connection
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS Products (
+    product_id INT PRIMARY KEY,
+    product_name VARCHAR(255),
+    category VARCHAR(255),
+    price DECIMAL(10, 2)
+)''')
+
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS Customers (
+    customer_id INT PRIMARY KEY,
+    customer_name VARCHAR(255),
+    email VARCHAR(255),
+    phone VARCHAR(50)
+)''')
+
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS Locations (
+    location_id INT PRIMARY KEY,
+    city VARCHAR(255),
+    state VARCHAR(255),
+    country VARCHAR(255)
+)''')
+
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS SalesTransactions (
+    transaction_id INT PRIMARY KEY,
+    transaction_date DATE,
+    product_id INT,
+    customer_id INT,
+    location_id INT,
+    quantity INT,
+    total_amount DECIMAL(10, 2),
+    FOREIGN KEY (transaction_date) REFERENCES DateDimension(date_id),
+    FOREIGN KEY (product_id) REFERENCES Products(product_id),
+    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id),
+    FOREIGN KEY (location_id) REFERENCES Locations(location_id)
+)''')
+```
+
+#### Step 5: Loading Data into MySQL
+We will load the data from the DataFrames into the MySQL tables.
+
+```python
+# Load date dimension
+for _, row in date_dimension.iterrows():
+    cursor.execute('''
+    INSERT INTO DateDimension (date_id, year, month, day, weekday, quarter)
+    VALUES (%s, %s, %s, %s, %s, %s)
+    ''', tuple(row))
+
+# Load products
+for _, row in products_df.iterrows():
+    cursor.execute('''
+    INSERT INTO Products (product_id, product_name, category, price)
+    VALUES (%s, %s, %s, %s)
+    ''', tuple(row))
+
+# Load customers
+for _, row in customers_df.iterrows():
+    cursor.execute('''
+    INSERT INTO Customers (customer_id, customer_name, email, phone)
+    VALUES (%s, %s, %s, %s)
+    ''', tuple(row))
+
+# Load locations
+for _, row in locations_df.iterrows():
+    cursor.execute('''
+    INSERT INTO Locations (location_id, city, state, country)
+    VALUES (%s, %s, %s, %s)
+    ''', tuple(row))
+
+# Load transactions
+for _, row in transactions_df.iterrows():
+    cursor.execute('''
+    INSERT INTO SalesTransactions (transaction_id, transaction_date, product_id, customer_id, location_id, quantity, total_amount)
+    VALUES (%s, %s, %s, %s, %s, %s, %s)
+    ''', tuple(row))
+```
+
+#### Step 6: Commit and Close Connection
+Finally, we commit the changes and close the connection.
+
+```python
+# Commit and close
 conn.commit()
 cursor.close()
 conn.close()
 ```
 
+-------
 
-### Notes:
+## Complete Code Example
+Here is the complete code example for the ETL process:
 
-* This example demonstrates a basic ETL process to create a star schema in a MySQL database using Python. 
+```python
+import pandas as pd
+import mysql.connector
 
-* Adjust the column names and data types as needed for your specific use case.
+#-----------------------
+# Step 1: Read CSV files
+#-----------------------
+
+transactions_df = pd.read_csv('sales_transactions.csv')
+products_df = pd.read_csv('products.csv')
+customers_df = pd.read_csv('customers.csv')
+locations_df = pd.read_csv('locations.csv')
+
+#------------------------------
+# Step 2: Create date dimension
+#------------------------------
+min_date = pd.to_datetime(transactions_df['transaction_date']).min()
+max_date = pd.to_datetime(transactions_df['transaction_date']).max()
+date_range = pd.date_range(min_date, max_date, freq='D')
+
+date_dimension = pd.DataFrame({
+    'date_id': date_range,
+    'year': date_range.year,
+    'month': date_range.month,
+    'day': date_range.day,
+    'weekday': date_range.weekday,
+    'quarter': date_range.quarter
+})
+
+#--------------------------
+# Step 3: Connect to MySQL
+#--------------------------
+
+conn = mysql.connector.connect(
+    host='localhost',
+    user='your_username',
+    password='your_password',
+    database='your_database'
+)
+cursor = conn.cursor()
+
+#-----------------------
+# Step 4: Create tables
+#-----------------------
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS DateDimension (
+    date_id DATE PRIMARY KEY,
+    year INT,
+    month INT,
+    day INT,
+    weekday INT,
+    quarter INT
+)''')
+
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS Products (
+    product_id INT PRIMARY KEY,
+    product_name VARCHAR(255),
+    category VARCHAR(255),
+    price DECIMAL(10, 2)
+)''')
+
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS Customers (
+    customer_id INT PRIMARY KEY,
+    customer_name VARCHAR(255),
+    email VARCHAR(255),
+    phone VARCHAR(50)
+)''')
+
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS Locations (
+    location_id INT PRIMARY KEY,
+    city VARCHAR(255),
+    state VARCHAR(255),
+    country VARCHAR(255)
+)''')
+
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS SalesTransactions (
+    transaction_id INT PRIMARY KEY,
+    transaction_date DATE,
+    product_id INT,
+    customer_id INT,
+    location_id INT,
+    quantity INT,
+    total_amount DECIMAL(10, 2),
+    FOREIGN KEY (transaction_date) REFERENCES DateDimension(date_id),
+    FOREIGN KEY (product_id) REFERENCES Products(product_id),
+    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id),
+    FOREIGN KEY (location_id) REFERENCES Locations(location_id)
+)''')
+
+#-----------------------------
+# Step 5: Load data into MySQL
+#-----------------------------
+for _, row in date_dimension.iterrows():
+    cursor.execute('''
+    INSERT INTO DateDimension (date_id, year, month, day, weekday, quarter)
+    VALUES (%s, %s, %s, %s, %s, %s)
+    ''', tuple(row))
+
+for _, row in products_df.iterrows():
+    cursor.execute('''
+    INSERT INTO Products (product_id, product_name, category, price)
+    VALUES (%s, %s, %s, %s)
+    ''', tuple(row))
+
+for _, row in customers_df.iterrows():
+    cursor.execute('''
+    INSERT INTO Customers (customer_id, customer_name, email, phone)
+    VALUES (%s, %s, %s, %s)
+    ''', tuple(row))
+
+for _, row in locations_df.iterrows():
+    cursor.execute('''
+    INSERT INTO Locations (location_id, city, state, country)
+    VALUES (%s, %s, %s, %s)
+    ''', tuple(row))
+
+for _, row in transactions_df.iterrows():
+    cursor.execute('''
+    INSERT INTO SalesTransactions (transaction_id, transaction_date, product_id, customer_id, location_id, quantity, total_amount)
+    VALUES (%s, %s, %s, %s, %s, %s, %s)
+    ''', tuple(row))
+
+#--------------------------
+# Step 6: Commit and close
+#--------------------------
+conn.commit()
+cursor.close()
+conn.close()
+```
+## Parameterization
+
+### Read Database Configurtion from  files:
+
+~~~python
+#
+# Source and Target Database connection details
+#
+
+#-----------------------------------------
+# Database config is given as a JSON file
+# read a JSON file and return a dictionary
+def read_json(json_config_file):
+    with open(json_config_file) as f:
+        # Load the JSON data into a Python dictionary
+        config_as_dict = json.load(f)
+        return config_as_dict
+#end-def
+#-----------------------------------------
+
+# Command Line Parameter 1: "db_config_source.json"
+# This is for a Transactional Database
+# db_config_source_file = "db_config_source.json"
+db_config_source_file = sys.argv[1]
+
+# Command Line Parameter 2: "db_config_target.json"
+# This is for a "Star Schema" Database
+# db_config_target_file = "db_config_target.json"
+db_config_target_file = sys.argv[2]
+
+source_db_config = read_json(db_config_source_file)
+print("source_db_config=", source_db_config)
+
+target_db_config = read_json(db_config_target_file)
+print("target_db_config=", target_db_config)
+
+# Create a connection to the Source MySQL database
+source_conn = mysql.connector.connect(**source_db_config)
+source_cursor = source_conn.cursor()
+
+# Create a connection to the Target MySQL database
+target_conn = mysql.connector.connect(**target_db_config)
+target_cursor = target_conn.cursor()
+~~~
+
+## Summary
+
+	This example demonstrated how to implement 
+	an ETL process using Python and MySQL to 
+	create a star schema from CSV files. Adjust 
+	the CSV file paths and database connection 
+	details according to your environment.
