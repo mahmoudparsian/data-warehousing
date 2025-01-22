@@ -1,6 +1,6 @@
 # Data Warehousing Project 
 
-* Last updated date: January 14, 2025 
+* Last updated date: January 21, 2025 
 
 		NOTE: This document is a live document 
 		and will be updated on a daily basis.
