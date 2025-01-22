@@ -81,7 +81,116 @@ Components of your project should cover:
 	* Will be done 2 weeks before final exam
 
 
-## 7. Project Document Structure
+## 7. Data Set Descripton
+
+To describe a dataset, you typically need to: 
+
+	1. identify the source and context of the data, 
+
+	2. list the variables and their data types, 
+
+	3. summarize central tendencies (mean, median, mode), 
+
+	4. analyze the distribution and spread (standard 
+	   deviation, range), 
+
+	5. identify any outliers, and visualize the data 
+	   using appropriate graphs to reveal patterns 
+	   and relationships; 
+	   
+	6. this often involves initial data cleaning 
+	   and preparation 
+
+
+### 7.1 Key steps in describing a dataset:
+
+**Define the objective:**
+
+        Clearly state the purpose of the data collection 
+        and what insights you aim to extract. 
+
+**Data collection:**
+
+        Explain how the data was gathered, including 
+        the sampling method, timeframe, and any 
+        relevant demographics. 
+
+**Data cleaning:**
+
+        Identify and address missing values, inconsistencies, 
+        outliers, and potential errors in the data. 
+
+**Variable description:**
+
+        List all variables: Enumerate each variable 
+        included in the dataset, specifying whether 
+        they are categorical or numerical. 
+
+**Data types:**
+
+        Define the data type for each variable (e.g., 
+        integer, string, date). 
+
+**Variable labels:**
+
+        Clearly explain what each variable represents. 
+
+**Descriptive statistics:**
+
+        Central tendency: Calculate measures like mean, 
+        median, and mode for each relevant variable to 
+        understand the "center" of the data distribution. 
+
+        Spread/Variability: Calculate measures like standard 
+        deviation, range, and interquartile range to assess 
+        how spread out the data is. 
+
+**Data visualization:**
+
+        Histograms: Visualize the distribution of 
+        numerical variables. 
+
+        Boxplots: Compare the distribution of a 
+        variable across different groups. 
+
+        Scatter plots: Examine relationships between 
+        two numerical variables. 
+
+        Bar charts: Visualize the frequencies of 
+        categorical variables. 
+
+**Outlier analysis:**
+
+        Identify and discuss any extreme data points that 
+        deviate significantly from the overall pattern. 
+
+**Correlations:**
+
+        Analyze relationships between variables using 
+        correlation coefficients to understand how they 
+        might be associated. 
+
+**Interpretation:**
+
+        Explain the key findings from your 
+        descriptive analysis, highlighting 
+        significant patterns, trends, and 
+        potential insights. 
+
+**Important considerations:**
+
+         Context matters: Always consider the context of the 
+         data when interpreting results. 
+
+         Data quality: Ensure the data is accurate, complete, 
+         and reliable before proceeding with analysis. 
+
+         Audience suitability: Tailor your description to the 
+         level of understanding of your audience. 
+
+
+
+## 8. Project Document Structure
 
 1. Introduction
 	* Describe your project in 3 bullet items

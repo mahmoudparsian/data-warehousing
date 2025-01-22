@@ -55,8 +55,8 @@ def create_db_connection():
 # pandas ExcelFile() and pass your filename inside.
 
 
-# excel_file_name = sys.argv[1]
-excel_file_name = "Electric_Vehicle_Population_Data.xlsx"
+excel_file_name = sys.argv[1]
+# excel_file_name = "Electric_Vehicle_Population_Data.xlsx"
 print("excel_file=", excel_file_name)
 
 # create Excel file as an excel_file object
