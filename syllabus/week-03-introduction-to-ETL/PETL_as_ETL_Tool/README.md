@@ -14,3 +14,11 @@ of data).
 We can install PETL by running the following command:
 
 	pip install petl
+	
+## References
+
+[1. PETL for ETL](https://www.analyticsvidhya.com/blog/2021/05/pandas-vs-petl-for-etl/)
+
+[2. PETL: A Powerful Python Library for ETL](https://python.plainenglish.io/petl-a-powerful-python-library-for-etl-goodbye-pandas-f11eeb518e6d)
+
+

@@ -1,6 +1,6 @@
 # Data Warehousing Project 
 
-* Last updated date: January 22, 2025, 9:28 AM PST 
+* Last updated date: January 22, 2025, 11:50 PM PST 
 
 		NOTE: This document is a live document 
 		and will be updated on a daily basis.
@@ -237,8 +237,21 @@ To describe a dataset, you typically need to:
          level of understanding of your audience. 
 
 
+## 8. [Exploratory Data Analysis on Iris Dataset](https://www.geeksforgeeks.org/exploratory-data-analysis-on-iris-dataset/)
 
-## 8. Project Document Structure
+The Iris dataset is a well-known dataset in machine learning, 
+containing measurements of sepal and petal length and width for 
+three different species of Iris flowers (Setosa, Versicolor, and 
+Virginica), making it a classic example for classification tasks 
+due to its simplicity and clear separation between the species; 
+it's often used to test and compare the performance of different 
+classification algorithms as beginners learn basic machine learning 
+concepts like data preprocessing and model evaluation. 
+
+[Iris Data Set explanation](https://www.google.com/url?sa=i&url=https%3A%2F%2Feminebozkus.medium.com%2Fexploring-the-iris-flower-dataset-4e000bcc266c&psig=AOvVaw1Go-kA_gCR6iyZmW-B5vWF&ust=1737704841918000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCNDpw5uti4sDFQAAAAAdAAAAABAE)
+
+
+## 9. Project Document Structure
 
 1. Introduction
 	* Describe your project in 3 bullet items
