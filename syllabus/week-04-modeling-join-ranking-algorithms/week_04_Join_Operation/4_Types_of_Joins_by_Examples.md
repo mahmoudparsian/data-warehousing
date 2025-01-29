@@ -1,26 +1,33 @@
 # SQL JOIN
 
-	As the name shows, JOIN means to combine 
-	something. In case of SQL, JOIN means "to 
-	combine two or more tables".
-
-	In SQL, JOIN clause is used to combine 
-	the records from two or more tables in 
-	a database.
+	1. As the name shows, JOIN means 
+	   to combine something. 
 	
-	in SQL, a JOIN clause is used to combine 
-	rows from two or more tables, based on a 
-	related column between them.
+	2. In case of SQL, JOIN means "to 
+	   combine two or more tables".
+
+	3. In SQL, JOIN clause is used to 
+	   combine the records from two or 
+	   more tables in a database.
+	
+	4. In SQL, a JOIN clause is used 
+	   to combine rows from two or more 
+	   tables, based on a related column 
+	   between them.
 
 ## Types of SQL JOIN
 
-* INNER JOIN
-* LEFT JOIN
-* RIGHT JOIN
-* FULL JOIN
+### 1. INNER JOIN
+### 2. LEFT JOIN
+### 3. RIGHT JOIN
+### 4. FULL JOIN
+
+------
 
 
 ## Sample Tables
+
+**EMPLOYEE table:**
 
 ~~~sql
 create table EMPLOYEE (
@@ -53,7 +60,11 @@ mysql> select * from EMPLOYEE;
 |      6 | Marry     | Canada     | 600000 |   48 |
 +--------+-----------+------------+--------+------+
 6 rows in set (0.00 sec)
+~~~
 
+**PROJECT Table:**
+
+~~~sql
 create table PROJECT (
    PROJECT_NO int,
    EMP_ID int,
@@ -91,10 +102,15 @@ mysql> select * from PROJECT;
 ## 1. INNER JOIN
 
 	In SQL, INNER JOIN selects records that 
-	have matching values in both tables as 
-	long as the condition is satisfied. It 
-	returns the combination of all rows from 
-	both the tables where the condition satisfies.
+	have matching values in **both tables**
+	as long as the condition is satisfied. 
+	
+	It returns the combination of all rows 
+	from both the tables where the condition 
+	satisfies.
+	
+![](./join_INNER_JOIN.png)
+
 
 * Syntax
 
@@ -143,22 +159,26 @@ mysql>    SELECT EMPLOYEE.EMP_ID, EMPLOYEE.EMP_NAME, PROJECT.DEPARTMENT
 		2. It returns all the common rows from the 
 		   tables when the join condition is met.
 
-		3. INNER JOIN simplifies the process of handling 
-		   complex queries, making database management 
-		   more efficient.
+		3. INNER JOIN simplifies the process of 
+		   handling complex queries, making database 
+		   management more efficient.
 
-		4. INNER JOIN is crucial for tasks like managing 
-		   customer orders, product inventories, or any 
-		   relational dataset.
+		4. INNER JOIN is crucial for tasks like 
+		   managing  customer  orders,  product 
+		   inventories, or any relational dataset.
 
 ----- 
 
 ## 2. LEFT JOIN
 
-	The SQL left join returns all the values 
-	from left table and the matching values 
-	from the right table. If there is no matching 
-	join value, it will return NULL.
+	The SQL left join returns all the 
+	values from **left table** and the 
+	matching values from the right table. 
+	If there is no matching join value, 
+	it will return NULL.
+
+![](./join_LEFT_JOIN.png)
+
 
 * Syntax
 
@@ -210,6 +230,10 @@ mysql> SELECT EMPLOYEE.EMP_ID, EMPLOYEE.EMP_NAME, PROJECT.DEPARTMENT
 		If there is no matching in both tables, it 
 		will return NULL.
 
+![](./join_RIGHT_JOIN.png)
+
+
+
 * Syntax
 
 ~~~sql
@@ -255,11 +279,15 @@ mysql> SELECT  EMPLOYEE.EMP_ID, EMPLOYEE.EMP_NAME,
 
 ## 4. FULL JOIN
 
-		In SQL, FULL JOIN is the result of a combination 
-		of both left and right outer join. Join tables 
-		have all the records from both tables. It puts 
-		NULL on the place of matches not found.
-
+		In SQL, FULL JOIN is the result of 
+		a combination of both left and right 
+		outer join. 
+		
+		Join tables have all the records from 
+		both tables. It puts NULL on the place 
+		of matches not found.
+		
+![](./join_FULL_JOIN.png)
 
 * Syntax
 
