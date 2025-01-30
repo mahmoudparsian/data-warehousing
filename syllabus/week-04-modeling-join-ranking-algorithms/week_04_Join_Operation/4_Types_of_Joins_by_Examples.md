@@ -232,7 +232,7 @@ mysql> SELECT EMPLOYEE.EMP_ID, EMPLOYEE.EMP_NAME, PROJECT.DEPARTMENT
 
 ![](./join_RIGHT_JOIN.png)
 
-
+Result row: corrected: 4 -> R4 -> R2
 
 * Syntax
 

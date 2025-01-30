@@ -27,7 +27,6 @@ print("len(filtered_table)=", len(filtered_table))
 
 # STEP-3: Calculate the total sales amount for each product
 aggregated_table = etl.addfield(filtered_table, 'total_sales', lambda row: row.price * row.quantity) 
-#aggregated_table = etl.aggregate(table3, key='product', aggregation={'total_sales': sum}, value='price')
 print("aggregated_table=\n", aggregated_table)
 
 
