@@ -232,7 +232,22 @@ mysql> SELECT EMPLOYEE.EMP_ID, EMPLOYEE.EMP_NAME, PROJECT.DEPARTMENT
 
 ![](./join_RIGHT_JOIN.png)
 
-Result row: corrected: 4 -> R4 -> R2
+**Errata: Result row: corrected:**
+
+~~~
+Image Correction: titled as "result after RIGHT JOIN"
+
+Replace result of 2nd row: 
+       4 -> R4 -> R2
+with : 4 -> L4 -> R2
+
+The correct output will be ("result after RIGHT JOIN"):
+
+1  L1    R1
+4  L4    R2
+5  NULL  R3
+6  NULL  R4
+~~~
 
 * Syntax
 
