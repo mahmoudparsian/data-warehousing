@@ -36,6 +36,7 @@
 
 # 2. Normal Forms in DBMS
 
+
 	Normalization is the process of minimizing 
 	redundancy from a relation or set of relations. 
 	Redundancy in relation  may  cause  insertion, 
@@ -53,6 +54,9 @@
 	anomalies.   There  are  several levels  of 
 	normalization, each  with  its  own set  of 
 	guidelines, known as normal forms.
+	
+![](./image_normalizationLevels.png)
+
 
 	Important Points Regarding Normal Forms in DBMS:
 	
@@ -89,10 +93,129 @@
 		non-key attribute is dependent only on the 
 		candidate key.
 
-# 1NF
+------
+
+# Dependency & Partial Dependency
+
+### What is a Dependency?
+
+In database normalization, a **dependency** refers to 
+a relationship between attributes (columns) in a table. 
+Specifically, it describes how one attribute determines 
+the value of another attribute. The most common type of 
+dependency is a **functional dependency**, where the 
+value of one attribute (or set of attributes) uniquely 
+determines the value of another attribute.
+
+#### Notation:
+- If attribute **X** determines attribute **Y**, 
+we write it as **X → Y**.
+
+---
+
+### What is a Partial Dependency?
+
+A **partial dependency** occurs when a non-prime attribute (an attribute that is not part of the primary key) depends on only a part of a composite primary key, rather than the entire primary key. Partial dependencies are problematic in database design because they violate the rules of **Second Normal Form (2NF)**.
+
+#### Example of Partial Dependency:
+- Suppose a table has a composite primary key **(A, B)**.
+- If a non-prime attribute **C** depends only on **A** (i.e., **A → C**), this is a partial dependency.
+
+---
+
+### Examples of Dependencies:
+
+#### Example 1: Functional Dependency
+**Table: Employees**
+
+| Employee_ID | Employee_Name | Department_ID |
+|-------------|---------------|---------------|
+| 101         | Alice         | D01           |
+| 102         | Bob           | D02           |
+
+- **Dependency:** `Employee_ID → Employee_Name`
+  - The `Employee_ID` uniquely determines the `Employee_Name`.
+
+#### Example 2: Functional Dependency
+**Table: Orders**
+
+| Order_ID | Product_ID | Quantity |
+|----------|------------|----------|
+| 1001     | P101       | 2        |
+| 1002     | P102       | 1        |
+
+- **Dependency:** `Order_ID, Product_ID → Quantity`
+  - The combination of `Order_ID` and `Product_ID` uniquely determines the `Quantity`.
+
+#### Example 3: Functional Dependency
+**Table: Students**
+
+| Student_ID | Course_ID | Grade |
+|------------|-----------|-------|
+| 1          | C101      | A     |
+| 2          | C102      | B     |
+
+- **Dependency:** `Student_ID, Course_ID → Grade`
+  - The combination of `Student_ID` and `Course_ID` uniquely determines the `Grade`.
+
+---
+
+### Examples of Partial Dependencies:
+
+#### Example 1: Partial Dependency
+**Table: Orders**
+
+| Order_ID | Product_ID | Product_Name | Quantity |
+|----------|------------|--------------|----------|
+| 1001     | P101       | Laptop       | 2        |
+| 1002     | P102       | Phone        | 1        |
+
+- **Composite Primary Key:** `(Order_ID, Product_ID)`
+- **Partial Dependency:** `Product_ID → Product_Name`
+  - The `Product_Name` depends only on `Product_ID`, which is part of the composite primary key.
+
+#### Example 2: Partial Dependency
+**Table: Enrollments**
+
+| Student_ID | Course_ID | Course_Name | Enrollment_Date |
+|------------|-----------|-------------|-----------------|
+| 1          | C101      | Math        | 2023-01-01      |
+| 2          | C102      | Science     | 2023-02-01      |
+
+- **Composite Primary Key:** `(Student_ID, Course_ID)`
+- **Partial Dependency:** `Course_ID → Course_Name`
+  - The `Course_Name` depends only on `Course_ID`, which is part of the composite primary key.
+
+#### Example 3: Partial Dependency
+**Table: Sales**
+
+| Salesperson_ID | Region_ID | Region_Name | Sales_Amount |
+|----------------|-----------|-------------|--------------|
+| 101            | R01       | North       | 5000         |
+| 102            | R02       | South       | 3000         |
+
+- **Composite Primary Key:** `(Salesperson_ID, Region_ID)`
+- **Partial Dependency:** `Region_ID → Region_Name`
+  - The `Region_Name` depends only on `Region_ID`, which is part of the composite primary key.
+
+---
+
+### Key Differences:
+- **Dependency:** A general relationship where one attribute determines another.
+- **Partial Dependency:** A specific type of dependency where a non-prime attribute depends on only part of a composite primary key.
+
+By resolving partial dependencies, you can achieve **Second Normal Form (2NF)** and improve the structure of your database.
+
+------
+
+# First Normal Form: 1NF
+
 ### What is First Normal Form (1NF)?
 
-First Normal Form (1NF) is the most basic level of database normalization. A table is in 1NF if it satisfies the following conditions:
+* First Normal Form (1NF) is the most basic level 
+  of database normalization. 
+* A table is in 1NF if it satisfies the following 
+  conditions:
 
 1. **Atomic Values**: Each column (attribute) contains only atomic (indivisible) values. This means no repeating groups or arrays are allowed in a single cell.
 2. **Unique Column Names**: Each column has a unique name, and the order of columns does not matter.
@@ -106,7 +229,9 @@ In simpler terms, 1NF ensures that the table is "flat" and does not contain any 
 ### Examples of Converting a Table into 1NF
 
 #### Example 1: Repeating Groups in a Single Column
+
 **Original Table (Not in 1NF):**
+
 | Student_ID | Name       | Courses                 |
 |------------|------------|-------------------------|
 | 1          | John Doe   | Math, Science, History  |
@@ -115,6 +240,7 @@ In simpler terms, 1NF ensures that the table is "flat" and does not contain any 
 **Problem**: The "Courses" column contains multiple values separated by commas, violating the atomicity rule.
 
 **Converted Table (1NF):**
+
 | Student_ID | Name       | Course   |
 |------------|------------|----------|
 | 1          | John Doe   | Math     |
@@ -128,28 +254,37 @@ In simpler terms, 1NF ensures that the table is "flat" and does not contain any 
 ---
 
 #### Example 2: Multiple Columns for Repeating Data
+
 **Original Table (Not in 1NF):**
+
 | Employee_ID | Name       | Skill_1 | Skill_2 | Skill_3 |
 |-------------|------------|---------|---------|---------|
 | 101         | Alice Brown| Python  | Java    | SQL     |
 | 102         | Bob Green  | C++     | NULL    | NULL    |
+| 103         | Jane Smith | Java    | NULL    | SQL     |
 
 **Problem**: The table uses multiple columns to store similar data (skills), which is not scalable and violates 1NF.
 
 **Converted Table (1NF):**
+
 | Employee_ID | Name        | Skill  |
 |-------------|-------------|--------|
 | 101         | Alice Brown | Python |
 | 101         | Alice Brown | Java   |
 | 101         | Alice Brown | SQL    |
 | 102         | Bob Green   | C++    |
+| 103         | Jane Smith  | Java   |
+| 103         | Jane Smith  | SQL    |
 
-**Explanation**: Each skill is now in a separate row, eliminating the need for multiple columns.
+**Explanation**: Each skill is now in a separate row, 
+eliminating the need for multiple columns.
 
 ---
 
 #### Example 3: Nested Data in a Single Column
+
 **Original Table (Not in 1NF):**
+
 | Order_ID | Customer_Name | Products_Ordered                     |
 |----------|---------------|--------------------------------------|
 | 1001     | John Smith    | {Product: Laptop, Quantity: 1}, {Product: Mouse, Quantity: 2} |
@@ -158,6 +293,7 @@ In simpler terms, 1NF ensures that the table is "flat" and does not contain any 
 **Problem**: The "Products_Ordered" column contains nested data (a list of products with quantities), which violates atomicity.
 
 **Converted Table (1NF):**
+
 | Order_ID | Customer_Name | Product  | Quantity |
 |----------|---------------|----------|----------|
 | 1001     | John Smith    | Laptop   | 1        |
@@ -168,8 +304,63 @@ In simpler terms, 1NF ensures that the table is "flat" and does not contain any 
 
 ---
 
+### **First Normal Form (1NF)**
+A table is in **First Normal Form (1NF)** if:  
+1. All columns contain **atomic (indivisible) values**.  
+2. There are **no repeating groups or arrays**.  
+3. Each column contains values of **a single type**.  
+
+---
+
+### **Example 4: Breaking Multi-Valued Columns into Rows**
+#### **Unnormalized Table (UNF)**
+| student_id | student_name | subjects        |
+|------------|-------------|----------------|
+| 1          | Alice       | Math, Science  |
+| 2          | Bob         | English, Math  |
+| 3          | Charlie     | History        |
+
+- The **"subjects"** column contains multiple values, violating 1NF.
+
+#### **Converted to 1NF**
+| student_id | student_name | subject  |
+|------------|-------------|---------|
+| 1          | Alice       | Math    |
+| 1          | Alice       | Science |
+| 2          | Bob         | English |
+| 2          | Bob         | Math    |
+| 3          | Charlie     | History |
+
+✅ Now, all values are **atomic**, and there are **no multi-valued attributes**.
+
+---
+
+### **Example 5: Removing Repeating Groups**
+#### **Unnormalized Table (UNF)**
+| order_id | customer_name | product_1  | product_2  | product_3  |
+|----------|--------------|------------|------------|------------|
+| 101      | John Doe     | Laptop     | Mouse      | Keyboard   |
+| 102      | Jane Smith   | Tablet     | Charger    | NULL       |
+
+- The **product columns** are repeating groups, violating 1NF.
+
+#### **Converted to 1NF**
+| order_id | customer_name | product   |
+|----------|--------------|-----------|
+| 101      | John Doe     | Laptop    |
+| 101      | John Doe     | Mouse     |
+| 101      | John Doe     | Keyboard  |
+| 102      | Jane Smith   | Tablet    |
+| 102      | Jane Smith   | Charger   |
+
+✅ Now, there are **no repeating groups**, and each column holds **atomic values**.
+
+These transformations help normalize data for better consistency and query efficiency. 
+
 ### Summary
-1NF ensures that a table is structured in a way that each cell contains a single, indivisible value, and there are no repeating groups or nested structures. By converting tables into 1NF, you create a solid foundation for further normalization and efficient database design.
+
+* 1NF ensures that a table is structured in a way that each cell contains a single, indivisible value, and there are no repeating groups or nested structures. 
+* By converting tables into 1NF, you create a solid foundation for further normalization and efficient database design.
 
 -------
 
@@ -177,7 +368,9 @@ In simpler terms, 1NF ensures that the table is "flat" and does not contain any 
 
 ### What is Second Normal Form (2NF)?
 
-The **Second Normal Form (2NF)** is a level of database normalization that builds on the **First Normal Form (1NF)**. A table is in 2NF if:
+The **Second Normal Form (2NF)** is a level of database normalization that builds on the **First Normal Form (1NF)**. 
+
+A table is in 2NF if:
 
 1. It is in **1NF** (all attributes are atomic, and each row is unique).
 2. It has **no partial dependency**, meaning no non-prime attribute (an attribute that is not part of any candidate key) is dependent on a proper subset of any candidate key.
@@ -207,23 +400,30 @@ In simpler terms, 2NF ensures that every non-key attribute in a table is fully f
 | 2              | 101           | Alice            | Math            | B         |
 | 1              | 102           | John             | Science         | C         |
 
-**Problem**: The table has a composite primary key: `(Student_ID, Course_ID)`. However, `Student_Name` depends only on `Student_ID`, and `Course_Name` depends only on `Course_ID`. This is a partial dependency.
+**Problem**: 
+
+* The table has a composite primary key: `(Student_ID, Course_ID)`. 
+
+* However, `Student_Name` depends only on `Student_ID`, and `Course_Name` depends only on `Course_ID`. This is a partial dependency.
 
 **Solution**: Decompose the table into three tables:
 
 1. **Students Table**:
+
    | **Student_ID** | **Student_Name** |
    |----------------|------------------|
    | 1              | John             |
    | 2              | Alice            |
 
 2. **Courses Table**:
+
    | **Course_ID** | **Course_Name** |
    |---------------|-----------------|
    | 101           | Math            |
    | 102           | Science         |
 
 3. **Enrollments Table**:
+
    | **Student_ID** | **Course_ID** | **Grade** |
    |----------------|---------------|-----------|
    | 1              | 101           | A         |
@@ -244,23 +444,30 @@ Now, all tables are in 2NF.
 | 102             | 1              | Bob               | Project X        | 15               |
 | 101             | 2              | Alice             | Project Y        | 10               |
 
-**Problem**: The composite primary key is `(Employee_ID, Project_ID)`. However, `Employee_Name` depends only on `Employee_ID`, and `Project_Name` depends only on `Project_ID`. This is a partial dependency.
+**Problem**: 
+
+* The composite primary key is `(Employee_ID, Project_ID)`. 
+
+* However, `Employee_Name` depends only on `Employee_ID`, and `Project_Name` depends only on `Project_ID`. This is a partial dependency.
 
 **Solution**: Decompose the table into three tables:
 
 1. **Employees Table**:
+
    | **Employee_ID** | **Employee_Name** |
    |-----------------|-------------------|
    | 101             | Alice             |
    | 102             | Bob               |
 
 2. **Projects Table**:
+
    | **Project_ID** | **Project_Name** |
    |----------------|------------------|
    | 1              | Project X        |
    | 2              | Project Y        |
 
 3. **Assignments Table**:
+
    | **Employee_ID** | **Project_ID** | **Hours_Worked** |
    |-----------------|----------------|------------------|
    | 101             | 1              | 20               |
@@ -281,23 +488,30 @@ Now, all tables are in 2NF.
 | 1001         | 2              | John              | Mouse            | 5            |
 | 1002         | 1              | Alice             | Laptop           | 1            |
 
-**Problem**: The composite primary key is `(Order_ID, Product_ID)`. However, `Customer_Name` depends only on `Order_ID`, and `Product_Name` depends only on `Product_ID`. This is a partial dependency.
+**Problem**: 
+
+* The composite primary key is `(Order_ID, Product_ID)`. 
+
+* However, `Customer_Name` depends only on `Order_ID`, and `Product_Name` depends only on `Product_ID`. This is a partial dependency.
 
 **Solution**: Decompose the table into three tables:
 
 1. **Orders Table**:
+
    | **Order_ID** | **Customer_Name** |
    |--------------|-------------------|
    | 1001         | John              |
    | 1002         | Alice             |
 
 2. **Products Table**:
+
    | **Product_ID** | **Product_Name** |
    |----------------|------------------|
    | 1              | Laptop           |
    | 2              | Mouse            |
 
 3. **Order_Details Table**:
+
    | **Order_ID** | **Product_ID** | **Quantity** |
    |--------------|----------------|--------------|
    | 1001         | 1              | 2            |
@@ -314,13 +528,120 @@ Now, all tables are in 2NF.
 - To achieve 2NF, decompose tables with composite keys into smaller tables, separating attributes that depend on only part of the key.
 - The examples above demonstrate how to identify and resolve partial dependencies to achieve 2NF.
 
+
+### **Second Normal Form (2NF)**
+A table is in **Second Normal Form (2NF)** if:  
+1. **It is in 1NF** (First Normal Form).  
+2. **There are no partial dependencies**, meaning:  
+   - Every **non-key column** must be **fully dependent** on the **entire** primary key, not just a part of it.  
+
+---
+
+### **Example 4: Eliminating Partial Dependency in a Composite Key Table**
+#### **1NF Table (Violating 2NF)**
+| order_id | product_id | product_name | customer_id | customer_name |
+|----------|-----------|--------------|------------|--------------|
+| 101      | P1        | Laptop       | C1         | Alice        |
+| 101      | P2        | Mouse        | C1         | Alice        |
+| 102      | P3        | Keyboard     | C2         | Bob          |
+
+**Issue:**  
+- The **primary key** is **(`order_id`, `product_id`)** (composite key).  
+- **`product_name`** depends **only** on **`product_id`**, not on the full key.  
+- **`customer_name`** depends **only** on **`customer_id`**, not on the full key.  
+
+#### **Converted to 2NF**
+**Orders Table (Now in 2NF)**
+
+| order_id | customer_id |
+|----------|------------|
+| 101      | C1         |
+| 102      | C2         |
+
+**Customers Table**
+
+| customer_id | customer_name |
+|------------|--------------|
+| C1         | Alice        |
+| C2         | Bob          |
+
+**Products Table**
+
+| product_id | product_name |
+|-----------|--------------|
+| P1        | Laptop       |
+| P2        | Mouse        |
+| P3        | Keyboard     |
+
+**Order Details Table (Bridging Orders and Products)**
+
+| order_id | product_id |
+|----------|-----------|
+| 101      | P1        |
+| 101      | P2        |
+| 102      | P3        |
+
+✅ Now, **all non-key attributes fully depend on the primary key**, eliminating partial dependencies.
+
+---
+
+### **Example 5: Removing Partial Dependency in a Student Enrollment Table**
+#### **1NF Table (Violating 2NF)**
+| student_id | course_id | course_name  | student_name |
+|------------|-----------|--------------|-------------|
+| S1         | C101      | Math         | Alice       |
+| S2         | C102      | Science      | Bob         |
+| S1         | C102      | Science      | Alice       |
+
+**Issue:**  
+- The **primary key** is **(`student_id`, `course_id`)** (composite key).  
+- **`course_name`** depends **only** on **`course_id`**, not on the full key.  
+- **`student_name`** depends **only** on **`student_id`**, not on the full key.  
+
+#### **Converted to 2NF**
+**Students Table**
+
+| student_id | student_name |
+|------------|-------------|
+| S1         | Alice       |
+| S2         | Bob         |
+
+**Courses Table**
+
+| course_id | course_name  |
+|----------|-------------|
+| C101     | Math        |
+| C102     | Science     |
+
+**Enrollments Table (Bridging Students and Courses)**
+
+| student_id | course_id |
+|------------|----------|
+| S1         | C101     |
+| S2         | C102     |
+| S1         | C102     |
+
+✅ Now, **all non-key attributes fully depend on the primary key**, making the table **2NF compliant**.
+
+---
+
+### **Summary**
+To convert to **2NF**, we:
+- Identified **partial dependencies**.
+- Split **data into separate tables** to ensure all columns depend **only on the full primary key**.
+
+
 ------
 
 # 3NF
 
 ### What is Third Normal Form (3NF)?
 
-Third Normal Form (3NF) is a level of database normalization used to reduce redundancy and improve data integrity in relational databases. A table is in 3NF if it satisfies the following conditions:
+Third Normal Form (3NF) is a level of database 
+normalization used to reduce redundancy and improve 
+data integrity in relational databases. 
+
+A table is in 3NF if it satisfies the following conditions:
 
 1. **It is in Second Normal Form (2NF):**
    - The table must already be in 2NF, meaning it should have no partial dependencies (every non-prime attribute must be fully functionally dependent on the primary key).
@@ -344,6 +665,7 @@ In simpler terms, 3NF ensures that each column in a table is directly related to
 #### Example 1: Student Table
 
 **Original Table (Not in 3NF):**
+
 | Student_ID | Student_Name | Course_ID | Course_Name | Instructor_Name |
 |------------|--------------|-----------|-------------|-----------------|
 | 1          | John         | C101      | Math        | Dr. Smith       |
@@ -357,7 +679,9 @@ In simpler terms, 3NF ensures that each column in a table is directly related to
 - Split the table into two tables: `Students` and `Courses`.
 
 **Tables in 3NF:**
+
 1. **Students:**
+
    | Student_ID | Student_Name | Course_ID |
    |------------|--------------|-----------|
    | 1          | John         | C101      |
@@ -365,6 +689,7 @@ In simpler terms, 3NF ensures that each column in a table is directly related to
    | 3          | John         | C103      |
 
 2. **Courses:**
+
    | Course_ID | Course_Name | Instructor_Name |
    |-----------|-------------|-----------------|
    | C101      | Math        | Dr. Smith       |
@@ -376,6 +701,7 @@ In simpler terms, 3NF ensures that each column in a table is directly related to
 #### Example 2: Employee Table
 
 **Original Table (Not in 3NF):**
+
 | Employee_ID | Employee_Name | Department_ID | Department_Name | Manager_ID |
 |-------------|---------------|---------------|-----------------|------------|
 | 101         | Alice         | D01           | HR              | 201        |
@@ -389,7 +715,9 @@ In simpler terms, 3NF ensures that each column in a table is directly related to
 - Split the table into two tables: `Employees` and `Departments`.
 
 **Tables in 3NF:**
+
 1. **Employees:**
+
    | Employee_ID | Employee_Name | Department_ID | Manager_ID |
    |-------------|---------------|---------------|------------|
    | 101         | Alice         | D01           | 201        |
@@ -397,6 +725,7 @@ In simpler terms, 3NF ensures that each column in a table is directly related to
    | 103         | Charlie       | D01           | 201        |
 
 2. **Departments:**
+
    | Department_ID | Department_Name |
    |---------------|-----------------|
    | D01           | HR              |
@@ -404,9 +733,10 @@ In simpler terms, 3NF ensures that each column in a table is directly related to
 
 ---
 
-#### Example 3: Order Table
+### Example 3: Order Table
 
 **Original Table (Not in 3NF):**
+
 | Order_ID | Customer_ID | Customer_Name | Product_ID | Product_Name | Quantity |
 |----------|-------------|---------------|------------|--------------|----------|
 | 1001     | C001        | John          | P101       | Laptop       | 1        |
@@ -414,13 +744,17 @@ In simpler terms, 3NF ensures that each column in a table is directly related to
 | 1003     | C001        | John          | P103       | Tablet       | 1        |
 
 **Problem:**
-- `Customer_Name` depends on `Customer_ID`, and `Product_Name` depends on `Product_ID` (transitive dependencies).
+
+- `Customer_Name` depends on `Customer_ID`, and 
+- `Product_Name` depends on `Product_ID` (transitive dependencies).
 
 **Solution:**
 - Split the table into three tables: `Orders`, `Customers`, and `Products`.
 
 **Tables in 3NF:**
+
 1. **Orders:**
+
    | Order_ID | Customer_ID | Product_ID | Quantity |
    |----------|-------------|------------|----------|
    | 1001     | C001        | P101       | 1        |
@@ -428,12 +762,14 @@ In simpler terms, 3NF ensures that each column in a table is directly related to
    | 1003     | C001        | P103       | 1        |
 
 2. **Customers:**
+
    | Customer_ID | Customer_Name |
    |-------------|---------------|
    | C001        | John          |
    | C002        | Jane          |
 
 3. **Products:**
+
    | Product_ID | Product_Name |
    |------------|--------------|
    | P101       | Laptop       |
@@ -445,7 +781,92 @@ In simpler terms, 3NF ensures that each column in a table is directly related to
 ### Summary:
 - 3NF ensures that each table has no transitive dependencies.
 - It improves data integrity and reduces redundancy by organizing data into smaller, related tables.
-- The examples demonstrate how to identify and resolve transitive dependencies to achieve 3NF.--------
+- The examples demonstrate how to identify and resolve transitive dependencies to achieve 3NF.
+
+
+### **Third Normal Form (3NF)**
+A table is in **Third Normal Form (3NF)** if:  
+1. **It is in 2NF** (Second Normal Form).  
+2. **There are no transitive dependencies**, meaning:  
+   - **Non-key columns** must depend **only on the primary key**, **not on other non-key columns**.  
+
+---
+
+### **Example 4: Removing Transitive Dependency in an Employee Table**
+#### **2NF Table (Violating 3NF)**
+
+| employee_id | employee_name | department_id | department_name |
+|------------|--------------|--------------|----------------|
+| E1         | Alice        | D101         | HR             |
+| E2         | Bob          | D102         | IT             |
+| E3         | Charlie      | D101         | HR             |
+
+**Issue:**  
+- **`department_name`** depends **on `department_id`**, not on **`employee_id`**.  
+- This creates a **transitive dependency** (`employee_id → department_id → department_name`).  
+
+#### **Converted to 3NF**
+**Employees Table**
+
+| employee_id | employee_name | department_id |
+|------------|--------------|--------------|
+| E1         | Alice        | D101         |
+| E2         | Bob          | D102         |
+| E3         | Charlie      | D101         |
+
+**Departments Table**
+
+| department_id | department_name |
+|--------------|----------------|
+| D101         | HR             |
+| D102         | IT             |
+
+✅ Now, **each non-key attribute depends only on the primary key**, and transitive dependency is removed.
+
+---
+
+### **Example 5: Removing Transitive Dependency in a Customer Orders Table**
+#### **2NF Table (Violating 3NF)**
+
+| order_id | customer_id | customer_name | customer_address|
+|----------|-------------|---------------|-----------------|
+| 201      | C1          | John Doe      | 123 Main St     |
+| 202      | C2          | Jane Smith    | 456 Elm St      |
+| 203      | C1          | John Doe      | 123 Main St     |
+
+**Issue:**  
+
+- **`customer_name`** and **`customer_address`** depend on **`customer_id`**, not **`order_id`**.
+
+- This creates a **transitive dependency** (`order_id → customer_id → customer_name, customer_address`).  
+
+#### **Converted to 3NF**
+**Orders Table**
+
+| order_id | customer_id |
+|----------|------------|
+| 201      | C1         |
+| 202      | C2         |
+| 203      | C1         |
+
+**Customers Table**
+
+| customer_id | customer_name | customer_address |
+|------------|--------------|-----------------|
+| C1         | John Doe     | 123 Main St     |
+| C2         | Jane Smith   | 456 Elm St      |
+
+✅ Now, **all non-key attributes depend only on the primary key**, eliminating transitive dependency.
+
+---
+
+### **Summary**
+To convert a table to **3NF**, we:
+1. **Identified transitive dependencies**.
+2. **Moved dependent attributes** to a separate table where they directly depend on a primary key.
+
+
+--------
 
 # 3. Tutorials
 
