@@ -33,8 +33,71 @@
 		down a large, complex  table into  smaller 
 		and  simpler tables while  maintaining data 
 		relationships. 
+		
+# 2. Problems with the Non-Normalized Table
 
-# 2. Normal Forms in DBMS
+The following table is a Non-Normalized Table:
+
+| Student_ID | Name       | Courses                 |
+|------------|------------|-------------------------|
+| 1          | John Doe   | Math, Science, History  |
+| 2          | Jane Smith | English, Art            |
+
+Problem-1. **If you want to ADD a new course for a student,** 
+
+then 
+
+	* 1.1 read the record
+	* 1.2 update the courses field
+	* 1.3 update the database
+
+Problem-2. **If you want to DROP an existing course for a student,**
+
+then 
+
+	* 2.1 read the record
+	* 2.2 update the courses field (drop the course)
+	* 2.3 update the database
+	
+Problem 3. **If you want to change the last name of a student**
+
+then 
+
+	* 3.1 read the record
+	* 3.2 update the Name field
+	* 3.3 update the database
+	
+### Eliminate Problems by a Normalized Tables:
+
+**Students:**
+
+| Student_ID | First_Name | Last_Name  |
+|------------|------------|------------|
+| 1          | John       | Doe        |
+| 2          | Jane       | Smith      |
+
+**Courses:**
+
+| Course_ID  | Course_Name|
+|------------|------------|
+| 100        | Math       |
+| 101        | Science    |
+| 102        | History    |
+| 103        | English    |
+| 104        | Art        |
+
+**Students_Courses:**
+
+| Student_ID | Courses_ID |
+|------------|------------|
+| 1          | 100        | 
+| 1          | 101        | 
+| 1          | 102        |
+| 2          | 103        | 
+| 2          | 104        |
+
+
+# 3. Normal Forms in DBMS
 
 
 	Normalization is the process of minimizing 
@@ -55,7 +118,8 @@
 	normalization, each  with  its  own set  of 
 	guidelines, known as normal forms.
 	
-![](./image_normalizationLevels.png)
+![](images/image_normalization_levels.png)
+
 
 
 	Important Points Regarding Normal Forms in DBMS:
@@ -95,7 +159,7 @@
 
 ------
 
-# Dependency & Partial Dependency
+# 4. Dependency & Partial Dependency
 
 ### What is a Dependency?
 
@@ -364,7 +428,7 @@ These transformations help normalize data for better consistency and query effic
 
 -------
 
-# 2NF
+# Second Normal Form: 2NF
 
 ### What is Second Normal Form (2NF)?
 
@@ -633,7 +697,7 @@ To convert to **2NF**, we:
 
 ------
 
-# 3NF
+# Third Normal Form: 3NF
 
 ### What is Third Normal Form (3NF)?
 
@@ -868,7 +932,7 @@ To convert a table to **3NF**, we:
 
 --------
 
-# 3. Tutorials
+# References & Tutorials
 
 The following are some tutorials for Database Normalization
  
