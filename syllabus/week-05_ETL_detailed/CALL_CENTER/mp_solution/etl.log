@@ -1,0 +1,44 @@
+mp_solution (main * +) % python3 etl.py Call_Center.csv db_config_target.json
+target_db_config= {'user': 'root', 'password': 'mp22pass', 'host': 'localhost', 'database': 'call_center'}
+df.count()= id                          32941
+customer_name               32941
+sentiment                   32941
+csat_score                  12271
+call_timestamp              32941
+reason                      32941
+city                        32941
+state                       32941
+channel                     32941
+response_time               32941
+call duration in minutes    32941
+call_center                 32941
+dtype: int64
+df=                              id       customer_name      sentiment  ...  response_time call duration in minutes     call_center
+0      DKK-57076809-w-055481-fU    Analise Gairdner        Neutral  ...     Within SLA                       17  Los Angeles/CA
+1      QGK-72219678-w-102139-KY    Crichton Kidsley  Very Positive  ...     Within SLA                       23    Baltimore/MD
+2      GYJ-30025932-A-023015-LD   Averill Brundrett       Negative  ...      Above SLA                       45  Los Angeles/CA
+3      ZJI-96807559-i-620008-m7     Noreen Lafflina  Very Negative  ...     Within SLA                       12  Los Angeles/CA
+4      DDU-69451719-O-176482-Fm  Toma Van der Beken  Very Positive  ...     Within SLA                       23  Los Angeles/CA
+...                         ...                 ...            ...  ...            ...                      ...             ...
+32936  BRM-96715111-h-155613-wO    Othelia Ouldcott        Neutral  ...     Within SLA                       13       Denver/CO
+32937  UJH-96531654-y-074703-H4    Tasha Cubbinelli       Negative  ...     Within SLA                       42    Baltimore/MD
+32938  WDS-58440679-I-064360-TT      Margaux Slaten       Negative  ...     Within SLA                       30    Baltimore/MD
+32939  FTZ-87704815-T-824288-iC           Odey Seed       Positive  ...     Within SLA                       38    Baltimore/MD
+32940  OOR-17971494-i-311571-PR      Mozelle Berlin       Negative  ...     Within SLA                       23    Baltimore/MD
+
+[32941 rows x 12 columns]
+df=                              id       customer_name      sentiment  csat_score  ...  call_date day_of_week day_of_month quarter
+0      DKK-57076809-w-055481-fU    Analise Gairdner        Neutral         7.0  ... 2020-10-29    Thursday           29       4
+1      QGK-72219678-w-102139-KY    Crichton Kidsley  Very Positive         NaN  ... 2020-10-05      Monday            5       4
+2      GYJ-30025932-A-023015-LD   Averill Brundrett       Negative         NaN  ... 2020-10-04      Sunday            4       4
+3      ZJI-96807559-i-620008-m7     Noreen Lafflina  Very Negative         1.0  ... 2020-10-17    Saturday           17       4
+4      DDU-69451719-O-176482-Fm  Toma Van der Beken  Very Positive         NaN  ... 2020-10-17    Saturday           17       4
+...                         ...                 ...            ...         ...  ...        ...         ...          ...     ...
+32936  BRM-96715111-h-155613-wO    Othelia Ouldcott        Neutral         NaN  ... 2020-10-30      Friday           30       4
+32937  UJH-96531654-y-074703-H4    Tasha Cubbinelli       Negative         NaN  ... 2020-10-07   Wednesday            7       4
+32938  WDS-58440679-I-064360-TT      Margaux Slaten       Negative         NaN  ... 2020-10-04      Sunday            4       4
+32939  FTZ-87704815-T-824288-iC           Odey Seed       Positive         8.0  ... 2020-10-27     Tuesday           27       4
+32940  OOR-17971494-i-311571-PR      Mozelle Berlin       Negative         NaN  ... 2020-10-30      Friday           30       4
+
+[32941 rows x 16 columns]
+mp_solution (main * +) %
