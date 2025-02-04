@@ -3,36 +3,38 @@
 # 1. What is a Database Normalization
 
 	Database normalization is the process 
-	of organizing  data in a  database to 
-	eliminate  redundancy, improve  data 
-	integrity, and make the database more 
-	flexible: 
+	of organizing  data in a database to 
+	
+		1. Eliminate  redundancy, 
+		2. Improve  data integrity, and 
+		3. Make the database more flexible: 
 
-	1. Eliminate redundancy: 
+### 1.1 Eliminate redundancy: 
 		Redundant data wastes disk space 
 		and creates maintenance problems. 
 
-	2. Improve data integrity: 
+### 1.2. Improve data integrity: 
 		Normalized relations mirror real-world 
 		concepts and their interrelationships. 
 
-	3. Make the database more flexible: 
+### 1.3. Make the database more flexible: 
 		A fully normalized database can be 
 		extended to accommodate  new  types 
 		of data without changing existing 
 		structure too much. 
 
-	4. Benefits of database normalization: 
+### 1.4. Benefits of database normalization: 
 		1. Simplifies the query process 
 		2. Improves workflow 
 		3. Increases security 
 		4. Lessens costs
 
-	5. Normalization is commonly used when dealing 
+### 1.5. Normalization is commonly used when dealing 
 		with large datasets. It involves breaking 
 		down a large, complex  table into  smaller 
 		and  simpler tables while  maintaining data 
 		relationships. 
+		
 		
 # 2. Problems with the Non-Normalized Table
 
@@ -43,7 +45,11 @@ The following table is a Non-Normalized Table:
 | 1          | John Doe   | Math, Science, History  |
 | 2          | Jane Smith | English, Art            |
 
-Problem-1. **If you want to ADD a new course for a student,** 
+Problem-1. **you can not ADD a new course without a student** 
+
+Problem-2. **you can not ADD a new student without a course** 
+
+Problem-3. **If you want to ADD a new course for a student,** 
 
 then 
 
@@ -51,7 +57,7 @@ then
 	* 1.2 update the courses field
 	* 1.3 update the database
 
-Problem-2. **If you want to DROP an existing course for a student,**
+Problem-4. **If you want to DROP an existing course for a student,**
 
 then 
 
@@ -59,7 +65,7 @@ then
 	* 2.2 update the courses field (drop the course)
 	* 2.3 update the database
 	
-Problem 3. **If you want to change the last name of a student**
+Problem 5. **If you want to change the last name of a student**
 
 then 
 
@@ -67,7 +73,7 @@ then
 	* 3.2 update the Name field
 	* 3.3 update the database
 	
-### Eliminate Problems by a Normalized Tables:
+### → Eliminate Problems by a Normalized Table(s):
 
 **Students:**
 
@@ -96,19 +102,40 @@ then
 | 2          | 103        | 
 | 2          | 104        |
 
+------
+
 
 # 3. Normal Forms in DBMS
 
 
-	Normalization is the process of minimizing 
-	redundancy from a relation or set of relations. 
-	Redundancy in relation  may  cause  insertion, 
-	deletion, and update anomalies. So, it helps to 
-	minimize the redundancy in relations. Normal 
-	forms are used to eliminate or reduce 
-	redundancy in database tables.
+	Normalization is the process of 
+	minimizing  redundancy  from a 
+	relation or set of relations. 
+	
+	Redundancy  in  relation  may  
+	cause insertion, deletion, and 
+	update anomalies.  So, it helps 
+	to minimize the redundancy 
+	in relations. 
+	
+	Normal forms are used to eliminate or 
+	reduce redundancy in database tables.
 
-	Normalization of DBMS:
+## 3.1 Anomalies
+
+**a·nom·a·ly** → something that deviates from what is standard, normal, or expected.
+
+### 1. [Insertion Anomaly](./anomaly_insertion.md)
+
+### 2. [Update Anomaly](./anomaly_update.md)
+
+### 3. [Deletion Anomaly](./anomaly_delete.md)
+
+
+-----
+
+
+## 3.2 Normalization of DBMS:
 	
 	In database management systems (DBMS), normal 
 	forms are a series of guidelines that help to 
@@ -122,9 +149,9 @@ then
 
 
 
-	Important Points Regarding Normal Forms in DBMS:
+## 3.3 Normal Forms in DBMS:
 	
-	* First Normal Form (1NF): 
+### First Normal Form (1NF): 
 	
 		This is the most basic level of normalization. 
 		In 1NF, each table cell should contain only a 
@@ -132,7 +159,7 @@ then
 		a unique name. The first normal form helps to 
 		eliminate duplicate data and simplify queries.
 		
-	* Second Normal Form (2NF): 
+### Second Normal Form (2NF): 
 	
 		2NF eliminates redundant data by requiring 
 		that each non-key attribute be dependent on 
@@ -140,7 +167,7 @@ then
 		should be directly related to the primary key, 
 		and not to other columns.
 		
-	* Third Normal Form (3NF): 
+### Third Normal Form (3NF): 
 	
 		3NF  builds on 2NF by requiring  that  all 
 		non-key attributes are independent of each 
@@ -149,7 +176,7 @@ then
 		and not to any other columns in the same 
 		table.
 		
-	* Boyce-Codd Normal Form (BCNF): 
+### Boyce-Codd Normal Form (BCNF): 
 	
 		BCNF is a stricter form of 3NF that ensures 
 		that each determinant in a table is a candidate 
@@ -420,6 +447,31 @@ A table is in **First Normal Form (1NF)** if:
 ✅ Now, there are **no repeating groups**, and each column holds **atomic values**.
 
 These transformations help normalize data for better consistency and query efficiency. 
+
+
+### **Example 6: Repeating Groups Across Columns**
+
+**Original Table (Not in 1NF):**
+
+| Order_ID | Customer_Name | Product_1 | Quantity_1 | Product_2 | Quantity_2 |
+|----------|---------------|-----------|------------|-----------|------------|
+| 1001     | Alice Brown   | Laptop    | 1          | Mouse     | 2          |
+| 1002     | Bob Green     | Monitor   | 1          | Keyboard  | 1          |
+
+**Problem:** The table has repeating groups of columns (Product_1, Quantity_1, Product_2, Quantity_2), which violates 1NF.
+
+**Converted Table (1NF):**
+
+| Order_ID | Customer_Name | Product  | Quantity |
+|----------|---------------|----------|----------|
+| 1001     | Alice Brown   | Laptop   | 1        |
+| 1001     | Alice Brown   | Mouse    | 2        |
+| 1002     | Bob Green     | Monitor  | 1        |
+| 1002     | Bob Green     | Keyboard | 1        |
+
+**Explanation:** The repeating groups are eliminated by creating separate rows for each product and its corresponding quantity.
+
+
 
 ### Summary
 
