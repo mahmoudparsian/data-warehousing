@@ -225,7 +225,7 @@ A **partial dependency** occurs when a non-prime attribute (an attribute that is
 #### Example of Partial Dependency:
 - Suppose a table has a composite primary key **(A, B)**.
 - If a non-prime attribute **C** depends only on **A** (i.e., **A → C**), this is a partial dependency.
-
+- If a non-prime attribute **C** depends only on **B** (i.e., **B → C**), this is a partial dependency.
 ---
 
 ### Examples of Dependencies:
