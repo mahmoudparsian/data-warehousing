@@ -880,6 +880,10 @@ In simpler terms, 3NF ensures that each column in a
 table is directly related to the primary key and not 
 to other columns.
 
+
+![](./images/transitive_dependency.png)
+
+
 ---
 
 ### Steps to Convert a Table into 3NF:
@@ -1099,6 +1103,99 @@ and transitive dependency is removed.
 eliminating transitive dependency.
 
 ---
+
+### Example 6: Transitive Dependency
+
+Let's walk through an example of a **transitive 
+dependency** in a relational database and how it 
+can be resolved by normalizing the table to Third 
+Normal Form (3NF).
+
+Consider the following table `employees_departments` 
+which contains information about employees, their 
+departments, and the locations of those departments:
+
+| employee_id | employee_name | department_id | department_name | department_location |
+|-------------|---------------|---------------|-----------------|---------------------|
+| 1           | Alice         | 10            | HR              | New York            |
+| 2           | Bob           | 20            | IT              | San Francisco       |
+| 3           | Charlie       | 10            | HR              | New York            |
+| 4           | David         | 30            | Marketing       | Chicago             |
+| 5           | Eve           | 20            | IT              | San Francisco       |
+
+### Problems with the Initial Table
+
+- The table is in Second Normal Form (2NF) but not in Third Normal Form (3NF).
+- There is a transitive dependency: `department_location` depends on `department_id`, which in turn depends on `employee_id`.
+
+### Transitive Dependency
+
+- **Direct Dependency**: `department_id` directly depends on `employee_id`.
+- **Transitive Dependency**: `department_location` depends on `department_id`, which depends on `employee_id`.
+
+### Conversion to Third Normal Form (3NF)
+
+To convert the table into 3NF, we need to remove the transitive dependencies by creating separate tables for employees, departments, and department locations.
+
+### Step 1: Create Separate Tables
+
+1. **Employees Table**:
+    - Contains employee-specific information.
+    - `employee_id` is the primary key.
+
+2. **Departments Table**:
+    - Contains department-specific information.
+    - `department_id` is the primary key.
+
+3. **Department Locations Table**:
+    - Contains location-specific information.
+    - `department_id` is the primary key.
+
+### Final Tables in Third Normal Form (3NF)
+
+#### Employees Table
+
+| employee_id | employee_name | department_id |
+|-------------|---------------|---------------|
+| 1           | Alice         | 10            |
+| 2           | Bob           | 20            |
+| 3           | Charlie       | 10            |
+| 4           | David         | 30            |
+| 5           | Eve           | 20            |
+
+#### Departments Table
+
+| department_id | department_name |
+|---------------|-----------------|
+| 10            | HR              |
+| 20            | IT              |
+| 30            | Marketing       |
+
+#### Department Locations Table
+
+| department_id | department_location |
+|---------------|---------------------|
+| 10            | New York            |
+| 20            | San Francisco       |
+| 30            | Chicago             |
+
+### Explanation
+
+1. **Employees Table**: Contains unique employee 
+   records with a foreign key reference to the 
+   `departments` table.
+2. **Departments Table**: Contains unique 
+   department records.
+3. **Department Locations Table**: Contains unique 
+   department location records with a foreign key 
+   reference to the `departments` table.
+
+By normalizing the table and removing transitive 
+dependencies, we ensure that each piece of information 
+is stored only once, eliminating redundancy and 
+maintaining data integrity. This approach helps in 
+achieving Third Normal Form (3NF), ensuring that 
+non-key attributes are only dependent on the primary key.
 
 ### **Summary**
 To convert a table to **3NF**, we:
