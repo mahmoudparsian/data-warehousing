@@ -457,13 +457,13 @@ A table is in **First Normal Form (1NF)** if:
 - The **product columns** are repeating groups, violating 1NF.
 
 #### **Converted to 1NF**
-| order_id | customer_name | product   |
-|----------|--------------|-----------|
-| 101      | John Doe     | Laptop    |
-| 101      | John Doe     | Mouse     |
-| 101      | John Doe     | Keyboard  |
-| 102      | Jane Smith   | Tablet    |
-| 102      | Jane Smith   | Charger   |
+| order_id | first_name   | last_name | product   |
+|----------|--------------|-----------|-----------|
+| 101      | John         | Doe       | Laptop    |
+| 101      | John         | Doe       | Mouse     |
+| 101      | John         | Doe       | Keyboard  |
+| 102      | Jane         | Smith     | Tablet    |
+| 102      | Jane         | Smith     | Charger   |
 
 ✅ Now, there are **no repeating groups**, and each column holds **atomic values**.
 
