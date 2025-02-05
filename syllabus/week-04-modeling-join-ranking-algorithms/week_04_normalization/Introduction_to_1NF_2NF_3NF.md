@@ -346,13 +346,20 @@ In simpler terms, 1NF ensures that the table is "flat" and does not contain any 
 
 **Converted Table (1NF):**
 
-| Student_ID | Name       | Course   |
-|------------|------------|----------|
-| 1          | John Doe   | Math     |
-| 1          | John Doe   | Science  |
-| 1          | John Doe   | History  |
-| 2          | Jane Smith | English  |
-| 2          | Jane Smith | Art      |
+* Every attribute is atomic
+* No duplicate rows
+* No duplicate column names
+
+
+| Student_ID | First_Name | Last_Name| Course   |
+|------------|------------|----------|----------|
+| 1          | John       | Doe      | Math     |
+| 1          | John       | Doe      | Science  |
+| 1          | John       | Doe      | History  |
+| 2          | Jane       | Smith    | English  |
+| 2          | Jane       | Smith    | Art      |
+
+
 
 **Explanation**: Each course is now in a separate row, ensuring atomicity.
 
@@ -362,24 +369,24 @@ In simpler terms, 1NF ensures that the table is "flat" and does not contain any 
 
 **Original Table (Not in 1NF):**
 
-| Employee_ID | Name       | Skill_1 | Skill_2 | Skill_3 |
+| Employee_ID | Last_Name  | Skill_1 | Skill_2 | Skill_3 |
 |-------------|------------|---------|---------|---------|
-| 101         | Alice Brown| Python  | Java    | SQL     |
-| 102         | Bob Green  | C++     | NULL    | NULL    |
-| 103         | Jane Smith | Java    | NULL    | SQL     |
+| 101         | Brown      | Python  | Java    | SQL     |
+| 102         | Green      | C++     | NULL    | NULL    |
+| 103         | Smith      | Java    | NULL    | SQL     |
 
 **Problem**: The table uses multiple columns to store similar data (skills), which is not scalable and violates 1NF.
 
 **Converted Table (1NF):**
 
-| Employee_ID | Name        | Skill  |
+| Employee_ID | last_Name   | Skill  |
 |-------------|-------------|--------|
-| 101         | Alice Brown | Python |
-| 101         | Alice Brown | Java   |
-| 101         | Alice Brown | SQL    |
-| 102         | Bob Green   | C++    |
-| 103         | Jane Smith  | Java   |
-| 103         | Jane Smith  | SQL    |
+| 101         | Brown       | Python |
+| 101         | Brown       | Java   |
+| 101         | Brown       | SQL    |
+| 102         | Green       | C++    |
+| 103         | Smith       | Java   |
+| 103         | Smith       | SQL    |
 
 **Explanation**: Each skill is now in a separate row, 
 eliminating the need for multiple columns.
