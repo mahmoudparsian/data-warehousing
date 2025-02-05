@@ -1,5 +1,19 @@
 # Database Normalization
 
+		Database  normalization  is  the  process 
+		of  organizing  data  in a  database  by 
+		structuring it into tables and establishing 
+		relationships between them, with the goal of 
+		
+		1. Minimizing data redundancy, 
+		
+		2. Preventing data inconsistencies, and 
+		
+		3. Improving data integrity by eliminating 
+		   unnecessary repetition across multiple tables
+
+-----
+
 # 1. What is a Database Normalization
 
 	Database normalization is the process 
