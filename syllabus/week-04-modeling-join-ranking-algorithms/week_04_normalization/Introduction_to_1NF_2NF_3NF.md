@@ -406,11 +406,11 @@ eliminating the need for multiple columns.
 
 **Converted Table (1NF):**
 
-| Order_ID | Customer_Name | Product  | Quantity |
-|----------|---------------|----------|----------|
-| 1001     | John Smith    | Laptop   | 1        |
-| 1001     | John Smith    | Mouse    | 2        |
-| 1002     | Mary Johnson  | Keyboard | 1        |
+| Order_ID | First_Name | Last_Name|Product   | Quantity |
+|----------|------------|----------|----------|----------|
+| 1001     | John       | Smith    | Laptop   | 1        |
+| 1001     | John       | Smith    | Mouse    | 2        |
+| 1002     | Mary       | Johnson  | Keyboard | 1        |
 
 **Explanation**: Each product and its quantity are now in separate rows, ensuring atomicity.
 
