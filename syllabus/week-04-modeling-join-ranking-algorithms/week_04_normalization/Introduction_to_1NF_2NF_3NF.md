@@ -124,6 +124,8 @@ two atomic columns:  `First_Name` and `Last_Name`.
 
 # 3. Normal Forms in DBMS
 
+![](./images/normal_forms.png)
+
 
 	Normalization is the process of 
 	minimizing  redundancy  from a 
