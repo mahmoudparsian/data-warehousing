@@ -2,9 +2,17 @@
 
 Given the following star schema tables:
 
-* dimension tables: movies_dim, users_dim, dates_dim
+* **Dimension tables:**
+	* `movies_dim`, 
+	* `users_dim`, 
+	* `dates_dim`
 
-* fact table: ratings_fact.
+* **Fact table:** `ratings_fact`
+
+------
+
+
+![](../step_2_etl_to_star_schema/star_schema.drawio.png)
 
 ~~~sql
 CREATE TABLE  movies_dim (
@@ -42,27 +50,50 @@ CREATE TABLE  ratings_fact (
 );
 ~~~
 
+## What is an OLAP Query?
 
-Below are some example OLAP queries involving joins, 
-subqueries, ranks with partitions, and top-5 results 
-using the provided star schema tables: `movies_dim`, 
-`users_dim`, `dates_dim`, and `ratings_fact`.
+	1. An OLAP query is a type of database 
+	   query  specifically  designed  for 
+	   analyzing large datasets, often from 
+	   data warehouses, to identify 
+	   
+	       1. trends, 
+	       2. patterns, and 
+	       3. insights. 
+	
+	2. An OLAP query leverages multidimensional 
+	   data structures and techniques to allow 
+	   users to slice, dice, and drill down into 
+	   data, exploring it from different perspectives. 
+
+
 
 
 # OLAP SQL Queries Using Star Schema**
 
+	Below are some examples of OLAP queries 
+	involving joins, subqueries, ranks with 
+	partitions, and top-5 results using the 
+	provided star schema tables: 
+			`movies_dim`, 
+			`users_dim`, 
+			`dates_dim`, and 
+			`ratings_fact`.
+
+
+
 ### Query 1: Top 5 Movies by Average Rating
 ```sql
 SELECT
-    dm.movie_title,
-    AVG(fr.rating) AS avg_rating,
-    RANK() OVER (ORDER BY AVG(fr.rating) DESC) AS rating_rank
+    M.movie_title,
+    AVG(R.rating) AS avg_rating,
+    RANK() OVER (ORDER BY AVG(R.rating) DESC) AS rating_rank
 FROM
-    ratings_fact fr
+    ratings_fact R
 JOIN
-    movies_dim dm ON fr.movie_id = dm.movie_id
+    movies_dim M ON R.movie_id = M.movie_id
 GROUP BY
-    dm.movie_title
+    M.movie_title
 ORDER BY
     avg_rating DESC
 LIMIT 5;
@@ -88,15 +119,15 @@ LIMIT 5;
 ### Query 2: Top 5 Users by Number of Ratings
 ```sql
 SELECT
-    du.user_name,
-    COUNT(fr.rating) AS num_ratings,
-    RANK() OVER (ORDER BY COUNT(fr.rating) DESC) AS num_ratings_rank
+    U.user_name,
+    COUNT(R.rating) AS num_ratings,
+    RANK() OVER (ORDER BY COUNT(R.rating) DESC) AS num_ratings_rank
 FROM
-    ratings_fact fr
+    ratings_fact R
 JOIN
-    users_dim du ON fr.user_id = du.user_id
+    users_dim U ON R.user_id = U.user_id
 GROUP BY
-    du.user_name
+    U.user_name
 ORDER BY
     num_ratings DESC
 LIMIT 5;
@@ -121,19 +152,19 @@ LIMIT 5;
 ### Query 3: Top 5 Movies by Total Ratings in 2023
 ```sql
 SELECT
-    dm.movie_title,
-    COUNT(fr.rating) AS total_ratings,
-    RANK() OVER (ORDER BY COUNT(fr.rating) DESC) AS total_ratings_rank
+    M.movie_title,
+    COUNT(R.rating) AS total_ratings,
+    RANK() OVER (ORDER BY COUNT(R.rating) DESC) AS total_ratings_rank
 FROM
-    ratings_fact fr
+    ratings_fact R
 JOIN
-    movies_dim dm ON fr.movie_id = dm.movie_id
+    movies_dim M ON R.movie_id = M.movie_id
 JOIN
-    dates_dim dd ON fr.date_id = dd.date_id
+    dates_dim D ON R.date_id = D.date_id
 WHERE
-    dd.year = 2023
+    D.year = 2023
 GROUP BY
-    dm.movie_title
+    M.movie_title
 ORDER BY
     total_ratings DESC
 LIMIT 5;
@@ -157,15 +188,15 @@ LIMIT 5;
 ### Query 4: Top 3 Movies by Highest Single Rating
 ```sql
 SELECT
-    dm.movie_title,
-    MAX(fr.rating) AS highest_rating,
-    RANK() OVER (ORDER BY MAX(fr.rating) DESC) AS highest_rating_rank
+    M.movie_title,
+    MAX(R.rating) AS highest_rating,
+    RANK() OVER (ORDER BY MAX(R.rating) DESC) AS highest_rating_rank
 FROM
-    ratings_fact fr
+    ratings_fact R
 JOIN
-    movies_dim dm ON fr.movie_id = dm.movie_id
+    movies_dim M ON R.movie_id = M.movie_id
 GROUP BY
-    dm.movie_title
+    M.movie_title
 ORDER BY
     highest_rating DESC
 LIMIT 3;
@@ -200,17 +231,17 @@ This query finds the top-5 movies by average rating for each genre.
 ```sql
 WITH RankedMovies AS (
     SELECT 
-        m.movie_id,
-        m.movie_title,
-        m.genre,
-        AVG(r.rating) AS avg_rating,
-        RANK() OVER (PARTITION BY m.genre ORDER BY AVG(r.rating) DESC) AS genre_rank
+        M.movie_id,
+        M.movie_title,
+        M.genre,
+        AVG(R.rating) AS avg_rating,
+        RANK() OVER (PARTITION BY M.genre ORDER BY AVG(R.rating) DESC) AS genre_rank
     FROM 
-        ratings_fact r
+        ratings_fact R
     JOIN 
-        movies_dim m ON r.movie_id = m.movie_id
+        movies_dim M ON R.movie_id = M.movie_id
     GROUP BY 
-        m.movie_id, m.movie_title, m.genre
+        M.movie_id, M.movie_title, M.genre
 )
 SELECT 
     movie_id,
@@ -563,8 +594,8 @@ Find the top 5 movies with the highest average rating.
 
 ```sql
 SELECT movie_title, AVG(rating) AS avg_rating
-FROM ratings_fact rf
-JOIN movies_dim md ON rf.movie_id = md.movie_id
+FROM ratings_fact R
+JOIN movies_dim M ON R.movie_id = M.movie_id
 GROUP BY movie_title
 ORDER BY avg_rating DESC
 LIMIT 5;
@@ -592,8 +623,8 @@ Find the top 5 movies with the highest number of ratings.
 
 ```sql
 SELECT movie_title, COUNT(rating) AS rating_count
-FROM ratings_fact rf
-JOIN movies_dim md ON rf.movie_id = md.movie_id
+FROM ratings_fact R
+JOIN movies_dim M ON R.movie_id = M.movie_id
 GROUP BY movie_title
 ORDER BY rating_count DESC
 LIMIT 5;
@@ -623,10 +654,10 @@ Ranks movies within each genre based on their average rating.
 SELECT genre, movie_title, avg_rating, 
        RANK() OVER (PARTITION BY genre ORDER BY avg_rating DESC) AS rank_in_genre
 FROM (
-    SELECT md.genre, md.movie_title, AVG(rf.rating) AS avg_rating
-    FROM ratings_fact rf
-    JOIN movies_dim md ON rf.movie_id = md.movie_id
-    GROUP BY md.genre, md.movie_title
+    SELECT M.genre, M.movie_title, AVG(R.rating) AS avg_rating
+    FROM ratings_fact R
+    JOIN movies_dim M ON R.movie_id = M.movie_id
+    GROUP BY M.genre, M.movie_title
 ) ranked_movies;
 ```
 
@@ -746,10 +777,10 @@ FROM (
 Find the top 5 users who have provided the most ratings.
 
 ```sql
-SELECT ud.user_name, COUNT(rf.rating) AS rating_count
-FROM ratings_fact rf
-JOIN users_dim ud ON rf.user_id = ud.user_id
-GROUP BY ud.user_name
+SELECT U.user_name, COUNT(R.rating) AS rating_count
+FROM ratings_fact R
+JOIN users_dim U ON R.user_id = U.user_id
+GROUP BY U.user_name
 ORDER BY rating_count DESC
 LIMIT 5;
 ```
@@ -774,11 +805,11 @@ LIMIT 5;
 Find the average rating given for movies each year.
 
 ```sql
-SELECT dd.year, AVG(rf.rating) AS avg_rating
-FROM ratings_fact rf
-JOIN dates_dim dd ON rf.date_id = dd.date_id
-GROUP BY dd.year
-ORDER BY dd.year;
+SELECT D.year, AVG(R.rating) AS avg_rating
+FROM ratings_fact R
+JOIN dates_dim D ON R.date_id = D.date_id
+GROUP BY D.year
+ORDER BY D.year;
 ```
 
 #### output:
@@ -799,12 +830,12 @@ ORDER BY dd.year;
 Find the top 5 most-rated movies in a specific year.
 
 ```sql
-SELECT md.movie_title, COUNT(rf.rating) AS rating_count
-FROM ratings_fact rf
-JOIN dates_dim dd ON rf.date_id = dd.date_id
-JOIN movies_dim md ON rf.movie_id = md.movie_id
-WHERE dd.year = 2023
-GROUP BY md.movie_title
+SELECT M.movie_title, COUNT(R.rating) AS rating_count
+FROM ratings_fact R
+JOIN dates_dim D ON R.date_id = D.date_id
+JOIN movies_dim M ON R.movie_id = M.movie_id
+WHERE D.year = 2023
+GROUP BY M.movie_title
 ORDER BY rating_count DESC
 LIMIT 5;
 ```
@@ -827,16 +858,17 @@ LIMIT 5;
 ---
 
 ### Query-16. **Monthly Rating Trend for a Specific Movie**
-Find the average rating of a particular movie (`Inception`) for each month.
+Find the average rating of a particular 
+movie (`Inception`) for each month.
 
 ```sql
-SELECT dd.year, dd.month, AVG(rf.rating) AS avg_rating
-FROM ratings_fact rf
-JOIN dates_dim dd ON rf.date_id = dd.date_id
-JOIN movies_dim md ON rf.movie_id = md.movie_id
-WHERE md.movie_title = 'Inception'
-GROUP BY dd.year, dd.month
-ORDER BY dd.year, dd.month;
+SELECT D.year, D.month, AVG(R.rating) AS avg_rating
+FROM ratings_fact R
+JOIN dates_dim D ON R.date_id = D.date_id
+JOIN movies_dim M ON R.movie_id = M.movie_id
+WHERE M.movie_title = 'Inception'
+GROUP BY D.year, D.month
+ORDER BY D.year, D.month;
 ```
 
 #### output:
@@ -878,12 +910,14 @@ Find the top 3 users in each year who have rated the most movies.
 ```sql
 SELECT year, user_name, rating_count, rnk
 FROM (
-    SELECT dd.year, ud.user_name, COUNT(rf.rating) AS rating_count,
-           RANK() OVER (PARTITION BY dd.year ORDER BY COUNT(rf.rating) DESC) AS rnk
-    FROM ratings_fact rf
-    JOIN users_dim ud ON rf.user_id = ud.user_id
-    JOIN dates_dim dd ON rf.date_id = dd.date_id
-    GROUP BY dd.year, ud.user_name
+    SELECT D.year, 
+           U.user_name, 
+           COUNT(rf.rating) AS rating_count,
+           RANK() OVER (PARTITION BY D.year ORDER BY COUNT(R.rating) DESC) AS rnk
+    FROM ratings_fact R
+    JOIN users_dim U ON R.user_id = U.user_id
+    JOIN dates_dim D ON R.date_id = D.date_id
+    GROUP BY D.year, U.user_name
 ) ranked_users
 WHERE rnk <= 3;
 ```
@@ -911,10 +945,10 @@ WHERE rnk <= 3;
 Find movies that have never received any ratings.
 
 ```sql
-SELECT md.movie_title
-FROM movies_dim md
-LEFT JOIN ratings_fact rf ON md.movie_id = rf.movie_id
-WHERE rf.rating_id IS NULL;
+SELECT M.movie_title
+FROM movies_dim M
+LEFT JOIN ratings_fact R ON M.movie_id = R.movie_id
+WHERE R.rating_id IS NULL;
 ```
 
 #### output:
@@ -936,12 +970,14 @@ Find the highest-rated movie in each year.
 ```sql
 SELECT year, movie_title, avg_rating
 FROM (
-    SELECT dd.year, md.movie_title, AVG(rf.rating) AS avg_rating,
-           RANK() OVER (PARTITION BY dd.year ORDER BY AVG(rf.rating) DESC) AS rnk
-    FROM ratings_fact rf
-    JOIN movies_dim md ON rf.movie_id = md.movie_id
-    JOIN dates_dim dd ON rf.date_id = dd.date_id
-    GROUP BY dd.year, md.movie_title
+    SELECT D.year, 
+           M.movie_title, 
+           AVG(R.rating) AS avg_rating,
+           RANK() OVER (PARTITION BY D.year ORDER BY AVG(R.rating) DESC) AS rnk
+    FROM ratings_fact R
+    JOIN movies_dim M ON  R.movie_id = M.movie_id
+    JOIN dates_dim D  ON  R.date_id = D.date_id
+    GROUP BY D.year, M.movie_title
 ) yearly_ranked_movies
 WHERE rnk = 1;
 ```
@@ -958,3 +994,70 @@ WHERE rnk = 1;
 2 rows in set (0.19 sec)
 ~~~
 
+### Query-20: Common Movies Between Users:
+
+	write a SQL query to fo find the list 
+	of pair of users who have watched 70 
+	movies in common between them.
+	
+~~~sql
+SELECT 
+    r1.user_id AS user1, 
+    r2.user_id AS user2, 
+    COUNT(DISTINCT r1.movie_id) AS common_movies
+FROM 
+    ratings_fact r1
+JOIN 
+    ratings_fact r2
+ON 
+    r1.movie_id = r2.movie_id 
+    AND r1.user_id < r2.user_id  -- Ensures each pair is listed only once
+GROUP BY 
+    r1.user_id, r2.user_id
+HAVING 
+    COUNT(DISTINCT r1.movie_id) >= 70;
+~~~
+
+### Explanation:
+1. **Self-Join**: The `ratings_fact` table is 
+   joined with itself (`r1` and `r2` are aliases 
+   for the same table) on the `movie_id` column. 
+   This ensures we are comparing movies watched 
+   by different users.
+
+2. **`r1.user_id < r2.user_id`**: This condition 
+   ensures that each pair of users is listed only 
+   once (e.g., (`user1`, `user2`) is considered 
+   the same as (`user2`, `user1`)).
+
+3. **Grouping**: The results are grouped by 
+   `r1.user_id` and `r2.user_id` to count the 
+   number of common movies for each pair.
+   
+4. **Filtering**: The `HAVING` clause filters 
+   out pairs that have fewer than 70 movies in common.
+
+
+#### output:
+
+~~~
++-------+-------+---------------+
+| user1 | user2 | common_movies |
++-------+-------+---------------+
+|   101 |   108 |            71 |
+|   101 |   111 |            72 |
+|   108 |   111 |            72 |
+|   108 |   117 |            71 |
+|   108 |   121 |            71 |
+|   108 |   122 |            71 |
+|   108 |   131 |            71 |
+|   108 |   137 |            70 |
+|   111 |   116 |            71 |
+|   111 |   122 |            72 |
+|   111 |   138 |            70 |
+|   116 |   122 |            71 |
+|   117 |   122 |            72 |
+|   122 |   137 |            70 |
++-------+-------+---------------+
+14 rows in set (0.16 sec)
+~~~
