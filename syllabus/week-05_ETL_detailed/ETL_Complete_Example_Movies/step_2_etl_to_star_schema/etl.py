@@ -86,6 +86,7 @@ def read_json(json_config_file):
 
 #-------------------------------------------------
 # Command Line Parameter 1: "db_config_source.json"
+# denoting the Transactional Database
 #-------------------------------------------------
 # This is for a Transactional Database
 # db_config_source_file = "db_config_source.json"

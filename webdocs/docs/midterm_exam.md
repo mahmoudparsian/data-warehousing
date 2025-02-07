@@ -1,6 +1,6 @@
 ## Midterm Exam: 
 
-#### &#x1F34F; Date: Tuesday, February 11, 2025
+#### &#x1F34F; Date: Thursday, February 13, 2025
 
 #### &#x1F34F; Time: 5:45 pm - 7:15 pm
 
