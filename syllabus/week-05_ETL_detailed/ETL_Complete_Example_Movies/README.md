@@ -10,10 +10,10 @@ then we can write our Business Intelligence SQL queries.
 Database configurations are defined as JSON files:
 
 * Transactional (Source) Database:
-	* [`db_config_source.json`](db_config_source.json) 
+	* [`db_config_source.json`](./step_2_etl_to_star_schema/db_config_source.json) 
 
 * Star Schema (Target) Database:
-	* [`db_config_target.json`](db_config_target.json) 
+	* [`db_config_target.json`](./step_2_etl_to_star_schema/db_config_target.json) 
 
 
 # 2. Transactional Database
