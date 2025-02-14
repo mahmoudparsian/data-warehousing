@@ -18,9 +18,9 @@
 | 4. **Time-variant**:      | Analyzes changes over time, and typically contains multiple years of data |
 
 	
-![](./README_DW_Inmon_Model.png)
+![](../webdocs/images/README_DW_Inmon_Model.png)
 
-![](./README_DW_architecture.jpg)
+![](../webdocs/images/README_DW_architecture.jpg)
 
 ---------
 
