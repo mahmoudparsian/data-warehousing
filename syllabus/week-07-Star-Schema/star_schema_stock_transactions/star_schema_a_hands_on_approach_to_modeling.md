@@ -362,20 +362,23 @@ The following query will do just that.
 # Star Schema Tables
 
    
-	Looking a this join, we figure that Orders 
-	is the most important FACT table and 
-	the following are dimension (DIM) tables:
+	Looking a this join, we figure 
+	that Orders is the most important 
+	FACT table and the following are 
+	dimension (DIM) tables:
 
 
 ## FACT table : fct_orders
 
-## DIM tables:
-###  dim_users
-###  dim_symbols
-###  dim_dates
-###  dim_status_orders
+## Dimension Tables:
+###  `dim_users`
+###  `dim_symbols`
+###  `dim_dates`
+###  `dim_status_orders`
 
-![](./images/2_er_diagram_for_Star_Schema.png)
+------
+
+![](./images/star_schema_for_stocks.drawio.png)
 
 
 # Fact Table: `fct_orders`
