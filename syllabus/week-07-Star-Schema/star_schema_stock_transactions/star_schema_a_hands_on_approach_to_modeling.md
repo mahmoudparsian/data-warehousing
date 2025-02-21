@@ -1,79 +1,73 @@
-= The Star Schema:
-
-==== A Hands-On Approach to Modeling
+#  The Star Schema <br> A Hands-On Approach to Modeling
 
 
-= 1. Stage: Stock Market Company
+# 1. Stage: Stock Market Company
 
-
-image::/Users/mparsian/max/github/data-warehousing/z/class_lectures/CLASS-WEEK-2-star_schema_hands_on/images/0_stockmarket.png[alt=stockmarket,width=640,height=480]
+![](./images/0_stockmarket.png)
 
 
 
 
 
-=== 1.1 Stock Market Company
+# 1.1 Stock Market Company
 
-We are on the data team for a fictional +
-stock market trading  firm  that  needs +
-some insights into its orders data.     +
+	We are on the data team for a fictional 
+	stock market trading  firm  that  needs 
+	some insights into its orders data.     
 
-#Users trade stocks:# BUY / SELL
+# Users trade stocks: BUY / SELL
 
 * **Buy Stocks**
-** Example-1: user Alex buys 1000 shares of ILMN
-** Example-2: user Jane buys 5000 shares of FB
+	* Example-1: user Alex buys 1000 shares of ILMN
+	* Example-2: user Jane buys 5000 shares of FB
 
 * **Sell Stocks**
-** Example-1: user Terry sells 700 shares of APL
-** Example-2: user Betty sells 2000 shares of ILMN
+	* Example-1: user Terry sells 700 shares of APL
+	* Example-2: user Betty sells 2000 shares of ILMN
 
 
-=== 1.2 Data Warehouding & Analysis
+# 1.2 Data Warehouding & Analysis
 
-After analyzing our source data  and     +
-business needs, the team has decided     +
-that modeling the orders  data as  a     +
-star schema would be the optimal choice. +
+	After analyzing our source data  and     
+	business needs, the team has decided     
+	that modeling the orders  data as  a     
+	star schema would be the optimal choice. 
 
-=== 1.3 Operational Database Tables
+# 1.3 Operational Database Tables
 
-We receive data exports from our backend    +
-team. The means  of this  transfer  isn’t   +
-important as we will start our project at   +
-the point which it is  loaded  into  our    +
-warehouse. The raw data will be normalized, +
-comprised of three tables:                  +
+	We receive data exports from our backend    
+	team. The means  of this  transfer  isn’t   
+	important as we will start our project at   
+	the point which it is  loaded  into  our   
+	warehouse. The raw data will be normalized, 
+	comprised of three tables:                  
 
 
-.Operational Tables
-[width="100%",options="header,footer"]
-|====================
-| Operational Table Name  | Table Description              
-| #**Users**#             | Users buying or selling stocks 
-| #**Orders**#            | Stock orders by users          
-| #**Symbols**#           | Stock symbols                  
-|====================
+## Operational Database Tables
 
+| Operational Table Name  | Table Description |
+|-------------------------|-------------------|             
+| **Users**               | Users buying or selling stocks 
+| **Orders**              | Stock orders by users          
+| **Symbols**             | Stock symbols                  
 
 
 
-= 2. Business Intelligence Questions:
+# 2. Business Intelligence Questions:
 
+### 2.1. On average, which cities are trading the highest-priced stocks#
 
-=== #2.1. On average, which cities are trading the highest-priced stocks#
-
-
-=== #2.2. What is the daily proportion of orders that are executed (as opposed to canceled)?#
+### 2.2. What is the daily proportion of orders that are executed (as opposed to canceled)?#
 
 
 # 3. Operational Database tables
 
-image::/Users/mparsian/max/github/data-warehousing/z/class_lectures/CLASS-WEEK-2-star_schema_hands_on/images/1_er_diagram_for_3_tables.png[]
+![](./images/1_er_diagram_for_3_tables.png)
+
 
 ## Users table
-[source,sql]
-----
+
+~~~sql
 
 CREATE TABLE users (
     user_id INTEGER,
@@ -84,11 +78,11 @@ CREATE TABLE users (
     state VARCHAR(155),
     date_joined DATE
 );
-----
+~~~
 
-#Users table sample records#
-[source,sql]
-----
+# Users table sample records#
+
+~~~text
 
 +---------+------------+-----------+--------+------+-------+------------+
 | user_id | first_name | last_name | email  | city |state | date_joined |
@@ -98,14 +92,12 @@ CREATE TABLE users (
 | 1122002 | Bob        | Fox       |f@g.com | Tampa| FL   | 4/20/2021   |
 +---------+------------+-----------+--------+------+------+-------------+
 ...
-----
+~~~
 
 
 ## Orders table
 
-[source,sql]
-----
-
+~~~sql
 CREATE TABLE orders (
     order_id INTEGER,
     user_id INTEGER,
@@ -116,12 +108,11 @@ CREATE TABLE orders (
     buy_or_sell VARCHAR(1),  -- { 'buy', 'sell' }
     order_status VARCHAR(1), -- { 'executed', 'cancelled' }
 );
-----
+~~~
 
-#Orders table sample records#
+# Orders table sample records#
 
-[source,sql]
-----
+~~~text
 +----------+---------+---------+-------+---------+-----------+-------------+-------------+
 | order_id | user_id |symbol_id| price | quantity| order_date| buy_or_sell | order_status|
 +----------+---------+---------+-------+---------+-----------+-------------+-------------+
@@ -139,26 +130,23 @@ CREATE TABLE orders (
 +----------+---------+---------+-------+---------+-----------+-------------+-------------+
 ...
 
-----
+~~~
 
-## Symbols table
+## Stock Symbols table
 
 
-[source,sql]
-----
-
+~~~sql
 CREATE TABLE symbols (
     symbol_id INTEGER,
     symbol VARCHAR(16),
     date_added DATE,
     listed_at VARCHAR(16)
 )
-----
+~~~
 
-#Symbols table sample records:#
+# Stock Symbols table sample records:
 
-
-----
+~~~text
 +-----------+---------+-----------+-----------+
 | symbol_id | symbol  | date_added| listed_at |
 +-----------+---------+-----------+-----------+
@@ -173,18 +161,20 @@ CREATE TABLE symbols (
 | 60        | AAA     | 1/1/2008  | Dow       |
 +-----------+---------+-----------+-----------+
 ...
-----
+~~~
 
 
 ### NOTE: 3 tables: operational database tables
-Remember, this is not our analytical 
-model. Data modeling optimized for 
-operational use is very different 
-from the one used for analytics. 
-Transforming the former into the 
-latter is one of the reasons why 
-data and analytics engineers exist.
-~~~
+
+	Remember, this is not our analytical 
+	model. Data modeling optimized for 
+	operational use is very different 
+	from the one used for analytics. 
+	Transforming the former into the 
+	latter is one of the reasons why 
+	data and analytics engineers exist.
+
+
 
 # The Dimensional Design Process
 
@@ -207,14 +197,14 @@ look at the raw orders table, we see two
 numerical columns:
 
 
-1. #price#
+## 1. price
 
-2. #quantity# 
+## 2. quantity
   
 
-from which we can generate key metrics for 
-the business. These will be the facts/measures 
-in our final facts table.
+	from which we can generate key metrics 
+	for the business. These  will  be  the 
+	facts/measures in our final facts table.
 
 
 
@@ -237,11 +227,10 @@ and allow them to explore on their own.
 
 ## Dimensional Tables
 
-
-image::/Users/mparsian/max/github/data-warehousing/z/class_lectures/CLASS-WEEK-2-star_schema_hands_on/images/6_dim_modeling.png[]
-
+![](./images/6_dim_modeling.png)
 
 
+# Next to grain...
 Next to grain, the most important contributor 
 to BI users adopting our model is the dimension 
 tables. Requests usually come in at least two parts:
@@ -274,14 +263,13 @@ without measures.
 
 ## Understand Left Join
 
-image::/Users/mparsian/max/github/data-warehousing/z/class_lectures/CLASS-WEEK-2-star_schema_hands_on/images/5_types_of_joins.png[]
+![](./images/5_types_of_joins.png)
 
+# Understand Star Schema
 
-## Understand Star Schema
+# What is a star schema?#
 
-#What is a star schema?#
-
-1. A star schema is a #multi-dimensional data model# used 
+1. A star schema is a **multi-dimensional data model** used 
 to organize datain a database so that it is easy to understand and analyze.
 
 2. Star schemas can be applied to data warehouses, databases, data marts, and other tools. 
@@ -295,14 +283,10 @@ to organize datain a database so that it is easy to understand and analyze.
   the data warehouse.
 
 
-image::/Users/mparsian/max/github/data-warehousing/z/class_lectures/CLASS-WEEK-2-star_schema_hands_on/images/7_star_schema_example.png[]
-
-
+![](./images/7_star_schema_example.png)
 
 ## Fact tables and Dimension tables
 
-[source,]
-----
   1. A star schema is used to denormalize 
      business data into dimensions (like 
      time and product)  and facts (like 
@@ -324,19 +308,17 @@ image::/Users/mparsian/max/github/data-warehousing/z/class_lectures/CLASS-WEEK-2
 
 ----
 
-== Denormalized data
+# Denormalized data
 
-[source,]
-----
-  1. Star schemas denormalize the data, which means 
+1. Star schemas denormalize the data, which means 
      adding redundant columns to some dimension tables 
      to make querying and working with the data faster 
      and easier. 
      
-   2. The purpose is to trade some redundancy (duplication 
+2. The purpose is to trade some redundancy (duplication 
       of data) in the data model for increased query speed, 
       by avoiding computationally expensive join operations.
-----
+
 
 ## Designing the Star Schema
 
@@ -349,10 +331,9 @@ transaction and help us build out our dimensions.
 The following query will do just that.
 
 
-3 tables joined AS (denormalized table)
+# 3 tables joined AS (denormalized table)
 
-[source,sql]
-----
+~~~sql
   SELECT
     u.user_id,
     u.last_name,
@@ -375,173 +356,33 @@ The following query will do just that.
     ON o.symbol_id = s.symbol_id
   LEFT JOIN users AS u 
     ON o.user_id = u.user_id
-----
+~~~
 
  
 # Star Schema Tables
 
    
-Looking a this join, we figure that Orders is
-the most important FACT table and 
-the following are dimension (DIM) tables:
+	Looking a this join, we figure that Orders 
+	is the most important FACT table and 
+	the following are dimension (DIM) tables:
 
 
-### FACT: #fct_orders#
+## FACT table : fct_orders
 
-### DIM tables:
-####  #dim_users#
-####  #dim_symbols#
-####  #dim_dates#
-####  #jnk_orders#
+## DIM tables:
+###  dim_users
+###  dim_symbols
+###  dim_dates
+###  dim_status_orders
+
+![](./images/2_er_diagram_for_Star_Schema.png)
 
 
-image::/Users/mparsian/max/github/data-warehousing/z/class_lectures/CLASS-WEEK-2-star_schema_hands_on/images/2_er_diagram_for_Star_Schema.png[]
-
-
-## SHA-256 hash algorithm
-
-		SHA-256 hash algorithm is used to convert 
-        user passwords into a hash value before 
-        storing them in a database.
-
-## Fact Table: `fct_orders`
+# Fact Table: `fct_orders`
 
 We build a fact table from the #raw orders table#
 
-[source,sql]
-----
-
-CREATE TABLE `fct_orders` AS (
-SELECT
-  order_id,
-  order_date as order_date_id,
-  user_id,
-  SHA256(CONCAT(buy_or_sell, order_status)) as jnk_order_id,
-  symbol_id,
-  price,
-  quantity
-FROM `orders`
-)
-----
-
-# DIM Table: `dim_date`
-
-For the dates dimension table, there are plenty of ways to 
-go about generating a series of past and future dates. This 
-really depends on the dialect your database is using
-
-[source,sql]
-----
-
-CREATE TABLE `dim_dates` AS (
-  SELECT
-    date AS date_id,
-    date,
-    EXTRACT(MONTH FROM date) AS month,
-    EXTRACT(YEAR FROM date) AS year
-  FROM UNNEST(
-    GENERATE_DATE_ARRAY('2014-01-01', CURRENT_DATE('America/New_York'), INTERVAL 1 DAY)
-  ) AS date
-  
-----
-
-#The query above generates a table of distinct dates, one day apart, starting from the arbitrary date ‘2014–01–01’ to the current date. Since dates are distinct, I’ve chosen to also use them for the date_id field.#
-
-
-
-# DIM Table: `jnk_orders`
- 
-
-The #"buy_or_sell"# and #"order_status"# columns from 
-Orders table, can be used to create what is called 
-a junk dimension table, where the rows are simply 
-all possible combinations of the attributes of the 
-columns. A hash of the different combinations will 
-also be computed and used as a surrogate key.
-
-
-[source,sql]
-----
-CREATE TABLE `jnk_orders` AS (
-WITH values AS (
-  SELECT DISTINCT buy_or_sell, order_status
-  FROM `orders`
-),
-apply_surrogate_key AS (
-  SELECT
-    SHA256(CONCAT(buy_or_sell, order_status)) AS jnk_orders_id,
-    buy_or_sell,
-    order_status
-  FROM values
-)
-SELECT *
-FROM apply_surrogate_key
-)
-----
-
-# `jnk_orders` table
-
-[source,sql]
-----
-select * from `jnk_orders`
-+---------------+------------+--------------+
-| jnk_orders_id |buy_or_sell | order_status |
-+---------------+------------+--------------+
-| aaa45t89rdtf  | buy        | executed     |
-+---------------+------------+--------------+
-| bbb657rftyyg  | buy        | cancelled    |
-+---------------+------------+--------------+
-| xxx45t89rdtf  | sell       | executed     |
-+---------------+------------+--------------+
-| yyy657rftyyg  | sell       | cancelled    |
-+---------------+------------+--------------+
-----
-
-## Alternate solution for `jnk_orders` table
-
-[source,sql]
-----
-CREATE TABLE jnk_orders (
-   jnk_orders_id INT PRIMARY KEY,
-   buy_or_sell TEXT,
-   order_status TEXT
-);
-
-INSERT INTO  jnk_orders (
-   jnk_orders_id, 
-   buy_or_sell,
-   order_status
-)
-VALUES
-(1, 'buy', 'executed'),
-(2, 'buy', 'cancelled'),
-(3, 'sell', 'executed'),
-(4, 'sell', 'cancelled');
-----
-
-
-
-[source,sql]
-----
-select * from `jnk_orders`
-+---------------+------------+--------------+
-| jnk_orders_id |buy_or_sell | order_status |
-+---------------+------------+--------------+
-| 1             | buy        | executed     |
-+---------------+------------+--------------+
-| 2             | buy        | cancelled    |
-+---------------+------------+--------------+
-| 3             | sell       | executed     |
-+---------------+------------+--------------+
-| 4             | sell       | cancelled    |
-+---------------+------------+--------------+
-----
-
-## Revising the Fact Table with new `jnk_order_id`
-
-
-[source,sql]
-----
+~~~sql
 
 CREATE TABLE `fct_orders` AS (
 SELECT
@@ -554,13 +395,92 @@ SELECT
     WHEN buy_or_sell = 'sell' and order_status = 'executed'  THEN 3
     WHEN buy_or_sell = 'sell' and order_status = 'cancelled' THEN 4
     ELSE 0
-  END AS jnk_orders_id,
+  END AS status_order_id,
   symbol_id,
   price,
   quantity
 FROM `orders`
 )
-----
+~~~
+
+# DIM Table: `dim_date`
+
+For the dates dimension table, there are plenty of ways to 
+go about generating a series of past and future dates. This 
+really depends on the dialect your database is using
+
+~~~sql
+
+CREATE TABLE `dim_dates` AS (
+  SELECT
+    date AS date_id,
+    date,
+    EXTRACT(MONTH FROM date) AS month,
+    EXTRACT(YEAR FROM date) AS year
+  FROM UNNEST(
+    GENERATE_DATE_ARRAY('2014-01-01', CURRENT_DATE('America/New_York'), INTERVAL 1 DAY)
+  ) AS date
+  
+~~~
+
+### The query above generates a table of distinct dates, one day apart, starting from the arbitrary date ‘2014–01–01’ to the current date. Since dates are distinct, I’ve chosen to also use them for the date_id field.#
+
+
+
+# DIM Table: `dim_status_orders`
+ 
+
+	The **"buy_or_sell"** and **"order_status"** columns 
+	from Orders table, can be used to create what is called 
+	a `dim_status_orders` dimension table, where the rows 
+	are simply all possible combinations of the attributes 
+	of the columns.
+
+
+
+# `dim_status_orders` table
+
+## Table Definition
+
+~~~sql
+
+CREATE TABLE dim_status_orders (
+   status_orders_id INT PRIMARY KEY,
+   buy_or_sell TEXT,
+   order_status TEXT
+);
+~~~
+
+## Populate Table
+
+~~~sql
+INSERT INTO  dim_status_orders (
+   status_orders_id, 
+   buy_or_sell,
+   order_status
+)
+VALUES
+(1, 'buy', 'executed'),
+(2, 'buy', 'cancelled'),
+(3, 'sell', 'executed'),
+(4, 'sell', 'cancelled');
+~~~
+
+
+~~~sql
+select * from `dim_status_orders `
++-----------------+------------+--------------+
+| status_order_id |buy_or_sell | order_status |
++-----------------+------------+--------------+
+| 1               | buy        | executed     |
++-----------------+------------+--------------+
+| 2               | buy        | cancelled    |
++-----------------+------------+--------------+
+| 3               | sell       | executed     |
++-----------------+------------+--------------+
+| 4               | sell       | cancelled    |
+
+~~~
 
 
 # Business Intelligence Analysis
@@ -573,55 +493,41 @@ Let's use our model to answer a few hypothetical questions.
 
 ### #1. On average, which cities are trading the highest-priced stocks?#
 
-[source,sql]
-----
+~~~sql
 SELECT
-  city,
-  ROUND(AVG(price),2) AS avg_price
+      U.city,
+      ROUND(AVG(F.price),2) AS avg_price
 
-   FROM `fct_orders` AS f
-   LEFT JOIN `dim_users` as u
-     ON f.user_id = u.user_id
-   GROUP BY city
-   ORDER BY avg_price DESC
-   LIMIT 5
-----
+FROM `fct_orders` AS F
+LEFT JOIN `dim_users` as U
+   ON F.user_id = U.user_id
+GROUP BY U.city
+ORDER BY avg_price DESC
+LIMIT 5
+~~~
 
-[source,sql]
-----
-SELECT
-  u.city,
-  ROUND(AVG(f.price),2) AS avg_price
+![](./images/3_BI_analysis_1.png)
 
-   FROM `fct_orders` AS f
-   LEFT JOIN `dim_users` as u
-     ON f.user_id = u.user_id
-   GROUP BY u.city
-   ORDER BY avg_price DESC
-   LIMIT 5
-----
-
-image::/Users/mparsian/max/github/data-warehousing/z/class_lectures/CLASS-WEEK-2-star_schema_hands_on/images/3_BI_analysis_1.png[]
 
 ### #2. What is the daily proportion of orders that are executed (as opposed to canceled)?#
 
-[source,sql]
-----
+~~~sql
 SELECT
   date,
   SUM(CASE WHEN order_status = 'executed' THEN 1 ELSE 0 END) /
     COUNT(*) AS proportion_executed
 
-  FROM `fct_orders` as f
-  LEFT JOIN `dim_dates` as d   ON f.order_date_id = d.date_id
-  LEFT JOIN `jnk_orders` as o  ON f.jnk_order_id = o.jnk_order_id
+FROM `fct_orders` as F
+LEFT JOIN `dim_dates` as D   ON F.order_date_id = D.date_id
+LEFT JOIN `dim_status_orders ` as S  ON F.status_order_id = S.status_order_id
 GROUP BY date
 ORDER BY date DESC
-----
+~~~
+
+![](./images/4_BI_analysis_2.png)
 
 
-image::/Users/mparsian/max/github/data-warehousing/z/class_lectures/CLASS-WEEK-2-star_schema_hands_on/images/4_BI_analysis_2.png[]
 
 # Source
-https://medium.com/mlearning-ai/the-star-schema-a-hands-on-approach-to-modeling-fcf9e87edc08[The Star Schema: A Hands-On Approach to Modeling by Jonathan Duran]
+[The Star Schema: A Hands-On Approach to Modeling by Jonathan Duran](https://medium.com/mlearning-ai/the-star-schema-a-hands-on-approach-to-modeling-fcf9e87edc08)
 
