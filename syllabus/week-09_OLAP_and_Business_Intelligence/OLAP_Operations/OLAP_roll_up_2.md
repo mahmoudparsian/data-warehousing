@@ -5,6 +5,13 @@
 	provide 4 examples (simple to complex) 
 	of a "roll up" opertion in sql
 
+## Roll-Up Operations in SQL
+
+	Roll-up is an OLAP (Online Analytical Processing) 
+ 	operation where we aggregate data at different 
+  	levels of granularity.
+
+
 A **Star Schema** in MySQL consists of a central **fact table** and several **dimension tables** that provide descriptive attributes. Let's create a star schema for a **Sales Analysis System**.
 
 # What to do
