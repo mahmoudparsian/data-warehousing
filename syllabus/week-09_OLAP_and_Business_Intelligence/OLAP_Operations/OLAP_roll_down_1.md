@@ -5,6 +5,11 @@
 	provide 4 examples (simple to complex) 
 	of a "roll down" operation in sql
 
+## **2. Roll-Down Operations in SQL**
+### **What is Roll-Down?**
+- **Drilling down** (opposite of roll-up) moves from **higher levels of aggregation to lower levels**, providing more granular details.
+
+
 ![](./images/olap-down-drill-example.webp)
 
 ### **Star Schema in MySQL (Sales Analysis System)**  
