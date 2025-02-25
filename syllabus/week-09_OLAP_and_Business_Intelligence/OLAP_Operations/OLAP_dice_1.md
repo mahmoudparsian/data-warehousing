@@ -4,6 +4,9 @@
 	sample records for all tables and 
 	then provide 4 examples (simple to 
 	complex) of a "dice" operation in sql
+
+ ### **What is a Dice Operation?**
+- **Dice filters on multiple dimensions at the same time**.
 	
 ![](./images/olap-dice-2.png)
 
