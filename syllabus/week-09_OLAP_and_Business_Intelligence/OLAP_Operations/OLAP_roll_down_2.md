@@ -162,7 +162,7 @@ JOIN
      Customer ON Sales.CustomerID = Customer.CustomerID
 GROUP BY 
      Date.Year, Product.Category, Customer.Country;
-
+~~~
 ------
 
 # Roll-Down Examples
