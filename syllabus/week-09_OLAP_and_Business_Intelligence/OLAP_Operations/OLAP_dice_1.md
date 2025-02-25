@@ -1,4 +1,11 @@
-can you provide a star schema in mysql with sample records for all tables and then provide 4 examples (simple to complex) of a "dice" operation in sql
+# OLAP: Dice operation
+
+	Provide a star schema in mysql with 
+	sample records for all tables and 
+	then provide 4 examples (simple to 
+	complex) of a "dice" operation in sql
+	
+![](./images/olap-dice-2.png)
 
 ### **1. Star Schema in MySQL (Retail Sales Analysis System)**  
 
@@ -89,6 +96,12 @@ GROUP BY d.year, d.quarter, p.category, p.product_name;
 - Filters for **Electronics category**.
 - Groups by **time (year & quarter) and product details**.
 
+
+
+| **Example** | **Dice Conditions** | **Query Purpose** |
+|------------|---------------------|-------------------|
+| **1** | `WHERE d.year = 2024 AND d.quarter = 'Q1'` <br> `AND p.category = 'Electronics'` | Filters **Q1 2024 Electronics sales** |
+
 ---
 
 ### **Example 2: Dice on Store and Customer Region (Sales in NY & North Region Customers)**
@@ -97,13 +110,23 @@ SELECT st.store_name, st.location, c.region, SUM(s.sales_amount) AS total_sales
 FROM sales_fact s
 JOIN store_dim st ON s.store_id = st.store_id
 JOIN customer_dim c ON s.customer_id = c.customer_id
-WHERE st.location = 'NY' AND c.region = 'North'
+WHERE 
+     st.location = 'NY' AND 
+     c.region = 'North'
 GROUP BY st.store_name, st.location, c.region;
 ```
 ✅ **Explanation**:
 - Filters sales for **stores in NY**.
 - Filters **customers from the North region**.
 - Groups by **store and customer region**.
+
+
+
+| **Example** | **Dice Conditions** | **Query Purpose** |
+|------------|---------------------|-------------------|
+| **2** | `WHERE st.location = 'NY'` <br> `AND c.region = 'North'` | Filters **NY store sales & North region customers** |
+
+
 
 ---
 
@@ -124,6 +147,11 @@ GROUP BY d.year, d.quarter, p.product_name, st.store_name, st.location;
 - Filters for **Laptop sales**.
 - Filters for **Store B in California**.
 
+
+| **Example** | **Dice Conditions** | **Query Purpose** |
+|------------|---------------------|-------------------|
+| **3** | `WHERE d.year = 2024 AND` <br> `d.quarter = 'Q2' AND` <br> `p.product_name = 'Laptop' AND st.location = 'CA'` | Filters **Q2 2024 Laptop sales in CA** |
+
 ---
 
 ### **Example 4: Dice on Time, Product, Store, and Customer (Q1 2024, Phones, Store A in NY, South Region Customers)**
@@ -134,10 +162,12 @@ JOIN date_dim d ON s.date_id = d.date_id
 JOIN product_dim p ON s.product_id = p.product_id
 JOIN store_dim st ON s.store_id = st.store_id
 JOIN customer_dim c ON s.customer_id = c.customer_id
-WHERE d.year = 2024 AND d.quarter = 'Q1'
-AND p.product_name = 'Phone'
-AND st.location = 'NY'
-AND c.region = 'South'
+WHERE 
+     d.year = 2024 AND 
+     d.quarter = 'Q1' AND 
+     p.product_name = 'Phone' AND 
+     st.location = 'NY' AND 
+     c.region = 'South'
 GROUP BY d.year, d.quarter, p.product_name, st.store_name, st.location, c.region;
 ```
 ✅ **Explanation**:
@@ -149,6 +179,7 @@ GROUP BY d.year, d.quarter, p.product_name, st.store_name, st.location, c.region
 ---
 
 ## **Summary**
+
 | **Example** | **Dice Conditions** | **Query Purpose** |
 |------------|---------------------|-------------------|
 | **1** | `WHERE d.year = 2024 AND d.quarter = 'Q1' AND p.category = 'Electronics'` | Filters **Q1 2024 Electronics sales** |
@@ -158,5 +189,4 @@ GROUP BY d.year, d.quarter, p.product_name, st.store_name, st.location, c.region
 
 ---
 
-Would you like more variations of dice operations? 😊
 

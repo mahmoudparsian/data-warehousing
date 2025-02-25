@@ -1,10 +1,22 @@
-can you provide a star schema in mysql with sample records for all tables and then provide 4 examples (simple to complex) of a "pivot" operation in sql
+# OLAP Pivot Operation
 
-Absolutely! Let's start by creating a star schema in MySQL with sample records for all tables. I'll use a simple e-commerce example.
+	Provide a star schema in mysql with 
+	sample records for all tables and then 
+	provide 4 examples (simple to complex) 
+	of a "pivot" operation in sql
+
+	Let's start by creating a star schema 
+	in MySQL with sample records for all 
+	tables. 
+	
+	We use a simple e-commerce example.
+
+![](./images/olap-pivot-2.png)
 
 ### Star Schema Example
 
 **Fact Table:** `sales`
+
 - `sale_id` (Primary Key)
 - `date_id` (Foreign Key to `dim_date`)
 - `product_id` (Foreign Key to `dim_product`)
@@ -15,17 +27,20 @@ Absolutely! Let's start by creating a star schema in MySQL with sample records f
 **Dimension Tables:**
 
 **1. `dim_date`**
+
 - `date_id` (Primary Key)
 - `date`
 - `month`
 - `year`
 
 **2. `dim_product`**
+
 - `product_id` (Primary Key)
 - `product_name`
 - `category`
 
 **3. `dim_customer`**
+
 - `customer_id` (Primary Key)
 - `customer_name`
 - `customer_location`
@@ -133,4 +148,4 @@ JOIN dim_product ON sales.product_id = dim_product.product_id
 GROUP BY product_name;
 ```
 
-I hope this helps! Let me know if you have any questions or if there's anything else you'd like to explore.
+

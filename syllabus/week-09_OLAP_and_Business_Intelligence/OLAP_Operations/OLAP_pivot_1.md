@@ -1,4 +1,13 @@
-can you provide a star schema in mysql with sample records for all tables and then provide 4 examples (simple to complex) of a "pivot" operation in sql
+# OLAP Pivot Operation
+
+	Provide a star schema in mysql with 
+	sample records for all tables and then 
+	provide 4 examples (simple to complex) 
+	of a "pivot" operation in sql
+
+
+
+![](./images/olap-pivot-2.png)
 
 ### **1. Star Schema in MySQL (Retail Sales Analysis System)**  
 
@@ -88,6 +97,11 @@ GROUP BY year;
 - Transforms **quarterly sales into separate columns** (`Q1_sales`, `Q2_sales`).
 - Groups by **year**.
 
+
+| **Example** | **Pivot Condition** | **Query Purpose** |
+|------------|---------------------|-------------------|
+| **1** | `SUM(CASE WHEN quarter = 'Q1' THEN sales_amount ELSE 0 END)` <br> `AS Q1_sales` <br> `SUM(CASE WHEN quarter = 'Q2' THEN sales_amount ELSE 0 END)` <br> `AS Q2_sales` | Converts **sales by quarter into columns** |
+
 ---
 
 ### **Example 2: Pivot by Product (Sales per Product in Q1 2024)**
@@ -104,6 +118,12 @@ GROUP BY product_name;
 ✅ **Explanation**:
 - Converts **sales per product into columns by quarter**.
 - Filters for **2024 sales**.
+
+
+
+| **Example** | **Pivot Condition** | **Query Purpose** |
+|------------|---------------------|-------------------|
+| **2** | `SUM(CASE WHEN quarter = 'Q1' THEN sales_amount ELSE 0 END)` | Converts **sales by product for Q1 2024 into columns** |
 
 ---
 
@@ -122,6 +142,11 @@ GROUP BY region;
 ✅ **Explanation**:
 - Groups sales **by customer region**.
 - Displays **Q1 and Q2 sales as columns**.
+
+
+| **Example** | **Pivot Condition** | **Query Purpose** |
+|------------|---------------------|-------------------|
+| **3** | `SUM(CASE WHEN quarter = 'Q1' THEN sales_amount ELSE 0 END),` <br> `SUM(CASE WHEN quarter = 'Q2' THEN sales_amount ELSE 0 END)` | Converts **sales by customer region into columns** |
 
 ---
 
@@ -144,6 +169,7 @@ GROUP BY store_name;
 ---
 
 ## **Summary**
+
 | **Example** | **Pivot Condition** | **Query Purpose** |
 |------------|---------------------|-------------------|
 | **1** | `SUM(CASE WHEN quarter = 'Q1' THEN sales_amount ELSE 0 END)` | Converts **sales by quarter into columns** |
@@ -151,4 +177,3 @@ GROUP BY store_name;
 | **3** | `SUM(CASE WHEN quarter = 'Q1' THEN sales_amount ELSE 0 END), SUM(CASE WHEN quarter = 'Q2' THEN sales_amount ELSE 0 END)` | Converts **sales by customer region into columns** |
 | **4** | `SUM(CASE WHEN quarter = 'Q1' THEN sales_amount ELSE 0 END), SUM(CASE WHEN quarter = 'Q2' THEN sales_amount ELSE 0 END)` | Converts **sales per store per quarter into columns** |
 
-Would you like more variations of pivot operations? 😊

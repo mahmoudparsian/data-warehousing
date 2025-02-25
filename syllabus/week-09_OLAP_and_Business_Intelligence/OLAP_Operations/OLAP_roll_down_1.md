@@ -1,4 +1,11 @@
-can you provide a star schema in mysql with sample records for all tables and then provide 4 examples (simple to complex) of a "roll down" operation in sql
+# OLAP Roll Down
+
+	Provide a star schema in mysql with 
+	sample records for all tables and then 
+	provide 4 examples (simple to complex) 
+	of a "roll down" operation in sql
+
+![](./images/olap-down-drill-example.webp)
 
 ### **Star Schema in MySQL (Sales Analysis System)**  
 
@@ -112,6 +119,4 @@ GROUP BY d.year, d.quarter, d.month, d.day;
 1. **Created a Star Schema** with sample records.
 2. **Explored Roll-Down (Drill-Down) Operations**, moving from **higher-level aggregations to detailed breakdowns**.
 3. **Covered multiple perspectives** (time, product, store, customer).  
-
-Would you like more complex queries or additional breakdowns? 😊
 
