@@ -11,6 +11,12 @@
 	
 	We use a simple e-commerce example.
 
+
+## **What is a Pivot Operation?**
+- A **Pivot operation transforms row-based data into columns**.
+- It allows you to **summarize and compare different values** efficiently.
+
+
 ![](./images/olap-pivot-2.png)
 
 ### Star Schema Example
