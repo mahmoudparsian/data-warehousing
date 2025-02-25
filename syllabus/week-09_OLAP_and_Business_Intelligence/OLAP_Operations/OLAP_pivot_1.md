@@ -5,6 +5,9 @@
 	provide 4 examples (simple to complex) 
 	of a "pivot" operation in sql
 
+### **What is a Pivot Operation?**
+- A **Pivot operation transforms row-based data into columns**.
+- It allows you to **summarize and compare different values** efficiently.
 
 
 ![](./images/olap-pivot-2.png)
