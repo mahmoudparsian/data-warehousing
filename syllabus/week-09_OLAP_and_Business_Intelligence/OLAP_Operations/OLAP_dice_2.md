@@ -5,6 +5,10 @@
 	provide 4 examples (simple to complex) 
 	of a "dice" operation in sql
 
+### **What is a Dice Operation?**
+- **Dice filters on multiple dimensions at the same time**.
+
+  
 ![](./images/olap-dice-2.png)
 
 Let's start by defining a star schema for a retail store database, which consists of one fact table (Sales) and three dimension tables (Product, Customer, and Time).
