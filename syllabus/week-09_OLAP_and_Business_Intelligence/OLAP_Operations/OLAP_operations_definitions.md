@@ -24,14 +24,14 @@ OLAP = Online Analytical Processing
 | **Drill-Through** | Retrieves detailed transactional data | All sales in Q1 2024 |
 
 
+-----
+-----
 
-
----
 
 ## **1. Types of OLAP Operations**  
 Here are the key OLAP operations:
 
-### **1. Roll-Up (Aggregation)**
+## **1. Roll-Up (Aggregation)**
 - Moves **from a lower level of detail to a higher level**.
 - Aggregates data (e.g., **daily → monthly → yearly**).
 - Uses **GROUP BY** in SQL with **SUM, AVG, COUNT, etc.**  
@@ -51,9 +51,26 @@ Here are the key OLAP operations:
 
 ![](./images/olap-roll-up-example.webp)
 
----
+## Roll-Up Summary...
 
-### **2. Drill-Down (Roll-Down)**
+* **Description**: 
+
+		It involves summarizing or aggregating data, 
+		typically moving from detailed data to a 
+		higher level of data.
+
+* **Example**: 
+
+		If you have sales data at the day level, 
+		rolling up might mean aggregating this 
+		data to the monthly level, so instead 
+		of seeing sales per day, you'd see 
+		total sales per month.
+
+-----
+-----
+
+## **2. Drill-Down (Roll-Down)**
 - Moves **from a higher level of detail to a lower level**.
 - Provides more **granular insights** (e.g., **yearly → quarterly → monthly**).  
 - **Example**:  
@@ -74,11 +91,25 @@ Here are the key OLAP operations:
 
 ![](./images/olap-down-drill-example.webp)
 
+## Roll-down (or Drill-down) Summary...
 
+* **Description**: 
 
----
+		This is the opposite of roll-up. 
+		It involves breaking down the data 
+		into more detail.
 
-### **3. Slice**
+* **Example**: 
+
+		If you have sales data at the monthly level, 
+		drilling down would involve breaking this 
+		data down to see sales for individual days 
+		within the month.
+
+-----
+-----
+
+## **3. Slice**
 - **Filters** data for a specific value in one dimension while showing all others.  
 - **Example**: **Sales in the Electronics category only**  
 
@@ -102,9 +133,26 @@ Here are the key OLAP operations:
 
 ![](./images/olap-slice-example.webp)
 
----
+## Slice Summary...
 
-### **4. Dice**
+* **Description**: 
+
+		Slice operation creates a subset of 
+		the data by selecting a single dimension 
+		and fixing it at a certain value.
+
+* **Example**: 
+
+		If you have a cube of sales data by 
+		time, region, and product, a slice might 
+		involve selecting data for just one 
+		specific product across all regions 
+		and time periods.
+
+-----
+-----
+
+## **4. Dice**
 - **Filters multiple dimensions at the same time**.  
 - **Example**: **Sales in Q1 of 2024 for Electronics & Home Appliances**  
 
@@ -128,9 +176,27 @@ Here are the key OLAP operations:
 
 ![](./images/olap-dice-example.webp)
 
----
 
-### **5. Pivot (Rotation)**
+* **Description**: 
+
+		This operation is similar to slice 
+		but more flexible, allowing you to 
+		select multiple dimensions and values 
+		to create a subcube.
+
+* **Example**: 
+
+		Using the same sales cube, dicing might 
+		involve selecting data for a specific 
+		region and a  specific  time period, 
+		producing a smaller cube focused on 
+		those parameters.
+
+
+-----
+-----
+
+## **5. Pivot (Rotation)**
 - **Rearranges** data to provide different perspectives.  
 - **Example**: Showing **years as columns** instead of rows.
 
@@ -153,7 +219,27 @@ Here are the key OLAP operations:
 
 ![](./images/olap-pivot-example.webp)
 
----
+## Pivot (or Rotate) Summary...
+
+* **Description**: 
+
+		This involves reorienting the data cube, 
+		allowing users to view the data from 
+		different perspectives.
+	
+		
+* **Example**: 
+
+		If you're looking at sales data by 
+		product and region, pivoting might 
+		change the view to look at sales data 
+		by region and product, effectively 
+		swapping rows and columns to gain 
+		new insights.
+
+
+-----
+-----
 
 ## **6. Drill-Through (Detail View)**
 - **Retrieves raw transactional data** behind aggregated summaries.
