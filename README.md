@@ -1,6 +1,6 @@
 # data-warehousing </br> Winter Quarter 2025 </br> January-March 2025
 
-<details>
+<details open>
 
 <summary>
 
