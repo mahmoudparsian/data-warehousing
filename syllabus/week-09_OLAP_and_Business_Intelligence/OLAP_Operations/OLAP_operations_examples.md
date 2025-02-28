@@ -1,5 +1,20 @@
 # OLAP Example with All Operations
 
+## Summary of OLAP Operations
+
+| **Operation** | **Concept** | **Example Query** |
+|--------------|------------|-------------------|
+| **Roll-Up** | Aggregate data up (e.g., monthly → quarterly) | Total plays by quarter |
+| **Roll-Down** | Drill into details (e.g., quarterly → monthly) | Play counts by song |
+| **Slice** | Filter on a single dimension | Play counts for Q1 2024 |
+| **Dice** | Filter on multiple dimensions | Play counts for Rock in Q1 2024 |
+| **Pivot** | Reshape data for comparison | Monthly play counts as columns |
+
+----
+----
+
+# OLAP Story here...
+
 	1. Provide a star schema with record 
 	   examples in music industry: 
 	   
