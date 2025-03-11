@@ -1,15 +1,15 @@
 # OLAP Basics
 
-	DEF-1: An OLAP cube is a multi-dimensional 
-	       array of data.
+	DEFINITION-1: An OLAP cube is a multi-dimensional 
+	              array of data.
 	
-	DEF-2: Online analytical processing (OLAP) 
-	       is a computer-based technique of analyzing 
-	       data to look for insights. 
+	DEFINITION-2: Online analytical processing (OLAP) 
+	              is a computer-based technique of analyzing 
+	              data to look for insights. 
 	
-	DEF-3: The term cube here refers to a multi-dimensional 
-	       dataset, which is also sometimes called a hypercube 
-	       if the number of dimensions is greater than three.
+	DEFINITION-3: The term cube here refers to a multi-dimensional 
+	              dataset, which is also sometimes called a hypercube 
+	              if the number of dimensions is greater than three.
 
 ![](./images/OLAP_Cube.svg.png)
 
@@ -37,10 +37,10 @@
 	   multidimensional storage methods are all ways 
 	   to get to the data faster.
 	   
-![](./images/entire_view_of_data_cube.png)
+![](../images/entire_view_of_data_cube.png)
 
 
-![](./images/cube_4q_sw_sgm.gif)
+![](../images/cube_4q_sw_sgm.gif)
 
 
 
@@ -117,7 +117,7 @@ Combination           Count
 # Cube with Totals
 
 
-![](./images/cube_with_totals.png)
+![](../images/cube_with_totals.png)
 
 
 
@@ -221,7 +221,8 @@ SELECT gender_code as gender,
        COUNT(*) AS total
    FROM Census
    WHERE EXTRACT (YEAR FROM trans_date) = 1999
-   GROUP BY CUBE (gender_code, race_code);
+   GROUP BY 
+         CUBE (gender_code, race_code);
 
 gender  race     total
 ------ --------- -----
@@ -288,7 +289,8 @@ YEAR    ANNUAL_SALES
 SELECT YEAR(Order_Date) AS Year,
        SUM(TotalAmount) AS Annual_Sales
   FROM Orders
-  GROUP BY CUBE(YEAR(Order_Date))
+  GROUP BY 
+       CUBE(YEAR(Order_Date))
   
 Result:  4 records
 
@@ -448,10 +450,15 @@ Populate Table:
 	subsets of columns in (state, product_id):
 	
 ~~~sql
-SELECT state, product_id, SUM(quantity) as total
-FROM cube_sales
-GROUP BY CUBE(state, product_id)
-ORDER BY state, product_id;
+SELECT state, 
+       product_id, 
+       SUM(quantity) as total
+FROM 
+     cube_sales
+GROUP BY 
+     CUBE(state, product_id)
+ORDER BY 
+     state, product_id;
 
 -- The first row above represents the grand total. 
 -- The second row represents the total for 
@@ -483,10 +490,15 @@ ORDER BY state, product_id;
 	but uses ROLLUP instead of CUBE:
 
 ~~~sql
-SELECT state, product_id, SUM(quantity) as total
-FROM cube_sales
-GROUP BY ROLLUP(state, product_id)
-ORDER BY state, product_id;
+SELECT  state, 
+        product_id, 
+        SUM(quantity) as total
+FROM 
+     cube_sales
+GROUP BY 
+     ROLLUP(state, product_id)
+ORDER BY 
+     state, product_id;
 
 +------------+------------+---------------+
 | state      | product_id |         total |
@@ -524,12 +536,16 @@ GROUPING() Function
 For example:
 
 ~~~sql 
-SELECT state, product_id, SUM(quantity) as total 
+SELECT state, 
+       product_id, 
+       SUM(quantity) as total 
        GROUPING(state) as G_state, 
        GROUPING(product_id) as G_product_id
 FROM cube_sales
-GROUP BY CUBE(state, product_id)
-ORDER BY state, product_id;
+GROUP BY 
+     CUBE(state, product_id)
+ORDER BY 
+     state, product_id;
 
 +------------+------------+-------+--------+-------------+
 | state      | product_id | total | G_state| G_product_id|
