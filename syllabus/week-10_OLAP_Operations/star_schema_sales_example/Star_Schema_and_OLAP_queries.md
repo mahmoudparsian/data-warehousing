@@ -194,6 +194,10 @@ mysql> select * from dates;
 ~~~sql
 uses stars_sales;
 
+-- NOTE:
+--      a state has a set of counties
+--      a county has a set of cities
+
 create table Store(
    store_ID int, 
    city text, 
