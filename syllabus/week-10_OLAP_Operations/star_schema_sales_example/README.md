@@ -1,18 +1,18 @@
-# Star Schema Example
+# Star Schema Example <br> and OLAP Queries
 
 ## Fact Table:
 
-	Sales(storeID, itemID, custID, dateID, price)
+	Sales(store_ID, item_ID, cust_ID, date_ID, price)
 
 ## DIM Tables
 
-	Store(storeID, city, county, state)
+	Store(store_ID, city, county, state)
 
-	Item(itemID, category, color)
+	Item(item_ID, category, color)
 
-	Customer(custID, cname, gender, age)
+	Customer(cust_ID, cname, gender, age)
 
-	Dates(dateID, date, year, month, day)
+	Dates(date_ID, date, year, month, day)
 
 ## MySQL Database: `stars_sales`
 
@@ -22,7 +22,7 @@
 use stars_sales;
 
 create table dates (
-   `dateID` int(11) NOT NULL AUTO_INCREMENT,
+   `date_ID` int(11) NOT NULL AUTO_INCREMENT,
    `date` Date NOT NULL,
    `year` int(11) NOT NULL,
    `month` int(11) NOT NULL,
@@ -35,7 +35,7 @@ MySQL execution:
 
 ~~~
 mysql> create table dates (
-    ->    `dateID` int(11) NOT NULL AUTO_INCREMENT,
+    ->    `date_ID` int(11) NOT NULL AUTO_INCREMENT,
     ->    `date` Date NOT NULL,
     ->    `year` int(11) NOT NULL,
     ->    `month` int(11) NOT NULL,
@@ -53,7 +53,7 @@ mysql> desc dates;
 +--------+------+------+-----+---------+----------------+
 | Field  | Type | Null | Key | Default | Extra          |
 +--------+------+------+-----+---------+----------------+
-| dateID | int  | NO   | PRI | NULL    | auto_increment |
+| date_ID| int  | NO   | PRI | NULL    | auto_increment |
 | date   | date | NO   |     | NULL    |                |
 | year   | int  | NO   |     | NULL    |                |
 | month  | int  | NO   |     | NULL    |                |
@@ -90,17 +90,17 @@ What is a surrogate key in SQL?
 ~~~sql
 DROP PROCEDURE IF EXISTS fill_dates;
 DELIMITER |
-CREATE PROCEDURE fill_dates(dateStart DATE, dateEnd DATE)
+CREATE PROCEDURE fill_dates(date_Start DATE, date_End DATE)
 BEGIN
-  WHILE dateStart <= dateEnd DO
-    INSERT INTO dates(dateid, date, year, month, day)
+  WHILE date_Start <= date_End DO
+    INSERT INTO dates(date_id, date, year, month, day)
       VALUES (null,
-              dateStart,
-              SUBSTRING_INDEX(dateStart, '-', 1),
-              SUBSTRING_INDEX(SUBSTRING_INDEX(dateStart,'-', 2), '-',-1),
-              SUBSTRING_INDEX(dateStart, '-', -1)
+              date_Start,
+              SUBSTRING_INDEX(date_Start, '-', 1),
+              SUBSTRING_INDEX(SUBSTRING_INDEX(date_Start,'-', 2), '-',-1),
+              SUBSTRING_INDEX(date_Start, '-', -1)
       );
-    SET dateStart = date_add(dateStart, INTERVAL 1 DAY);
+    SET date_Start = date_add(date_Start, INTERVAL 1 DAY);
   END WHILE;
 END;
 |
@@ -110,7 +110,7 @@ DELIMITER ;
 ## Populate Dates Table
 
 ~~~sql
-mysql> --              dateStart     dateEnd
+mysql> --              date_Start    date_End
 mysql> CALL fill_dates('2011-03-01','2011-03-30');
 Query OK, 1 row affected (0.02 sec)
 
@@ -123,7 +123,7 @@ View populated Dates table:
 ~~~
 mysql> select * from dates;
 +--------+------------+------+-------+-----+
-| dateID | date       | year | month | day |
+| date_ID| date       | year | month | day |
 +--------+------------+------+-------+-----+
 |      1 | 2011-03-01 | 2011 |     3 |   1 |
 |      2 | 2011-03-02 | 2011 |     3 |   2 |
@@ -195,7 +195,7 @@ mysql> select * from dates;
 uses stars_sales;
 
 create table Store(
-   storeID int, 
+   store_ID int, 
    city text, 
    county text, 
    state text
@@ -205,7 +205,7 @@ create table Store(
 ## Populate Store table
 
 ~~~sql
-insert into Store(storeID, city, county, state)
+insert into Store(store_ID, city, county, state)
 values
 (1000, 'Cupertino', 'Santa Clara', 'CA'),
 (2000, 'Sunnyvale', 'Santa Clara', 'CA'),
@@ -218,7 +218,7 @@ values
 MySQL Execution:
 
 ~~~sql
-mysql> insert into Store(storeID, city, county, state)
+mysql> insert into Store(store_ID, city, county, state)
     -> values
     -> (1000, 'Cupertino', 'Santa Clara', 'CA'),
     -> (2000, 'Sunnyvale', 'Santa Clara', 'CA'),
@@ -231,7 +231,7 @@ Records: 6  Duplicates: 0  Warnings: 0
 
 mysql> select * from store;
 +---------+--------------+-------------+-------+
-| storeID | city         | county      | state |
+| store_ID| city         | county      | state |
 +---------+--------------+-------------+-------+
 |    1000 | Cupertino    | Santa Clara | CA    |
 |    2000 | Sunnyvale    | Santa Clara | CA    |
@@ -247,7 +247,7 @@ mysql> select * from store;
 
 ~~~sql
 create table  Item(
-   itemID int, 
+   item_ID int, 
    category text, 
    color text
 );
@@ -256,7 +256,7 @@ create table  Item(
 ## Populate Item Table
 
 ~~~sql
-insert into Item(itemID, category, color)
+insert into Item(item_ID, category, color)
 values
 (100, 'shirts', 'red'),
 (200, 'shirts', 'red'),
@@ -284,7 +284,7 @@ values
 MySQL Execution:
 
 ~~~sql
-mysql> insert into Item(itemID, category, color)
+mysql> insert into Item(item_ID, category, color)
     -> values
     -> (100, 'shirts', 'red'),
     -> (200, 'shirts', 'red'),
@@ -316,7 +316,7 @@ Records: 21  Duplicates: 0  Warnings: 0
 ~~~sql
 mysql> select * from Item;
 +--------+----------+--------+
-| itemID | category | color  |
+| item_ID| category | color  |
 +--------+----------+--------+
 |    100 | shirts   | red    |
 |    200 | shirts   | red    |
@@ -347,7 +347,7 @@ mysql> select * from Item;
 
 ~~~sql
 create table Customer (
-   custID int,
+   cust_ID int,
    cname text, 
    gender text,
    age int
@@ -358,7 +358,7 @@ create table Customer (
 ## Populate DIM table: Customer
 
 ~~~sql
-insert into Customer(custID, cname, gender, age)
+insert into Customer(cust_ID, cname, gender, age)
 values
 (1, 'alex', 'M', 20),
 (2, 'jane', 'F', 23),
@@ -382,7 +382,7 @@ values
 MySQL Execution:
 
 ~~~sql
-mysql> insert into Customer(custID, cname, gender, age)
+mysql> insert into Customer(cust_ID, cname, gender, age)
     -> values
     -> (1, 'alex', 'M', 20),
     -> (2, 'jane', 'F', 23),
@@ -410,7 +410,7 @@ Records: 17  Duplicates: 0  Warnings: 0
 ~~~sql
 mysql> select * from customer;
 +--------+---------+--------+------+
-| custID | cname   | gender | age  |
+| cust_ID| cname   | gender | age  |
 +--------+---------+--------+------+
 |      1 | alex    | M      |   20 |
 |      2 | jane    | F      |   23 |
@@ -437,10 +437,10 @@ mysql> select * from customer;
 
 ~~~sql
 create table Sales(
-   storeID int, -- FK
-   itemID  int, -- FK
-   custID  int, -- FK
-   dateID  int, -- FK
+   store_ID int, -- FK
+   item_ID  int, -- FK
+   cust_ID  int, -- FK
+   date_ID  int, -- FK
    price   double
 );
 ~~~
@@ -449,10 +449,10 @@ MySQL Execution:
 
 ~~~sql
 mysql> create table Sales(
-    ->    storeID int,
-    ->    itemID  int,
-    ->    custID  int,
-    ->    dateID  int,
+    ->    store_ID int,
+    ->    item_ID  int,
+    ->    cust_ID  int,
+    ->    date_ID  int,
     ->    price   double
     -> );
 Query OK, 0 rows affected (0.00 sec)
@@ -461,10 +461,10 @@ mysql> desc sales;
 +---------+--------+------+-----+---------+-------+
 | Field   | Type   | Null | Key | Default | Extra |
 +---------+--------+------+-----+---------+-------+
-| storeID | int    | YES  |     | NULL    |       |
-| itemID  | int    | YES  |     | NULL    |       |
-| custID  | int    | YES  |     | NULL    |       |
-| dateID  | int    | YES  |     | NULL    |       |
+| store_ID| int    | YES  |     | NULL    |       |
+| item_ID | int    | YES  |     | NULL    |       |
+| cust_ID | int    | YES  |     | NULL    |       |
+| date_ID | int    | YES  |     | NULL    |       |
 | price   | double | YES  |     | NULL    |       |
 +---------+--------+------+-----+---------+-------+
 5 rows in set (0.00 sec)
@@ -473,7 +473,7 @@ mysql> desc sales;
 ## Populate  FACT Table: Sales
 
 ~~~sql
-insert into Sales(storeID, itemID, custID, price, dateID)
+insert into Sales(store_ID, item_ID, cust_ID, price, date_ID)
 values
 (2000, 200, 1, 28.00, 1),
 (2000, 201, 1, 36.88, 2),
@@ -888,7 +888,7 @@ mysql> select count(*) from sales;
 
 mysql> select * from sales limit 5;
 +---------+--------+--------+--------+-------+
-| storeID | itemID | custID | dateID | price |
+|store_ID |item_ID |cust_ID |date_ID | price |
 +---------+--------+--------+--------+-------+
 |    2000 |    200 |      1 |      1 |    28 |
 |    2000 |    201 |      1 |      2 | 36.88 |
@@ -940,10 +940,12 @@ mysql>
 
 ## Full Star Join
 
-	❖ An example of how to find the full star join 
-	(or complete star join) among 5 tables (i.e., 
-	fact table + all 4 of its dimensions) in a Star Schema:
-	– Join on the foreign keys
+	❖ An example of how to find the **full star**
+	 join (or complete star join) among 5 tables 
+	 (i.e., fact table + all 4 of its dimensions) 
+	 in a Star Schema:
+	
+	 – Join on the foreign keys
 	
 	❖ If we join fewer than all dimensions, 
 	then we have a star join.
@@ -961,10 +963,10 @@ SELECT *
         Customer C,   -- DIM
         Dates D       -- DIM
       WHERE 
-            F.storeID = S.storeID and
-            F.itemID = I.itemID   and
-            F.custID = C.custID   and
-            F.dateID = D.dateID;
+            F.store_ID = S.store_ID and
+            F.item_ID = I.item_ID   and
+            F.cust_ID = C.cust_ID   and
+            F.date_ID = D.date_ID;
 ~~~
 
 # OLAP Queries – Roll-up
@@ -977,50 +979,178 @@ SELECT *
 ## OLAP Queries – Roll-up
 ## Roll-up Example 1 (Hierarchy)
 
-Roll-up Example-1:
+### Roll-up Example-1:
 
 ~~~sql
-SELECT storeID, itemID, custID, dateID, SUM(price)
-FROM Sales 
-GROUP BY storeID, itemID, custID, dateID;
+SELECT store_ID, 
+       item_ID, 
+       cust_ID, 
+       date_ID, 
+       SUM(price)
+FROM 
+    Sales 
+GROUP BY 
+    store_ID, item_ID, cust_ID, date_ID;
 ~~~
 
-Roll-up Example-2:
+### Roll-up Example-2:
 
 ~~~sql
-SELECT county, itemID, custID, SUM(price)
-FROM Sales F, Store S
-WHERE F.storeID = S.storeID
-GROUP BY county, itemID, custID;
+SELECT county, 
+       item_ID, 
+       cust_ID, 
+       SUM(price)
+FROM 
+     Sales F, 
+     Store S
+WHERE 
+     F.storeID = S.storeID
+GROUP BY 
+     county, item_ID, cust_ID;
 ~~~
 
-Roll-up Example-3:
+### Roll-up Example-3:
 
 ~~~sql
-SELECT county, itemID, gender,
-SUM(price)
-FROM Sales F, Store S, Customer C
-WHERE F.storeID = S.storeID and
-      F.custID = C.custID
-GROUP BY county, itemID, gender;
+SELECT county, 
+       item_ID, 
+       gender,
+       SUM(price)
+FROM 
+      Sales F, 
+      Store S, 
+      Customer C
+WHERE 
+      F.store_ID = S.store_ID and
+      F.cust_ID = C.cust_ID
+GROUP BY 
+      county, item_ID, gender;
 ~~~
 
 
-Roll-up Example 4 (Dimension)
+### Roll-up Example 4 (Dimension)
 
 ~~~sql
-SELECT county, itemID, SUM(price)
-FROM Sales F, Store S
-WHERE F.storeID = S.storeID
-GROUP BY county, itemID;
+SELECT county, 
+       item_ID, 
+       SUM(price)
+FROM 
+     Sales F, 
+     Store S
+WHERE 
+     F.store_ID = S.store_ID
+GROUP BY 
+     county, item_ID;
 ~~~
 
+		The following are 3 complex OLAP queries 
+		for your star schema that include joins, 
+		ranking functions with partitions, and subqueries:
+
+---
+
+### Roll-up Example 5: **Top 3 Stores by Sales in Each State**
+
+	This query ranks stores within each 
+	state based on  total  sales  and 
+	retrieves the top 3 for each state.
+	
+```sql
+WITH StoreSales AS (
+    SELECT s.state, 
+           f.store_ID, 
+           SUM(f.price) AS total_sales
+    FROM Sales f
+    JOIN Store s ON f.store_ID = s.store_ID
+    GROUP BY 
+         s.state, f.store_ID
+)
+SELECT state, 
+       store_ID, 
+       total_sales, 
+       RANK() OVER (PARTITION BY state ORDER BY total_sales DESC) AS rnk
+FROM 
+    StoreSales
+WHERE 
+    rnk <= 3;
+```
+
+---
+
+### Roll-up Example 6: **Customers with Sales Greater Than the Average in Their Gender Group**
+
+	This query identifies customers whose total sales 
+	exceed the average sales for their gender group, 
+	using subqueries and partitions.
+
+```sql
+WITH CustomerSales AS (
+    SELECT c.cust_ID, 
+           c.gender, 
+           SUM(f.price) AS total_sales
+    FROM 
+         Sales f
+    JOIN Customer c ON f.cust_ID = c.cust_ID
+    GROUP BY 
+         c.cust_ID, c.gender
+),
+GenderAverage AS (
+    SELECT gender, 
+           AVG(total_sales) AS avg_sales
+    FROM CustomerSales
+    GROUP BY gender
+)
+SELECT cs.cust_ID, 
+       cs.gender, 
+       cs.total_sales
+FROM 
+     CustomerSales cs
+JOIN GenderAverage ga ON cs.gender = ga.gender
+WHERE 
+     cs.total_sales > ga.avg_sales;
+```
+
+---
+
+### Roll-up Example 7: **Top-Selling Category by Month**
+
+	This query finds the top-selling item 
+	category for each month using ranking 
+	functions and partitions.
+	
+```sql
+WITH MonthlySales AS (
+    SELECT d.year, 
+           d.month, 
+           i.category, 
+           SUM(f.price) AS total_sales
+    FROM Sales f
+    JOIN Dates d ON f.date_ID = d.date_ID
+    JOIN Item i ON f.item_ID = i.item_ID
+    GROUP BY 
+         d.year, d.month, i.category
+)
+, 
+RankedSales AS
+ (
+    SELECT year, month, category, total_sales, 
+    RANK() OVER (PARTITION BY year, month ORDER BY total_sales DESC) 
+      AS rnk
+    FROM MonthlySales
+)
+SELECT year, month, category, total_sales
+FROM RankedSales
+WHERE rnk = 1;
+```
+
+---
 
 ## OLAP Queries – Drill-Down
 
 	❖ Drill-down: reverse of roll-up
-	– From higher level summary to lower level summary 
-	(i.e., we want more detailed data)
+	– From higher level summary to 
+	  lower level summary 
+	  (i.e., we want more detailed data)
 
 	– Introducing new dimensions
 	
@@ -1031,21 +1161,35 @@ GROUP BY county, itemID;
 	item and gender for each city.
 
 ~~~sql	
-SELECT county, itemID, gender,
-SUM(price)
-FROM Sales F, Store S, Customer C
-WHERE F.storeID = S.storeID AND
-F.custID = C.custID
-GROUP BY county, itemID, gender;
+-- by county
+SELECT county, 
+       item_ID, 
+       gender,
+       SUM(price)
+FROM Sales F, 
+     Store S, 
+     Customer C
+WHERE 
+     F.store_ID = S.store_ID AND
+     F.cust_ID = C.cust_ID
+GROUP BY 
+     county, item_ID, gender;
 ~~~
 
 ~~~sql
-SELECT city, itemID, gender,
-SUM(price)
-FROM Sales F, Store S, Customer C
-WHERE F.storeID = S.storeID AND
-F.custID = C.custID
-GROUP BY city, itemID, gender;
+-- by city
+SELECT city, 
+       item_ID, 
+       gender,
+       SUM(price)
+FROM Sales F, 
+     Store S, 
+     Customer C
+WHERE 
+     F.store_ID = S.store_ID AND
+     F.cust_ID = C.cust_ID
+GROUP BY 
+     city, item_ID, gender;
 ~~~
 
 ### Drill-down Example 2 (Dimension)
@@ -1055,20 +1199,128 @@ GROUP BY city, itemID, gender;
 	for each county. 
 	
 ~~~sql
-SELECT county, itemID, SUM(price)
-FROM Sales F, Store S
-WHERE F.storeID = S.storeID
-GROUP BY county, itemID;
+SELECT county, 
+       item_ID, 
+       SUM(price)
+FROM 
+      Sales F, 
+      Store S
+WHERE 
+      F.store_ID = S.store_ID
+GROUP BY 
+      county, item_ID;
 ~~~
 
 ~~~sql
-SELECT county, itemID, gender,
-SUM(price)
-FROM Sales F, Store S, Customer C
-WHERE F.storeID = S.storeID AND
-F.custID = C.custID
-GROUP BY county, itemID, gender;
+SELECT county, 
+       item_ID, 
+       gender,
+       SUM(price)
+FROM 
+     Sales F, 
+     Store S, 
+     Customer C
+WHERE 
+     F.store_ID = S.store_ID AND
+     F.cust_ID = C.cust_ID
+GROUP BY 
+     county, item_ID, gender;
 ~~~
+
+### Here are three complex **roll-down** OLAP queries for the given star schema using MySQL. These queries involve joins, ranking functions with partitions, and subqueries, all focused on breaking down data to more granular levels:
+
+	These queries roll data down to finer details, 
+	like breaking state-level sales into store-level, 
+	age-based grouping for customer analysis, or 
+	category-based daily sales. 
+---
+
+### Drill-down Example 3: **Monthly Sales by Store within a State**
+
+	This query breaks down total sales by store, 
+	grouped within each state, and provides the 
+	ranking of stores by sales within their 
+	respective states.
+	
+```sql
+WITH StoreMonthlySales AS (
+    SELECT s.state, 
+           s.store_ID, 
+           d.year,
+           d.month,  
+           SUM(f.price) AS total_sales
+    FROM Sales f
+    JOIN Store s ON f.store_ID = s.store_ID
+    JOIN Dates d ON f.date_ID = d.date_ID
+    GROUP BY s.state, s.store_ID, d.year, d.month
+)
+SELECT state, 
+       store_ID, 
+       year, 
+       month, 
+       total_sales,
+       RANK() OVER (PARTITION BY state ORDER BY total_sales DESC) 
+         AS rank_within_state
+FROM StoreMonthlySales;
+```
+
+---
+
+### Drill-down Example 4: **Customer Sales by Age Group**
+
+	This query identifies customer sales 
+	broken down by age group, ranked by 
+	total sales within each group.
+	
+```sql
+WITH CustomerSales AS (
+    SELECT c.cust_ID, 
+           c.age, 
+           FLOOR(c.age / 10) * 10 AS age_group, 
+           SUM(f.price) AS total_sales
+    FROM Sales f
+    JOIN Customer c ON f.cust_ID = c.cust_ID
+    GROUP BY 
+         c.cust_ID, c.age
+)
+SELECT age_group, 
+       cust_ID, 
+       total_sales,
+       RANK() OVER (PARTITION BY age_group ORDER BY total_sales DESC) 
+         AS rank_within_age_group
+FROM 
+     CustomerSales;
+```
+
+---
+
+### Drill-down Example 5: **Sales by Category for Each Day**
+
+	This query breaks down total sales by 
+	item category for each day, showing 
+	the ranking of categories within each day.
+	
+```sql
+WITH DailyCategorySales AS (
+    SELECT d.date, 
+           i.category, 
+           SUM(f.price) AS total_sales
+    FROM Sales f
+    JOIN Dates d ON f.date_ID = d.date_ID
+    JOIN Item i ON f.item_ID = i.item_ID
+    GROUP BY 
+         d.date, i.category
+)
+SELECT date, 
+       category, 
+       total_sales,
+       RANK() OVER (PARTITION BY date ORDER BY total_sales DESC) 
+         AS rank_within_date
+FROM DailyCategorySales;
+```
+
+---
+
 
 ## OLAP Queries – Slicing
 
@@ -1080,11 +1332,19 @@ GROUP BY county, itemID, gender;
 	– Total sales by item and gender for each county
 
 ~~~sql	
-SELECT county, itemID, gender, SUM(price)
-FROM Sales F, Store S, Customer C
-WHERE F.storeID = S.storeID AND
-      F.custID = C.custID
-GROUP BY county, itemID, gender;	
+SELECT county, 
+       item_ID, 
+       gender, 
+       SUM(price)
+FROM 
+    Sales F, 
+    Store S, 
+    Customer C
+WHERE 
+      F.store_ID = S.store_ID AND
+      F.cust_ID = C.cust_ID
+GROUP BY 
+      county, item_ID, gender;	
 ~~~
 
 
@@ -1094,23 +1354,40 @@ GROUP BY county, itemID, gender;
 	for each county to find total sales by item and 
 	gender for Santa Clara county.
 
-~~~sql		
-SELECT county, itemID, gender,
-SUM(price)
-FROM Sales F, Store S, Customer C
-WHERE F.storeID = S.storeID AND
-      F.custID = C.custID
-GROUP BY county, itemID, gender;
+~~~sql	
+-- NO Slicing	
+SELECT county, 
+       item_ID, 
+       gender,
+       SUM(price)
+FROM 
+     Sales F, 
+     Store S, 
+     Customer C
+WHERE 
+      F.store_ID = S.store_ID AND
+      F.cust_ID = C.cust_ID
+GROUP BY 
+     county, item_ID, gender;
 ~~~
 
 
 ~~~sql	
-SELECT itemID, gender, SUM(price)
-FROM Sales F, Store S, Customer C
-WHERE F.storeID = S.storeID AND
-      F.custID = C.custID AND
-      S.county = 'Santa Clara'
-GROUP BY itemID, gender;
+-- Proper Slicing	
+SELECT item_ID, 
+       gender, 
+       SUM(price)
+FROM 
+      Sales F, 
+      Store S, 
+      Customer C
+WHERE 
+      F.store_ID = S.store_ID AND
+      F.cust_ID = C.cust_ID AND
+      S.county = 'Santa Clara'    <--- SLICING
+GROUP BY 
+      itemID, 
+      gender;
 ~~~
 
 ### Slicing Example 2
@@ -1119,6 +1396,7 @@ GROUP BY itemID, gender;
 	county for "shirts".
 
 ~~~sql
+-- NO Slicing
 SELECT county, itemID, gender,
 SUM(price)
 FROM Sales F, Store S, Customer C
@@ -1128,14 +1406,101 @@ GROUP BY county, itemID, gender;
 ~~~
 
 ~~~sql
+-- Proper Slicing	
 SELECT county, gender, SUM(price)
 FROM Sales F, Store S, Customer C, Item I
 WHERE F.storeID = S.storeID AND
       F.custID = C.custID AND
       F.itemID = I.itemID AND
-      category = 'shirts'
+      category = 'shirts'     <--- SLICING
 GROUP BY county, gender;
 ~~~	
+
+
+### Here are three complex **slice** OLAP queries for the given star schema. Each query focuses on selecting specific slices of data using joins, ranking functions with partitions, and subqueries:
+
+### Each query slices the data to focus on specific conditions while incorporating advanced SQL features like joins, subqueries, and ranking within partitions. 
+---
+
+### Slicing Example 3: **Sales for Electronics in California**
+
+	This query slices data to show sales 
+	for items in the "Electronics" category 
+	within California.
+	
+```sql
+SELECT f.store_ID, 
+       f.item_ID, 
+       f.price, 
+       s.state, 
+       i.category
+FROM Sales f
+JOIN Store s ON f.store_ID = s.store_ID
+JOIN Item i ON f.item_ID = i.item_ID
+WHERE 
+     s.state = 'California' AND 
+     i.category = 'Electronics';
+```
+
+---
+
+### Slicing Example 4: **Customers with Top Sales in a Specific Age Group**
+
+	This query slices data for customers in a 
+	particular age group (e.g., 20–30 years) 
+	and ranks them by total sales within that group.
+	
+```sql
+WITH CustomerSales AS (
+    SELECT 
+           c.cust_ID, 
+           c.age, 
+           SUM(f.price) AS total_sales
+    FROM Sales f
+    JOIN Customer c ON f.cust_ID = c.cust_ID
+    WHERE 
+         c.age BETWEEN 20 AND 30
+    GROUP BY 
+         c.cust_ID, c.age
+)
+SELECT cust_ID, 
+       age, 
+       total_sales,
+       RANK() OVER (PARTITION BY FLOOR(age / 10) * 10 
+                    ORDER BY total_sales DESC) 
+         AS rank_within_age_group
+FROM CustomerSales;
+```
+
+---
+
+### Slicing Example 5: **Daily Sales for a Specific Category**
+
+	This query slices data for daily sales 
+	in a specific item category, like 
+	"Furniture," for detailed analysis.
+	
+```sql
+WITH DailyCategorySales AS (
+    SELECT d.date, 
+           i.category, 
+           SUM(f.price) AS total_sales
+    FROM Sales f
+    JOIN Dates d ON f.date_ID = d.date_ID
+    JOIN Item i ON f.item_ID = i.item_ID
+    WHERE 
+         i.category = 'Furniture'
+    GROUP BY 
+         d.date, i.category
+)
+SELECT date, category, total_sales,
+       RANK() OVER (PARTITION BY date ORDER BY total_sales DESC) 
+         AS rank_within_date
+FROM DailyCategorySales;
+```
+
+---
+
 
 
 ## OLAP Queries – Dicing
@@ -1163,3 +1528,153 @@ F.itemID = I.itemID AND
 color = 'red' AND state = 'CA'
 GROUP BY category, city, gender;
 ~~~
+
+
+Here are three complex **dicing** OLAP queries for the given star schema. These queries focus on analyzing subsets of data using multiple dimensions and incorporate joins, ranking functions with partitions, and subqueries:
+
+---
+
+### Query 1: **Sales by Category and Gender in California and New York**
+This query dices the data by filtering for specific states (California and New York) and analyzes sales by category and customer gender.
+```sql
+SELECT s.state, i.category, c.gender, SUM(f.price) AS total_sales
+FROM Sales f
+JOIN Store s ON f.store_ID = s.store_ID
+JOIN Item i ON f.item_ID = i.item_ID
+JOIN Customer c ON f.cust_ID = c.cust_ID
+WHERE s.state IN ('California', 'New York')
+GROUP BY s.state, i.category, c.gender;
+```
+
+---
+
+### Query 2: **Top-Selling Items in Specific Cities for a Given Age Range**
+This query dices data to focus on sales in specific cities (e.g., San Francisco and Los Angeles) for customers aged 20–40, ranking the top-selling items.
+```sql
+WITH CityItemSales AS (
+    SELECT s.city, i.item_ID, i.category, SUM(f.price) AS total_sales
+    FROM Sales f
+    JOIN Store s ON f.store_ID = s.store_ID
+    JOIN Item i ON f.item_ID = i.item_ID
+    JOIN Customer c ON f.cust_ID = c.cust_ID
+    WHERE s.city IN ('San Francisco', 'Los Angeles') AND c.age BETWEEN 20 AND 40
+    GROUP BY s.city, i.item_ID, i.category
+)
+SELECT city, item_ID, category, total_sales,
+       RANK() OVER (PARTITION BY city ORDER BY total_sales DESC) AS rank_within_city
+FROM CityItemSales
+WHERE rank_within_city <= 5;
+```
+
+---
+
+### Query 3: **Monthly Sales by Color and Age Group**
+This query dices the data by filtering on item color and customer age groups, then ranks total sales by color within each month.
+```sql
+WITH MonthlyColorSales AS (
+    SELECT d.month, d.year, i.color, FLOOR(c.age / 10) * 10 AS age_group, SUM(f.price) AS total_sales
+    FROM Sales f
+    JOIN Dates d ON f.date_ID = d.date_ID
+    JOIN Item i ON f.item_ID = i.item_ID
+    JOIN Customer c ON f.cust_ID = c.cust_ID
+    WHERE i.color IN ('Red', 'Blue', 'Green')
+    GROUP BY d.year, d.month, i.color, age_group
+)
+SELECT year, month, color, age_group, total_sales,
+       RANK() OVER (PARTITION BY year, month, color ORDER BY total_sales DESC) AS rank_within_color_month
+FROM MonthlyColorSales
+WHERE rank_within_color_month <= 3;
+```
+
+---
+
+Each query dices the data by using multiple filtering conditions and focuses on specific subsets of the star schema, combining advanced SQL techniques to provide insightful analyses. Let me know if you’d like further explanation or adjustments!
+
+
+
+## Pivot Operation
+
+* Here are three complex **pivot** OLAP queries designed for the
+star schema. 
+
+* These queries pivot data for insightful cross-dimensional analysis, incorporating joins, ranking functions with partitions, and subqueries:
+
+* These queries pivot data to provide a multi-dimensional view of sales while incorporating advanced SQL features for better analysis. 
+
+---
+
+### Query 1: **Pivot Sales by Gender and Category**
+
+	This query creates a pivot table showing 
+	total sales by gender and item category.
+
+```sql
+SELECT 
+    c.gender AS gender,
+    SUM(CASE WHEN i.category = 'Electronics' THEN f.price ELSE 0 END) AS Electronics_Sales,
+    SUM(CASE WHEN i.category = 'Clothing' THEN f.price ELSE 0 END) AS Clothing_Sales,
+    SUM(CASE WHEN i.category = 'Furniture' THEN f.price ELSE 0 END) AS Furniture_Sales
+FROM 
+    Sales f
+JOIN Customer c ON f.cust_ID = c.cust_ID
+JOIN Item i ON f.item_ID = i.item_ID
+GROUP BY 
+     c.gender;
+```
+
+---
+
+### Query 2: **Pivot Monthly Sales for Each Category**
+
+	This query pivots sales data to show the 
+	total sales for each item category across 
+	different months.
+
+```sql
+SELECT 
+    d.month AS month,
+    SUM(CASE WHEN i.category = 'Electronics' THEN f.price ELSE 0 END) AS Electronics_Sales,
+    SUM(CASE WHEN i.category = 'Clothing' THEN f.price ELSE 0 END) AS Clothing_Sales,
+    SUM(CASE WHEN i.category = 'Furniture' THEN f.price ELSE 0 END) AS Furniture_Sales
+FROM 
+    Sales f
+JOIN Dates d ON f.date_ID = d.date_ID
+JOIN Item i ON f.item_ID = i.item_ID
+GROUP BY 
+     d.month
+ORDER BY 
+     d.month;
+```
+
+---
+
+### Query 3: **Pivot Top Sales by State and Category**
+
+	This query pivots the data to display the 
+	top-selling category for each state by 
+	ranking sales within each state and category.
+
+```sql
+WITH StateCategorySales AS (
+    SELECT s.state, 
+           i.category, 
+           SUM(f.price) AS total_sales
+    FROM Sales f
+    JOIN Store s ON f.store_ID = s.store_ID
+    JOIN Item i ON f.item_ID = i.item_ID
+    GROUP BY 
+         s.state, i.category
+),
+RankedSales AS (
+    SELECT state, category, total_sales,
+           RANK() OVER (PARTITION BY state ORDER BY total_sales DESC) 
+             AS rank_within_state
+    FROM StateCategorySales
+)
+SELECT state, category, total_sales
+FROM RankedSales
+WHERE rank_within_state = 1;
+```
+
+---
+
