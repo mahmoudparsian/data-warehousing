@@ -1,20 +1,24 @@
-https://www.mysqltutorial.org/mysql-window-functions/mysql-rank-function/
+# MySQL RANK Functions
+
+[SOURCE: MySQL RANK Functions](https://www.mysqltutorial.org/mysql-window-functions/mysql-rank-function/)
 
 MySQL RANK Function
 Summary: in this tutorial, you will learn about the MySQL RANK() function and how to apply it to assign a rank to each row within the partition of a result set.
 
 Note that MySQL has been supporting the RANK() function and other window functions since version 8.0
 
-Introduction to MySQL RANK() function
+## Introduction to MySQL RANK() function
 The RANK() function assigns a rank to each row within the partition of a result set. The rank of a row is specified by one plus the number of ranks that come before it.
 
 The following shows the syntax of the RANK() function:
 
+~~~sql
 RANK() OVER (
     PARTITION BY <expression>[{,<expression>...}]
     ORDER BY <expression> [ASC|DESC], [{,<expression>...}]
 )
-Code language: SQL (Structured Query Language) (sql)
+~~~
+
 In this syntax:
 
 First, the PARTITION BY clause divides the result sets into partitions. The RANK() function is performed within partitions and re-initialized when crossing the partition boundary.
@@ -23,18 +27,20 @@ Unlike the ROW_NUMBER() function, the RANK() function does not always return con
 
 Suppose you have a sample table as follows:
 
+~~~sql
 CREATE TABLE t (
     val INT
 );
 
 INSERT INTO t(val)
 VALUES(1),(2),(2),(3),(4),(4),(5);
+~~~
 
 
-SELECT * FROM t;
-Code language: SQL (Structured Query Language) (sql)
+
 The following statement uses the RANK() function to assign a rank to each row from the result set in the t table:
 
+~~~sql
 SELECT
     val,
     RANK() OVER (
@@ -42,21 +48,32 @@ SELECT
     ) my_rank
 FROM
     t;
+~~~
 
 Here is the output:
 
-mysql_RANK_function_example_1.pmg
-png
+~~~
+val  my_rank
+---  -------
+1    1
+2    2
+2    2
+3    4 
+4    5
+4    5
+5    7
+~~~
 
 The output indicates that the second and third rows have the same ties so they receive the same rank 2.
 
 The fourth row has rank 4 because the RANK() function skips the rank 3.
 
-MySQL RANK() function example
+## MySQL RANK() function example
 Let’s use the sales table created in the window function tutorial for the demonstration.
 
 If you have not created the sales table yet, here is the script:
 
+~~~sql
 CREATE TABLE IF NOT EXISTS sales(
     sales_employee VARCHAR(50) NOT NULL,
     fiscal_year INT NOT NULL,
@@ -76,8 +93,6 @@ VALUES('Bob',2016,100),
       ('John',2018,250);
  
 SELECT * FROM sales;
-Code language: SQL (Structured Query Language) (sql)
-Here’s data of the sales table:
 
 +----------------+-------------+--------+
 | sales_employee | fiscal_year | sale   |
@@ -93,9 +108,12 @@ Here’s data of the sales table:
 | John           |        2018 | 250.00 |
 +----------------+-------------+--------+
 9 rows in set (0.00 sec)
-Code language: JavaScript (javascript)
+~~~
+
+
 The following statement uses the RANK() function to rank the sales employees by sales amount every year:
 
+~~~sql
 SELECT
     sales_employee,
     fiscal_year,
@@ -107,9 +125,11 @@ SELECT
                 ) sales_rank
 FROM
     sales;
-Code language: SQL (Structured Query Language) (sql)
+~~~
+
 Output:
 
+~~~
 +----------------+-------------+--------+------------+
 | sales_employee | fiscal_year | sale   | sales_rank |
 +----------------+-------------+--------+------------+
@@ -124,7 +144,8 @@ Output:
 | Bob            |        2018 | 200.00 |          2 |
 +----------------+-------------+--------+------------+
 9 rows in set (0.00 sec)
-Code language: JavaScript (javascript)
+~~~
+
 In this example:
 
 First, the PARTITION BY clause breaks the result sets into partitions by fiscal year.
@@ -132,6 +153,7 @@ Then, the ORDER BY clause sorts the sales employees by sales in descending order
 MySQL RANK() function with CTE example
 The following statement uses the RANK() function to find the top three highest valued orders in each year:
 
+~~~sql
 WITH order_values AS(
     SELECT 
         orderNumber, 
@@ -151,9 +173,11 @@ FROM
     order_values
 WHERE 
     order_value_rank <=3;
-Code language: SQL (Structured Query Language) (sql)
+~~~
+
 Here is the output:
 
+~~~
 +-------------+------------+-------------+------------------+
 | orderNumber | order_year | order_value | order_value_rank |
 +-------------+------------+-------------+------------------+
@@ -168,7 +192,8 @@ Here is the output:
 |       10407 |       2005 |    10723.60 |                3 |
 +-------------+------------+-------------+------------------+
 9 rows in set (0.01 sec)
-Code language: JavaScript (javascript)
+~~~
+
 In this example:
 
 First, use a common table expression (CTE) to get the order number, order year, and rank. To rank orders by order value in each year, we used the RANK() function that partitioned the rows by order year and sorted the order value in descending order.
