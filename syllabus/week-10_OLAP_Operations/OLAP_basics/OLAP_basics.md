@@ -187,6 +187,10 @@ is equivalent to:
 GROUP BY GROUPING SETS
 
 ~~~text
+a : country
+b : product
+c : year
+
      (a, b, c) 
      (a, b) 
      (a, c) 
