@@ -11,7 +11,7 @@
 	              dataset, which is also sometimes called a hypercube 
 	              if the number of dimensions is greater than three.
 
-![](./images/OLAP_Cube.svg.png)
+![](../images/OLAP_Cube.svg.png)
 
 
 	1. Understanding and utilizing the SQL 
@@ -587,7 +587,7 @@ ORDER BY
 
 2. [Examples of grouping sets, cube, and rollup queries](https://www.ibm.com/docs/en/ias?topic=clause-examples-grouping-sets-cube-rollup)
 
-3. [Understanding OLAP Cubes - A guide for the perplexed](https://www.keboola.com/blog/olap-cubes#:~:text=OLAP%20cubes%20aggregate%20a%20metric,)%2C%20product%20categories%2C%20etc.)
+3. [Understanding OLAP Cubes - A guide for the perplexed](https://www.keboola.com/blog/olap-cubes)
 
 4. [Data Cubes](https://www2.cs.uregina.ca/~dbd/cs831/notes/dcubes/dcubes.html)
 
