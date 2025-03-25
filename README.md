@@ -1,4 +1,4 @@
-# data-warehousing </br> Winter Quarter 2025 </br> January-March 2025
+# data-warehousing </br> Spring Quarter 2025 </br> April-June 2025
 
 <details  open>
 
@@ -58,9 +58,8 @@
 
 ## 1. Git Repository
 
-* This repository is a place for [Data Warehousing 
-  Course (MSIS-2621)](https://www.scu.edu/business/graduate-degrees/ms-programs/ms-information-systems/curriculum/)
-  at the [Department of Information Systems & Analytics, Santa Clara University](https://www.scu.edu/business/isa/).
+* This repository is a place for Data Warehousing 
+  course at the [Department of Information Systems & Analytics, Santa Clara University](https://www.scu.edu/business/isa/).
 
 ## 2. [Instructor, Adjunct Professor: Mahmoud Parsian](https://www.scu.edu/business/isa/faculty/parsian/)
 
@@ -80,7 +79,7 @@
 
 ## 10. [Required Software: MySQL, Python, Tableau](./webdocs/docs/required_software.md)
 
-## 11. [Syllabus, Winter Quarter 2025](./syllabus/README.md)
+## 11. [Syllabus, Spring Quarter 2025](./syllabus/README.md)
 
 ## 12. [Grading and Class Conduct](./webdocs/docs/grading_and_class_conduct.md)
 
