@@ -26,7 +26,10 @@
 
 # 10 Weeks
 
-### Week-01: [`Course Outline and Introduction to Data Warehousing`](week-01-course-outline-and-intro-to-DW)
+### Week-01: Course Outline and Introduction to Data Warehousing
+
+#### [week-01-1: Introduction to Databases and SQL](./week-01-1-introduction_to_databases_and_SQL)
+#### [week-01-2: Course Outline & Introduction to DW](./week-01-2-course-outline-and-intro-to-DW)
 
 ### Week-02: [`Introduction to BI and Tableau`](week-02-intro-to-BI-and-Tableau)
 

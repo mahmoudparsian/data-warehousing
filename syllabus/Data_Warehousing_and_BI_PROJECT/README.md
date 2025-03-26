@@ -1,6 +1,6 @@
 # Data Warehousing Project 
 
-* Last updated date: January 22, 2025, 11:50 PM PST 
+* Last updated date: March 25, 2025, 8:47 PM PST 
 
 		NOTE: This document is a live document 
 		and will be updated on a daily basis.
@@ -18,11 +18,12 @@
 
 ## 2. Deadlines
 
-| Activity               | Must be completed before |
-|------------------------|--------------------------| 
-| Team selection         | January 16, 2025         |
-| Data selection         | January 23, 2025         |
-| Project implementation | February 21, 2025        |
+| Activity                      | Must be completed before |
+|-------------------------------|--------------------------| 
+| Team selection                | April 3, 2025            |
+| Data selection                | April 10, 2025           |
+| Exploratory Data Presentation | TBDL        |
+| Final Project Presentation    | TBDL        |
 
 
 
@@ -30,10 +31,9 @@
 
 This project covers 30% of your overall grade.
 
-*  3 points: Team and Data Presentation
-*  7 points: documentation
-* 10 points: implementation
-* 10 points: presentation with powerpoint and Tableau
+* 10% points: Exploratory Data Presentation
+* 10% points: documentation & implementation
+* 10% points: presentation with powerpoint and Tableau
 
 ## 4. Data
 
