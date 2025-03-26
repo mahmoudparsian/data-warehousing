@@ -85,13 +85,15 @@
 
 ## 13. [Python Tutorials](./webdocs/docs/python_tutorials.md)
 
-## 14. [SQL Tutorials](./webdocs/docs/sql_tutorials.md)
+## 14. [SQL Style Guide](./webdocs/docs/sql_style_guide.md)
 
-## 15. [Office Hours](./webdocs/docs/office_hours.md)
+## 15. [SQL Tutorials](./webdocs/docs/sql_tutorials.md)
 
-## 16. [Midterm Exam](./webdocs/docs/midterm_exam.md)
+## 16. [Office Hours](./webdocs/docs/office_hours.md)
 
-## 17. [Final Exam](./webdocs/docs/final_exam.md)
+## 17. [Midterm Exam](./webdocs/docs/midterm_exam.md)
 
-## 18. [Mahmoud Parsian's Published Books](./webdocs/docs/mahmoud_parsian_books.md)
+## 19. [Final Exam](./webdocs/docs/final_exam.md)
+
+## 19. [Mahmoud Parsian's Published Books](./webdocs/docs/mahmoud_parsian_books.md)
 
