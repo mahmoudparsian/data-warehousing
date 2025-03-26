@@ -1,18 +1,18 @@
 # Class Meeting Dates & Hours
 
 ## Class meeting dates: 
-	* Start: January 6, 2024
-	* End: March 13, 2024
+	* Start: April 1, 2025
+	* End: June 4, 2025
 
 ## Class hours:  
-	* Tuesday 5:45 PM - 7:20 PM PST
-	* Thursday 5:45 PM - 7:20 PM PST
+	* Tuesday 5:40 PM - 7:20 PM PST
+	* Thursday 5:40 PM - 7:20 PM PST
 	
-## Class room: Lucas Hall 308
+## Class room: Check Camino
 
 ## Office: 316U, Lucas Hall (LH)
 
 ## Office Hours: via scheduled Zoom and by appointment
 
-## Final Exam week: March 17-21, 2024
+## Final Exam week: June 9-13, 2025
 
