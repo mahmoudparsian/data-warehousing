@@ -32,6 +32,7 @@
 
 * [week-01-2: Course Outline & Introduction to DW](./week-01-2-course-outline-and-intro-to-DW)
 
+* [week-01-3: Complete ETL Example](./week-01-3-complete_ETL_example)
 
 ### Week-02: [`Introduction to BI and Tableau`](week-02-intro-to-BI-and-Tableau)
 
