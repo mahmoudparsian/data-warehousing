@@ -1,62 +1,86 @@
 # Complete Working Example of an ETL in Python
 
-Provide a complete working example of an ETL 
-in python, which reads mysql table (include 
-sample records), does some useful transformations 
-and then loads into another mysql table.
+What This ETL Does
 
-Here’s a complete working ETL (Extract, Transform, Load) 
-pipeline in Python using MySQL. The example covers:
+✅ Extracts data from source_table
 
-    1.    Extract: Reads data from a MySQL table (source_table).
+✅ Transforms:
+*    Fills NULL age with 25
+
+* Fills NULL salary with 40000
+
+* Computes tax = salary * 10%
+
+✅ Loads data into destination_table
+
+
+
+	Provide a complete working example of an ETL 
+	in python, which reads mysql table (include 
+	sample records), does some useful transformations 
+	and then loads into another mysql table.
+
+	Here’s a complete working ETL (Extract, Transform, Load) 
+	pipeline in Python using MySQL. The example covers:
+
+    	1.    Extract: Reads data from a MySQL table (source_table).
     
-    2.    Transform: Cleans data and performs some transformations.
+    	2.    Transform: Cleans data and performs some transformations.
     
-    3.    Load: Inserts transformed data into another MySQL table 
+    	3.    Load: Inserts transformed data into another MySQL table 
                 (destination_table).
 
 You’ll need:
     •    mysql-connector-python (pip install mysql-connector-python)
     •    A running MySQL server
 
-⸻
+------
 
-1. MySQL Setup
 
-Before running the script, create the source 
-and destination tables in MySQL:
+# 1. MySQL Setup
 
-CREATE DATABASE etl_demo;
-USE etl_demo;
+	Before running the script, create the 
+	source and destination tables in MySQL:
+
+~~~sql
+CREATE DATABASE homeworks;
+USE homeworks;
+
+CREATE DATABASE homeworks;
+USE homeworks;
 
 CREATE TABLE source_table (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50),
     age INT,
-    salary DECIMAL(10,2)
+    salary INT
 );
 
-INSERT INTO source_table (name, age, salary) VALUES 
+INSERT INTO source_table (name, age, salary) 
+VALUES 
 ('Alice', 30, 50000),
-('Bob', NULL, 60000),
 ('Charlie', 35, 70000),
-('David', 28, NULL);
+('Bob', NULL, 60000),
+('Jason', NULL, 70000),
+('David', 28, NULL),
+('Rafa', 38, NULL);
+
 
 CREATE TABLE destination_table (
     id INT PRIMARY KEY AUTO_INCREMENT,
     full_name VARCHAR(50),
     age INT,
-    salary DECIMAL(10,2),
-    tax DECIMAL(10,2)
+    salary INT,
+    tax INT
 );
+~~~
 
 
 
-⸻
+# 2. Python ETL Script
 
-2. Python ETL Script
 
-Save this as etl.py and run it.
+~~~python
 
 import mysql.connector
 
@@ -110,45 +134,50 @@ def load_data(transformed_records):
     cursor.close()
     conn.close()
 
+#-----------------------
 # ETL Pipeline Execution
-if __name__ == "__main__":
-    extracted_data = extract_data()
-    transformed_data = transform_data(extracted_data)
-    load_data(transformed_data)
+#-----------------------
 
+# 1    
+extracted_data = extract_data()
 
+# 2
+transformed_data = transform_data(extracted_data)
+    
+    
+# 3. 
+load_data(transformed_data)
 
-⸻
+~~~
 
-3. Running the ETL
+-----
+
+# 3. Running the ETL
 
 Run the script:
 
-python etl.py
+~~~sh
+python3 etl.py db_config_source.json db_config_target.json
+~~~
 
-4. Expected Output in destination_table
+# 4. Expected Output in destination_table
 
-SELECT * FROM destination_table;
+~~~
+mysql> select * from destination_table;
++----+-----------+------+--------+------+
+| id | full_name | age  | salary | tax  |
++----+-----------+------+--------+------+
+|  1 | Alice     |   30 |  50000 | 5000 |
+|  2 | Charlie   |   35 |  70000 | 7000 |
+|  3 | Bob       |   25 |  60000 | 6000 |
+|  4 | Jason     |   25 |  70000 | 7000 |
+|  5 | David     |   28 |  40000 | 4000 |
+|  6 | Rafa      |   38 |  40000 | 4000 |
++----+-----------+------+--------+------+
+6 rows in set (0.00 sec)
+~~~
 
-id    full_name    age    salary    tax
-1    Alice    30    50000.00    5000.00
-2    Bob    25    60000.00    6000.00
-3    Charlie    35    70000.00    7000.00
-4    David    28    40000.00    4000.00
 
 
-
-⸻
-
-What This ETL Does
-
-✅ Extracts data from source_table
-
-✅ Transforms:
-    •    Fills NULL age with 25
-    •    Fills NULL salary with 40000
-    •    Computes tax = salary * 10%
-
-✅ Loads data into destination_table
 
 
