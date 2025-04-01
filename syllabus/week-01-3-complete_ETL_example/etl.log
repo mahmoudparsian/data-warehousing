@@ -1,0 +1,31 @@
+% python3 etl.py db_config_source.json db_config_target.json
+
+db_config_source_file= db_config_source.json
+
+db_config_target_file= db_config_target.json
+
+source_db_config= {'user': 'root', 'password': 'mp22pass', 'host': 'localhost', 'database': 'homeworks'}
+
+target_db_config= {'user': 'root', 'password': 'mp22pass', 'host': 'localhost', 'database': 'homeworks'}
+
+extracted_data= 
+[
+ {'id': 1, 'name': 'Alice', 'age': 30, 'salary': 50000}, 
+ {'id': 2, 'name': 'Charlie', 'age': 35, 'salary': 70000}, 
+ {'id': 3, 'name': 'Bob', 'age': None, 'salary': 60000}, 
+ {'id': 4, 'name': 'Jason', 'age': None, 'salary': 70000}, 
+ {'id': 5, 'name': 'David', 'age': 28, 'salary': None}, 
+ {'id': 6, 'name': 'Rafa', 'age': 38, 'salary': None}
+]
+
+transformed_data= 
+[
+ ('Alice', 30, 50000, 5000), 
+ ('Charlie', 35, 70000, 7000), 
+ ('Bob', 25, 60000, 6000), 
+ ('Jason', 25, 70000, 7000), 
+ ('David', 28, 40000, 4000), 
+ ('Rafa', 38, 40000, 4000)
+]
+
+6 records inserted successfully into destination_table.
