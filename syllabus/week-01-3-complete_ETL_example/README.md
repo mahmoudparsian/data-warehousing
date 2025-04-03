@@ -111,9 +111,12 @@ DB_CONFIG = {
 }
 
 # ETL Functions
-def extract_data():
+#--------------------------
+# ETL Functions: 1: Extract
+#--------------------------
+def extract_data(database_config):
     """Extract data from source_table in MySQL."""
-    conn = mysql.connector.connect(**DB_CONFIG)
+    conn = mysql.connector.connect(**database_config)
     cursor = conn.cursor(dictionary=True)
     cursor.execute("SELECT * FROM source_table")
     records = cursor.fetchall()
@@ -121,6 +124,23 @@ def extract_data():
     conn.close()
     return records
 
+#---------------------------------
+# Calculates 10% of a given salary.
+#---------------------------------
+def calculate_10_percent(salary):
+    """
+    Args:
+       salary: The salary amount (numeric).
+
+    Returns:
+       10% of the salary.
+    """
+    return int(salary * 0.1)
+
+
+#----------------------------
+# ETL Functions: 2: Transform
+#----------------------------
 def transform_data(records):
     """Perform transformations: 
     - Handle NULL values by replacing them with defaults.
@@ -128,21 +148,27 @@ def transform_data(records):
     """
     transformed = []
     for record in records:
+        id = record["id"]
         name = record["name"]
+        country = record["country"]
         age = record["age"] if record["age"] is not None else 25  # Default age = 25
         salary = record["salary"] if record["salary"] is not None else 40000  # Default salary = 40K
-        tax = round(salary * 0.10, 2)  # 10% tax on salary
-        
-        transformed.append((name, age, salary, tax))
+        tax = calculate_10_percent(salary)  # 10% tax on salary
+        #
+        transformed.append((id, name, age, country, salary, tax))
+    #end-for
     
     return transformed
 
-def load_data(transformed_records):
+#----------------------------
+# ETL Functions: 3: Load
+#----------------------------
+def load_data(transformed_records, database_config):
     """Load transformed data into destination_table."""
-    conn = mysql.connector.connect(**DB_CONFIG)
+    conn = mysql.connector.connect(**database_config)
     cursor = conn.cursor()
     
-    query = "INSERT INTO destination_table (full_name, age, salary, tax) VALUES (%s, %s, %s, %s)"
+    query = "INSERT INTO destination_table (id, name, age, country, salary, tax) VALUES (%s, %s, %s, %s, %s, %s)"
     
     cursor.executemany(query, transformed_records)
     conn.commit()
@@ -151,6 +177,7 @@ def load_data(transformed_records):
     
     cursor.close()
     conn.close()
+
 
 #-----------------------
 # ETL Pipeline Execution
