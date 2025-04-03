@@ -1,8 +1,11 @@
 """
-provide a complete working example of an ETL 
-in python, which reads mysql table (include sample 
-records), does some useful transformations and 
-then loads into another mysql table.
+Working Example of an ETL
+
+Provide a complete working example of an 
+ETL in python,  which reads  MySQL  table 
+(include sample records), does some useful 
+transformations and then loads transformed 
+data into another MySQL table.
 
 What This ETL Does
 
@@ -21,28 +24,27 @@ pipeline in Python using MySQL.
 
 The example covers:
 
-    1.    Extract: Reads data from a MySQL table (source_table).
+    1. Extract: Reads data from a MySQL table (source_table).
     
-    2.    Transform: Cleans data and performs some transformations.
+    2. Transform: Cleans data and performs some transformations.
     
-    3.    Load: Inserts transformed data into another MySQL table 
+    3. Load: Inserts transformed data into another MySQL table 
                 (destination_table).
 
-You’ll need:
-    •    mysql-connector-python (pip install mysql-connector-python)
-    •    A running MySQL server
+⸻
+Required Python Libraries:
+
+     pip3 install mysql-connector
+     pip3 install pandas
+     pip3 install sqlalchemy
+     pip3 install mysql-connector-python
 
 ⸻
-Python Libraries:
-
-pip3 install mysql-connector
-pip3 install pandas
-pip3 install sqlalchemy
-pip install mysql-connector-python
 
 1. MySQL Setup
 
-Before running the script, create the source and destination tables in MySQL:
+Before running the script, create the  
+source and destination tables in MySQL:
 
 CREATE DATABASE homeworks;
 USE homeworks;
@@ -88,6 +90,7 @@ mysql> select * from source_table;
 | 12 | Rafa    |   38 | MEXICO  |   NULL |
 +----+---------+------+---------+--------+
 12 rows in set (0.00 sec)
+
 mysql> use homeworks;
 mysql> show databases;
 +--------------------+
@@ -161,21 +164,31 @@ import mysql.connector
 import pandas as pd
 from sqlalchemy import create_engine
 
-
-
-
 #--------------------------
 # ETL Functions: 1: Extract
+#
+# Extract data from source_table in MySQL.
+#
 #--------------------------
 def extract_data(database_config):
-    """Extract data from source_table in MySQL."""
+
+    # create a database connection object
     conn = mysql.connector.connect(**database_config)
+    
+    # create a cursor: acting as a control structure 
+    # to traverse and manipulate database records
+    # return results as a list of dictionaries
     cursor = conn.cursor(dictionary=True)
+    
     cursor.execute("SELECT * FROM source_table")
     records = cursor.fetchall()
+    
+    # close database resources
     cursor.close()
     conn.close()
+    
     return records
+#end-def
 
 #---------------------------------
 # Calculates 10% of a given salary.
@@ -189,17 +202,23 @@ def calculate_10_percent(salary):
        10% of the salary.
     """
     return int(salary * 0.1)
+#end-def
 
 
 #----------------------------
 # ETL Functions: 2: Transform
+#
+# Perform transformations: 
+#    -- Handle NULL values by replacing them with defaults.
+#
+#    -- Calculate a new tax field (10% of salary).
+#
 #----------------------------
 def transform_data(records):
-    """Perform transformations: 
-    - Handle NULL values by replacing them with defaults.
-    - Calculate a new tax field (10% of salary).
-    """
+
+    # create an empty list
     transformed = []
+    
     for record in records:
         id = record["id"]
         name = record["name"]
@@ -213,38 +232,48 @@ def transform_data(records):
     
     return transformed
 
+#end-def
+
 #----------------------------
 # ETL Functions: 3: Load
+#
+# Load transformed data into destination_table.
+#
 #----------------------------
 def load_data(transformed_records, database_config):
-    """Load transformed data into destination_table."""
+
+    # create a database connection object
     conn = mysql.connector.connect(**database_config)
+    
+    # create a cursor: acting as a control structure 
+    # to traverse and manipulate database records
     cursor = conn.cursor()
     
-    query = "INSERT INTO destination_table (id, name, age, country, salary, tax) VALUES (%s, %s, %s, %s, %s, %s)"
+    insert_query = "INSERT INTO destination_table (id, name, age, country, salary, tax) VALUES (%s, %s, %s, %s, %s, %s)"
     
-    cursor.executemany(query, transformed_records)
+    cursor.executemany(insert_query, transformed_records)
+    
     conn.commit()
     
     print(f"{cursor.rowcount} records inserted successfully into destination_table.")
     
+    # close database resources
     cursor.close()
     conn.close()
 
-#---------------------------
-# ETL Pipeline Execution
-#---------------------------
+#end-def
 
 #-----------------------------------------
 # Database config is given as a JSON file
 # read a JSON file and return a dictionary
 # Database Configuration
 """
-DB_CONFIG = {
+config_as_dict = 
+{
     "host": "localhost",
     "user": "your_username",
     "password": "your_password",
-    "database": "etl_demo"
+    "database": "your_database"
 }
 """
 def read_json(json_config_file):
@@ -255,9 +284,13 @@ def read_json(json_config_file):
 #end-def
 #-----------------------------------------
 #
+#---------------------------
+# ETL Pipeline Execution
+#---------------------------
+#
 # Source and Target Database connection details
 #
-
+#
 #-------------------------------------------------
 # Command Line Parameter 1: "db_config_source.json"
 #-------------------------------------------------
