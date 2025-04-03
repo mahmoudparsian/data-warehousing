@@ -1,11 +1,14 @@
 ### 1. Find number of employees per country:
 
 ~~~sql
-select country, 
+SELECT country, 
        count(*) as count 
-from destination_table 
-group by country 
-order by count;
+FROM  
+       destination_table 
+GROUP BY  
+       country 
+ORDER BY  
+       count;
 ~~~
 
 Result:
@@ -26,7 +29,7 @@ Result:
 ### 2. find top-2 slaries per country:
 
 ~~~sql
-WITH RankedSalaries AS (
+WITH Ranked_Salaries AS (
     SELECT
         country,
         name,
@@ -40,7 +43,7 @@ SELECT
     name,
     salary
 FROM
-    RankedSalaries
+    Ranked_Salaries
 WHERE
     rnk <= 2
 ORDER BY
@@ -68,7 +71,7 @@ Result:
 ### 3. find bottom slaries per country:
 
 ~~~sql
-WITH RankedSalaries AS (
+WITH Ranked_Salaries AS (
     SELECT
         country,
         name,
@@ -82,7 +85,7 @@ SELECT
     name,
     salary
 FROM
-    RankedSalaries
+    Ranked_Salaries
 WHERE
     rnk <= 1
 ORDER BY
@@ -134,7 +137,8 @@ Result:
 
 ### 5. **Retrieve the average salary and tax by country**
 
-This query groups data by `country` to calculate the average salary and tax:
+	This query groups data by `country` to 
+	calculate the average salary and tax:
 
 ```sql
 SELECT
@@ -170,7 +174,7 @@ Result:
 	by their tax-to-salary ratio within each country:
 
 ```sql
-WITH TaxRatioRanked AS (
+WITH Tax_Ratio_Ranked AS (
     SELECT
         id,
         name,
@@ -191,7 +195,7 @@ SELECT
     tax,
     tax_ratio
 FROM
-    TaxRatioRanked
+    Tax_Ratio_Ranked
 WHERE
     rnk = 1;
 ```
@@ -222,9 +226,9 @@ Result:
 
 ### 7. **Identify employees with above-average salaries in their country**
 
-	This uses a correlated subquery to compare 
-	each employee's salary with the average salary 
-	for their country:
+	This uses a correlated subquery to 
+	compare each employee's salary with 
+	the average salary for their country:
 
 ```sql
 SELECT
@@ -234,7 +238,7 @@ SELECT
     country,
     salary
 FROM
-    destination_table e
+    destination_table D
 WHERE
     salary > (
         SELECT
@@ -242,7 +246,7 @@ WHERE
         FROM
             destination_table
         WHERE
-            country = e.country
+            country = D.country
     )
 ORDER BY
     country, salary DESC;
@@ -267,9 +271,9 @@ Result:
 
 ### 8. **Calculate the cumulative tax collected per country**
 
-	Using a window function, this query calculates 
-	the cumulative tax amount per country, sorted 
-	by the employee's `id`:
+	Using a window function, this query 
+	calculates the cumulative tax amount 
+	per country, sorted by the employee's `id`:
 
 ```sql
 SELECT
@@ -294,10 +298,12 @@ Result:
 | CANADA  |    6 | Betty   | 5000 |          11000 |
 | CANADA  |    7 | Barb    | 4000 |          15000 |
 | CANADA  |    8 | Babak   | 2000 |          17000 |
+
 | MEXICO  |    9 | Jeb     | 3000 |           3000 |
 | MEXICO  |   10 | Jason   | 5000 |           8000 |
 | MEXICO  |   11 | David   | 4000 |          12000 |
 | MEXICO  |   12 | Rafa    | 4000 |          16000 |
+
 | USA     |    1 | Alice   | 5000 |           5000 |
 | USA     |    2 | George  | 8000 |          13000 |
 | USA     |    3 | Charlie | 7000 |          20000 |
