@@ -49,27 +49,45 @@ USE homeworks;
 CREATE DATABASE homeworks;
 USE homeworks;
 
-CREATE TABLE source_table (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(50),
-    age INT,
-    salary INT
-);
-
-INSERT INTO source_table (name, age, salary) 
+INSERT INTO source_table (name, age, country, salary) 
 VALUES 
-('Alice', 30, 50000),
-('Charlie', 35, 70000),
-('Bob', NULL, 60000),
-('Jason', NULL, 70000),
-('David', 28, NULL),
-('Rafa', 38, NULL);
+('Alice', 30,  'USA', 50000),
+('George', 40,  'USA', 80000),
+('Charlie', 35, 'USA', 70000),
+('Chuck', 45, 'USA', 90000),
+('Bob', NULL, 'CANADA', 60000),
+('Betty', NULL, 'CANADA', 50000),
+('Barb', 50, 'CANADA', 40000),
+('Babak', 45, 'CANADA', 20000),
+('Jeb', NULL, 'MEXICO', 30000),
+('Jason', NULL, 'MEXICO', 50000),
+('David', 28, 'MEXICO', NULL),
+('Rafa', 38, 'MEXICO', NULL);
 
+mysql> select * from source_table;
++----+---------+------+---------+--------+
+| id | name    | age  | country | salary |
++----+---------+------+---------+--------+
+|  1 | Alice   |   30 | USA     |  50000 |
+|  2 | George  |   40 | USA     |  80000 |
+|  3 | Charlie |   35 | USA     |  70000 |
+|  4 | Chuck   |   45 | USA     |  90000 |
+|  5 | Bob     | NULL | CANADA  |  60000 |
+|  6 | Betty   | NULL | CANADA  |  50000 |
+|  7 | Barb    |   50 | CANADA  |  40000 |
+|  8 | Babak   |   45 | CANADA  |  20000 |
+|  9 | Jeb     | NULL | MEXICO  |  30000 |
+| 10 | Jason   | NULL | MEXICO  |  50000 |
+| 11 | David   |   28 | MEXICO  |   NULL |
+| 12 | Rafa    |   38 | MEXICO  |   NULL |
++----+---------+------+---------+--------+
+12 rows in set (0.00 sec)
 
 CREATE TABLE destination_table (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    full_name VARCHAR(50),
+    id INT,
+    name VARCHAR(50),
     age INT,
+    country VARCHAR(20),
     salary INT,
     tax INT
 );
@@ -163,18 +181,24 @@ python3 etl.py db_config_source.json db_config_target.json
 # 4. Expected Output in destination_table
 
 ~~~
-mysql> select * from destination_table;
-+----+-----------+------+--------+------+
-| id | full_name | age  | salary | tax  |
-+----+-----------+------+--------+------+
-|  1 | Alice     |   30 |  50000 | 5000 |
-|  2 | Charlie   |   35 |  70000 | 7000 |
-|  3 | Bob       |   25 |  60000 | 6000 |
-|  4 | Jason     |   25 |  70000 | 7000 |
-|  5 | David     |   28 |  40000 | 4000 |
-|  6 | Rafa      |   38 |  40000 | 4000 |
-+----+-----------+------+--------+------+
-6 rows in set (0.00 sec)
+mysql> SELECT * FROM destination_table;
++------+---------+------+---------+--------+------+
+| id   | name    | age  | country | salary | tax  |
++------+---------+------+---------+--------+------+
+|    1 | Alice   |   30 | USA     |  50000 | 5000 |
+|    2 | George  |   40 | USA     |  80000 | 8000 |
+|    3 | Charlie |   35 | USA     |  70000 | 7000 |
+|    4 | Chuck   |   45 | USA     |  90000 | 9000 |
+|    5 | Bob     |   25 | CANADA  |  60000 | 6000 |
+|    6 | Betty   |   25 | CANADA  |  50000 | 5000 |
+|    7 | Barb    |   50 | CANADA  |  40000 | 4000 |
+|    8 | Babak   |   45 | CANADA  |  20000 | 2000 |
+|    9 | Jeb     |   25 | MEXICO  |  30000 | 3000 |
+|   10 | Jason   |   25 | MEXICO  |  50000 | 5000 |
+|   11 | David   |   28 | MEXICO  |  40000 | 4000 |
+|   12 | Rafa    |   38 | MEXICO  |  40000 | 4000 |
++------+---------+------+---------+--------+------+
+12 rows in set (0.00 sec)
 ~~~
 
 

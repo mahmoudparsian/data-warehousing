@@ -61,35 +61,14 @@ VALUES
 ('George', 40,  'USA', 80000),
 ('Charlie', 35, 'USA', 70000),
 ('Chuck', 45, 'USA', 90000),
-
 ('Bob', NULL, 'CANADA', 60000),
 ('Betty', NULL, 'CANADA', 50000),
 ('Barb', 50, 'CANADA', 40000),
 ('Babak', 45, 'CANADA', 20000),
-
 ('Jeb', NULL, 'MEXICO', 30000),
 ('Jason', NULL, 'MEXICO', 50000),
 ('David', 28, 'MEXICO', NULL),
 ('Rafa', 38, 'MEXICO', NULL);
-
-mysql> INSERT INTO source_table (name, age, country, salary)
-    -> VALUES
-    -> ('Alice', 30,  'USA', 50000),
-    -> ('George', 40,  'USA', 80000),
-    -> ('Charlie', 35, 'USA', 70000),
-    -> ('Chuck', 45, 'USA', 90000),
-    ->
-    -> ('Bob', NULL, 'CANADA', 60000),
-    -> ('Betty', NULL, 'CANADA', 50000),
-    -> ('Barb', 50, 'CANADA', 40000),
-    -> ('Babak', 45, 'CANADA', 20000),
-    ->
-    -> ('Jeb', NULL, 'MEXICO', 30000),
-    -> ('Jason', NULL, 'MEXICO', 50000),
-    -> ('David', 28, 'MEXICO', NULL),
-    -> ('Rafa', 38, 'MEXICO', NULL);
-Query OK, 12 rows affected (0.01 sec)
-Records: 12  Duplicates: 0  Warnings: 0
 
 mysql> select * from source_table;
 +----+---------+------+---------+--------+
@@ -166,6 +145,8 @@ mysql> select * from destination_table;
 |   12 | Rafa    |   38 | MEXICO  |  40000 | 4000 |
 +------+---------+------+---------+--------+------+
 12 rows in set (0.00 sec)
+
+
 
 ⸻
 
@@ -324,20 +305,26 @@ load_data(transformed_data, target_db_config)
 
 Run the script:
 
-python etl.py
+    python3 etl.py db_config_source.json db_config_target.json
 
 4. Expected Output in destination_table
 
-SELECT * FROM destination_table;
-
-id   full_name    age    salary      tax
-1    Alice         30    50000.00    5000.00
-2    Bob           25    60000.00    6000.00
-3    Charlie       35    70000.00    7000.00
-4    David         28    40000.00    4000.00
-
+mysql> SELECT * FROM destination_table;
++------+---------+------+---------+--------+------+
+| id   | name    | age  | country | salary | tax  |
++------+---------+------+---------+--------+------+
+|    1 | Alice   |   30 | USA     |  50000 | 5000 |
+|    2 | George  |   40 | USA     |  80000 | 8000 |
+|    3 | Charlie |   35 | USA     |  70000 | 7000 |
+|    4 | Chuck   |   45 | USA     |  90000 | 9000 |
+|    5 | Bob     |   25 | CANADA  |  60000 | 6000 |
+|    6 | Betty   |   25 | CANADA  |  50000 | 5000 |
+|    7 | Barb    |   50 | CANADA  |  40000 | 4000 |
+|    8 | Babak   |   45 | CANADA  |  20000 | 2000 |
+|    9 | Jeb     |   25 | MEXICO  |  30000 | 3000 |
+|   10 | Jason   |   25 | MEXICO  |  50000 | 5000 |
+|   11 | David   |   28 | MEXICO  |  40000 | 4000 |
+|   12 | Rafa    |   38 | MEXICO  |  40000 | 4000 |
++------+---------+------+---------+--------+------+
+12 rows in set (0.00 sec)
 """
-
-
-
-
