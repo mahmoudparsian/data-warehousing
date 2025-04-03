@@ -51,20 +51,65 @@ CREATE TABLE source_table (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50),
     age INT,
+    country VARCHAR(20),
     salary INT
 );
 
-INSERT INTO source_table (name, age, salary) 
+INSERT INTO source_table (name, age, country, salary) 
 VALUES 
-('Alice', 30, 50000),
-('Charlie', 35, 70000),
-('Bob', NULL, 60000),
-('Jason', NULL, 70000),
-('David', 28, NULL),
-('Rafa', 38, NULL);
+('Alice', 30,  'USA', 50000),
+('George', 40,  'USA', 80000),
+('Charlie', 35, 'USA', 70000),
+('Chuck', 45, 'USA', 90000),
 
+('Bob', NULL, 'CANADA', 60000),
+('Betty', NULL, 'CANADA', 50000),
+('Barb', 50, 'CANADA', 40000),
+('Babak', 45, 'CANADA', 20000),
+
+('Jeb', NULL, 'MEXICO', 30000),
+('Jason', NULL, 'MEXICO', 50000),
+('David', 28, 'MEXICO', NULL),
+('Rafa', 38, 'MEXICO', NULL);
+
+mysql> INSERT INTO source_table (name, age, country, salary)
+    -> VALUES
+    -> ('Alice', 30,  'USA', 50000),
+    -> ('George', 40,  'USA', 80000),
+    -> ('Charlie', 35, 'USA', 70000),
+    -> ('Chuck', 45, 'USA', 90000),
+    ->
+    -> ('Bob', NULL, 'CANADA', 60000),
+    -> ('Betty', NULL, 'CANADA', 50000),
+    -> ('Barb', 50, 'CANADA', 40000),
+    -> ('Babak', 45, 'CANADA', 20000),
+    ->
+    -> ('Jeb', NULL, 'MEXICO', 30000),
+    -> ('Jason', NULL, 'MEXICO', 50000),
+    -> ('David', 28, 'MEXICO', NULL),
+    -> ('Rafa', 38, 'MEXICO', NULL);
+Query OK, 12 rows affected (0.01 sec)
+Records: 12  Duplicates: 0  Warnings: 0
+
+mysql> select * from source_table;
++----+---------+------+---------+--------+
+| id | name    | age  | country | salary |
++----+---------+------+---------+--------+
+|  1 | Alice   |   30 | USA     |  50000 |
+|  2 | George  |   40 | USA     |  80000 |
+|  3 | Charlie |   35 | USA     |  70000 |
+|  4 | Chuck   |   45 | USA     |  90000 |
+|  5 | Bob     | NULL | CANADA  |  60000 |
+|  6 | Betty   | NULL | CANADA  |  50000 |
+|  7 | Barb    |   50 | CANADA  |  40000 |
+|  8 | Babak   |   45 | CANADA  |  20000 |
+|  9 | Jeb     | NULL | MEXICO  |  30000 |
+| 10 | Jason   | NULL | MEXICO  |  50000 |
+| 11 | David   |   28 | MEXICO  |   NULL |
+| 12 | Rafa    |   38 | MEXICO  |   NULL |
++----+---------+------+---------+--------+
+12 rows in set (0.00 sec)
 mysql> use homeworks;
-ERROR 1049 (42000): Unknown database 'homeworks'
 mysql> show databases;
 +--------------------+
 | Database           |
@@ -81,68 +126,46 @@ Query OK, 1 row affected (0.01 sec)
 
 mysql> use homeworks;
 Database changed
-mysql> CREATE TABLE source_table (
-    ->     id INT PRIMARY KEY AUTO_INCREMENT,
-    ->     name VARCHAR(50),
-    ->     age INT,
-    ->     salary INT
-    -> );
-Query OK, 0 rows affected (0.00 sec)
 
-mysql>
-mysql> INSERT INTO source_table (name, age, salary)
-    -> VALUES
-    -> ('Alice', 30, 50000),
-    -> ('Charlie', 35, 70000),
-    -> ('Bob', NULL, 60000),
-    -> ('Jason', NULL, 70000),
-    -> ('David', 28, NULL),
-    -> ('Rafa', 38, NULL);
-Query OK, 6 rows affected (0.01 sec)
-Records: 6  Duplicates: 0  Warnings: 0
 
-mysql> select * from source_table;
-+----+---------+------+--------+
-| id | name    | age  | salary |
-+----+---------+------+--------+
-|  1 | Alice   |   30 |  50000 |
-|  2 | Charlie |   35 |  70000 |
-|  3 | Bob     | NULL |  60000 |
-|  4 | Jason   | NULL |  70000 |
-|  5 | David   |   28 |   NULL |
-|  6 | Rafa    |   38 |   NULL |
-+----+---------+------+--------+
-6 rows in set (0.00 sec)
 
 CREATE TABLE destination_table (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    full_name VARCHAR(50),
+    id INT,
+    name VARCHAR(50),
     age INT,
+    country VARCHAR(20),
     salary INT,
     tax INT
 );
 
 mysql> CREATE TABLE destination_table (
-    ->     id INT PRIMARY KEY AUTO_INCREMENT,
-    ->     full_name VARCHAR(50),
+    ->     id INT,
+    ->     name VARCHAR(50),
     ->     age INT,
+    ->     country VARCHAR(20),
     ->     salary INT,
     ->     tax INT
     -> );
 Query OK, 0 rows affected (0.01 sec)
 
 mysql> select * from destination_table;
-+----+-----------+------+--------+------+
-| id | full_name | age  | salary | tax  |
-+----+-----------+------+--------+------+
-|  1 | Alice     |   30 |  50000 | 5000 |
-|  2 | Charlie   |   35 |  70000 | 7000 |
-|  3 | Bob       |   25 |  60000 | 6000 |
-|  4 | Jason     |   25 |  70000 | 7000 |
-|  5 | David     |   28 |  40000 | 4000 |
-|  6 | Rafa      |   38 |  40000 | 4000 |
-+----+-----------+------+--------+------+
-6 rows in set (0.00 sec)
++------+---------+------+---------+--------+------+
+| id   | name    | age  | country | salary | tax  |
++------+---------+------+---------+--------+------+
+|    1 | Alice   |   30 | USA     |  50000 | 5000 |
+|    2 | George  |   40 | USA     |  80000 | 8000 |
+|    3 | Charlie |   35 | USA     |  70000 | 7000 |
+|    4 | Chuck   |   45 | USA     |  90000 | 9000 |
+|    5 | Bob     |   25 | CANADA  |  60000 | 6000 |
+|    6 | Betty   |   25 | CANADA  |  50000 | 5000 |
+|    7 | Barb    |   50 | CANADA  |  40000 | 4000 |
+|    8 | Babak   |   45 | CANADA  |  20000 | 2000 |
+|    9 | Jeb     |   25 | MEXICO  |  30000 | 3000 |
+|   10 | Jason   |   25 | MEXICO  |  50000 | 5000 |
+|   11 | David   |   28 | MEXICO  |  40000 | 4000 |
+|   12 | Rafa    |   38 | MEXICO  |  40000 | 4000 |
++------+---------+------+---------+--------+------+
+12 rows in set (0.00 sec)
 
 ⸻
 
@@ -197,12 +220,14 @@ def transform_data(records):
     """
     transformed = []
     for record in records:
+        id = record["id"]
         name = record["name"]
+        country = record["country"]
         age = record["age"] if record["age"] is not None else 25  # Default age = 25
         salary = record["salary"] if record["salary"] is not None else 40000  # Default salary = 40K
         tax = calculate_10_percent(salary)  # 10% tax on salary
         #
-        transformed.append((name, age, salary, tax))
+        transformed.append((id, name, age, country, salary, tax))
     #end-for
     
     return transformed
@@ -215,7 +240,7 @@ def load_data(transformed_records, database_config):
     conn = mysql.connector.connect(**database_config)
     cursor = conn.cursor()
     
-    query = "INSERT INTO destination_table (full_name, age, salary, tax) VALUES (%s, %s, %s, %s)"
+    query = "INSERT INTO destination_table (id, name, age, country, salary, tax) VALUES (%s, %s, %s, %s, %s, %s)"
     
     cursor.executemany(query, transformed_records)
     conn.commit()
