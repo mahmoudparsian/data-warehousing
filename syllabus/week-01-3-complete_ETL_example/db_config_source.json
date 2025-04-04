@@ -1,6 +1,6 @@
 {
     "user": "root",
-    "password": "pass",
+    "password": "mp22pass",
     "host": "localhost",
-    "database": "homeworks"
+    "database": "scu_homeworks"
 }

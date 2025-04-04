@@ -1,6 +1,14 @@
 # Complete Working Example of an ETL in Python
 
-What This ETL Does
+## Database Configurations
+
+Update the content of the following files accordingly.
+
+* `db_config_source.json` (for source table)
+
+* `db_config_target.json` (for destination table)
+
+## What This ETL Does
 
 ✅ Extracts data from source_table
 
@@ -14,6 +22,7 @@ What This ETL Does
 ✅ Loads data into destination_table
 
 
+## ETL Summary
 
 	Provide a complete working example of an ETL 
 	in python, which reads mysql table (include 
@@ -37,17 +46,24 @@ You’ll need:
 ------
 
 
-# 1. MySQL Setup
+## 1. MySQL Setup
 
 	Before running the script, create the 
 	source and destination tables in MySQL:
 
 ~~~sql
-CREATE DATABASE homeworks;
-USE homeworks;
+CREATE DATABASE scu_homeworks;
+CREATE DATABASE scu2_homeworks;
 
-CREATE DATABASE homeworks;
-USE homeworks;
+USE scu_homeworks;
+
+CREATE TABLE source_table (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50),
+    age INT,
+    country VARCHAR(20),
+    salary INT
+);
 
 INSERT INTO source_table (name, age, country, salary) 
 VALUES 
@@ -82,6 +98,13 @@ mysql> select * from source_table;
 | 12 | Rafa    |   38 | MEXICO  |   NULL |
 +----+---------+------+---------+--------+
 12 rows in set (0.00 sec)
+
+~~~
+
+## Create Destination database and table definitions
+
+~~~
+use scu2_homeworks;
 
 CREATE TABLE destination_table (
     id INT,

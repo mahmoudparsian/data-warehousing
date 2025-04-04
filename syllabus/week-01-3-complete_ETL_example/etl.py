@@ -46,8 +46,8 @@ Required Python Libraries:
 Before running the script, create the  
 source and destination tables in MySQL:
 
-CREATE DATABASE homeworks;
-USE homeworks;
+CREATE DATABASE scu_homeworks;
+USE scu_homeworks;
 
 CREATE TABLE source_table (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -91,7 +91,7 @@ mysql> select * from source_table;
 +----+---------+------+---------+--------+
 12 rows in set (0.00 sec)
 
-mysql> use homeworks;
+mysql> use scu_homeworks;
 mysql> show databases;
 +--------------------+
 | Database           |
@@ -103,10 +103,10 @@ mysql> show databases;
 +--------------------+
 4 rows in set (0.00 sec)
 
-mysql> create database homeworks;
+mysql> create database scu2_homeworks;
 Query OK, 1 row affected (0.01 sec)
 
-mysql> use homeworks;
+mysql> use scu2_homeworks;
 Database changed
 
 
