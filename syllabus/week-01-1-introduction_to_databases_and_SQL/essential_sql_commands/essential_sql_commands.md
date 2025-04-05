@@ -37,12 +37,14 @@
    Retrieve all columns and rows:
 
    ```sql
-   SELECT * FROM Employees;
+   SELECT * 
+   FROM Employees;
    ```
    Retrieve specific columns:
    
    ```sql
-   SELECT Name, Position FROM Employees;
+   SELECT Name, Position 
+   FROM Employees;
    ```
 
 ### 5. **WHERE**  
