@@ -336,3 +336,9 @@ WHERE EXISTS
 
 ---
 
+# References
+
+### 1. [10 Essential SQL Commands](https://medium.com/@thallyscostalat/10-essential-sql-commands-every-data-professional-should-know-49cecd79bb0b)
+
+
+### 2. [The Most Important SQL Commands](https://learnsql.com/blog/sql-commands/)
