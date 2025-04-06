@@ -726,6 +726,8 @@ WHERE salary = (
 ### **24. Left-Join**
 List department who have no employees:
 
+* Iteration-1:
+
 ```sql
 SELECT D.dept_id, 
        D.dept_name, 
@@ -765,7 +767,11 @@ on D.dept_id = E.dept_id;
 |       7 | Classified |    NULL |
 +---------+------------+---------+
 26 rows in set (0.00 sec)
+```
 
+* Iteration-2:
+
+~~~sql
 SELECT D.dept_id, 
        D.dept_name, 
        E.dept_id
@@ -781,8 +787,11 @@ WHERE E.dept_id is NULL;
 |       7 | Classified |    NULL |
 +---------+------------+---------+
 2 rows in set (0.00 sec)
+~~~
 
+* Iteration-3:
 
+~~~sql
 SELECT D.dept_id, 
        D.dept_name
 FROM departments D
@@ -798,7 +807,7 @@ WHERE E.dept_id is NULL;
 +---------+------------+
 2 rows in set (0.00 sec)
 
-```
+~~~
 
 ---
 
