@@ -418,9 +418,138 @@ LIMIT 3;
 ---
 
 ### **16. Ranking with `ROW_NUMBER()`**
-Assign a unique rank to each employee based on their salary:
 
-```sql
+* `ROW_NUMBER()`: This is an analytic function that 
+  assigns a unique integer value to each row within 
+  a result set, based on the order of rows. 
+
+* `OVER (ORDER BY ...)`: This clause specifies the order 
+  in which the row numbers will be assigned. You need to 
+  specify an ORDER BY clause to determine the sequence. 
+
+
+#### 16.1 Assign a row number to each row
+
+~~~mysql
+SELECT name, 
+       salary,
+       country,
+       ROW_NUMBER() OVER () AS rnk
+FROM employees;
+
++----------+--------+---------+-----+
+| name     | salary | country | rnk |
++----------+--------+---------+-----+
+| Alice    | 150000 | USA     |   1 |
+| Bob      | 140000 | USA     |   2 |
+| Charlie  |  75000 | USA     |   3 |
+| Alex     | 140000 | USA     |   4 |
+| Bobby    | 110000 | USA     |   5 |
+| Charles  |  75000 | USA     |   6 |
+| Chuck    |  75000 | USA     |   7 |
+| Candy    |  95000 | USA     |   8 |
+| Dave     |  50000 | USA     |   9 |
+| Rafa     |  90000 | USA     |  10 |
+| Al       | 120000 | CANADA  |  11 |
+| Babak    | 130000 | CANADA  |  12 |
+| Chad     |  70000 | CANADA  |  13 |
+| Alosh    | 120000 | CANADA  |  14 |
+| Mahin    | 100000 | CANADA  |  15 |
+| Shahin   |  70000 | CANADA  |  16 |
+| Terry    | 100000 | CANADA  |  17 |
+| Taba     |  90000 | CANADA  |  18 |
+| Rafael   | 130000 | MEXICO  |  19 |
+| Gonzalez | 110000 | MEXICO  |  20 |
+| Casa     |  90000 | MEXICO  |  21 |
+| Pedro    |  80000 | MEXICO  |  22 |
+| Barbara  | 120000 | MEXICO  |  23 |
+| Samir    |  40000 | MEXICO  |  24 |
++----------+--------+---------+-----+
+24 rows in set (0.00 sec)
+~~~
+
+
+#### 16.2 Assign a row number to each row based on a salary
+
+~~~mysql
+SELECT name, 
+       salary,
+       country,
+       ROW_NUMBER() OVER (ORDER BY salary DESC) AS rnk
+FROM employees;
++----------+--------+---------+-----+
+| name     | salary | country | rnk |
++----------+--------+---------+-----+
+| Alice    | 150000 | USA     |   1 |
+| Bob      | 140000 | USA     |   2 |
+| Alex     | 140000 | USA     |   3 |
+| Babak    | 130000 | CANADA  |   4 |
+| Rafael   | 130000 | MEXICO  |   5 |
+| Al       | 120000 | CANADA  |   6 |
+| Alosh    | 120000 | CANADA  |   7 |
+| Barbara  | 120000 | MEXICO  |   8 |
+| Bobby    | 110000 | USA     |   9 |
+| Gonzalez | 110000 | MEXICO  |  10 |
+| Mahin    | 100000 | CANADA  |  11 |
+| Terry    | 100000 | CANADA  |  12 |
+| Candy    |  95000 | USA     |  13 |
+| Rafa     |  90000 | USA     |  14 |
+| Taba     |  90000 | CANADA  |  15 |
+| Casa     |  90000 | MEXICO  |  16 |
+| Pedro    |  80000 | MEXICO  |  17 |
+| Charlie  |  75000 | USA     |  18 |
+| Charles  |  75000 | USA     |  19 |
+| Chuck    |  75000 | USA     |  20 |
+| Chad     |  70000 | CANADA  |  21 |
+| Shahin   |  70000 | CANADA  |  22 |
+| Dave     |  50000 | USA     |  23 |
+| Samir    |  40000 | MEXICO  |  24 |
++----------+--------+---------+-----+
+24 rows in set (0.00 sec)
+~~~
+
+#### 16.3 Assign a row number to each row based on a salary within each country
+
+~~~mysql
+SELECT name, 
+       salary,
+       country,
+       ROW_NUMBER() OVER (PARTITION BY country ORDER BY salary DESC) AS rnk
+FROM employees;
++----------+--------+---------+-----+
+| name     | salary | country | rnk |
++----------+--------+---------+-----+
+| Babak    | 130000 | CANADA  |   1 |
+| Al       | 120000 | CANADA  |   2 |
+| Alosh    | 120000 | CANADA  |   3 |
+| Mahin    | 100000 | CANADA  |   4 |
+| Terry    | 100000 | CANADA  |   5 |
+| Taba     |  90000 | CANADA  |   6 |
+| Chad     |  70000 | CANADA  |   7 |
+| Shahin   |  70000 | CANADA  |   8 |
+| Rafael   | 130000 | MEXICO  |   1 |
+| Barbara  | 120000 | MEXICO  |   2 |
+| Gonzalez | 110000 | MEXICO  |   3 |
+| Casa     |  90000 | MEXICO  |   4 |
+| Pedro    |  80000 | MEXICO  |   5 |
+| Samir    |  40000 | MEXICO  |   6 |
+| Alice    | 150000 | USA     |   1 |
+| Bob      | 140000 | USA     |   2 |
+| Alex     | 140000 | USA     |   3 |
+| Bobby    | 110000 | USA     |   4 |
+| Candy    |  95000 | USA     |   5 |
+| Rafa     |  90000 | USA     |   6 |
+| Charlie  |  75000 | USA     |   7 |
+| Charles  |  75000 | USA     |   8 |
+| Chuck    |  75000 | USA     |   9 |
+| Dave     |  50000 | USA     |  10 |
++----------+--------+---------+-----+
+24 rows in set (0.00 sec)
+~~~
+
+#### 16.4 Assign a unique rank to each employee based on their salary
+
+~~~mysql 
 SELECT name, 
        salary,
        ROW_NUMBER() OVER (ORDER BY salary DESC) AS rnk
@@ -455,11 +584,18 @@ FROM employees;
 | Samir    |  40000 |  24 |
 +----------+--------+-----+
 24 rows in set (0.00 sec)
-```
+~~~
 
 ---
 
 ### **17. Ranking with `RANK()`**
+
+	In MySQL, RANK() is a window function that assigns 
+	a rank to each row within a partition based on the 
+	values in one or more columns, assigning the same 
+	rank to rows with identical values and leaving gaps 
+	in the ranking sequence for tied values. 
+
 Rank employees based on their salary, allowing ties to share the same rank:
 
 ```sql
@@ -502,6 +638,13 @@ FROM employees;
 ---
 
 ### **18. Ranking with `DENSE_RANK()`**
+
+	In MySQL, DENSE_RANK() is a window function that 
+	assigns a unique rank to each row within a partition, 
+	assigning the same rank to rows with identical values, 
+	and ensuring consecutive ranks without gaps. 
+
+
 Rank employees based on their salary without skipping ranks for ties:
 
 ```sql
@@ -726,8 +869,6 @@ WHERE salary = (
 ### **24. Left-Join**
 List department who have no employees:
 
-* Iteration-1:
-
 ```sql
 SELECT D.dept_id, 
        D.dept_name, 
@@ -767,11 +908,7 @@ on D.dept_id = E.dept_id;
 |       7 | Classified |    NULL |
 +---------+------------+---------+
 26 rows in set (0.00 sec)
-```
 
-* Iteration-2:
-
-~~~sql
 SELECT D.dept_id, 
        D.dept_name, 
        E.dept_id
@@ -787,11 +924,8 @@ WHERE E.dept_id is NULL;
 |       7 | Classified |    NULL |
 +---------+------------+---------+
 2 rows in set (0.00 sec)
-~~~
 
-* Iteration-3:
 
-~~~sql
 SELECT D.dept_id, 
        D.dept_name
 FROM departments D
@@ -807,7 +941,7 @@ WHERE E.dept_id is NULL;
 +---------+------------+
 2 rows in set (0.00 sec)
 
-~~~
+```
 
 ---
 
