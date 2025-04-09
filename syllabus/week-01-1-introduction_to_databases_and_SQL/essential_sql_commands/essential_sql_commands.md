@@ -219,7 +219,9 @@ WHERE E.salary > 120000;
 +--------+--------+------------+
 5 rows in set (0.00 sec)
 
+-- ---------------
 -- another version
+-- ---------------
 SELECT  E.name, 
         E.salary, 
         D.dept_name
@@ -228,13 +230,38 @@ FROM employees E,
 WHERE
      E.dept_id = D.dept_id  AND
      E.salary > 120000;
++--------+--------+------------+
+| name   | salary | dept_name  |
++--------+--------+------------+
+| Alice  | 150000 | Management |
+| Bob    | 140000 | Management |
+| Alex   | 140000 | Software   |
+| Babak  | 130000 | Management |
+| Rafael | 130000 | Management |
++--------+--------+------------+
+5 rows in set (0.00 sec)
 
 
    ```
 
 ### 10. **GROUP BY**  
-   - Aggregate data: find average salary per department:
-   
+
+- find average of salaries
+
+~~~sql
+SELECT AVG(Salary) AS average_all_salary
+FROM employees;
++--------------------+
+| average_all_salary |
++--------------------+
+|         98750.0000 |
++--------------------+
+1 row in set (0.00 sec)
+~~~
+
+
+- Aggregate data: find average salary per department:
+
 ```sql
    SELECT dept_id, 
           AVG(Salary) AS average_salary
@@ -301,12 +328,27 @@ GROUP BY E.dept_id;
 Apply conditions to grouped data:
    
 ```sql
-   SELECT dept_id, 
-          AVG(salary) AS average_salary
-   FROM employees
-   GROUP BY dept_id
-   HAVING AVG(salary) > 90000;
+SELECT dept_id, 
+       AVG(salary) AS average_salary
+FROM employees
+GROUP BY dept_id;
++---------+----------------+
+| dept_id | average_salary |
++---------+----------------+
+|       3 |    116428.5714 |
+|       5 |    112857.1429 |
+|       1 |     66250.0000 |
+|       2 |     85000.0000 |
+|       4 |     82500.0000 |
++---------+----------------+
+5 rows in set (0.00 sec)   
    
+
+SELECT dept_id, 
+       AVG(salary) AS average_salary
+FROM employees
+GROUP BY dept_id
+HAVING AVG(salary) > 90000; 
 +---------+----------------+
 | dept_id | average_salary |
 +---------+----------------+
@@ -319,6 +361,8 @@ Apply conditions to grouped data:
 
 ### 12. **SUBQUERY**  
    Use a query inside another query:
+   
+   find employees where their salary is greater than AVG salary
    
    ```sql
    SELECT * FROM employees
