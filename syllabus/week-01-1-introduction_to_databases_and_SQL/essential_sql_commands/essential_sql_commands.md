@@ -200,7 +200,8 @@ mysql> select * from departments;
 +---------+------------+
 7 rows in set (0.00 sec)
 
-   
+-- INNER JOIN (https://www.programiz.com/sql/inner-join)  
+--
 SELECT E.name, E.salary, D.dept_name
 FROM employees E
 JOIN departments D
@@ -217,6 +218,17 @@ WHERE E.salary > 120000;
 | Rafael | 130000 | Management |
 +--------+--------+------------+
 5 rows in set (0.00 sec)
+
+-- another version
+SELECT  E.name, 
+        E.salary, 
+        D.dept_name
+FROM employees E,
+     departments D
+WHERE
+     E.dept_id = D.dept_id  AND
+     E.salary > 120000;
+
 
    ```
 
