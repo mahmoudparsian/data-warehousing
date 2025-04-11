@@ -966,9 +966,9 @@ WHERE salary = (
 List department who have no employees:
 
 ```sql
-SELECT D.dept_id, 
-       D.dept_name, 
-       E.dept_id
+SELECT D.dept_id as D_dept_id,
+       D.dept_name as D_dept_name,
+       E.dept_id as E_dept_id
 FROM departments D
 LEFT JOIN employees E
 on D.dept_id = E.dept_id;
@@ -1019,6 +1019,23 @@ WHERE E.dept_id is NULL;
 |       6 | Top-Secret |    NULL |
 |       7 | Classified |    NULL |
 +---------+------------+---------+
+2 rows in set (0.00 sec)
+
+
+SELECT D.dept_id as D_dept_id,
+       D.dept_name as D_dept_name,
+       E.dept_id as E_dept_id
+FROM departments D
+LEFT JOIN employees E
+on D.dept_id = E.dept_id
+WHERE E.dept_id is NULL;
+
++-----------+-------------+-----------+
+| D_dept_id | D_dept_name | E_dept_id |
++-----------+-------------+-----------+
+|         6 | Top-Secret  |      NULL |
+|         7 | Classified  |      NULL |
++-----------+-------------+-----------+
 2 rows in set (0.00 sec)
 
 
