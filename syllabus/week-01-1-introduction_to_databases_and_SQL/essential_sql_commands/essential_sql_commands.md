@@ -810,7 +810,7 @@ GROUP BY dept_id;
 
 ---
 
-### **21. Subquery with `HAVING` Clause**
+### **21. Subquery Example**
 Find employees with salaries above the department average:
 
 ```sql
@@ -818,7 +818,8 @@ SELECT name,
        salary, 
        dept_id
 FROM employees
-WHERE salary > (
+WHERE salary > 
+(
     SELECT AVG(salary)
     FROM employees e
     WHERE e.dept_id = Employees.dept_id
@@ -847,6 +848,45 @@ WHERE salary > (
 
 ```
 
+Alternate solution:
+
+~~~sql
+with dept_avg as
+(
+    SELECT dept_id,
+    AVG(salary) as avg_salary
+    FROM employees e
+    GROUP BY dept_id
+)
+SELECT E.name, 
+       E.salary, 
+       E.dept_id
+FROM employees E,
+     dept_avg A
+WHERE E.salary > A.avg_salary  AND
+      E.dept_id = A.dept_id;
+
++---------+--------+---------+
+| name    | salary | dept_id |
++---------+--------+---------+
+| Alice   | 150000 |       3 |
+| Bob     | 140000 |       3 |
+| Alex    | 140000 |       5 |
+| Charles |  75000 |       1 |
+| Candy   |  95000 |       2 |
+| Rafa    |  90000 |       4 |
+| Al      | 120000 |       3 |
+| Babak   | 130000 |       3 |
+| Alosh   | 120000 |       5 |
+| Shahin  |  70000 |       1 |
+| Terry   | 100000 |       4 |
+| Taba    |  90000 |       4 |
+| Rafael  | 130000 |       3 |
+| Pedro   |  80000 |       1 |
+| Barbara | 120000 |       5 |
++---------+--------+---------+
+15 rows in set (0.00 sec)
+~~~
 ---
 
 ### **22. Correlated Subquery with `DENSE_RANK()`**
