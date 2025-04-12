@@ -88,7 +88,6 @@ db_config = read_json(db_config_file)
 print("db_config=", db_config)
 
 
-
 # create Excel file as an excel_file object
 excel_file = pd.ExcelFile(excel_file_name)
 print("excel_file=", excel_file)
@@ -123,7 +122,7 @@ print("excel_dataframe=",excel_dataframe)
 conn = create_db_connection(db_config)
 print("conn=", conn)
 
-excel_dataframe.to_sql("financial_table", conn, if_exists="append")
+excel_dataframe.to_sql("financial_table_2", conn, if_exists="append")
 
 # Do not worry if you don't have the table already. 
 # A table gets created with the name that you pass into to_sql().
