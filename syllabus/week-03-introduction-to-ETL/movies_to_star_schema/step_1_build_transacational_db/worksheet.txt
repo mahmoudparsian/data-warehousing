@@ -1,0 +1,355 @@
+To create a MySQL database that is UTF-8 compliant 
+from the command line on a MacBook Pro, you can follow these steps:
+
+### Step 1: Open Terminal
+Open the Terminal application on your MacBook Pro.
+
+### Step 2: Log in to MySQL
+Log in to your MySQL server using the `mysql` command. 
+Replace `your_username` with your MySQL username and `your_password` with your MySQL password.
+
+```sh
+mysql -u your_username -p
+```
+
+You will be prompted to enter your MySQL password.
+
+### Step 3: Create the Database
+Once logged in, you can create a new database with UTF-8 encoding using the following SQL command. Replace `your_database_name` with the desired name for your database.
+
+```sql
+CREATE DATABASE your_database_name CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+Here, `utf8mb4` is the recommended character set for full UTF-8 support, and `utf8mb4_unicode_ci` is the collation that ensures proper sorting and comparison of Unicode characters.
+
+### Example
+
+Here's a complete example of creating a UTF-8 compliant database named `my_utf8_database`:
+
+1. Open Terminal.
+2. Log in to MySQL:
+
+```sh
+mysql -u your_username -p
+```
+
+3. Create the database:
+
+```sql
+CREATE DATABASE my_utf8_database CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+4. Verify the database creation:
+
+```sql
+SHOW DATABASES;
+```
+
+5. Optionally, check the character set and collation of the newly created database:
+
+```sql
+USE my_utf8_database;
+SHOW VARIABLES LIKE 'character_set_database';
+SHOW VARIABLES LIKE 'collation_database';
+```
+
+### Summary
+
+By following these steps, you will have created a MySQL database that is fully UTF-8 compliant, ensuring proper handling and storage of Unicode characters.
+
+
+CREATE TABLE your_table_name (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    column_name VARCHAR(255) NOT NULL
+) CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+CREATE TABLE movies (
+    imdm_title_id VARCHAR(255),
+    title VARCHAR(255),
+    original_title VARCHAR(255),
+    year int,
+    date_published VARCHAR(255),
+    genre VARCHAR(255),
+    duration INT,
+    country  VARCHAR(255),
+    language_1  VARCHAR(255),
+    language_2  VARCHAR(255),
+    language_3  VARCHAR(255),
+    director  VARCHAR(255),
+    writer  VARCHAR(255),
+    actors  VARCHAR(955),
+    actors_1  VARCHAR(955),
+    actors_f2  VARCHAR(955),
+    description  VARCHAR(255),
+    desc35  VARCHAR(255),
+    avg_vote DOUBLE,
+    votes INT,
+    budget INT,
+    usa_gross_income INT,
+    worlwide_gross_income INT,
+    reviews_from_users INT
+) CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+movies2 (main +) % mysql --local-infile=1 -h localhost -u root -p
+
+LOAD DATA LOCAL INFILE "/Users/mparsian/github/data-warehousing/syllabus/week-05_ETL_detailed/movies2/IMDB_Movies_2000_2020.csv"
+INTO TABLE movies
+COLUMNS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+ESCAPED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+mysql> LOAD DATA LOCAL INFILE "/Users/mparsian/github/data-warehousing/syllabus/week-05_ETL_detailed/movies2/IMDB_Movies_2000_2020.csv"
+    -> INTO TABLE movies
+    -> COLUMNS TERMINATED BY ','
+    -> OPTIONALLY ENCLOSED BY '"'
+    -> ESCAPED BY '"'
+    -> LINES TERMINATED BY '\n'
+    -> IGNORE 1 LINES;
+Query OK, 5487 rows affected, 8689 warnings (0.28 sec)
+Records: 5487  Deleted: 0  Skipped: 0  Warnings: 8689
+
+mysql> select * from movies limit 4;
++---------------+----------------------+------------------+------+----------------+--------------------------+----------+------------------+------------+--------------+------------+--------------------+------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------+----------+--------+----------+------------------+-----------------------+--------------------+
+| imdm_title_id | title                | original_title   | year | date_published | genre                    | duration | country          | language_1 | language_2   | language_3 | director           | writer                       | actors                                                                                                                                                                                                                            | actors_1        | actors_f2                          | description                                                                                                                                                                                           | desc35                                    | avg_vote | votes  | budget   | usa_gross_income | worlwide_gross_income | reviews_from_users |
++---------------+----------------------+------------------+------+----------------+--------------------------+----------+------------------+------------+--------------+------------+--------------------+------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------+----------+--------+----------+------------------+-----------------------+--------------------+
+| tt0035423     | Kate & Leopold       | Kate & Leopold   | 2001 | 01/03/2002     | Comedy, Fantasy, Romance |      118 | USA              | English    | French       |            | James Mangold      | Steven Rogers, James Mangold | Meg Ryan, Hugh Jackman, Liev Schreiber, Breckin Meyer, Natasha Lyonne, Bradley Whitford, Paxton Whitehead, Spalding Gray, Josh Stamberg, Matthew Sussman, Charlotte Ayanna, Philip Bosco, Andrew Jack, Stan Tracy, Kristen Schaal | Meg Ryan        | Meg Ryan, Hugh Jackman             | An English Duke from 1876 is inadvertedly dragged to modern day New York where he falls for a plucky advertising executive.                                                                           | An English Duke from 1876 is inadvertedly |      6.4 |  77852 | 48000000 |         47121859 |              76019048 |                341 |
+| tt0118589     | Glitter              | Glitter          | 2001 | 30/11/2001     | Drama, Music, Romance    |      104 | USA              | English    |              |            | Vondie Curtis-Hall | Cheryl L. West, Kate Lanier  | Mariah Carey, Max Beesley, Da Brat, Tia Texada, Valarie Pettiford, Ann Magnuson, Terrence Howard, Dorian Harewood, Grant Nickalls, Eric Benét, Padma Lakshmi, Don Ackerman, Ed Sahely, Carmen Wong, James Allodi                  | Mariah Carey    | Mariah Carey, Max Beesley          | A young singer dates a disc jockey who helps her get into the music business, but their relationship become complicated as she ascends to super stardom.                                              | A young singer dates a disc jockey        |      2.2 |  21298 | 22000000 |          4274407 |               5271666 |                319 |
+| tt0118694     | In the Mood for Love | Fa yeung nin wah | 2000 | 27/10/2000     | Drama, Romance           |       98 | Hong Kong, China | Cantonese  | Shanghainese | French     | Kar-Wai Wong       | Kar-Wai Wong                 | Maggie Cheung, Tony Chiu-Wai Leung, Ping Lam Siu, Tung Cho 'Joe' Cheung, Rebecca Pan, Kelly Lai Chen, Man-Lei Chan, Kam-Wah Koo, Szu-Ying Chien, Paulyn Sun, Roy Cheung, Po-chun Chow, Hsien Yu                                   | Maggie Cheung   | Maggie Cheung, Tony Chiu-Wai Leung | Two neighbors, a woman and a man, form a strong bond after both suspect extramarital activities of their spouses. However, they agree to keep their bond platonic so as not to commit similar wrongs. | Two neighbors, a woman and a man,         |      8.1 | 119171 |        0 |          2738980 |              12854953 |                422 |
+| tt0120202     | Hollywood, Vermont   | State and Main   | 2000 | 31/05/2002     | Comedy, Drama            |      105 | France, USA      | English    | Italian      |            | David Mamet        | David Mamet                  | Michael Higgins, Michael Bradshaw, Morris Lamore, Allen Soule, Clark Gregg, Rebecca Pidgeon, Ricky Jay, Julia Stiles, Matt Malloy, Charles Durning, Tony V., Tony Mamet, Jack Wallace, Michael James O'Boyle, Charlotte Potok     | Michael Higgins | Michael Higgins, Michael Bradshaw  | A movie crew invades a small town whose residents are all too ready to give up their values for showbiz glitz.                                                                                        | A movie crew invades a small town         |      6.7 |  20220 |        0 |          6944471 |               9206279 |                175 |
++---------------+----------------------+------------------+------+----------------+--------------------------+----------+------------------+------------+--------------+------------+--------------------+------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------+----------+--------+----------+------------------+-----------------------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql>
+
+Add a new column date_published_2 as a DATE format:
+
+ALTER TABLE movies
+ADD COLUMN date_published_2 DATE;
+
+UPDATE movies
+SET date_published_2 = STR_TO_DATE(date_published, '%d/%m/%Y');
+
+mysql> select date_published, date_published_2 from movies;
++----------------+------------------+
+| date_published | date_published_2 |
++----------------+------------------+
+| 01/03/2002     | 2002-03-01       |
+| 30/11/2001     | 2001-11-30       |
+| 27/10/2000     | 2000-10-27       |
+...
+
+I have a mysql table, how can I add a new column and 
+set the values from 1, 2, 3, ...
+You can achieve this by following these steps:
+
+Add the new column to the table: 
+Use the ALTER TABLE statement to create the new column:
+
+sql
+
+ALTER TABLE movies
+ADD COLUMN movie_id INT;
+
+Update the column with sequential values: 
+You can populate the new column using the UPDATE 
+statement along with a user-defined variable to 
+create sequential numbers:
+
+SET @counter = 0;
+
+UPDATE movies
+SET movie_id = (@counter := @counter + 1);
+
+mysql> select movie_id, imdm_title_id from movies;
++----------+---------------+
+| movie_id | imdm_title_id |
++----------+---------------+
+|        1 | tt0035423     |
+|        2 | tt0118589     |
+|        3 | tt0118694     |
+|        4 | tt0120202     |
+...
+|     5485 | tt9806192     |
+|     5486 | tt9860728     |
+|     5487 | tt9898858     |
++----------+---------------+
+5487 rows in set (0.01 sec)
+
+mysql> select * from movies limit 4;
++---------------+----------------------+------------------+------+----------------+--------------------------+----------+------------------+------------+--------------+------------+--------------------+------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------+----------+--------+----------+------------------+-----------------------+--------------------+------------------+-------+
+| imdm_title_id | title                | original_title   | year | date_published | genre                    | duration | country          | language_1 | language_2   | language_3 | director           | writer                       | actors                                                                                                                                                                                                                            | actors_1        | actors_f2                          | description                                                                                                                                                                                           | desc35                                    | avg_vote | votes  | budget   | usa_gross_income | worlwide_gross_income | reviews_from_users | date_published_2 | mpvie_id |
++---------------+----------------------+------------------+------+----------------+--------------------------+----------+------------------+------------+--------------+------------+--------------------+------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------+----------+--------+----------+------------------+-----------------------+--------------------+------------------+-------+
+| tt0035423     | Kate & Leopold       | Kate & Leopold   | 2001 | 01/03/2002     | Comedy, Fantasy, Romance |      118 | USA              | English    | French       |            | James Mangold      | Steven Rogers, James Mangold | Meg Ryan, Hugh Jackman, Liev Schreiber, Breckin Meyer, Natasha Lyonne, Bradley Whitford, Paxton Whitehead, Spalding Gray, Josh Stamberg, Matthew Sussman, Charlotte Ayanna, Philip Bosco, Andrew Jack, Stan Tracy, Kristen Schaal | Meg Ryan        | Meg Ryan, Hugh Jackman             | An English Duke from 1876 is inadvertedly dragged to modern day New York where he falls for a plucky advertising executive.                                                                           | An English Duke from 1876 is inadvertedly |      6.4 |  77852 | 48000000 |         47121859 |              76019048 |                341 | 2002-03-01       |     1 |
+| tt0118589     | Glitter              | Glitter          | 2001 | 30/11/2001     | Drama, Music, Romance    |      104 | USA              | English    |              |            | Vondie Curtis-Hall | Cheryl L. West, Kate Lanier  | Mariah Carey, Max Beesley, Da Brat, Tia Texada, Valarie Pettiford, Ann Magnuson, Terrence Howard, Dorian Harewood, Grant Nickalls, Eric Benét, Padma Lakshmi, Don Ackerman, Ed Sahely, Carmen Wong, James Allodi                  | Mariah Carey    | Mariah Carey, Max Beesley          | A young singer dates a disc jockey who helps her get into the music business, but their relationship become complicated as she ascends to super stardom.                                              | A young singer dates a disc jockey        |      2.2 |  21298 | 22000000 |          4274407 |               5271666 |                319 | 2001-11-30       |     2 |
+| tt0118694     | In the Mood for Love | Fa yeung nin wah | 2000 | 27/10/2000     | Drama, Romance           |       98 | Hong Kong, China | Cantonese  | Shanghainese | French     | Kar-Wai Wong       | Kar-Wai Wong                 | Maggie Cheung, Tony Chiu-Wai Leung, Ping Lam Siu, Tung Cho 'Joe' Cheung, Rebecca Pan, Kelly Lai Chen, Man-Lei Chan, Kam-Wah Koo, Szu-Ying Chien, Paulyn Sun, Roy Cheung, Po-chun Chow, Hsien Yu                                   | Maggie Cheung   | Maggie Cheung, Tony Chiu-Wai Leung | Two neighbors, a woman and a man, form a strong bond after both suspect extramarital activities of their spouses. However, they agree to keep their bond platonic so as not to commit similar wrongs. | Two neighbors, a woman and a man,         |      8.1 | 119171 |        0 |          2738980 |              12854953 |                422 | 2000-10-27       |     3 |
+| tt0120202     | Hollywood, Vermont   | State and Main   | 2000 | 31/05/2002     | Comedy, Drama            |      105 | France, USA      | English    | Italian      |            | David Mamet        | David Mamet                  | Michael Higgins, Michael Bradshaw, Morris Lamore, Allen Soule, Clark Gregg, Rebecca Pidgeon, Ricky Jay, Julia Stiles, Matt Malloy, Charles Durning, Tony V., Tony Mamet, Jack Wallace, Michael James O'Boyle, Charlotte Potok     | Michael Higgins | Michael Higgins, Michael Bradshaw  | A movie crew invades a small town whose residents are all too ready to give up their values for showbiz glitz.                                                                                        | A movie crew invades a small town         |      6.7 |  20220 |        0 |          6944471 |               9206279 |                175 | 2002-05-31       |     4 |
++---------------+----------------------+------------------+------+----------------+--------------------------+----------+------------------+------------+--------------+------------+--------------------+------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------+----------+--------+----------+------------------+-----------------------+--------------------+------------------+-------+
+4 rows in set (0.00 sec)
+
+ALTER TABLE movies
+CHANGE pk_id movie_id INT;
+
+mysql> select movie_id from movies limit 5;
++----------+
+| movie_id |
++----------+
+|        1 |
+|        2 |
+|        3 |
+|        4 |
+|        5 |
++----------+
+5 rows in set (0.00 sec)
+
+ALTER TABLE movies
+CHANGE year release_year INT;
+
+mysql> ALTER TABLE movies
+    -> CHANGE year release_year INT;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+create table ratings(
+    rating_id INT,
+    movie_id INT,
+    user_id INT,
+    rating INT, -- 1, 2, 3, ..., 10
+    rating_date Date
+);
+
+LOAD DATA LOCAL INFILE "/Users/mparsian/github/data-warehousing/syllabus/week-05_ETL_detailed/movies2/step_1_build_transacational_db/ratings.csv"
+INTO TABLE ratings
+COLUMNS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+ESCAPED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+mysql> select count(*) from ratings;
++----------+
+| count(*) |
++----------+
+|  2000000 |
++----------+
+1 row in set (0.06 sec)
+
+mysql> select * from ratings limit 5;
++-----------+----------+---------+--------+-------------+
+| rating_id | movie_id | user_id | rating | rating_date |
++-----------+----------+---------+--------+-------------+
+|         1 |      527 |   89631 |     10 | 2022-10-23  |
+|         2 |     3677 |   70546 |     10 | 2021-04-03  |
+|         3 |     3318 |   68106 |      3 | 2021-02-03  |
+|         4 |     1797 |   46927 |      2 | 2020-02-16  |
+|         5 |     1574 |   99078 |      8 | 2021-11-11  |
++-----------+----------+---------+--------+-------------+
+5 rows in set (0.00 sec)
+
+=========================
+star schema
+
+mysql> use movies2_star_schema;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++-------------------------------+
+| Tables_in_movies2_star_schema |
++-------------------------------+
+| dates_dim                     |
+| movies_dim                    |
+| ratings_fact                  |
+| users_dim                     |
++-------------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select count(*) from dates_dim;
++----------+
+| count(*) |
++----------+
+|     1461 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from movies_dim;
++----------+
+| count(*) |
++----------+
+|     5487 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from ratings_fact;
++----------+
+| count(*) |
++----------+
+|  2000000 |
++----------+
+1 row in set (0.08 sec)
+
+mysql> select count(*) from users_dim;
++----------+
+| count(*) |
++----------+
+|   100000 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> select * from ratings_fact limit 4;
++-----------+----------+---------+--------+---------+
+| rating_id | movie_id | user_id | rating | date_id |
++-----------+----------+---------+--------+---------+
+|         1 |      527 |   89631 |     10 |       1 |
+|         2 |     3677 |   70546 |     10 |       2 |
+|         3 |     3318 |   68106 |      3 |       3 |
+|         4 |     1797 |   46927 |      2 |       4 |
++-----------+----------+---------+--------+---------+
+4 rows in set (0.01 sec)
+
+mysql>
+mysql> select * from movies_dim limit 5;
++---------------+---------------------------+-------------------------------+--------------+----------------+--------------------------+----------+-------------------------+------------+--------------+------------+--------------------+------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------+----------+--------+----------+------------------+-----------------------+--------------------+------------------+----------+
+| imdm_title_id | title                     | original_title                | release_year | date_published | genre                    | duration | country                 | language_1 | language_2   | language_3 | director           | writer                       | actors                                                                                                                                                                                                                                                    | actors_1        | actors_f2                          | description                                                                                                                                                                                                           | desc35                                    | avg_vote | votes  | budget   | usa_gross_income | worlwide_gross_income | reviews_from_users | date_published_2 | movie_id |
++---------------+---------------------------+-------------------------------+--------------+----------------+--------------------------+----------+-------------------------+------------+--------------+------------+--------------------+------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------+----------+--------+----------+------------------+-----------------------+--------------------+------------------+----------+
+| tt0035423     | Kate & Leopold            | Kate & Leopold                |         2001 | 01/03/2002     | Comedy, Fantasy, Romance |      118 | USA                     | English    | French       |            | James Mangold      | Steven Rogers, James Mangold | Meg Ryan, Hugh Jackman, Liev Schreiber, Breckin Meyer, Natasha Lyonne, Bradley Whitford, Paxton Whitehead, Spalding Gray, Josh Stamberg, Matthew Sussman, Charlotte Ayanna, Philip Bosco, Andrew Jack, Stan Tracy, Kristen Schaal                         | Meg Ryan        | Meg Ryan, Hugh Jackman             | An English Duke from 1876 is inadvertedly dragged to modern day New York where he falls for a plucky advertising executive.                                                                                           | An English Duke from 1876 is inadvertedly |      6.4 |  77852 | 48000000 |         47121859 |              76019048 |                341 | 2002-03-01       |        1 |
+| tt0118589     | Glitter                   | Glitter                       |         2001 | 30/11/2001     | Drama, Music, Romance    |      104 | USA                     | English    |              |            | Vondie Curtis-Hall | Cheryl L. West, Kate Lanier  | Mariah Carey, Max Beesley, Da Brat, Tia Texada, Valarie Pettiford, Ann Magnuson, Terrence Howard, Dorian Harewood, Grant Nickalls, Eric Benét, Padma Lakshmi, Don Ackerman, Ed Sahely, Carmen Wong, James Allodi                                          | Mariah Carey    | Mariah Carey, Max Beesley          | A young singer dates a disc jockey who helps her get into the music business, but their relationship become complicated as she ascends to super stardom.                                                              | A young singer dates a disc jockey        |      2.2 |  21298 | 22000000 |          4274407 |               5271666 |                319 | 2001-11-30       |        2 |
+| tt0118694     | In the Mood for Love      | Fa yeung nin wah              |         2000 | 27/10/2000     | Drama, Romance           |       98 | Hong Kong, China        | Cantonese  | Shanghainese | French     | Kar-Wai Wong       | Kar-Wai Wong                 | Maggie Cheung, Tony Chiu-Wai Leung, Ping Lam Siu, Tung Cho 'Joe' Cheung, Rebecca Pan, Kelly Lai Chen, Man-Lei Chan, Kam-Wah Koo, Szu-Ying Chien, Paulyn Sun, Roy Cheung, Po-chun Chow, Hsien Yu                                                           | Maggie Cheung   | Maggie Cheung, Tony Chiu-Wai Leung | Two neighbors, a woman and a man, form a strong bond after both suspect extramarital activities of their spouses. However, they agree to keep their bond platonic so as not to commit similar wrongs.                 | Two neighbors, a woman and a man,         |      8.1 | 119171 |        0 |          2738980 |              12854953 |                422 | 2000-10-27       |        3 |
+| tt0120202     | Hollywood, Vermont        | State and Main                |         2000 | 31/05/2002     | Comedy, Drama            |      105 | France, USA             | English    | Italian      |            | David Mamet        | David Mamet                  | Michael Higgins, Michael Bradshaw, Morris Lamore, Allen Soule, Clark Gregg, Rebecca Pidgeon, Ricky Jay, Julia Stiles, Matt Malloy, Charles Durning, Tony V., Tony Mamet, Jack Wallace, Michael James O'Boyle, Charlotte Potok                             | Michael Higgins | Michael Higgins, Michael Bradshaw  | A movie crew invades a small town whose residents are all too ready to give up their values for showbiz glitz.                                                                                                        | A movie crew invades a small town         |      6.7 |  20220 |        0 |          6944471 |               9206279 |                175 | 2002-05-31       |        4 |
+| tt0120263     | Canzoni del secondo piano | Sånger från andra våningen    |         2000 | 06/10/2000     | Comedy, Drama            |       98 | Sweden, Norway, Denmark | Swedish    | Russian      |            | Roy Andersson      | Roy Andersson                | Lars Nordh, Stefan Larsson, Bengt C.W. Carlsson, Torbjörn Fahlström, Sten Andersson, Rolando Núñez, Lucio Vucina, Per Jörnelius, Peter Roth, Klas-Gösta Olsson, Nils-Åke Eriksson, Hanna Eriksson, Tommy Johansson, Sture Olsson, Fredrik Sjögren         | Lars Nordh      | Lars Nordh, Stefan Larsson         | Where are we humans going? A film poem inspired by the Peruvian poet César Vallejo. We meet people in the city. People trying to communicate, searching compassion and get the connection of small and large things.  | Where are we humans going? A film         |      7.6 |  17188 |        0 |            80334 |                 80334 |                110 | 2000-10-06       |        5 |
++---------------+---------------------------+-------------------------------+--------------+----------------+--------------------------+----------+-------------------------+------------+--------------+------------+--------------------+------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------+----------+--------+----------+------------------+-----------------------+--------------------+------------------+----------+
+5 rows in set (0.00 sec)
+
+mysql>
+
+mysql> use movies2_star_schema;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++-------------------------------+
+| Tables_in_movies2_star_schema |
++-------------------------------+
+| dates_dim                     |
+| movies_dim                    |
+| ratings_fact                  |
+| users_dim                     |
++-------------------------------+
+4 rows in set (0.01 sec)
+
+mysql> select * from movies_dim limit 4;
++---------------+----------------------+------------------+--------------+----------------+--------------------------+----------+------------------+------------+--------------+------------+--------------------+------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------+----------+--------+----------+------------------+-----------------------+--------------------+------------------+----------+
+| imdm_title_id | title                | original_title   | release_year | date_published | genre                    | duration | country          | language_1 | language_2   | language_3 | director           | writer                       | actors                                                                                                                                                                                                                            | actors_1        | actors_f2                          | description                                                                                                                                                                                           | desc35                                    | avg_vote | votes  | budget   | usa_gross_income | worlwide_gross_income | reviews_from_users | date_published_2 | movie_id |
++---------------+----------------------+------------------+--------------+----------------+--------------------------+----------+------------------+------------+--------------+------------+--------------------+------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------+----------+--------+----------+------------------+-----------------------+--------------------+------------------+----------+
+| tt0035423     | Kate & Leopold       | Kate & Leopold   |         2001 | 01/03/2002     | Comedy, Fantasy, Romance |      118 | USA              | English    | French       |            | James Mangold      | Steven Rogers, James Mangold | Meg Ryan, Hugh Jackman, Liev Schreiber, Breckin Meyer, Natasha Lyonne, Bradley Whitford, Paxton Whitehead, Spalding Gray, Josh Stamberg, Matthew Sussman, Charlotte Ayanna, Philip Bosco, Andrew Jack, Stan Tracy, Kristen Schaal | Meg Ryan        | Meg Ryan, Hugh Jackman             | An English Duke from 1876 is inadvertedly dragged to modern day New York where he falls for a plucky advertising executive.                                                                           | An English Duke from 1876 is inadvertedly |      6.4 |  77852 | 48000000 |         47121859 |              76019048 |                341 | 2002-03-01       |        1 |
+| tt0118589     | Glitter              | Glitter          |         2001 | 30/11/2001     | Drama, Music, Romance    |      104 | USA              | English    |              |            | Vondie Curtis-Hall | Cheryl L. West, Kate Lanier  | Mariah Carey, Max Beesley, Da Brat, Tia Texada, Valarie Pettiford, Ann Magnuson, Terrence Howard, Dorian Harewood, Grant Nickalls, Eric Benét, Padma Lakshmi, Don Ackerman, Ed Sahely, Carmen Wong, James Allodi                  | Mariah Carey    | Mariah Carey, Max Beesley          | A young singer dates a disc jockey who helps her get into the music business, but their relationship become complicated as she ascends to super stardom.                                              | A young singer dates a disc jockey        |      2.2 |  21298 | 22000000 |          4274407 |               5271666 |                319 | 2001-11-30       |        2 |
+| tt0118694     | In the Mood for Love | Fa yeung nin wah |         2000 | 27/10/2000     | Drama, Romance           |       98 | Hong Kong, China | Cantonese  | Shanghainese | French     | Kar-Wai Wong       | Kar-Wai Wong                 | Maggie Cheung, Tony Chiu-Wai Leung, Ping Lam Siu, Tung Cho 'Joe' Cheung, Rebecca Pan, Kelly Lai Chen, Man-Lei Chan, Kam-Wah Koo, Szu-Ying Chien, Paulyn Sun, Roy Cheung, Po-chun Chow, Hsien Yu                                   | Maggie Cheung   | Maggie Cheung, Tony Chiu-Wai Leung | Two neighbors, a woman and a man, form a strong bond after both suspect extramarital activities of their spouses. However, they agree to keep their bond platonic so as not to commit similar wrongs. | Two neighbors, a woman and a man,         |      8.1 | 119171 |        0 |          2738980 |              12854953 |                422 | 2000-10-27       |        3 |
+| tt0120202     | Hollywood, Vermont   | State and Main   |         2000 | 31/05/2002     | Comedy, Drama            |      105 | France, USA      | English    | Italian      |            | David Mamet        | David Mamet                  | Michael Higgins, Michael Bradshaw, Morris Lamore, Allen Soule, Clark Gregg, Rebecca Pidgeon, Ricky Jay, Julia Stiles, Matt Malloy, Charles Durning, Tony V., Tony Mamet, Jack Wallace, Michael James O'Boyle, Charlotte Potok     | Michael Higgins | Michael Higgins, Michael Bradshaw  | A movie crew invades a small town whose residents are all too ready to give up their values for showbiz glitz.                                                                                        | A movie crew invades a small town         |      6.7 |  20220 |        0 |          6944471 |               9206279 |                175 | 2002-05-31       |        4 |
++---------------+----------------------+------------------+--------------+----------------+--------------------------+----------+------------------+------------+--------------+------------+--------------------+------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------+----------+--------+----------+------------------+-----------------------+--------------------+------------------+----------+
+4 rows in set (0.01 sec)
+
+mysql>
