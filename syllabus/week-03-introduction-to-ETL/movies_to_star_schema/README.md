@@ -85,7 +85,7 @@ CREATE TABLE movies (
 # 3.2 Load Data into `movies` Table
 
 ~~~
-LOAD DATA LOCAL INFILE "/Users/mparsian/github/data-warehousing/syllabus/week-03-introduction-to-ETL/movies_to_star_schema/step_1_build_transacational_db/IMDB_Movies_2000_2020.csv"
+LOAD DATA LOCAL INFILE "<dir>/IMDB_Movies_2000_2020.csv"
 INTO TABLE movies
 COLUMNS TERMINATED BY ','
 OPTIONALLY ENCLOSED BY '"'
@@ -204,7 +204,7 @@ create table ratings(
     rating_date Date
 );
 
-LOAD DATA LOCAL INFILE "/Users/mparsian/github/data-warehousing/syllabus/week-03-introduction-to-ETL/movies_to_star_schema/step_1_build_transacational_db/ratings.csv"
+LOAD DATA LOCAL INFILE "<dir>/ratings.csv"
 INTO TABLE ratings
 COLUMNS TERMINATED BY ','
 OPTIONALLY ENCLOSED BY '"'
@@ -243,7 +243,7 @@ create table users(
     user_name VARCHAR(60)      
 );
 
-LOAD DATA LOCAL INFILE "/Users/mparsian/github/data-warehousing/syllabus/week-03-introduction-to-ETL/movies_to_star_schema/step_1_build_transacational_db/users.csv"
+LOAD DATA LOCAL INFILE "<dir>/users.csv"
 INTO TABLE ratings
 COLUMNS TERMINATED BY ','
 OPTIONALLY ENCLOSED BY '"'

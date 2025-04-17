@@ -1,12 +1,13 @@
 To create a MySQL database that is UTF-8 compliant 
-from the command line on a MacBook Pro, you can follow these steps:
+from the command line, you can follow these steps:
 
 ### Step 1: Open Terminal
-Open the Terminal application on your MacBook Pro.
+Open the Terminal application on your MacBook.
 
 ### Step 2: Log in to MySQL
 Log in to your MySQL server using the `mysql` command. 
-Replace `your_username` with your MySQL username and `your_password` with your MySQL password.
+Replace `your_username` with your MySQL username and 
+`your_password` with your MySQL password.
 
 ```sh
 mysql -u your_username -p
@@ -15,17 +16,23 @@ mysql -u your_username -p
 You will be prompted to enter your MySQL password.
 
 ### Step 3: Create the Database
-Once logged in, you can create a new database with UTF-8 encoding using the following SQL command. Replace `your_database_name` with the desired name for your database.
+Once logged in, you can create a new database with 
+UTF-8 encoding using the following SQL command. Replace 
+`your_database_name` with the desired name for your database.
 
 ```sql
-CREATE DATABASE your_database_name CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE your_database_name 
+CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
-Here, `utf8mb4` is the recommended character set for full UTF-8 support, and `utf8mb4_unicode_ci` is the collation that ensures proper sorting and comparison of Unicode characters.
+Here, `utf8mb4` is the recommended character set for full 
+UTF-8 support, and `utf8mb4_unicode_ci` is the collation 
+that ensures proper sorting and comparison of Unicode characters.
 
 ### Example
 
-Here's a complete example of creating a UTF-8 compliant database named `my_utf8_database`:
+Here's a complete example of creating a UTF-8 compliant 
+database named `my_utf8_database`:
 
 1. Open Terminal.
 2. Log in to MySQL:
@@ -37,7 +44,8 @@ mysql -u your_username -p
 3. Create the database:
 
 ```sql
-CREATE DATABASE my_utf8_database CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE my_utf8_database 
+CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
 4. Verify the database creation:
@@ -46,7 +54,8 @@ CREATE DATABASE my_utf8_database CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_c
 SHOW DATABASES;
 ```
 
-5. Optionally, check the character set and collation of the newly created database:
+5. Optionally, check the character set and collation 
+of the newly created database:
 
 ```sql
 USE my_utf8_database;
@@ -56,12 +65,15 @@ SHOW VARIABLES LIKE 'collation_database';
 
 ### Summary
 
-By following these steps, you will have created a MySQL database that is fully UTF-8 compliant, ensuring proper handling and storage of Unicode characters.
+By following these steps, you will have created a MySQL database 
+that is fully UTF-8 compliant, ensuring proper handling and 
+storage of Unicode characters.
 
 
 CREATE TABLE your_table_name (
     id INT AUTO_INCREMENT PRIMARY KEY,
     column_name VARCHAR(255) NOT NULL
+    ...
 ) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 CREATE TABLE movies (
@@ -91,9 +103,10 @@ CREATE TABLE movies (
     reviews_from_users INT
 ) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-movies2 (main +) % mysql --local-infile=1 -h localhost -u root -p
 
-LOAD DATA LOCAL INFILE "/Users/mparsian/github/data-warehousing/syllabus/week-05_ETL_detailed/movies2/IMDB_Movies_2000_2020.csv"
+% mysql --local-infile=1 -h localhost -u root -p
+
+LOAD DATA LOCAL INFILE "<dir>/IMDB_Movies_2000_2020.csv"
 INTO TABLE movies
 COLUMNS TERMINATED BY ','
 OPTIONALLY ENCLOSED BY '"'
@@ -101,7 +114,7 @@ ESCAPED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES;
 
-mysql> LOAD DATA LOCAL INFILE "/Users/mparsian/github/data-warehousing/syllabus/week-05_ETL_detailed/movies2/IMDB_Movies_2000_2020.csv"
+mysql> LOAD DATA LOCAL INFILE "<dir>/IMDB_Movies_2000_2020.csv"
     -> INTO TABLE movies
     -> COLUMNS TERMINATED BY ','
     -> OPTIONALLY ENCLOSED BY '"'
@@ -220,7 +233,7 @@ create table ratings(
     rating_date Date
 );
 
-LOAD DATA LOCAL INFILE "/Users/mparsian/github/data-warehousing/syllabus/week-05_ETL_detailed/movies2/step_1_build_transacational_db/ratings.csv"
+LOAD DATA LOCAL INFILE "<dir>/ratings.csv"
 INTO TABLE ratings
 COLUMNS TERMINATED BY ','
 OPTIONALLY ENCLOSED BY '"'
