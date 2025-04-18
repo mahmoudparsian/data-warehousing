@@ -125,6 +125,7 @@ print("source_db_config=", source_db_config)
 target_db_config = read_json(db_config_target_file)
 print("target_db_config=", target_db_config)
 
+
 # Create a connection to the Source MySQL database
 source_conn = mysql.connector.connect(**source_db_config)
 source_cursor = source_conn.cursor()

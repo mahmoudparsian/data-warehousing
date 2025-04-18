@@ -12,7 +12,7 @@
 
 import csv
 
-# Step 1: Create the list of 100000 users
+# Step 1: Create the list of 100,000 users
 users = []
 for user_id in range(1, 100001):  # User IDs from 1 to 100,000
     user_name = f"user_{user_id}"  # Generate user names dynamically
