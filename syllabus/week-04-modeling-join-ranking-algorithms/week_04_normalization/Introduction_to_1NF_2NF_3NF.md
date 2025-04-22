@@ -1,15 +1,46 @@
 # Database Normalization
 
-		Database  normalization  is  the  process 
+	✅ Database normalization is a process of 
+	   organizing data within a relational database to 
+	   
+			1. reduce data redundancy and 
+		
+			2. improve data integrity. 
+	
+	✅  It involves breaking down large tables into smaller, 
+	more manageable tables while maintaining data 
+	relationships. 
+	
+	✅  This process helps minimize data anomalies, making 
+	it easier to manage and maintain the database. 
+
+------
+	
+
+![](./images/types_of_normal_forms.webp)
+
+# Normal Forms Definitions
+
+| Normal Forms | Description of Normal Forms |
+|--------------|-----------------------------|
+| First Normal Form (1NF)        | A relation is in first normal form if every attribute in that relation is single-valued attribute.       |
+| Second Normal Form (2NF)        | A relation that is in First Normal Form and every non-primary-key attribute is fully functionally dependent on the primary key, then the relation is in Second Normal Form (2NF).       |
+| Third Normal Form (3NF)        | Third Normal Form (3NF) in database normalization means a table is in 2NF and all non-key attributes are directly (not transitively) dependent on the candidate key(s). This eliminates transitive dependencies, where a non-key attribute depends on another non-key attribute instead of the key.        |
+
+
+
+# Introduction
+
+		✅ Database  normalization  is  the  process 
 		of  organizing  data  in a  database  by 
 		structuring it into tables and establishing 
 		relationships between them, with the goal of 
 		
-		1. Minimizing data redundancy, 
+		  ✅ 	1. Minimizing data redundancy, 
 		
-		2. Preventing data inconsistencies, and 
+		  ✅   2. Preventing data inconsistencies, and 
 		
-		3. Improving data integrity by eliminating 
+		  ✅   3. Improving data integrity by eliminating 
 		   unnecessary repetition across multiple tables
 
 -----
@@ -357,8 +388,18 @@ of your database.
 4. **Order Independence**: The order of rows and columns 
    does not affect the data's meaning.
 
-In simpler terms, 1NF ensures that the table is "flat" and 
-does not contain any nested or repeating structures.
+		In simpler terms:
+				1NF ensures that the table is "flat" 
+				and does not contain any nested or 
+				repeating structures.
+		 
+		 First Normal Form (1NF):
+				A table is in 1NF if each cell contains 
+				only a single value.  In  other  words, 
+				there are no repeating groups or arrays 
+				within a single row.
+
+
 
 ---
 
@@ -543,7 +584,48 @@ two atomic columns:  `First_Name` and `Last_Name`.
 by creating separate rows for each product and its 
 corresponding quantity.
 
+### **Example 7:
 
+#### Before 1NF (Violates 1NF):
+
+| CustomerID | Name   | Phone Numbers   |
+| :--------- | :----- | :-------------- |
+| 1          | Alice  | 123-456-7890, 987-654-3210 |
+| 2          | Bob    | 555-123-4567    |
+
+#### After 1NF:
+
+| CustomerID | Name  | Phone Number   |
+| :--------- | :---- | :------------- |
+| 1          | Alice | 123-456-7890   |
+| 1          | Alice | 987-654-3210   |
+| 2          | Bob   | 555-123-4567   |
+
+### **Example 8:
+
+#### Before 1NF (Violates 1NF):
+
+| OrderID | Product1 | Quantity1 | Product2 | Quantity2 |
+| :------ | :------- | :-------- | :------- | :-------- |
+| 101     | Laptop   | 1         | Mouse    | 2         |
+| 102     | Laptop   | 4         | NULL     | NULL      |
+
+#### After 1NF:
+
+| OrderID | Product  | Quantity |
+| :------ | :------- | :------- |
+| 101     | Laptop   | 1        |
+| 101     | Mouse    | 2        |
+| 102     | Laptop   | 4        |
+
+
+### **Example 9: A Table Already in 1NF:
+
+| Employee_ID | Name    | Department |
+| :---------- | :------ | :--------- |
+| 10          | Charlie | Sales      |
+| 20          | Diana   | Marketing  |
+| 30          | Eve     | Sales      |
 
 ### Summary
 
@@ -564,7 +646,7 @@ corresponding quantity.
 The **Second Normal Form (2NF)** is a level of database 
 normalization that builds on the **First Normal Form (1NF)**. 
 
-A table is in 2NF if:
+✅ A table is in 2NF if:
 
 1. It is in **1NF** (all attributes are atomic, 
    and each row is unique).
@@ -572,8 +654,20 @@ A table is in 2NF if:
    non-prime attribute (an attribute that is not 
    part of any candidate key) is dependent on a 
    proper subset of any candidate key.
+   
+✅ A table is in 2NF if it meets the following two conditions:
 
-In simpler terms, 2NF ensures that every non-key 
+	1. It is in 1NF.
+
+	2. All non-key attributes are fully 
+	   functionally dependent on the entire 
+	   primary key. This means that every attribute 
+	   that is not part of the primary key must 
+	   depend on all parts of the primary key (if 
+	   the primary key is composite, meaning it has 
+	   more than one attribute).
+
+✅ In simpler terms, 2NF ensures that every non-key 
 attribute in a table is fully functionally dependent 
 on the **entire primary key**, not just part of it. 
 This is particularly relevant for tables with composite 
@@ -733,6 +827,84 @@ Now, all tables are in 2NF.
 
 Now, all tables are in 2NF.
 
+
+#### Example 4: Examples of 2NF:
+
+✅ Before 2NF (Violates 2NF):
+
+| OrderID | ProductID | ProductName | OrderDate  |
+| :------ | :-------- | :---------- | :--------- |
+| 1       | P1        | Laptop      | 2025-04-21 |
+| 1       | P2        | Mouse       | 2025-04-21 |
+| 2       | P1        | Laptop      | 2025-04-20 |
+
+* Primary Key: (OrderID, ProductID)
+* ProductName depends only on ProductID, not the entire primary key.
+
+✅ After 2NF (Decomposed into two tables):
+
+Orders Table:
+
+| OrderID | ProductID | OrderDate  |
+| :------ | :-------- | :--------- |
+| 1       | P1        | 2025-04-21 |
+| 1       | P2        | 2025-04-21 |
+| 2       | P1        | 2025-04-20 |
+
+Products Table:
+
+| ProductID | ProductName |
+| :-------- | :---------- |
+| P1        | Laptop      |
+| P2        | Mouse       |
+
+#### Example 5: Examples of 2NF:
+
+✅ Another Before 2NF (Violates 2NF):
+
+| EmployeeID | ProjectID | EmployeeName | ProjectName |
+| :--------- | :-------- | :----------- | :---------- |
+| 101        | A         | Alice        | Alpha       |
+| 102        | B         | Bob          | Beta        |
+| 101        | B         | Alice        | Beta        |
+
+* Primary Key: (EmployeeID, ProjectID)
+* EmployeeName depends only on EmployeeID.
+* ProjectName depends only on ProjectID.
+
+✅ Another After 2NF (Decomposed into two tables):
+
+EmployeeProjects Table:
+
+| EmployeeID | ProjectID |
+| :--------- | :-------- |
+| 101        | A         |
+| 102        | B         |
+| 101        | B         |
+
+Employees Table:
+
+| EmployeeID | EmployeeName |
+| :--------- | :----------- |
+| 101        | Alice        |
+| 102        | Bob          |
+
+Projects Table:
+
+| ProjectID | ProjectName |
+| :-------- | :---------- |
+| A         | Alpha       |
+| B         | Beta        |
+
+#### Example 6: Examples of 2NF:
+✅ A Table Already in 2NF (assuming a single-attribute primary key):
+
+| CustomerID | Name    | City     |
+| :--------- | :------ | :------- |
+| 1          | Charlie | New York |
+| 2          | Diana   | London   |
+
+
 ---
 
 ### Summary
@@ -756,7 +928,7 @@ A table is in **Second Normal Form (2NF)** if:
 
 ---
 
-### **Example 4: Eliminating Partial Dependency in a Composite Key Table**
+### **Example 7: Eliminating Partial Dependency in a Composite Key Table**
 #### **1NF Table (Violating 2NF)**
 | order_id | product_id| product_name | customer_id| customer_name|
 |----------|-----------|--------------|------------|--------------|
@@ -805,7 +977,7 @@ eliminating partial dependencies.
 
 ---
 
-### **Example 5: Removing Partial Dependency in a Student Enrollment Table**
+### **Example 8: Removing Partial Dependency in a Student Enrollment Table**
 #### **1NF Table (Violating 2NF)**
 
 | student_id | course_id | course_name  | student_name|
@@ -864,7 +1036,7 @@ Third Normal Form (3NF) is a level of database
 normalization used to reduce redundancy and improve 
 data integrity in relational databases. 
 
-A table is in 3NF if it satisfies the following conditions:
+✅ A table is in 3NF if it satisfies the following conditions:
 
 1. **It is in Second Normal Form (2NF):**
    - The table must already be in 2NF, meaning it 
@@ -886,6 +1058,17 @@ to other columns.
 ![](./images/transitive_dependency.png)
 
 
+✅ Third Normal Form (3NF)
+
+		A table is in 3NF if it meets the 
+		following two conditions:
+
+			1. It is in 2NF.
+
+			2. No non-key attribute is transitively dependent 
+			   on the primary key. This means that non-key attributes 
+			   should not depend on other non-key attributes.
+			   They should only depend directly on the primary key. 
 ---
 
 ### Steps to Convert a Table into 3NF:
@@ -1015,6 +1198,82 @@ to other columns.
    | P102       | Phone        |
    | P103       | Tablet       |
 
+### Example 4:
+
+✅ Before 3NF (Violates 3NF):
+
+| EmployeeID | Name    | ZipCode | City        |
+| :--------- | :------ | :------ | :---------- |
+| 1          | Alice   | 94043   | Mountain View |
+| 2          | Bob     | 10001   | New York    |
+
+* Primary Key: EmployeeID
+* City depends on ZipCode, which is a non-key attribute. This creates a transitive dependency:
+
+		 EmployeeID -> ZipCode -> City
+		 
+✅ After 3NF (Decomposed into two tables):
+
+Employees Table:
+
+| EmployeeID | Name    | ZipCode |
+| :--------- | :------ | :------ |
+| 1          | Alice   | 94043   |
+| 2          | Bob     | 10001   |
+
+ZipCodes Table:
+
+| ZipCode | City        |
+| :------ | :---------- |
+| 94043   | Mountain View |
+| 10001   | New York    |
+
+### Example 5:
+
+✅  Before 3NF (Violates 3NF):
+
+| OrderID | CustomerID | CustomerName | SalesRepID | SalesRepName |
+| :------ | :--------- | :----------- | :--------- | :----------- |
+| 101     | C1         | Carol        | S1         | Sam          |
+| 102     | C2         | David        | S2         | Sarah        |
+
+* Primary Key: OrderID
+* CustomerName depends on CustomerID.
+* SalesRepName depends on SalesRepID.
+
+✅ After 3NF (Decomposed into three tables):
+
+Orders Table:
+
+| OrderID | CustomerID | SalesRepID |
+| :------ | :--------- | :--------- |
+| 101     | C1         | S1         |
+| 102     | C2         | S2         |
+
+Customers Table:
+
+| CustomerID | CustomerName |
+| :--------- | :----------- |
+| C1         | Carol        |
+| C2         | David        |
+
+SalesReps Table:
+
+| SalesRepID | SalesRepName |
+| :--------- | :----------- |
+| S1         | Sam          |
+| S2         | Sarah        |
+
+### Example 6:
+
+✅  A Table Already in 3NF:
+
+| ProductID | ProductName | Category    | Price |
+| :-------- | :---------- | :---------- | :---- |
+| P1        | Keyboard    | Electronics | 75    |
+| P2        | Notebook    | Stationery  | 5     |
+| P3        | T-shirt     | Apparel     | 20    |
+
 ---
 
 ### Summary:
@@ -1034,7 +1293,7 @@ A table is in **Third Normal Form (3NF)** if:
 
 ---
 
-### **Example 4: Removing Transitive Dependency in an Employee Table**
+### **Example 7: Removing Transitive Dependency in an Employee Table**
 #### **2NF Table (Violating 3NF)**
 
 | employee_id| employee_name| department_id| department_name|
@@ -1070,7 +1329,7 @@ and transitive dependency is removed.
 
 ---
 
-### **Example 5: Removing Transitive Dependency in a Customer Orders Table**
+### **Example 8: Removing Transitive Dependency in a Customer Orders Table**
 #### **2NF Table (Violating 3NF)**
 
 | order_id | customer_id | customer_name | customer_address|
@@ -1106,7 +1365,7 @@ eliminating transitive dependency.
 
 ---
 
-### Example 6: Transitive Dependency
+### Example 9: Transitive Dependency
 
 Let's walk through an example of a **transitive 
 dependency** in a relational database and how it 

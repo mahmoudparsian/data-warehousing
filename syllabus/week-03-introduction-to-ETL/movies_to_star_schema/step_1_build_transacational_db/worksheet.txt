@@ -44,7 +44,7 @@ mysql -u your_username -p
 3. Create the database:
 
 ```sql
-CREATE DATABASE my_utf8_database 
+CREATE DATABASE movies2 
 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
@@ -106,7 +106,10 @@ CREATE TABLE movies (
 
 % mysql --local-infile=1 -h localhost -u root -p
 
-LOAD DATA LOCAL INFILE "<dir>/IMDB_Movies_2000_2020.csv"
+mysql> SET GLOBAL local_infile = 1;
+
+mysql>
+LOAD DATA LOCAL INFILE "/Users/mparsian/github/data-warehousing/syllabus/week-03-introduction-to-ETL/movies_to_star_schema/step_1_build_transacational_db/IMDB_Movies_2000_2020.csv"
 INTO TABLE movies
 COLUMNS TERMINATED BY ','
 OPTIONALLY ENCLOSED BY '"'
@@ -123,6 +126,28 @@ mysql> LOAD DATA LOCAL INFILE "<dir>/IMDB_Movies_2000_2020.csv"
     -> IGNORE 1 LINES;
 Query OK, 5487 rows affected, 8689 warnings (0.28 sec)
 Records: 5487  Deleted: 0  Skipped: 0  Warnings: 8689
+
+
+mysql> select count(*) from movies;
++----------+
+| count(*) |
++----------+
+|     5487 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select * from movies limit 3;
++---------------+----------------------+------------------+------+----------------+--------------------------+----------+------------------+------------+--------------+------------+--------------------+------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------+------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------+----------+--------+----------+------------------+-----------------------+--------------------+
+| imdm_title_id | title                | original_title   | year | date_published | genre                    | duration | country          | language_1 | language_2   | language_3 | director           | writer                       | actors                                                                                                                                                                                                                            | actors_1      | actors_f2                          | description                                                                                                                                                                                           | desc35                                    | avg_vote | votes  | budget   | usa_gross_income | worlwide_gross_income | reviews_from_users |
++---------------+----------------------+------------------+------+----------------+--------------------------+----------+------------------+------------+--------------+------------+--------------------+------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------+------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------+----------+--------+----------+------------------+-----------------------+--------------------+
+| tt0035423     | Kate & Leopold       | Kate & Leopold   | 2001 | 01/03/2002     | Comedy, Fantasy, Romance |      118 | USA              | English    | French       |            | James Mangold      | Steven Rogers, James Mangold | Meg Ryan, Hugh Jackman, Liev Schreiber, Breckin Meyer, Natasha Lyonne, Bradley Whitford, Paxton Whitehead, Spalding Gray, Josh Stamberg, Matthew Sussman, Charlotte Ayanna, Philip Bosco, Andrew Jack, Stan Tracy, Kristen Schaal | Meg Ryan      | Meg Ryan, Hugh Jackman             | An English Duke from 1876 is inadvertedly dragged to modern day New York where he falls for a plucky advertising executive.                                                                           | An English Duke from 1876 is inadvertedly |      6.4 |  77852 | 48000000 |         47121859 |              76019048 |                341 |
+| tt0118589     | Glitter              | Glitter          | 2001 | 30/11/2001     | Drama, Music, Romance    |      104 | USA              | English    |              |            | Vondie Curtis-Hall | Cheryl L. West, Kate Lanier  | Mariah Carey, Max Beesley, Da Brat, Tia Texada, Valarie Pettiford, Ann Magnuson, Terrence Howard, Dorian Harewood, Grant Nickalls, Eric Benét, Padma Lakshmi, Don Ackerman, Ed Sahely, Carmen Wong, James Allodi                  | Mariah Carey  | Mariah Carey, Max Beesley          | A young singer dates a disc jockey who helps her get into the music business, but their relationship become complicated as she ascends to super stardom.                                              | A young singer dates a disc jockey        |      2.2 |  21298 | 22000000 |          4274407 |               5271666 |                319 |
+| tt0118694     | In the Mood for Love | Fa yeung nin wah | 2000 | 27/10/2000     | Drama, Romance           |       98 | Hong Kong, China | Cantonese  | Shanghainese | French     | Kar-Wai Wong       | Kar-Wai Wong                 | Maggie Cheung, Tony Chiu-Wai Leung, Ping Lam Siu, Tung Cho 'Joe' Cheung, Rebecca Pan, Kelly Lai Chen, Man-Lei Chan, Kam-Wah Koo, Szu-Ying Chien, Paulyn Sun, Roy Cheung, Po-chun Chow, Hsien Yu                                   | Maggie Cheung | Maggie Cheung, Tony Chiu-Wai Leung | Two neighbors, a woman and a man, form a strong bond after both suspect extramarital activities of their spouses. However, they agree to keep their bond platonic so as not to commit similar wrongs. | Two neighbors, a woman and a man,         |      8.1 | 119171 |        0 |          2738980 |              12854953 |                422 |
++---------------+----------------------+------------------+------+----------------+--------------------------+----------+------------------+------------+--------------+------------+--------------------+------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------+------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------+----------+--------+----------+------------------+-----------------------+--------------------+
+3 rows in set (0.00 sec)
+
+mysql>
+
 
 mysql> select * from movies limit 4;
 +---------------+----------------------+------------------+------+----------------+--------------------------+----------+------------------+------------+--------------+------------+--------------------+------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------+----------+--------+----------+------------------+-----------------------+--------------------+
@@ -225,6 +250,21 @@ mysql> ALTER TABLE movies
 Query OK, 0 rows affected (0.02 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
+create table users(
+    user_id INT,
+    user_name VARCHAR(20)
+);
+
+
+LOAD DATA LOCAL INFILE "/Users/mparsian/github/data-warehousing/syllabus/week-03-introduction-to-ETL/movies_to_star_schema/step_1_build_transacational_db/users.csv"
+INTO TABLE users
+COLUMNS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+ESCAPED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+
 create table ratings(
     rating_id INT,
     movie_id INT,
@@ -233,7 +273,7 @@ create table ratings(
     rating_date Date
 );
 
-LOAD DATA LOCAL INFILE "<dir>/ratings.csv"
+LOAD DATA LOCAL INFILE "/Users/mparsian/github/data-warehousing/syllabus/week-03-introduction-to-ETL/movies_to_star_schema/step_1_build_transacational_db/ratings.csv"
 INTO TABLE ratings
 COLUMNS TERMINATED BY ','
 OPTIONALLY ENCLOSED BY '"'
