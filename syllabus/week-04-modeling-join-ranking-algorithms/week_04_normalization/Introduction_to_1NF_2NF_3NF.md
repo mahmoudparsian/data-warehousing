@@ -15,7 +15,135 @@
 	it easier to manage and maintain the database. 
 
 ------
-	
+
+# Some Definitions about CK, PK, FK
+
+* CK = Candidate Key
+* PK = Primary Key
+* FK = Foreign Key
+
+## Primary Key (PK)
+
+A **primary key** (PK) is a column (or set of columns) in 
+a table that uniquely identifies each row in that table.
+
+**Characteristics:**
+
+- Must contain unique values
+- Cannot contain NULL values
+- A table can have only one primary key
+
+**Example:**
+
+```sql
+CREATE TABLE customers (
+    customer_id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    email VARCHAR(100)
+);
+```
+
+Here, `customer_id ` is the primary key that uniquely identifies each customer.
+
+## Foreign Key (FK)
+
+A **foreign key** (FK) is a column (or set of columns) in 
+one table that references the primary key in another table, 
+establishing a relationship between the two tables.
+
+**Characteristics:**
+
+- Ensures referential integrity
+- Can contain duplicate values (unless constrained otherwise)
+- Can contain NULL values (unless constrained otherwise)
+
+**Example:**
+
+```sql
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    order_date DATE,
+    customer_id INT,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
+```
+
+Here, `customer_id ` in the `orders` table is a foreign key (FK) that references the `customer_id ` primary key (PK) in the `customers` table, linking each order to a specific customer.
+
+## Combined Example of PK and FK
+
+```sql
+-- Parent table with PK
+CREATE TABLE departments (
+    dept_id INT PRIMARY KEY,
+    dept_name VARCHAR(50) NOT NULL
+);
+
+-- Child table with FK
+CREATE TABLE Employees (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(50) NOT NULL,
+    dept_id INT,
+    FOREIGN KEY (dept_id) REFERENCES departments(dept_id)
+);
+```
+
+In this example:
+
+- `dept_id ` is the primary key (PK) in `departments` table
+- `dept_id ` in `employees` table is a foreign key (FK) 
+  referencing `departments` table
+- This establishes a relationship where each employee belongs to a department
+
+## Candidate Key (CK)
+A **candidate key** (CK) in a database is a set of one or 
+more columns (attributes) that can uniquely identify a record 
+in a table. A table may have multiple candidate keys, but each 
+of them must satisfy two conditions:
+
+1. **Uniqueness**: No two rows in the table can have the same value(s) in the candidate key column(s).
+
+2. **Minimality**: It cannot include any extra column(s) that are not necessary for uniqueness.
+
+A **primary key (PK)**, on the other hand, is a **specific candidate key**
+chosen by the database designer to uniquely identify rows in the table. 
+It has a few additional constraints:
+
+- **Only one primary key** can exist per table.
+- A primary key cannot contain `NULL` values (it must be non-nullable).
+- Primary keys are often used to create relationships between tables, like in foreign key references.
+
+In summary:
+
+- **Candidate Key**: A potential key that could uniquely identify rows (can have multiple per table).
+- **Primary Key**: The chosen candidate key that uniquely identifies rows and is subject to stricter rules (one per table).
+
+## Example:
+Here's an example of a table called **students** 
+that has multiple candidate keys, with one designated 
+as the primary key:
+
+| **student_id** | **email**           | **SSN**         | **Name**       | **DOB**        |
+|---------------|---------------------|-----------------|----------------|----------------|
+| 1001          | alice@email.com     | 123-45-6789     | Alice Johnson  | 1995-01-12     |
+| 1002          | bob@email.com       | 987-65-4321     | Bob Smith      | 1997-03-22     |
+
+### Explanation:
+- **Candidate Keys:** 
+  - `student_id`: Uniquely identifies each student.
+  - `email`: Every student's email address is unique.
+  - `SSN`: Social Security Numbers are unique to each individual.
+  
+  All these columns satisfy the **uniqueness** and **minimality** criteria of candidate keys.
+
+- **Primary Key (PK):**
+  - If we choose `student_id` as the primary key, it becomes the designated unique identifier for the table. This means `student_id` will also be non-nullable and used for relationships with other tables.
+
+In this example, `email` and `SSN` remain as alternate candidate keys. 
+
+
+--------
 
 ![](./images/types_of_normal_forms.webp)
 
