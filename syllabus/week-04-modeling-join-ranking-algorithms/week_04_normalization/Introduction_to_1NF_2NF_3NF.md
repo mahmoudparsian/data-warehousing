@@ -563,6 +563,7 @@ These transformations help normalize data for better consistency and query effic
 |----------|---------------|-----------|------------|-----------|------------|
 | 1001     | Alice Brown   | Laptop    | 1          | Mouse     | 2          |
 | 1002     | Bob Green     | Monitor   | 1          | Keyboard  | 1          |
+| 1003     | Rafa Smith    | PC        | 5          | NULL      | NULL       |
 
 **Problem:** The table has repeating groups of columns 
 (`Product_1`, `Quantity_1`), and (`Product_2`, `Quantity_2`), 
@@ -579,6 +580,7 @@ two atomic columns:  `First_Name` and `Last_Name`.
 | 1001     | Alice      |Brown      | Mouse    | 2        |
 | 1002     | Bob        |Green      | Monitor  | 1        |
 | 1002     | Bob        |Green      | Keyboard | 1        |
+| 1003     | Rafa       |Smith      | PC       | 5        |
 
 **Explanation:** The repeating groups are eliminated 
 by creating separate rows for each product and its 
