@@ -1,5 +1,11 @@
 # Data Analysis Project with MySQL 
 
+
+
+* [CSV Super Store Data](./super_store_orders.csv)
+
+* [Super Store Data Analysis by SQL using MySQL](./super_store_analysis_by_sql.md)
+
 1. Create Table `super_store_orders`
 
 2. The dataset includes order details like dates, shipping information, customer names, product details, sales, profits, costs, etc. 
