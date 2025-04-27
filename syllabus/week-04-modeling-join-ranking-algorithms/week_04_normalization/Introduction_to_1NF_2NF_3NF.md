@@ -24,8 +24,9 @@
 
 ## Primary Key (PK)
 
-A **primary key** (PK) is a column (or set of columns) in 
-a table that uniquely identifies each row in that table.
+A **primary key** (PK) is a column <br>
+(or set of columns) in a table that <br>
+**uniquely identifies each row** in that table.
 
 **Characteristics:**
 
@@ -36,6 +37,10 @@ a table that uniquely identifies each row in that table.
 **Example:**
 
 ```sql
+--
+-- Here,  customer_id  is the primary key 
+-- that uniquely identifies each customer.
+--
 CREATE TABLE customers (
     customer_id INT PRIMARY KEY,
     first_name VARCHAR(50),
@@ -44,7 +49,7 @@ CREATE TABLE customers (
 );
 ```
 
-Here, `customer_id ` is the primary key that uniquely identifies each customer.
+
 
 ## Foreign Key (FK)
 
@@ -368,27 +373,34 @@ two atomic columns:  `First_Name` and `Last_Name`.
 
 ### What is a Dependency?
 
-In database normalization, a **dependency** refers to 
-a relationship between attributes (columns) in a table. 
-Specifically, it describes how one attribute determines 
-the value of another attribute. The most common type of 
-dependency is a **functional dependency**, where the 
-value of one attribute (or set of attributes) uniquely 
-determines the value of another attribute.
+* In database normalization, a **dependency** refers to  <br>
+a relationship between attributes (columns) in a table.  <br>
+<br>
+* Specifically, it describes how one attribute determines <br>
+the value of another attribute. The most common type of   <br>
+dependency is a **functional dependency**, where the value <br> 
+of one attribute (or set of attributes) uniquely determines <br>
+the value of another attribute.
 
 #### Notation:
 - If attribute **X** determines attribute **Y**, 
 we write it as **X → Y**.
 
+- Example: In a table of "employees," the `employee_id` 
+  determines the `employee_name`.
+-  If you know the `employee_id` , you can find the exact `employee_name`.
+-  `employee_id` → `employee_name`
+
 ---
 
 ### What is a Partial Dependency?
 
-A **partial dependency** occurs when a non-prime 
+* A **partial dependency** occurs when a non-prime 
 attribute (an attribute that is not part of the 
 primary key) depends on only a part of a composite 
 primary key, rather than the entire primary key. 
-Partial dependencies are problematic in database 
+
+* Partial dependencies are problematic in database 
 design because they violate the rules of **Second 
 Normal Form (2NF)**.
 
@@ -1156,6 +1168,104 @@ To convert to **2NF**, we:
   columns depend **only on the full primary key**.
 
 
+## 2NF Summarized
+
+### **What is 2NF (Second Normal Form)?**
+Second Normal Form (2NF) is a level of database normalization aimed at eliminating **partial dependencies**. A table is in 2NF if:
+
+1. It is already in **First Normal Form (1NF)**—meaning all columns contain atomic (indivisible) values, and there are no repeating groups.
+
+2. **Every non-prime attribute** (attributes not part of the primary key) is fully functionally dependent on the **entire primary key** (not just part of it, in the case of composite keys).
+
+### **Examples of Converting a Table to 2NF**
+#### **Example 1: Student Enrollment**
+
+*Initial Table:*  
+
+| **Student_ID** | **Course_ID** | **Student_Name** | **Course_Name** | **Instructor** |  
+|------------------|------------------|------------------|------------------|------------------|  
+| 1               | 101            | Alice            | Math 101        | Prof. Smith     |  
+| 2               | 102            | Bob              | Physics 102     | Prof. Johnson   |  
+
+Here, the composite key is `Student_ID + Course_ID`. However:
+
+- `Student_Name` depends only on `Student_ID`, not the full composite key.
+
+- `Course_Name` and `Instructor` depend only on `Course_ID`.
+
+### To Convert to 2NF:
+
+We separate the data into two tables to remove partial dependencies:
+
+1. **Students Table:**  
+
+| Student_ID | Student_Name |  
+|------------------|------------------|  
+| 1               | Alice            |  
+| 2               | Bob              |  
+
+2. **Courses Table:** 
+ 
+| Course_ID | Course_Name | Instructor |  
+|------------------|------------------|------------------|  
+| 101            | Math 101        | Prof. Smith     |  
+| 102            | Physics 102     | Prof. Johnson   |  
+
+3. **Enrollment Table:** 
+ 
+| Student_ID | Course_ID|  
+|------------------|------------------|  
+| 1               | 101            |  
+| 2               | 102            |  
+
+---
+
+#### **Example 2: Sales Records**
+
+*Initial Table:*  
+
+| **Order_ID** | **Product_ID** | **Order_Date** | **Product_Name** | **Price** |  
+|--------------|----------------|----------------|------------------|-----------|  
+| 5001         | P100           | 2025-04-01     | Widget A         | 20.00     |  
+| 5002         | P101           | 2025-04-02     | Widget B         | 30.00     |  
+
+Here, the composite key is `Order_ID` + `Product_ID`, but:
+
+- `Order_Date` depends only on `Order_ID`.
+
+- `Product_Name` and `Price` depend only on `Product_ID`.
+
+### To Convert to 2NF:
+
+We separate the data into multiple tables:
+
+1. **Orders Table:**  
+
+| **Order_ID** | **Order_Date** |  
+|--------------|----------------|  
+| 5001         | 2025-04-01     |  
+| 5002         | 2025-04-02     |  
+
+
+2. **Products Table:**  
+
+| **Product_ID** | **Product_Name** | **Price** |  
+|----------------|------------------|-----------|  
+| P100           | Widget A         | 20.00     |  
+| P101           | Widget B         | 30.00     |  
+
+
+3. **Order Details Table:**  
+
+| **Order_ID** | **Product_ID** |  
+|--------------|----------------|  
+| 5001         | P100           |  
+| 5002         | P101           |  
+
+These steps ensure all non-prime attributes are fully dependent on the whole primary key, making the tables compliant with 2NF.
+
+
+
 ------
 
 # Third Normal Form: 3NF
@@ -1606,4 +1716,3 @@ The following are some tutorials for Database Normalization
 2. [Why Normalization in DBMS is Essential for Databases](https://www.simplilearn.com/tutorials/sql-tutorial/what-is-normalization-in-sql)
 
 3. [DBMS - Normalization](https://www.tutorialspoint.com/dbms/database_normalization.htm)
-
