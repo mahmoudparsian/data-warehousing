@@ -79,6 +79,7 @@ mysql> LOAD DATA LOCAL INFILE '<DIR>/super_store_orders.csv'
     -> SET
     ->     order_date = STR_TO_DATE(@order_date, '%m/%d/%Y'),
     ->     ship_date = STR_TO_DATE(@ship_date, '%m/%d/%Y');
+
 Query OK, 51290 rows affected, 22702 warnings (1.18 sec)
 Records: 51290  Deleted: 0  Skipped: 0  Warnings: 22702
 ~~~
@@ -260,7 +261,31 @@ WHERE sales_rank = 1;
 
 ------
 
-### Query-5:  Top-Selling Categories and Sub-Categories
+### Query-5.1:  Top-3 Selling Categories and Sub-Categories
+~~~sql
+SELECT
+    category,
+    sub_category,
+    SUM(sales) AS total_sales
+FROM 
+    super_store_orders
+GROUP BY 
+    category, sub_category
+ORDER BY 
+    total_sales DESC
+LIMIT 3;
+
++------------+--------------+-------------+
+| category   | sub_category | total_sales |
++------------+--------------+-------------+
+| Technology | Phones       |  1706874.00 |
+| Technology | Copiers      |  1509439.00 |
+| Furniture  | Chairs       |  1501682.00 |
++------------+--------------+-------------+
+3 rows in set (0.11 sec)
+~~~
+
+### Query-5.2:  Top-Selling Categories and Sub-Categories
 
 ~~~sql
 SELECT
@@ -744,6 +769,37 @@ Use a subquery + `ROW_NUMBER()` to grab the top 5 overall products.
 9 rows in set (0.14 sec)
 ~~~
 
+#### Rewrite as a sub-query:
+
+~~~sql
+with ranked as
+(   SELECT
+       product_id, product_name, category,
+       SUM(sales) AS cat_sales,
+       ROW_NUMBER() OVER (PARTITION BY category ORDER BY SUM(sales) DESC) AS rn
+     FROM super_store_orders
+     GROUP BY product_id, product_name, category
+)
+SELECT *
+   FROM ranked
+   WHERE rn <= 3;
+
++-----------------+-----------------------------------------------------------------------------+-----------------+-----------+----+
+| product_id      | product_name                                                                | category        | cat_sales | rn |
++-----------------+-----------------------------------------------------------------------------+-----------------+-----------+----+
+| FUR-CH-10002024 | HON 5400 Series Task Chairs for Big and Tall                                | Furniture       |  21870.00 |  1 |
+| FUR-CH-10000027 | SAFCO Executive Leather Armchair, Black                                     | Furniture       |  21329.00 |  2 |
+| FUR-BO-10004679 | Safco Library with Doors, Pine                                              | Furniture       |  17433.00 |  3 |
+| OFF-BI-10003527 | Fellowes PB500 Electric Punch Plastic Comb Binding Machine with Manual Bind | Office Supplies |  27454.00 |  1 |
+| OFF-AP-10004512 | Hoover Stove, Red                                                           | Office Supplies |  21148.00 |  2 |
+| OFF-BI-10001359 | GBC DocuBind TL300 Electric Binding System                                  | Office Supplies |  19824.00 |  3 |
+| TEC-CO-10004722 | Canon imageCLASS 2200 Advanced Copier                                       | Technology      |  61600.00 |  1 |
+| TEC-PH-10004664 | Nokia Smart Phone, with Caller ID                                           | Technology      |  30042.00 |  2 |
+| TEC-MA-10002412 | Cisco TelePresence System EX90 Videoconferencing Unit                       | Technology      |  22638.00 |  3 |
++-----------------+-----------------------------------------------------------------------------+-----------------+-----------+----+
+9 rows in set (0.19 sec)
+
+~~~
 ------
 
 
