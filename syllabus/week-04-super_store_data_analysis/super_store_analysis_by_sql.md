@@ -1405,6 +1405,74 @@ WHERE profit_rank <= 5;
 40 rows in set (0.15 sec)
 ~~~
 
+* Rewrite the Query-31:
+
+~~~sql
+with ranked as
+(
+      SELECT
+        ship_mode,
+        order_id,
+        SUM(shipping_cost) AS ship_cost,
+        ROW_NUMBER() OVER (PARTITION BY ship_mode ORDER BY SUM(shipping_cost) DESC) AS rn
+      FROM super_store_orders
+      GROUP BY ship_mode, order_id
+)
+SELECT ship_mode, 
+       order_id, 
+       ship_cost
+FROM 
+       ranked
+WHERE 
+       rn <= 10;
+
++----------------+-----------------+-----------+
+| ship_mode      | order_id        | ship_cost |
++----------------+-----------------+-----------+
+| First Class    | IN-2011-10286   |   2076.62 |
+| First Class    | IN-2011-44803   |   1167.44 |
+| First Class    | IT-2013-3376681 |   1131.02 |
+| First Class    | MX-2014-113845  |   1029.09 |
+| First Class    | IN-2013-71249   |    996.36 |
+| First Class    | IT-2011-3183678 |    934.18 |
+| First Class    | MX-2014-124744  |    912.04 |
+| First Class    | ES-2012-5870268 |    911.60 |
+| First Class    | ES-2013-1579342 |    910.16 |
+| First Class    | IN-2011-81826   |    904.83 |
+| Same Day       | CA-2012-124891  |   1288.99 |
+| Same Day       | ES-2014-1972860 |   1046.48 |
+| Same Day       | CA-2011-160766  |    984.43 |
+| Same Day       | ES-2012-2510515 |    972.42 |
+| Same Day       | IN-2014-35983   |    926.85 |
+| Same Day       | SG-2013-4320    |    903.04 |
+| Same Day       | IT-2013-3085011 |    894.32 |
+| Same Day       | IN-2013-48184   |    832.04 |
+| Same Day       | MX-2014-154907  |    830.00 |
+| Same Day       | MX-2012-130015  |    818.27 |
+| Second Class   | SA-2011-1830    |   1314.72 |
+| Second Class   | IN-2012-48240   |   1207.60 |
+| Second Class   | IN-2013-42360   |   1146.05 |
+| Second Class   | IN-2011-28087   |   1064.89 |
+| Second Class   | IN-2013-77878   |   1041.10 |
+| Second Class   | CA-2014-143567  |   1035.86 |
+| Second Class   | ES-2013-2757712 |    947.82 |
+| Second Class   | IN-2014-76016   |    927.74 |
+| Second Class   | ES-2014-4673578 |    917.03 |
+| Second Class   | ES-2013-2860574 |    913.75 |
+| Standard Class | IN-2014-37320   |   1224.97 |
+| Standard Class | ES-2014-1651774 |    919.31 |
+| Standard Class | CA-2014-135909  |    894.81 |
+| Standard Class | IN-2012-86369   |    878.38 |
+| Standard Class | IN-2011-86278   |    771.98 |
+| Standard Class | ES-2012-5877219 |    758.21 |
+| Standard Class | ES-2012-2212320 |    731.48 |
+| Standard Class | IN-2014-78900   |    724.08 |
+| Standard Class | SF-2014-3260    |    699.12 |
+| Standard Class | CA-2011-116904  |    698.91 |
++----------------+-----------------+-----------+
+40 rows in set (0.28 sec)  
+~~~
+
 ------
 
 ### Query-32: Second-highest discount per category**  
