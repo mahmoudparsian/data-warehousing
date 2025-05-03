@@ -1,17 +1,19 @@
+#--------------------------------------------------
 # Example of financial data set, 
-# 5 different data exploration/analysis) using pthon
-
+# 5 different data exploration/analysis using Python
+#---------------------------------------------------
 
 """
 ## **1️⃣ Sample Financial Dataset**
-We’ll create a dataset containing **customer transactions** 
-with the following columns:
 
-- `Transaction_ID`: Unique ID for each transaction.
-- `Customer_ID`: ID representing the customer.
-- `Amount`: Transaction amount ($).
-- `Transaction_Type`: Purchase or Refund.
-- `Date`: Transaction date.
+We’ll create a dataset containing **customer transactions** 
+with the following 5 columns:
+
+  - Transaction_ID: Unique ID for each transaction.
+  - Customer_ID: ID representing the customer.
+  - Amount: Transaction amount ($).
+  - Transaction_Type: Purchase or Refund.
+  - Date: Transaction date.
 
 """
 
