@@ -112,7 +112,3 @@ df.to_sql(db_table_name, conn, if_exists="append")
 # A table gets created with the name that you pass into to_sql().
 
 # Now go and query for the table results. You will see the data inserted.
-
-"""
-
-"""

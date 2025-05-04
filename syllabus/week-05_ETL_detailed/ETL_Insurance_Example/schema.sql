@@ -3,7 +3,7 @@ drop table insurance_from_etl;
 create table insurance_from_etl (
 index int,
 age int,
-sex text,
+gender text,
 bmi double,
 children int,
 smoker text,
