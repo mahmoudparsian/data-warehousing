@@ -15,11 +15,16 @@
 import sys
 import pandas as pd
 
-# Load the data
-insurance_csv_file = sys.argv[1]
-print("insurance_csv_file", insurance_csv_file)
+# Load the data from a command line:
+#
+#                                               sys.argv[1]
+#         <name-of-python-program>              <csv-file-name>
+# python3 data_exploration_of_insurance_data.py insurance.csv
+
+insurance_as_csv_file = sys.argv[1]
+print("insurance_as_csv_file", insurance_as_csv_file)
 # df = pd.read_csv('insurance.csv')
-df = pd.read_csv(insurance_csv_file)
+df = pd.read_csv(insurance_as_csv_file)
 
 # Show the first few rows
 print(df.head())
