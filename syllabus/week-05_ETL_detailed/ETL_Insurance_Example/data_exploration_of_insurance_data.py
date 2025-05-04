@@ -17,9 +17,9 @@ import pandas as pd
 
 # Load the data from a command line:
 #
-#                                               sys.argv[1]
-#         <name-of-python-program>              <csv-file-name>
-# python3 data_exploration_of_insurance_data.py insurance.csv
+# python3  sys.argv[0]                            sys.argv[1]
+# python3  <name-of-python-program>               <csv-file-name>
+# python3  data_exploration_of_insurance_data.py  insurance.csv
 
 insurance_as_csv_file = sys.argv[1]
 print("insurance_as_csv_file", insurance_as_csv_file)
