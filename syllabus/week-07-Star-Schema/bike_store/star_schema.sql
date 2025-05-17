@@ -1,11 +1,9 @@
-# star-schema database
-
-## Table Definitions
-
-~~~sql
+-- --------------------
+-- Star Schema Database
+-- --------------------
 
 -- --------------------
--- star-schema database
+-- Table Definitions
 -- --------------------
 
 -- ---------------
@@ -59,14 +57,15 @@ CREATE TABLE SalesFact (
     FOREIGN KEY (Customer_ID) REFERENCES Customers(Customer_ID),
     FOREIGN KEY (Date_ID) REFERENCES Dates(Date_ID)
 );
-~~~
 
-## Table Populations
 
-~~~sql
--- --------------------------------
--- Populate the table with values:
--- --------------------------------
+-- -----------------
+-- Table Populations
+-- -----------------
+
+-- ---------------------------------------
+-- Populate the table with sample values:
+-- ---------------------------------------
 
 -- ------------------
 -- Products Table
@@ -158,10 +157,11 @@ VALUES
 (9, 8, 8, 1, 1100.00),
 (9, 3, 8, 1, 600.00);
 
-
+-- -----------
 -- verify data
+-- -----------
 SELECT * FROM Products;
 SELECT * FROM Customers;
 SELECT * FROM Dates;
 SELECT * FROM SalesFact;
-~~~
+
