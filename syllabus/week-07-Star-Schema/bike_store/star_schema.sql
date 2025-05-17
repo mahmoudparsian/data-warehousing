@@ -1,6 +1,7 @@
 # star-schema database
 
 ## Table Definitions
+
 ~~~sql
 
 -- --------------------
