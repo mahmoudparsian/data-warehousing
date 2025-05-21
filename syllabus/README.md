@@ -46,7 +46,7 @@
 
 ### Week-07: [`Star Schema with Examples`](week-07-Star-Schema)
 
-### Week-08: [`Star Schema with Book Seller`](week-08_star_schema_with_Book_Seller)
+### Week-08: [`Star Schema with Examples`](week-08_Star_Schema_with_Examples)
 
 ### Week-09: [`OLAP and Business Intelligence`](week-09_OLAP_and_Business_Intelligence)
 

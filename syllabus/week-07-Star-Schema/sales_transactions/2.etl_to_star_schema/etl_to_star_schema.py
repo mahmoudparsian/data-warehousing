@@ -1,3 +1,5 @@
+import sys
+import json
 import mysql.connector
 import pandas as pd
 from sqlalchemy import create_engine
@@ -8,19 +10,19 @@ from sqlalchemy import create_engine
 #
 #  *** AVIOID THE  FOLLOWING: ***
 #  Connect to MySQL database
-"""
-conn = mysql.connector.connect(
-    host='localhost',
-    user='root',
-    password='password',
-    database='sales_db'
-)
-"""
+
 def read_json(json_config_file):
     with open(json_config_file) as f:
         # Load the JSON data into a dictionary
         config_as_dict = json.load(f)
         return config_as_dict
+#end-def
+#-----------------------------------------
+# Commit and close the connection
+def close_db_resources(conn, cursor):
+    conn.commit()
+    cursor.close()
+    conn.close()
 #end-def
 #-----------------------------------------
 #
@@ -59,18 +61,28 @@ target_cursor = target_conn.cursor()
 #------------------------------------------
 # 1. Extract data from transactional tables
 #------------------------------------------
+# Define connection parameters
+DATABASE_URL = "mysql+pymysql://root:mp22pass@localhost/sales_database"
+
+# Create transactional database engine
+transactional_engine = create_engine(DATABASE_URL)
 
 # Load data from MySQL tables
-sales_df = pd.read_sql('SELECT * FROM sales', source_conn)
-customers_df = pd.read_sql('SELECT * FROM customers', source_conn)
-products_df = pd.read_sql('SELECT * FROM products', source_conn)
-stores_df = pd.read_sql('SELECT * FROM stores', source_conn)
+sales_df = pd.read_sql('SELECT * FROM sales', transactional_engine)
+print("sales_df", sales_df)
+
+customers_df = pd.read_sql('SELECT * FROM customers', transactional_engine)
+print("customers_df", customers_df)
+
+products_df = pd.read_sql('SELECT * FROM products', transactional_engine)
+print("products_df", products_df)
+
+stores_df = pd.read_sql('SELECT * FROM stores', transactional_engine)
+print("stores_df", stores_df)
 
 
 # Commit and close the connection
-source_conn.commit()
-source_cursor.close()
-source_conn.close()
+close_db_resources(source_conn, source_cursor)
 
 
 #------------------------------------------
@@ -86,7 +98,8 @@ date_dim_df['year'] = date_dim_df['date'].dt.year
 date_dim_df['month'] = date_dim_df['date'].dt.month
 date_dim_df['day'] = date_dim_df['date'].dt.day
 date_dim_df['quarter'] = date_dim_df['date'].dt.quarter
-date_dim_df['week'] = date_dim_df['date'].dt.week
+#date_dim_df['week'] = date_dim_df['date'].dt.week
+date_dim_df["week"] = date_dim_df["date"].dt.isocalendar().week
 
 # Create SQLAlchemy engine to store data into a data warehouse
 # engine = create_engine('mysql+mysqlconnector://root:password@localhost/data_warehouse')
@@ -99,9 +112,7 @@ sales_df.to_sql('fact_sales', target_engine, if_exists='replace', index=False)
 customers_df.to_sql('dim_customers', target_engine, if_exists='replace', index=False)
 products_df.to_sql('dim_products', target_engine, if_exists='replace', index=False)
 stores_df.to_sql('dim_stores', target_engine, if_exists='replace', index=False)
-date_dim_df.to_sql('dim_dates', engine, if_exists='replace', index=False)
+date_dim_df.to_sql('dim_dates', target_engine, if_exists='replace', index=False)
 
 # Commit and close the connection
-target_conn.commit()
-target_cursor.close()
-target_conn.close()
+close_db_resources(target_conn, target_cursor)

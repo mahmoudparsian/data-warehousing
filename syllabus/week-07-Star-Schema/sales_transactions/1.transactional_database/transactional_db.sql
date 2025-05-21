@@ -1,6 +1,10 @@
 -- ### Sample Transactional Tables and Data
 
-CREATE DATABASE IF NOT EXISTS sales_database;
+DROP DATABASE IF EXISTS sales_database;
+
+CREATE DATABASE sales_database;
+
+USE sales_database;
 
 -- #### 1.1 Sales Table (MySQL)
 

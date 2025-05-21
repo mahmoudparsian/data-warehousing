@@ -232,6 +232,32 @@ JOIN
     dim_customers c ON f.customer_id = c.customer_id
 GROUP BY 
     c.customer_name;
+   
+```
+
+
+### Query 7.1: Sales Rank by Customer ONLY Top-3
+
+```sql
+WITH ranked_data AS
+(
+  SELECT c.customer_name, 
+         SUM(f.amount) AS total_amount,
+         RANK() OVER (ORDER BY SUM(f.amount) DESC) AS sales_rank
+  FROM 
+      fact_sales f
+  JOIN 
+      dim_customers c ON f.customer_id = c.customer_id
+  GROUP BY 
+      c.customer_name
+)
+SELECT customer_name, 
+       total_amount,
+       sales_rank
+FROM 
+      ranked_data 
+WHERE 
+      sales_rank <= 3;
 ```
 
 ------
@@ -270,6 +296,8 @@ GROUP BY
 
 ### Query 10: Customers with Multiple Purchases
 
+#### Solution with HAVING clause
+
 ```sql
 SELECT  c.customer_name, 
         COUNT(f.sale_id) AS purchase_count
@@ -282,6 +310,30 @@ GROUP BY
 HAVING 
     COUNT(f.sale_id) > 1;
 ```
+
+#### Solution without HAVING clause
+
+```sql
+WITH grouped_data AS
+(
+  SELECT  c.customer_name, 
+          COUNT(f.sale_id) AS purchase_count
+  FROM 
+      fact_sales f
+  JOIN 
+      dim_customers c ON f.customer_id = c.customer_id
+  GROUP BY 
+    c.customer_name
+)
+SELECT  customer_name, 
+        purchase_count
+FROM 
+      grouped_data 
+WHERE  
+    purchase_count > 1;
+```
+
+
 
 ------
 
@@ -447,6 +499,9 @@ ORDER BY
 ------
 
 ### Query 19. Top 5 Customers by Sales Amount in Each Month
+
+#### Solution using HAVING clause
+
 ```sql
 SELECT 
     d.year,
@@ -465,6 +520,40 @@ GROUP BY
 HAVING 
     RANK() <= 5;
 ```
+
+#### Solution without using HAVING clause
+
+```sql
+WITH ranked_data AS 
+(
+  SELECT 
+     d.year,
+     d.month,
+     c.customer_name,
+    SUM(f.amount) AS total_sales,
+     RANK() OVER (PARTITION BY d.year, d.month ORDER BY SUM(f.amount) DESC) as rnk
+  FROM 
+      fact_sales f
+  JOIN 
+      dim_dates d ON f.date_key = d.date_key
+  JOIN 
+      dim_customers c ON f.customer_id = c.customer_id
+  GROUP BY 
+      d.year, d.month, c.customer_name
+)
+SELECT 
+     year,
+     month,
+     customer_name,
+     total_sales,
+     rnk
+FROM 
+      ranked_data 
+WHERE 
+    rnk <= 5;
+```
+
+
 
 -----
 
