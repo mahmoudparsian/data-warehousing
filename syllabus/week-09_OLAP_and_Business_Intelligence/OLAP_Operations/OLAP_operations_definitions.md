@@ -85,7 +85,9 @@ Here are the key OLAP operations:
   JOIN 
       date_dim d ON s.date_id = d.date_id
   GROUP BY 
-      d.year, d.quarter, d.month;
+      d.year, 
+      d.quarter, 
+      d.month;
   ```
   ✅ **Drills down** sales from **year → quarter → month**.
 
@@ -126,6 +128,7 @@ Here are the key OLAP operations:
   WHERE 
       p.category = 'Electronics'
   GROUP BY 
+      p.category,
       d.year;
   ```
   
