@@ -161,6 +161,7 @@ Here are the key OLAP operations:
 
   ```sql
   SELECT p.category, 
+         d.year,
          d.quarter, 
          SUM(s.sales_amount) AS total_sales
   FROM 
@@ -173,7 +174,9 @@ Here are the key OLAP operations:
         d.quarter = 'Q1' AND 
         p.category IN ('Electronics', 'Home Appliances')
   GROUP BY 
-        p.category, d.quarter;
+        p.category, 
+        d.year,
+        d.quarter;
   ```
   ✅ **Dices the data to filter for Q1, Electronics & Home Appliances**.
 
