@@ -584,9 +584,10 @@ GROUP BY
      t.month;
 ```
 
-#### **Query 3: Sales for Tablets in Q2 for USA**
+#### **Query 3: Sales for Tablets in Q2 for USA by state**
 ```sql
-SELECT t.month, 
+SELECT t.year, 
+       t.quarter,
        r.state, 
        SUM(s.total_sales) AS total_sales
 FROM 
@@ -602,7 +603,9 @@ WHERE
      t.quarter = 'Q2'        AND 
      r.country = 'USA'
 GROUP BY 
-     t.month, r.state;
+     t.year,
+     t.quarter,
+     r.state;
 ```
 
 ---
