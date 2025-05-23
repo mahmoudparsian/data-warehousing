@@ -9,12 +9,13 @@ dates,
 devices,
 plays
 
-Provide 32 OLAP queries:
+Provide 39 OLAP queries:
 
    10 simple, 
    10 intermediate, 
-   10 complex 
-    2 LEFT JOIN
+   10 complex
+   7 queries from Blog (as PDF) 
+   2 LEFT JOIN
 
 which use joins, sub-queries, and ranking functions:
 
