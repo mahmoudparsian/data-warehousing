@@ -9,13 +9,14 @@ dates,
 devices,
 plays
 
-Provide 39 OLAP queries:
+Provide 43 OLAP queries:
 
    10 simple, 
    10 intermediate, 
    10 complex
-   7 queries from Blog (as PDF) 
-   2 LEFT JOIN
+    2 LEFT JOIN
+    7 queries from Blog with answer (as PDF) 
+    4 queries without answers 
 
 which use joins, sub-queries, and ranking functions:
 
@@ -871,7 +872,9 @@ your chance to show off what you’ve learned!### Q8: Can you figure out how 
 	with the GROUP BY clause and count them up with 
 	the COUNT function. This will give you a clear
 	picture of the musical diversity our users are 
-	exploring.
+	exploring. 
+	
+	There should not be duplicates in results
 	### Q9: Who’s been listening to tunes that stretch beyond 200 seconds?
 	Here’s how you can find out: Bring together the 
 	‘users’, ‘plays’, and ‘songs’ tables by joining 
@@ -880,6 +883,11 @@ your chance to show off what you’ve learned!### Q8: Can you figure out how 
 	‘duration’. This will help you identify the users 
 	who have a taste for longer jams.
 	
-### Q10: ???
+	There should not be duplicates in results
 
-### Q11: ???
+	
+### Q10: Find top-2 music songs per genre for all users
+
+### Q11: Find top-2 Artists (based on total number of songs listened by all users) per country and genre 
+
+### Q12: Find a device (by its name), which have not been used at all.
