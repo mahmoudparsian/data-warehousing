@@ -281,6 +281,31 @@ GROUP BY
      d.quarter;
 ```
 
+OR
+
+```sql
+SELECT p.category, 
+       d.year,
+       d.quarter, 
+       SUM(f.revenue) AS total
+FROM 
+     sales_fact f,
+     product_dim p, 
+     date_dim d
+
+WHERE 
+     f.product_id = p.product_id AND
+     f.date_id = d.date_id       AND
+     p.category = 'Electronics'  AND 
+     d.quarter = 'Q1'
+GROUP BY 
+     p.category, 
+     d.year,
+     d.quarter;
+```
+
+
+
 #### IO:
 
 | category    | year  |quarter | total   |
