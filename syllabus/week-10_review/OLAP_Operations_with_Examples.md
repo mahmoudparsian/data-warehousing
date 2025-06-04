@@ -178,6 +178,24 @@ GROUP BY
      d.quarter;
 ```
 
+OR
+
+```sql
+SELECT d.year,
+       d.quarter, 
+       SUM(f.revenue) AS total_revenue
+FROM 
+     sales_fact f,
+     date_dim d
+WHERE 
+      f.date_id = d.date_id
+GROUP BY 
+     d.year,
+     d.quarter;
+```
+
+
+
 #### IO:
 
 | year  |quarter | total\_revenue |
