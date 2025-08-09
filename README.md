@@ -4,7 +4,7 @@
 
 <summary>
 
-## Data Warehouse?
+## What is a Data Warehouse?
 
 </summary>
 
