@@ -1,0 +1,36 @@
+% python3 example_3_Reverse_Mapping_SQL_to_Natural_Language.py
+This SQL query is designed to provide a count of employees 
+for each department. 
+
+Here's a breakdown of what the query does:
+
+1. **FROM departments**: The query starts by specifying the 
+   table named `departments`. This table presumably contains 
+   information about various departments, including their name 
+   and a department ID (`dept_id`).
+
+2. **JOIN employees ON departments.dept_id = employees.dept_id**: 
+   Next, the query performs an SQL JOIN between the `departments` 
+   table and another table named `employees`. This JOIN is done 
+   based on a common column `dept_id`, which links employees to 
+   their respective departments. This means each employee has a 
+   `dept_id` that corresponds to one of the departments' `dept_id`.
+
+3. **SELECT dept_name, COUNT(*) AS total_employees**: The query then 
+   selects two pieces of information:
+    - `dept_name`: This is the name of the department as specified in 
+       the `departments` table.
+    - `COUNT(*) AS total_employees`: This function counts all rows 
+      resulting from the JOIN for each department, which effectively 
+      counts the number of employees in each department. The result 
+      of the count is given the alias `total_employees`.
+
+4. **GROUP BY dept_name**: Finally, the query uses `GROUP BY` to 
+   group the results based on each department's name. This is essential 
+   for the counting operation, as it ensures that employees are counted 
+   separately for each department rather than all together.
+
+In summary, this query generates a list of all departments along 
+with a total count of employees in each department by linking the 
+`departments` and `employees` tables through their `dept_id`. The 
+result tells you how many employees are in each department.

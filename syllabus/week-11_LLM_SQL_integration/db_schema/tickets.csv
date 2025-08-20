@@ -1,0 +1,4 @@
+ticket_id,customer_id,message,status
+1001,501,I need help with my invoice.,open
+1002,502,System crashes when I login.,open
+1003,503,Can someone explain the new HR policy?,closed

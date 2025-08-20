@@ -1,0 +1,7 @@
+% python3 example_1_NL_to_SQL.py
+```sql
+SELECT d.dept_name, SUM(e.salary) AS total_salary
+FROM departments d
+JOIN employees e ON d.dept_id = e.dept_id
+GROUP BY d.dept_name;
+```

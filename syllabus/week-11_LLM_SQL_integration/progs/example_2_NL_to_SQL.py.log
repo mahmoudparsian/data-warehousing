@@ -1,0 +1,47 @@
+% python3 example_2_NL_to_SQL.py
+
+To determine which product was ordered the most 
+in June, you can write a SQL query that joins the 
+necessary tables and aggregates the data based on 
+the quantity ordered. 
+
+Here's how you can construct the query:
+
+```sql
+SELECT
+    p.name AS product_name,
+    SUM(oi.quantity) AS total_quantity_ordered
+FROM
+    orders o
+JOIN
+    order_items oi ON o.order_id = oi.order_id
+JOIN
+    products p ON oi.product_id = p.product_id
+WHERE
+    EXTRACT(MONTH FROM o.order_date) = 6
+GROUP BY
+    p.product_id, p.name
+ORDER BY
+    total_quantity_ordered DESC
+LIMIT 1;
+```
+
+This query does the following:
+
+1. Joins `orders`, `order_items`, and `products` tables
+   to get the relevant product information for each order.
+   
+2. Filters the orders to only include those from June  
+   using `EXTRACT(MONTH FROM o.order_date) = 6`.
+   
+3. Groups the results by `product_id` and `product_name`.
+
+4. Aggregates the total quantity ordered for each 
+   product using `SUM(oi.quantity)`.
+   
+5. Orders the resulting products by the total quantity 
+   ordered in descending order to determine which product 
+   was ordered the most.
+   
+6. Limits the output to one product with `LIMIT 1` 
+   to return only the top result.
