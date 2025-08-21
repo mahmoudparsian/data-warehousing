@@ -1,4 +1,17 @@
-# What is MySQL and LLM Integration?
+
+# MySQL and LLM Integration?
+
+# 1. Files in this folder:
+
+file/folder   | description
+------------- | -------------| 
+| `db_schema` | Sample database schema |
+| `docs`      | Basic documentation and references|
+|`MySQL_LLM_Integration_Slides.pptx` | PowerPoint Slides |
+| `progs` | Sample integration programs|
+| `README.md` | Landing Page |
+
+# 2. What is MySQL and LLM Integration?
 
 	MySQL and Large Language Model (LLM) integration 
 	refers to the process of connecting and leveraging 
@@ -8,7 +21,7 @@
 	interact with structured data stored in MySQL, often 
 	in a natural language format.
 
-# Key aspects of MySQL and LLM integration include:
+# 3. Key aspects of MySQL and LLM Integration
 
 ### Natural Language to SQL Generation:
 	LLMs can be used to translate natural language 
@@ -48,7 +61,7 @@
 	ensuring data integrity and preventing 
 	unintended modifications.
 
-# Common use cases for this integration include:
+# 4. Common use cases for this integration include:
 
 ### AI-powered analytics assistants:
 	LLMs can help users analyze data in MySQL by 
