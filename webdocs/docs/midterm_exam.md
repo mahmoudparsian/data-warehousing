@@ -1,6 +1,6 @@
 # Midterm Exam: 
 
-#### &#x1F34F; Date: Thursday, May 1, 2025
+#### &#x1F34F; Date: TBDL, 2026
 
 #### &#x1F34F; Time: 5:45 pm - 7:15 pm
 
