@@ -9,9 +9,22 @@
 </summary>
 
 
-		Where do you store a petabyte of 
-		data for  business intelligence? 
-		A  data warehouse, that’s where. 
+		Where do you store a petabyte of data for  
+		business intelligence?  A  data warehouse, 
+		that’s where. Data spans for 2+ years...
+		
+		At its  core, a  Data  Warehouse  is  a 
+		centralized, read-optimized system designed 
+		specifically for querying, reporting, and 
+		analytics. It’s where your business data goes 
+		after it’s been cleaned, structured,  and 
+		denormalized for performance. 
+		
+		Unlike operational databases that are built 
+		for transactions —  fast  inserts,  updates, 
+		deletes — a warehouse is built for OLAP (online 
+		analytical processing): aggregations, joins, 
+		historical trends, and slow-but-heavy queries.
 
 </details>
 

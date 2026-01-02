@@ -1,44 +1,97 @@
 # Data Warehousing Project 
 
-* Last updated date: March 25, 2025, 8:47 PM PST 
+* Last updated date: 1/1/2026, 5:00 PM PST 
 
-		NOTE: This document is a live document 
+		NOTE: This is a live document 
 		and will be updated on a daily basis.
 
 * The goal of this project is to design, build, 
   and demo a data warehouse, and fianlly 
-* Provide/show 5 OLAP queries, which will help 
+  
+* Provide/show 7 OLAP queries, which will help 
   the businesses to make better decisions
-* Based on these 5 OLAP queries: what are your recommendations to the business leaders
+  
+* Based on these 7 OLAP queries: what are your 
+  recommendations to the business leaders
 
 ## 1. Team 
 
 * Each team is comprised of 3 students
+
 * Each student should act as a co-leader of a team
 
 ## 2. Deadlines
 
-| Activity                      | Must be completed before |
-|-------------------------------|--------------------------| 
-| Team selection                | April 3, 2025            |
-| Data selection                | April 10, 2025           |
-| Exploratory Data Presentation | TBDL        |
-| Final Project Presentation    | TBDL        |
+| Activity                      | Must be completed by/before |
+|-------------------------------|-----------------------------| 
+| Team selection                | TBDL                        |
+| Data selection                | TBDL                        |
+| Exploratory Data Presentation | TBDL                        |
+| Final Project Presentation    | TBDL                        |
 
 
 
 ## 3. Points
 
-This project covers 30% of your overall grade.
+This project covers 40% of your overall grade.
 
 * 10% points: Exploratory Data Presentation
-* 10% points: documentation & implementation
-* 10% points: presentation with powerpoint and Tableau
+
+* 10% points: Documentation
+
+* 10% points: Implementation
+
+* 10% points: Final Presentation with Powerpoint and Tableau
+
+
+### 3.1 Data Exploration: 
+	Data exploration also known as Exploratory Data 
+	Analysis (EDA), is the crucial first step in data 
+	analysis where you use visualization and statistics 
+	to  understand a dataset's structure, patterns, 
+	outliers, and relationships before formal modeling, 
+	helping you uncover insights, identify issues, and 
+	guide further analysis. It's like being a detective 
+	for your  data, using  automated  tools and manual 
+	checks  to get a  feel  for what's  inside,  find 
+	anomalies, and determine the best path forward. 
+
+### 3.2 Data Documentation in Data Warehousing
+	Data documentation in data warehousing is the process 
+	of creating a comprehensive, organized record that 
+	describes the origin, structure, meaning, and intended 
+	use of data within a warehouse. It serves as a roadmap 
+	for users—such as data analysts, engineers, and business
+	stakeholders—to understand, trust, and properly analyze 
+	the information stored in the system. 
+	
+### 3.3 Data Implementation in Data Warehousing
+	Data implementation in data warehousing means designing, 
+	building, and deploying a centralized system to collect, 
+	clean, integrate, and store data from various sources for 
+	business analysis and reporting, using processes like ETL 
+	(Extract, Transform, Load) to create a single source of 
+	truth for historical data to support better decision-making. 
+	It's the practical process of making a data warehouse 
+	functional, from initial planning to user access. 
+
+### 3.4 Data Presentation in Data Warehousing
+	Data presentation in data warehousing refers to the 
+	Presentation Layer,  the top  tier where  end-users 
+	access, analyze, and visualize integrated data from 
+	the warehouse using tools like dashboards (Tableau, 
+	Power BI), reports, and SQL queries, transforming 
+	raw data into actionable business insights. It's the 
+	interface  that  makes  complex,  historical  data 
+	understandable for decision-making, focusing on what 
+	happened and why, unlike operational systems focused 
+	on current tasks. 
+
 
 ## 4. Data
 
 * must make sense for data warehousing
-* your data must span over years (3 to 5 years) 
+* your data must span over years (2 to 5 years) 
 * with minimum of 1 to 10 million records
 
 ### 4.1 data sets
@@ -254,18 +307,18 @@ concepts like data preprocessing and model evaluation.
 ## 9. Project Document Structure
 
 1. Introduction
-	* Describe your project in 3 bullet items
+	* Describe your project in 5 bullet items
 
 2. **Data:**
 	* Describe your data, make sense of the data
-	* source of data
-	* data attributes
-	* what features of data are important
-	* ...
+	* Source of data, years, ...
+	* Data attributes
+	* What features of data are important
+	* Data exploration with charts and graphs
 
 3. ETL/ELT:  
-	* your scripts, what they do ...
-	* description of your scripts, what they do ...
+	* Your Python/ETL/SQL scripts, what they do ...
+	* Description of your scripts, what they do ...
 	* ETL/ELT: how to load data to DW by year (2020, 2021, 2022, ...)
 
 4. Star schema
