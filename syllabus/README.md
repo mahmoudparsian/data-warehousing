@@ -26,13 +26,12 @@
 
 # 10 Weeks
 
-### Week-01: Course Outline and Introduction to Data Warehousing
+### Week-01: [Course Outline and Introduction to Data Warehousing](./week-01-intro-to-Data-Warehousing)
 
-* [week-01-1: Introduction to Databases and SQL](./week-01-1-introduction_to_databases_and_SQL)
-
-* [week-01-2: Course Outline & Introduction to DW](./week-01-2-course-outline-and-intro-to-DW)
-
-* [week-01-3: Complete ETL Example](./week-01-3-complete_ETL_example)
+* [week-01-1: Introduction to Databases and SQL](.//week-01-intro-to-Data-Warehousing/1-introduction_to_databases_and_SQL)
+* [week-01-2: Course Outline & Introduction to DW](.//week-01-intro-to-Data-Warehousing/2-course-outline-and-intro-to-DW)
+* [week-01-3: Complete ETL Example](.//week-01-intro-to-Data-Warehousing/3-complete_ETL_example)
+* [week-01-4: Demo of Star Schema and OLAP Queries](.//week-01-intro-to-Data-Warehousing/4-demo_star_schema)
 
 ### Week-02: [`Introduction to BI and Tableau`](week-02-intro-to-BI-and-Tableau)
 
