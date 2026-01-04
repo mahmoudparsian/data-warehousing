@@ -26,28 +26,32 @@
 
 # 10 Weeks
 
-### Week-01: [Course Outline and Introduction to Data Warehousing](./week-01-intro-to-Data-Warehousing)
+### [Week-01: Course Outline and Introduction to Data Warehousing](./week-01-intro-to-Data-Warehousing)
 
-* [week-01-1: Introduction to Databases and SQL](.//week-01-intro-to-Data-Warehousing/1-introduction_to_databases_and_SQL)
-* [week-01-2: Course Outline & Introduction to DW](.//week-01-intro-to-Data-Warehousing/2-course-outline-and-intro-to-DW)
-* [week-01-3: Complete ETL Example](.//week-01-intro-to-Data-Warehousing/3-complete_ETL_example)
-* [week-01-4: Demo of Star Schema and OLAP Queries](.//week-01-intro-to-Data-Warehousing/4-demo_star_schema)
+* [1: Introduction to Databases and SQL](./week-01-intro-to-Data-Warehousing/1-introduction_to_databases_and_SQL)
 
-### Week-02: [`Introduction to BI and Tableau`](week-02-intro-to-BI-and-Tableau)
+* [2: Course Outline & Introduction to DW](./week-01-intro-to-Data-Warehousing/2-course-outline-and-intro-to-DW)
 
-### Week-03: [`Introduction to ETL`](week-03-introduction-to-ETL)
+* [3: Complete ETL Example](./week-01-intro-to-Data-Warehousing/3-complete_ETL_example)
 
-### Week-04: [`Data Modeling, Join operation, and Ranking Algorithms`](week-04-modeling-join-ranking-algorithms)
+* [4: Demo of Star Schema and OLAP Queries](./week-01-intro-to-Data-Warehousing/4-demo_star_schema)
 
-### Week-05: [`ETL Detailed`](week-05_ETL_detailed)
+### [Week-02: Introduction to BI and Tableau](./week-02-intro-to-BI-and-Tableau/)
 
-### Week-06: [`Introduction to Data Warehousing and Star Schema`](week-06-intro-to-Data-Warehousing-and-Star-Schema)
+### [Week-03: Introduction to ETL](./week-03-introduction-to-ETL/)
 
-### Week-07: [`Star Schema with Examples`](week-07-Star-Schema)
+### [Week-04: Data Modeling, Join operation, and Ranking Algorithms](./week-04-modeling-join-ranking-algorithms/)
 
-### Week-08: [`Star Schema with Examples`](week-08_Star_Schema_with_Examples)
+### [Week-05: ETL Detailed](./week-05_ETL_detailed/)
 
-### Week-09: [`OLAP and Business Intelligence`](week-09_OLAP_and_Business_Intelligence)
+### [Week-06: Introduction to Data Warehousing and Star Schema](./week-06-intro-to-Data-Warehousing-and-Star-Schema/)
 
-### Week-10: [`OLAP Operations`](week-10_OLAP_Operations)
+### [Week-07: Star Schema with Examples](./week-07-Star-Schema/)
 
+### [Week-08: Star Schema with Examples](./week-08_Star_Schema_with_Examples/)
+
+### [Week-09: OLAP and Business Intelligence](./week-09_OLAP_and_Business_Intelligence/)
+
+### [Week-10: OLAP Operations](./week-10_OLAP_Operations/)
+
+### [Week-11: AI/LLM SQL Integration](./week-11_LLM_SQL_integration/)
