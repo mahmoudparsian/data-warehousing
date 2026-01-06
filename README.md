@@ -12,6 +12,8 @@
 * keep customer records
 * product records
 * transactions, 
+* patient profile records
+* patient DNA samples,
 * ...
 
 </details>
