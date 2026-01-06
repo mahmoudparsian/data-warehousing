@@ -60,7 +60,9 @@
 
 <details  open>
 <summary>
+
 ## What is Data Warehousing?
+
 </summary>
 
 		Data  warehousing (DW) is a technique 
@@ -79,7 +81,9 @@
 
 <details open>
 <summary>
+
 ## Skills you will develop: 
+
 </summary>
 
 
