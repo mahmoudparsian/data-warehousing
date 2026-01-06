@@ -1,13 +1,34 @@
 # data-warehousing </br> Winter Quarter 2026 </br> January-March 2026
 
+<details  open>
+<summary>
+## What is a Database? 
+</summary>
+
+>  the DATABASE helps to perform the **fundamental operation of business**:
+> 
+* keep customer records
+* product records
+* transactions, 
+* ...
+
+</details>
 
 
 <details  open>
-
 <summary>
-
 ## What is a Data Warehouse?
+</summary>
 
+>  the DATA WAREHOUSE helps you to **analyze your business**.
+</details>
+
+
+
+
+<details  open>
+<summary>
+## What is a Data Warehouse?
 </summary>
 
 		Where do you store a petabyte of data for  
@@ -26,15 +47,13 @@
 		deletes — a warehouse is built for OLAP (online 
 		analytical processing): aggregations, joins, 
 		historical trends, and slow-but-heavy queries.
-
+		
 </details>
 
+
 <details  open>
-
 <summary>
-
 ## What is Data Warehousing?
-
 </summary>
 
 		Data  warehousing (DW) is a technique 
@@ -52,11 +71,8 @@
 
 
 <details open>
-
 <summary>
-
 ## Skills you will develop: 
-
 </summary>
 
 
