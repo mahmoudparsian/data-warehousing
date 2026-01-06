@@ -2,7 +2,9 @@
 
 <details  open>
 <summary>
+
 ## What is a Database? 
+
 </summary>
 
 >  the DATABASE helps to perform the **fundamental operation of business**:
@@ -17,10 +19,13 @@
 
 <details  open>
 <summary>
+
 ## What is a Data Warehouse?
+
 </summary>
 
 >  the DATA WAREHOUSE helps you to **analyze your business**.
+
 </details>
 
 
@@ -28,7 +33,9 @@
 
 <details  open>
 <summary>
+
 ## What is a Data Warehouse?
+
 </summary>
 
 		Where do you store a petabyte of data for  
