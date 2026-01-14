@@ -8,7 +8,9 @@
 
 ## 4. EDA - Exploratory Data Analysis
 
-## References 
+## 5. Introduction to Star Schema
+
+## 6. References 
 
 [1. What is Exploratory Data Analysis (EDA)?](https://researchguides.case.edu/python/EDA)
 
