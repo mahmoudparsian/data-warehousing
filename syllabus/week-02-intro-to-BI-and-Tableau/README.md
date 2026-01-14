@@ -17,3 +17,9 @@
 [3. EDA - Exploratory Data Analysis in Python](https://www.geeksforgeeks.org/data-analysis/exploratory-data-analysis-in-python/)
 
 [4. Python exploratory data analysis: A hands-on tutorial](https://www.quadratichq.com/blog/python-exploratory-data-analysis-a-hands-on-tutorial)
+
+[5. Five Python Data Visualization Examples to Transform Your Enterprise Data](https://www.anaconda.com/topics/data-visualization-examples)
+
+[6. How to Perform Exploratory Data Analysis in Python (With Example)](https://www.stratascratch.com/blog/how-to-perform-exploratory-data-analysis-in-python/)
+
+[7. Exploratory Data Analysis with Data Visualization](https://www.codecademy.com/article/eda-data-visualization)
