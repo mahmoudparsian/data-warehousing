@@ -9,12 +9,13 @@
 
 ## 1. What is GROUP BY ROLLUP?
 
-	1. `ROLLUP` is an **OLAP extension** to `GROUP BY` 
-	   that automatically adds **subtotal and grand 
-	   total rows**.
+	1. `ROLLUP` is an **OLAP extension** to 
+	   `GROUP BY` that automatically adds 
+	   **subtotal and grand total rows**.
 
-	2. Instead of writing multiple queries for totals, 
-	   MySQL computes them **in one pass**.
+	2. Instead of writing multiple queries 
+	   for totals, MySQL computes them 
+	   **in one pass**.
 
 ---
 
@@ -94,7 +95,8 @@ ORDER BY country;
 ## 4. GROUP BY ROLLUP (Country Level)
 
 ```sql
-SELECT country, SUM(amount) AS revenue
+SELECT country, 
+       SUM(amount) AS revenue
 FROM sales
 GROUP BY country WITH ROLLUP
 ORDER BY country;
