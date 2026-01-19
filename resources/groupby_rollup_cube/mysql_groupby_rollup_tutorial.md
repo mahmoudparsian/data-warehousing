@@ -102,7 +102,7 @@ ORDER BY country;
 +---------+---------+
 | country | revenue |
 +---------+---------+
-| NULL    | 8500.00 |
+| NULL    | 8500.00 |  <-- 8500 = 3600 + 1600 + 3300
 | Canada  | 3600.00 |
 | France  | 1600.00 |
 | USA     | 3300.00 |
@@ -126,18 +126,18 @@ ORDER BY country;
 +---------+-----------+---------+
 | country | city      | revenue |
 +---------+-----------+---------+
-| NULL    | NULL      | 8500.00 |
+| NULL    | NULL      | 8500.00 |  <-- 8500 = 3600 + 1600 + 3300
 
 | Canada  | Toronto   | 2000.00 |
 | Canada  | Vancouver | 1600.00 |
-| Canada  | NULL      | 3600.00 |
+| Canada  | NULL      | 3600.00 |  <-- 3600 = 2000 + 1600
 
 | France  | Paris     | 1600.00 |
-| France  | NULL      | 1600.00 |
+| France  | NULL      | 1600.00 |  <-- 1600 = 1600
 
 | USA     | Boston    | 1300.00 |
 | USA     | New York  | 2000.00 |
-| USA     | NULL      | 3300.00 |
+| USA     | NULL      | 3300.00 |  <-- 3300 = 1300 + 2000
 +---------+-----------+---------+
 9 rows in set (0.001 sec)
 ```
@@ -341,17 +341,18 @@ GROUP BY country, state WITH ROLLUP;
 
 ### Output
 
+
 | country | state | emp_count | total_salary |
 |---------|-------|-----------|--------------|
-| USA     | CA    | 2         | 230000 |
-| USA     | NY    | 2         | 205000 |
-| USA     | NULL  | 4         | 435000 |
-| Canada  | ON    | 2         | 185000 |
-| Canada  | BC    | 1         | 85000  |
-| Canada  | NULL  | 3         | 270000 |
-| Germany | BW    | 1         | 98000  |
-| Germany | NULL  | 1         | 98000  |
-| NULL    | NULL  | 8         | 803000 |
+| USA     | CA    | 2         | 230000       |
+| USA     | NY    | 2         | 205000       |
+| USA     | NULL  | 4         | 435000       |
+| Canada  | ON    | 2         | 185000       |
+| Canada  | BC    | 1         | 85000        |
+| Canada  | NULL  | 3         | 270000       |
+| Germany | BW    | 1         | 98000        |
+| Germany | NULL  | 1         | 98000        |
+| NULL    | NULL  | 8         | 803000       |
 
 ---
 
