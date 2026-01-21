@@ -142,6 +142,64 @@ ORDER BY country;
 | USA     | NULL      | 3300.00 |  <-- 3300 = 1300 + 2000
 +---------+-----------+---------+
 9 rows in set (0.001 sec)
+
+```
+
+### save rolled up table
+
+```sql
+CREATE TABLE rolledup_table as 
+SELECT country, city, 
+       SUM(amount) AS revenue
+FROM sales
+GROUP BY country, city WITH ROLLUP
+ORDER BY country;
+
+mysql> select * from rolledup_table;
++---------+-----------+---------+
+| country | city      | revenue |
++---------+-----------+---------+
+| NULL    | NULL      | 8500.00 |
+| Canada  | Toronto   | 2000.00 |
+| Canada  | Vancouver | 1600.00 |
+| Canada  | NULL      | 3600.00 |
+| France  | Paris     | 1600.00 |
+| France  | NULL      | 1600.00 |
+| USA     | Boston    | 1300.00 |
+| USA     | New York  | 2000.00 |
+| USA     | NULL      | 3300.00 |
++---------+-----------+---------+
+9 rows in set (0.000 sec)
+```
+
+####  find grand total
+
+```sql
+SELECT revenue as grand_total
+FROM rolledup_table
+WHERE country IS NULL AND
+      city IS NULL;
++-------------+
+| grand_total |
++-------------+
+|     8500.00 |
++-------------+
+1 row in set (0.000 sec)
+```
+
+#### find sub total for USA
+
+```sql
+SELECT country, city, revenue as sub_total
+FROM rolledup_table
+WHERE country = 'USA' AND
+      city IS NULL;
++---------+------+-----------+
+| country | city | sub_total |
++---------+------+-----------+
+| USA     | NULL |   3300.00 |
++---------+------+-----------+
+1 row in set (0.000 sec)
 ```
 
 ---
