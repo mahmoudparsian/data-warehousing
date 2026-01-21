@@ -1,4 +1,4 @@
-# Transactional Database --> ETL --> Star Schema --> OLAP Queries
+# Transactional Database <br>--> ETL <br> --> Star Schema <br> --> OLAP Queries
 
 		The goal of this exercise is to show a 
 		complete story of creating a "star schema" 

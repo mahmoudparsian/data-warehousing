@@ -1,21 +1,27 @@
 # MySQL Transactional --> ETL --> Star Schema
 
-# Let's walk through a complete ETL process 
-# using Python and MySQL to transform transactional 
-# data into a star schema. We'll use the 
-# `mysql-connector-python` library for database 
-# operations and `pandas` for data manipulation.
+# 1. Let's walk through a complete ETL process 
+#    using Python and MySQL to transform 
+#    transactional data into a star schema. 
 
+# 2. We'll use the `mysql-connector-python` 
+#    library for database operations and `pandas` 
+#    for data manipulation.
+
+### ---------------------------------------------------
 ### Step 1: Set Up the Environment
-
-# First, we need to install the required libraries:
+###
+###  First, we need to install the required libraries:
+### ----------------------------------------------------
 
 ## pip install pandas
 ## pip install mysql-connector-python 
 ## pip install flask_sqlalchemy
 ## pip install simplejson
 
+### ---------------------------------------------------
 ### Step 2: Define the Transactional Data
+### ---------------------------------------------------
 
 # We'll define the sample transactional data as 
 # relational tables in MySQL. Below is the SQL 
@@ -79,7 +85,9 @@ drop table ratings_fact;
 
 """
 
+### --------------------
 ### Step 3: ETL Process
+### --------------------
 
 # Now we'll implement the ETL process in Python.
 
@@ -93,6 +101,15 @@ from sqlalchemy import create_engine
 #-----------------------------------------
 # Database config is given as a JSON file
 # read a JSON file and return a dictionary
+#
+#      KEY      VALUE
+#  +----------+-----------+
+#  | user     | root      |
+#  | password | mp22pass  |
+#  | host     | localhost |
+#  | database | movies2   |
+#  +----------+-----------+
+#
 def read_json(json_config_file):
     with open(json_config_file) as f:
         # Load the JSON data into a Python dictionary
@@ -179,7 +196,14 @@ dim_users = users_df.copy()
 #------------------------------
 # Create NEW DIMENSION dim_date
 #------------------------------
+
+# ADD a rating_date column to ratings table]
+#
 ratings_df['rating_date'] = pd.to_datetime(ratings_df['rating_date'])
+
+
+# CREATE a date_dim table
+#
 dim_date = ratings_df[['rating_date']].drop_duplicates().reset_index(drop=True)
 dim_date['date_id'] = dim_date.index + 1
 dim_date['year'] = dim_date['rating_date'].dt.year
@@ -190,7 +214,17 @@ dim_date['quarter'] = dim_date['rating_date'].dt.quarter
 #---------------------
 # Create fact_ratings
 #---------------------
+#
+# ratings_df.merge() is building a FACT table by:
+#	•	Taking a transactional table (ratings_df)
+#	•	Joining it with a Date dimension (dim_date)
+#	•	Using rating_date as the join key
+#	•	Preserving all fact rows, even if the date dimension is incomplete
+#	•	Enrich the fact table with a surrogate key from the Date dimension.
 fact_ratings = ratings_df.merge(dim_date, on='rating_date', how='left')
+
+# It keeps only these five columns, in this exact order, 
+# and drops everything else from the DataFrame.
 fact_ratings = fact_ratings[['rating_id', 'movie_id', 'user_id', 'rating', 'date_id']]
 
 #--------------------------------------
