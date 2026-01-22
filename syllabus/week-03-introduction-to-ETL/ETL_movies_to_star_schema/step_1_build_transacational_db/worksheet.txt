@@ -109,7 +109,7 @@ CREATE TABLE movies (
 mysql> SET GLOBAL local_infile = 1;
 
 mysql>
-LOAD DATA LOCAL INFILE "/Users/mparsian/github/data-warehousing/syllabus/week-03-introduction-to-ETL/movies_to_star_schema/step_1_build_transacational_db/IMDB_Movies_2000_2020.csv"
+LOAD DATA LOCAL INFILE "/Users/max/mp/github/data-warehousing/syllabus/week-03-introduction-to-ETL/ETL_movies_to_star_schema/step_1_build_transacational_db/IMDB_Movies_2000_2020.csv"
 INTO TABLE movies
 COLUMNS TERMINATED BY ','
 OPTIONALLY ENCLOSED BY '"'

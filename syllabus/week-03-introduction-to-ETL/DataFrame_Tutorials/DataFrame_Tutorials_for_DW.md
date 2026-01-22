@@ -1,9 +1,27 @@
-
 # Pandas DataFrame Tutorial for ETL in Data Warehousing
 
+	1. A DataFrame in Python's Pandas Library
 
-This tutorial explains how **Pandas DataFrames** are used to implement **ETL pipelines**
-for **data warehousing**, with realistic examples and best practices.
+	2. When using Python as an ETL programming, 
+	   a DataFrame in Python's Pandas Library 
+	   is the key ingrediant for the ETL process.
+	
+	3. A Pandas DataFrame is a two-dimensional, 
+	   size-mutable, and potentially heterogeneous 
+	   tabular data structure with labeled axes 
+	   (rows and columns).
+	
+	
+![](./pandas_dataframe_example.png)
+
+
+
+## 0. This tutorial
+
+This tutorial explains how **Pandas DataFrames** 
+are used to implement **ETL pipelines** for 
+**data warehousing**, with realistic examples 
+and best practices.
 
 ---
 
@@ -255,4 +273,18 @@ pd.read_csv("large.csv", chunksize=100_000)
 
 ---
 
-## End of Tutorial
+## 17. References and Tutorials
+
+#### 1. [Python pandas Tutorial: The Ultimate Guide for Beginners]()
+
+#### 2. [Pandas Tutorial: DataFrames in Python](https://www.datacamp.com/tutorial/pandas-tutorial-dataframe-python)
+
+#### 3. [Pandas DataFrames: from w3schools](https://www.w3schools.com/python/pandas/pandas_dataframes.asp)
+
+#### 4. [The pandas DataFrame](https://realpython.com/pandas-dataframe/)
+
+#### 5. [Pandas Getting started tutorials](https://pandas.pydata.org/docs/getting_started/intro_tutorials/index.html)
+
+#### 6. [Python Pandas - DataFrame](https://www.tutorialspoint.com/python_pandas/python_pandas_dataframe.htm)
+
+

@@ -9,6 +9,8 @@ drop table users;
 drop table ratings;
 
 
+USE movies_db;
+
 -- #### Table: `movies`
 CREATE TABLE movies (
     imdm_title_id VARCHAR(255),
