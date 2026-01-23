@@ -30,7 +30,7 @@
 """
 Transactional Database:
 
-CREATE DATABASE IF NOT EXISTS movies2;
+CREATE DATABASE IF NOT EXISTS movies_db;
 USE movies2;
 
 -- #### Table: `movies`

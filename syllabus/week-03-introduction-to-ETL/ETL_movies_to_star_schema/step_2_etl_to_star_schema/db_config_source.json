@@ -2,5 +2,5 @@
     "user": "root",
     "password": "mp22pass",
     "host": "localhost",
-    "database": "movies2"
+    "database": "movies_db"
 }

@@ -2,5 +2,5 @@
     "user": "root",
     "password": "mp22pass",
     "host": "localhost",
-    "database": "movies2_star_schema"
+    "database": "dw"
 }

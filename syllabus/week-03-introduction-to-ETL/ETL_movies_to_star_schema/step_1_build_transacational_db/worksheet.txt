@@ -109,7 +109,7 @@ CREATE TABLE movies (
 mysql> SET GLOBAL local_infile = 1;
 
 mysql>
-LOAD DATA LOCAL INFILE "/Users/max/mp/github/data-warehousing/syllabus/week-03-introduction-to-ETL/ETL_movies_to_star_schema/step_1_build_transacational_db/IMDB_Movies_2000_2020.csv"
+LOAD DATA LOCAL INFILE "/Users/mparsian/mp/github/data-warehousing/syllabus/week-03-introduction-to-ETL/ETL_movies_to_star_schema/step_1_build_transacational_db/IMDB_Movies_2000_2020.csv"
 INTO TABLE movies
 COLUMNS TERMINATED BY ','
 OPTIONALLY ENCLOSED BY '"'
@@ -256,7 +256,7 @@ create table users(
 );
 
 
-LOAD DATA LOCAL INFILE "/Users/mparsian/github/data-warehousing/syllabus/week-03-introduction-to-ETL/movies_to_star_schema/step_1_build_transacational_db/users.csv"
+LOAD DATA LOCAL INFILE "/Users/mparsian/mp/github/data-warehousing/syllabus/week-03-introduction-to-ETL/ETL_movies_to_star_schema/step_1_build_transacational_db/users.csv"
 INTO TABLE users
 COLUMNS TERMINATED BY ','
 OPTIONALLY ENCLOSED BY '"'
@@ -273,7 +273,7 @@ create table ratings(
     rating_date Date
 );
 
-LOAD DATA LOCAL INFILE "/Users/mparsian/github/data-warehousing/syllabus/week-03-introduction-to-ETL/movies_to_star_schema/step_1_build_transacational_db/ratings.csv"
+LOAD DATA LOCAL INFILE "/Users/mparsian/mp/github/data-warehousing/syllabus/week-03-introduction-to-ETL/ETL_movies_to_star_schema/step_1_build_transacational_db/ratings.csv"
 INTO TABLE ratings
 COLUMNS TERMINATED BY ','
 OPTIONALLY ENCLOSED BY '"'
@@ -406,3 +406,39 @@ mysql> select * from movies_dim limit 4;
 4 rows in set (0.01 sec)
 
 mysql>
+
+WITH AVG_Rating_Movies AS (
+    SELECT 
+        M.movie_id,
+        M.movie_title,
+        M.genre,
+        AVG(R.rating) AS avg_rating,
+    FROM 
+        ratings_fact R
+    JOIN 
+        movies_dim M ON R.movie_id = M.movie_id
+    GROUP BY 
+        M.movie_id, M.movie_title, M.genre
+),
+Ranked_Movies AS (
+    SELECT 
+        movie_id,
+        movie_title,
+        genre,
+        avg_rating,
+        RANK() OVER (PARTITION BY M.genre ORDER BY avg_rating DESC) AS genre_rank
+    FROM 
+        AVG_Rating_Movies
+)
+SELECT 
+    movie_id,
+    movie_title,
+    genre,
+    avg_rating,
+    genre_rank
+FROM 
+    Ranked_Movies
+WHERE 
+    genre_rank <= 5
+ORDER BY 
+    genre, genre_rank;

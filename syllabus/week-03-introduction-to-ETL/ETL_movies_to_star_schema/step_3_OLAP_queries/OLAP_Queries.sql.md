@@ -257,6 +257,46 @@ ORDER BY
     genre, genre_rank;
 ```
 
+-- OR --
+
+```sql
+WITH AVG_Rating_Movies AS (
+    SELECT 
+        M.movie_id,
+        M.movie_title,
+        M.genre,
+        AVG(R.rating) AS avg_rating,
+    FROM 
+        ratings_fact R
+    JOIN 
+        movies_dim M ON R.movie_id = M.movie_id
+    GROUP BY 
+        M.movie_id, M.movie_title, M.genre
+),
+Ranked_Movies AS (
+    SELECT 
+        movie_id,
+        movie_title,
+        genre,
+        avg_rating,
+        RANK() OVER (PARTITION BY genre ORDER BY avg_rating DESC) AS genre_rank
+    FROM 
+        AVG_Rating_Movies
+)
+SELECT 
+    movie_id,
+    movie_title,
+    genre,
+    avg_rating,
+    genre_rank
+FROM 
+    Ranked_Movies
+WHERE 
+    genre_rank <= 5
+ORDER BY 
+    genre, genre_rank;
+```
+
 #### output
 
 ~~~    
