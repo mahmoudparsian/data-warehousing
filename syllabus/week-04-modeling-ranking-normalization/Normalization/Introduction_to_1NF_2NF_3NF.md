@@ -1,18 +1,22 @@
 # Database Normalization
 
-	✅ Database normalization is a process of 
-	   organizing data within a relational database to 
+	✅ Database normalization is a process 
+	   of organizing data within a relational 
+	   database to 
 	   
-			1. reduce data redundancy and 
+			1. reduce data redundancy 
+			
+			and 
 		
 			2. improve data integrity. 
 	
-	✅  It involves breaking down large tables into smaller, 
-	more manageable tables while maintaining data 
-	relationships. 
+	✅  It involves breaking down large tables 
+	    into smaller, more manageable tables 
+	    while maintaining data relationships. 
 	
-	✅  This process helps minimize data anomalies, making 
-	it easier to manage and maintain the database. 
+	✅  This process helps minimize data anomalies, 
+	    making it easier to manage and maintain the 
+	    database. 
 
 ------
 
@@ -26,7 +30,8 @@
 
 A **primary key** (PK) is a column <br>
 (or set of columns) in a table that <br>
-**uniquely identifies each row** in that table.
+**uniquely identifies each row** in <br> 
+that table.
 
 **Characteristics:**
 
@@ -37,10 +42,10 @@ A **primary key** (PK) is a column <br>
 **Example:**
 
 ```sql
---
+-- --------------------------------------
 -- Here,  customer_id  is the primary key 
 -- that uniquely identifies each customer.
---
+-- --------------------------------------
 CREATE TABLE customers (
     customer_id INT PRIMARY KEY,
     first_name VARCHAR(50),
@@ -53,9 +58,10 @@ CREATE TABLE customers (
 
 ## Foreign Key (FK)
 
-A **foreign key** (FK) is a column (or set of columns) in 
-one table that references the primary key in another table, 
-establishing a relationship between the two tables.
+A **foreign key** (FK) is a column (or set of columns)  <br>
+in one table that references the primary key in another <br>
+table, establishing a relationship (link) between the   <br>
+two tables.
 
 **Characteristics:**
 
@@ -66,11 +72,20 @@ establishing a relationship between the two tables.
 **Example:**
 
 ```sql
+CREATE TABLE customers (
+    customer_id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    email VARCHAR(100)
+);
+
 CREATE TABLE orders (
     order_id INT PRIMARY KEY,
     order_date DATE,
     customer_id INT,
-    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+    
+    FOREIGN KEY (customer_id) 
+    REFERENCES customers(customer_id)
 );
 ```
 
@@ -90,7 +105,9 @@ CREATE TABLE Employees (
     emp_id INT PRIMARY KEY,
     emp_name VARCHAR(50) NOT NULL,
     dept_id INT,
-    FOREIGN KEY (dept_id) REFERENCES departments(dept_id)
+    
+    FOREIGN KEY (dept_id) 
+    REFERENCES departments(dept_id)
 );
 ```
 
@@ -99,7 +116,7 @@ In this example:
 - `dept_id ` is the primary key (PK) in `departments` table
 - `dept_id ` in `employees` table is a foreign key (FK) 
   referencing `departments` table
-- This establishes a relationship where each employee belongs to a department
+- This establishes a relationship/link where each employee belongs to a department
 
 ## Candidate Key (CK)
 A **candidate key** (CK) in a database is a set of one or 
@@ -164,16 +181,16 @@ In this example, `email` and `SSN` remain as alternate candidate keys.
 
 # Introduction
 
-		✅ Database  normalization  is  the  process 
+		📊 Database  normalization  is  the  process 
 		of  organizing  data  in a  database  by 
 		structuring it into tables and establishing 
 		relationships between them, with the goal of 
 		
-		  ✅ 	1. Minimizing data redundancy, 
+		  ✅ 1. Minimizing data redundancy, 
 		
-		  ✅   2. Preventing data inconsistencies, and 
+		  ✅ 2. Preventing data inconsistencies, and 
 		
-		  ✅   3. Improving data integrity by eliminating 
+		  ✅ 3. Improving data integrity by eliminating 
 		   unnecessary repetition across multiple tables
 
 -----
@@ -291,18 +308,19 @@ two atomic columns:  `First_Name` and `Last_Name`.
 ![](./images/normal_forms.png)
 
 
-	Normalization is the process of 
-	minimizing  redundancy  from a 
-	relation or set of relations. 
+	1️⃣ Normalization is the process of 
+	    minimizing  redundancy  from a 
+	    relation or set of relations. 
 	
-	Redundancy  in  relation  may  
-	cause insertion, deletion, and 
-	update anomalies.  So, it helps 
-	to minimize the redundancy 
-	in relations. 
+	2️⃣ Redundancy  in  relation  may  
+	    cause insertion, deletion, and 
+	    update anomalies.  So, it helps 
+	    to minimize the redundancy 
+	    in relations. 
 	
-	Normal forms are used to eliminate or 
-	reduce redundancy in database tables.
+	3️⃣ Normal forms are used to eliminate 
+	    or reduce redundancy in database 
+	    tables.
 
 ## 3.1 Anomalies
 
@@ -410,14 +428,15 @@ Normal Form (2NF)**.
 - If a non-prime attribute **C** depends only on
   **A** (i.e., **A → C**), this is a partial dependency.
 
-- If a non-prime attribute **C** depends only on 
-  **B** (i.e., **B → C**), this is a partial dependency.
+- If a non-prime attribute **D** depends only on 
+  **B** (i.e., **B → D**), this is a partial dependency.
 
 ---
 
 ### Examples of Dependencies:
 
 #### Example 1: Functional Dependency
+
 **Table: Employees**
 
 | Employee_ID | Employee_Name | Department_ID |
@@ -429,6 +448,7 @@ Normal Form (2NF)**.
   - The `Employee_ID` uniquely determines the `Employee_Name`.
 
 #### Example 2: Functional Dependency
+
 **Table: Orders**
 
 | Order_ID | Product_ID | Quantity |
@@ -436,10 +456,13 @@ Normal Form (2NF)**.
 | 1001     | P101       | 2        |
 | 1002     | P102       | 1        |
 
-- **Dependency:** `Order_ID, Product_ID → Quantity`
-  - The combination of `Order_ID` and `Product_ID` uniquely determines the `Quantity`.
+- **Dependency:** 
+	- `Order_ID, Product_ID → Quantity`
+	-  The combination of `Order_ID` and `Product_ID` uniquely determines the `Quantity`.
+
 
 #### Example 3: Functional Dependency
+
 **Table: Students**
 
 | Student_ID | Course_ID | Grade |
@@ -1691,16 +1714,23 @@ To convert the table into 3NF, we need to remove the transitive dependencies by 
    department location records with a foreign key 
    reference to the `departments` table.
 
-By normalizing the table and removing transitive 
-dependencies, we ensure that each piece of information 
-is stored only once, eliminating redundancy and 
-maintaining data integrity. This approach helps in 
-achieving Third Normal Form (3NF), ensuring that 
-non-key attributes are only dependent on the primary key.
+		By normalizing the table and removing 
+		transitive dependencies, we ensure that 
+		each piece of information is stored ONLY
+		ONCE, eliminating redundancy and maintaining 
+		data integrity. 
+		
+		This approach helps in achieving Third Normal 
+		Form (3NF), ensuring that non-key attributes 
+		are only dependent on the primary key.
+
 
 ### **Summary**
+
 To convert a table to **3NF**, we:
+
 1. **Identified transitive dependencies**.
+
 2. **Moved dependent attributes** to a separate table 
    where they directly depend on a primary key.
 
