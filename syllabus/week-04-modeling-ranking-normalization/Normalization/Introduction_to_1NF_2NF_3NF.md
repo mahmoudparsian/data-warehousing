@@ -240,6 +240,16 @@ The following table is a Non-Normalized Table:
 | 1          | John Doe   | Math, Science, History  |
 | 2          | Jane Smith | English, Art            |
 
+
+The following table is in 1NF:
+
+| Student_ID | first_Name | last_name | Course  |
+|------------|------------|-----------|---------|
+| 1          | John       |  Doe      | Math    |             | 1          | John       |  Doe      | Science |  
+| 1          | John       |  Doe      | History | 
+| 2          | Jane       |  Smith    | English |
+| 2          | Jane       |  Smith    | Art     | 
+
 Problem-1. **you can not ADD a new course without a student** 
 
 Problem-2. **you can not ADD a new student without a course** 
