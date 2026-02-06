@@ -1,6 +1,6 @@
 # Data Warehousing Project 
 
-* Last updated date: 1/25/2026, 5:00 PM PST 
+* Last updated date: 2/5/2026, 4:00 PM PST 
 
 		NOTE: This is a live document 
 		and will be updated on a daily basis.
@@ -16,7 +16,7 @@
 
 ## 1. Team 
 
-* Each team is comprised of 2/3 students
+* Each team is comprised of 2 students
 
 * Each student should act as a co-leader of a team
 
@@ -24,10 +24,10 @@
 
 | Activity                      | Must be completed by/before |
 |-------------------------------|-----------------------------| 
-| Team selection                | TBDL                        |
-| Data selection                | TBDL                        |
-| Exploratory Data Presentation | TBDL                        |
-| Final Project Presentation    | TBDL                        |
+| Team selection                | done                        |
+| Data selection                | done                        |
+| Exploratory Data Presentation | done                        |
+| Final Project Presentation    | Feb. 24, Feb. 26, 2026      |
 
 
 
@@ -37,11 +37,11 @@ This project covers 40% of your overall grade.
 
 * 10% points: Exploratory Data Presentation
 
-* 10% points: Documentation
+* 10% points: Project Documentation
 
-* 10% points: Implementation
+* 10% points: Project Implementation
 
-* 10% points: Final Presentation with Powerpoint and Tableau
+* 10% points: Final Project Presentation with Powerpoint and Tableau
 
 
 ### 3.1 Data Exploration: 
@@ -246,7 +246,7 @@ concepts like data preprocessing and model evaluation.
 
 ## 9. Project Document Structure
 
-1. Introduction
+1. **Introduction**
 	* Describe your project in 5 bullet items
 
 2. **Data:**
@@ -256,12 +256,28 @@ concepts like data preprocessing and model evaluation.
 	* What features of data are important
 	* Data exploration with charts and graphs
 
-3. ETL/ELT:  
+3. **ETL/ELT**:  
 	* Your Python/ETL/SQL scripts, what they do ...
 	* Description of your scripts, what they do ...
 	* ETL/ELT: how to load data to DW by year (2020, 2021, 2022, ...)
+	* Your ETL should have the following functions:
+	
+	~~~python
+	# 1. Extract
+	sources = extract(source-db-specifications)
+	
+	# 2. Transformation
+	transformed = transform(sources)
+	
+	# 3. Load
+	load(transformed, target-db-specifications)
+	
+	# 4. Reloading New Batch to Existing DW
+	
 
-4. Star schema
+  ~~~
+  
+4. **Star schema**
 
 	* How to build your star schema, logic and rationale 
 	* Star schema description: FACT table(s) and DIM tables
