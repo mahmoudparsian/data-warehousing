@@ -246,21 +246,24 @@ concepts like data preprocessing and model evaluation.
 
 ## 9. Project Document Structure
 
-1. **Introduction**
-	* Describe your project in 5 bullet items
+### 1. **Introduction**
 
-2. **Data:**
-	* Describe your data, make sense of the data
-	* Source of data, years, ...
-	* Data attributes
-	* What features of data are important
-	* Data exploration with charts and graphs
+* Describe your project in 5 bullet items
 
-3. **ETL/ELT**:  
-	* Your Python/ETL/SQL scripts, what they do ...
-	* Description of your scripts, what they do ...
-	* ETL/ELT: how to load data to DW by year (2020, 2021, 2022, ...)
-	* Your ETL should have the following functions:
+### 2. **Data:**
+
+* Describe your data, make sense of the data
+* Source of data, years, ...
+* Data attributes
+* What features of data are important
+* Data exploration with charts and graphs
+
+### 3. **ETL/ELT**:  
+
+* Your Python/ETL/SQL scripts, what they do ...
+* Description of your scripts, what they do ...
+* ETL/ELT: how to load data to DW by year (2020, 2021, 2022, ...)
+* Your ETL should have the following functions:
 	
 	~~~python
 	# 1. Extract
@@ -277,11 +280,11 @@ concepts like data preprocessing and model evaluation.
 
   ~~~
   
-4. **Star schema**
+### 4. **Star schema**
 
-	* How to build your star schema, logic and rationale 
-	* Star schema description: FACT table(s) and DIM tables
-	* BI queries and presentations: list of 5 queries in English and SQL
-	* Tableau presentation
-	* Your recommendations based on 5 OLAP queries
+* How to build your star schema, logic and rationale 
+* Star schema description: FACT table(s) and DIM tables
+* BI queries and presentations: list of 5 queries in English and SQL
+* Tableau presentation
+* Your final recommendations based on OLAP queries
 
