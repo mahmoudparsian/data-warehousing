@@ -1,7 +1,6 @@
 # Final Exam:
 
-
-#### &#x1F34E; Date:  February TBDL, 2026
+#### &#x1F34E; Date:  Tuesday, March 17, 2026 
 
 #### &#x1F34E; Time:  5:45 PM - 7:45 PM PST
 
