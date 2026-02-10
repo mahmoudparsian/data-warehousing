@@ -51,3 +51,5 @@
 [1. Slowly Changing Dimensions](https://www.geeksforgeeks.org/software-testing/slowly-changing-dimensions/)
 
 [2. VIDEO: SCD Slowly Changing Dimension An Ultimate Guide](https://www.youtube.com/watch?v=7tGPVoq7DK4)
+
+[3. VIDEO: SCD Type 2 in Microsoft Fabric and Power BI](https://www.youtube.com/watch?v=sIIrfrFzjLI)
