@@ -1,6 +1,6 @@
 # Data Warehousing Project 
 
-* Last updated date: 2/5/2026, 4:00 PM PST 
+* Last updated date: 2/10/2026, 1:00 PM PST 
 
 		NOTE: This is a live document 
 		and will be updated on a daily basis.
@@ -22,13 +22,13 @@
 
 ## 2. Deadlines
 
-| Activity                      | Must be completed by/before |
-|-------------------------------|-----------------------------| 
-| Team selection                | done                        |
-| Data selection                | done                        |
-| Exploratory Data Presentation | done                        |
-| Final Project Presentation    | Feb. 24, Feb. 26, 2026      |
-
+| Activity                      | Must be completed by/before      |
+|-------------------------------|----------------------------------| 
+| Team selection                | done                             |
+| Data selection                | done                             |
+| Exploratory Data Presentation | done                             |
+| Final Project Presentation    | March 3, 2026: Teams 1, 2, 3     |
+| Final Project Presentation    | March 5, 2026: Teams 4, 5        |
 
 
 ## 3. Points
@@ -45,47 +45,54 @@ This project covers 40% of your overall grade.
 
 
 ### 3.1 Data Exploration: 
-	Data exploration also known as Exploratory Data 
-	Analysis (EDA), is the crucial first step in data 
-	analysis where you use visualization and statistics 
-	to  understand a dataset's structure, patterns, 
-	outliers, and relationships before formal modeling, 
-	helping you uncover insights, identify issues, and 
-	guide further analysis. It's like being a detective 
-	for your  data, using  automated  tools and manual 
-	checks  to get a  feel  for what's  inside,  find 
-	anomalies, and determine the best path forward. 
+	1. Data exploration also known as Exploratory 
+	Data Analysis (EDA), is the crucial first step 
+	in data  analysis where you  use visualization 
+	and statistics to  understand a dataset's structure, 
+	patterns, outliers, and relationships before formal 
+	modeling, helping you uncover insights, identify 
+	issues, and guide further analysis. 
+	
+	2. It's like being a detective for your  data, 
+	using  automated  tools and manual checks  to 
+	get a  feel  for what's  inside,  find anomalies, 
+	and determine the best path forward. 
 
 ### 3.2 Data Documentation in Data Warehousing
-	Data documentation in data warehousing is the process 
-	of creating a comprehensive, organized record that 
-	describes the origin, structure, meaning, and intended 
-	use of data within a warehouse. It serves as a roadmap 
-	for users—such as data analysts, engineers, and business
-	stakeholders—to understand, trust, and properly analyze 
-	the information stored in the system. 
+	1. Data documentation in data warehousing is 
+	the process of creating a comprehensive, organized 
+	record that describes the origin, structure, meaning, 
+	and intended use of data within a warehouse. 
+	
+	2. It serves as a roadmap for users—such as data 
+	analysts, engineers, and business stakeholders—to 
+	understand,  trust,  and properly  analyze  the 
+	information stored in the system. 
 	
 ### 3.3 Data Implementation in Data Warehousing
-	Data implementation in data warehousing means designing, 
-	building, and deploying a centralized system to collect, 
-	clean, integrate, and store data from various sources for 
-	business analysis and reporting, using processes like ETL 
-	(Extract, Transform, Load) to create a single source of 
-	truth for historical data to support better decision-making. 
-	It's the practical process of making a data warehouse 
+	1. Data implementation in data warehousing means 
+	designing, building, and deploying a centralized 
+	system to collect, clean,  integrate,  and store 
+	data from various sources for business analysis 
+	and reporting, using processes like ETL (Extract, 
+	Transform, Load) to create a single source of truth 
+	for historical data to support better decision-making. 
+	
+	2. It's the practical process of making a data warehouse 
 	functional, from initial planning to user access. 
 
 ### 3.4 Data Presentation in Data Warehousing
-	Data presentation in data warehousing refers to the 
-	Presentation Layer,  the top  tier where  end-users 
-	access, analyze, and visualize integrated data from 
-	the warehouse using tools like dashboards (Tableau, 
-	Power BI), reports, and SQL queries, transforming 
-	raw data into actionable business insights. It's the 
-	interface  that  makes  complex,  historical  data 
-	understandable for decision-making, focusing on what 
-	happened and why, unlike operational systems focused 
-	on current tasks. 
+	1. Data presentation in data warehousing refers to 
+	the  Presentation  Layer,   the top   tier  where  
+	end-users access, analyze, and visualize integrated 
+	data from the warehouse using tools like dashboards 
+	(Tableau,  Power BI),  reports,  and  SQL  queries, 
+	transforming raw data into actionable business insights. 
+	
+	2. It's the interface  that  makes  complex,  historical  
+	data understandable for decision-making, focusing on 
+	what happened and why, unlike operational systems 
+	focused on current tasks. 
 
 
 ## 4. Data
@@ -277,7 +284,7 @@ concepts like data preprocessing and model evaluation.
 	
 	# 4. Reloading New Batch to Existing DW
 	
-
+	
   ~~~
   
 ### 4. **Star schema**
@@ -288,3 +295,4 @@ concepts like data preprocessing and model evaluation.
 * Tableau presentation
 * Your final recommendations based on OLAP queries
 
+### 5. OLAP Queries (7 business cases)
