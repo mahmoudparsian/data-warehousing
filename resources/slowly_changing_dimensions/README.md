@@ -50,4 +50,4 @@
 
 [1. Slowly Changing Dimensions](https://www.geeksforgeeks.org/software-testing/slowly-changing-dimensions/)
 
-[2. VIDEO: SCD Slowly Changing Dimension An Ultimate Guide](https://www.youtube.com/watch?v=7tGPVoq7DK4&t=61s)
+[2. VIDEO: SCD Slowly Changing Dimension An Ultimate Guide](https://www.youtube.com/watch?v=7tGPVoq7DK4)
