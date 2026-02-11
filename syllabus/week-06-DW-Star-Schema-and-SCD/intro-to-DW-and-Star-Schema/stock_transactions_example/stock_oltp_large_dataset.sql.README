@@ -1,0 +1,7 @@
+this is now a serious OLTP system size:
+	•	500 users
+	•	800 accounts
+	•	4 exchanges
+	•	100 symbols
+	•	100,000 orders
+	•	300,000 executions
