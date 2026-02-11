@@ -272,27 +272,44 @@ concepts like data preprocessing and model evaluation.
 * ETL/ELT: how to load data to DW by year (2020, 2021, 2022, ...)
 * Your ETL should have the following functions:
 	
-	~~~python
+#### 1. ETL step
+
+~~~python
 	# 1. Extract
 	sources = extract(source-db-specifications)
+~~~
+
+#### 2. Transformation step
 	
+~~~python
 	# 2. Transformation
 	transformed = transform(sources)
-	
+~~~
+
+#### 3. Load step
+
+~~~python	
 	# 3. Load
 	load(transformed, target-db-specifications)
-	
+~~~
+
+#### Reloading New Batch to Existing DW	
+~~~python	
 	# 4. Reloading New Batch to Existing DW
 	
-	
-  ~~~
+~~~
   
 ### 4. **Star schema**
 
-* How to build your star schema, logic and rationale 
-* Star schema description: FACT table(s) and DIM tables
-* BI queries and presentations: list of 5 queries in English and SQL
-* Tableau presentation
-* Your final recommendations based on OLAP queries
+1. How to build your star schema, logic and rationale 
+2. Star schema description: FACT table(s) and DIM tables
+3. BI queries and presentations: list of 7 queries in English and SQL
+4. Tableau presentation
+5. Your final recommendations based on OLAP queries
 
 ### 5. OLAP Queries (7 business cases)
+
+1. English Query
+2. SQL Query
+3. Results and Interpretation
+4. How does it help the Business to make better descisions
