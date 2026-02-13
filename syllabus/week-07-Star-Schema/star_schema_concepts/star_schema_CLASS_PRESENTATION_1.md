@@ -1,10 +1,14 @@
-# Star Schema & <br> Its Importance in Data Warehousing and OLAP
+# Star Schema & <br> Its Importance in DW and OLAP
+
+-----
 
 ## Slide 1: Title Slide
 - **Title:** Star Schema and Its Importance in Data Warehousing and OLAP
 - **Subtitle:** Understanding the Backbone of Efficient Data Warehousing
 - **Presented by:** Mahmoud Parsian
-- **Date:** 2025-02-20
+- **Date:** 2026-02-12
+
+-----
 
 ## Slide 2: Agenda
 1. Introduction to Data Warehousing
@@ -20,11 +24,17 @@
 11. Conclusion
 12. Questions
 
+----
 
 ## Slide 3: Introduction to Data Warehousing
 - **Definition:** A data warehouse is a centralized repository for storing large volumes of structured and unstructured data.
 - **Purpose:** Facilitates reporting, analysis, and decision-making.
-- **Components:** ETL processes, data storage, and front-end tools for querying and analysis.
+- **Components:** 
+	* ETL processes, 
+	* data storage, and 
+	* front-end tools for querying and analysis (Tableau, ...)
+
+----
 
 ## Slide 4: What is a Star Schema?
 - **Definition:** A star schema is a type of database schema that is optimized for data warehousing and OLAP.
@@ -32,6 +42,8 @@
 - **Shape:** Resembles a star, hence the name.
 
 ![](./examples_of_star_schema/star_schema_example_0.png)
+
+-----
 
 ## Slide 5: Components of a Star Schema
 - **Fact Table:**
@@ -41,7 +53,9 @@
   - Contain descriptive attributes (dimensions).
   - Example columns: customer_name, product_category, date.
 
-![](./examples_of_star_schema/star_schema_example_1.png)
+![](../star_schema_examples/star_schema_example_1.png)
+
+-----
 
 ## Slide 6: Designing a Star Schema
 - **Identify Business Processes:** Determine key processes to analyze.
@@ -49,8 +63,9 @@
 - **Define Dimension Tables:** Identify attributes to describe the measures.
 - **Establish Relationships:** Connect dimensions to the fact table via foreign keys.
 
-![](./examples_of_star_schema/star_schema_example_3.png)
+![](../star_schema_examples/star_schema_example_3.png)
 
+-----
 
 
 ## Slide 7: Example Star Schema
@@ -62,14 +77,18 @@
   - `stores`: store_id, store_name, store_location.
   - `dates`: date_id, date, month, quarter, year.
 
-![](./examples_of_star_schema/star_schema_example_4.png)
+![](../star_schema_examples/star_schema_example_4.png)
 
+-----
 
 ## Slide 8: Advantages of Star Schema
 - **Simplicity:** Easy to understand and implement.
 - **Performance:** Optimized for read-heavy operations and complex queries.
 - **Scalability:** Can handle large volumes of data.
 - **Flexibility:** Supports various types of analysis and reporting.
+
+-----
+
 
 ## Slide 9: Disdvantages of Star Schema
 
@@ -99,6 +118,8 @@ Here are some disadvantages of using a Star Schema in data warehousing:
 
 These disadvantages should be weighed against the advantages when deciding whether to use a star schema for a particular data warehousing project.
 
+------
+
 ## Slide 10: Comparison with Other Schemas
 - **Star Schema vs. Snowflake Schema:**
   - Star: Denormalized, simpler, faster queries.
@@ -107,10 +128,14 @@ These disadvantages should be weighed against the advantages when deciding wheth
   - Star: Single fact table.
   - Galaxy: Multiple fact tables.
 
+-----
+
 ## Slide 11: Star Schema in OLAP
 - **OLAP:** Online Analytical Processing enables complex queries and analysis.
 - **Role of Star Schema:** Facilitates efficient OLAP operations.
 - **Benefits:** Fast query performance, intuitive data modeling, and ease of use.
+
+------
 
 ## Slide 12: Real-World Use Cases
 - **Retail:** Sales analysis, customer behavior analysis.
@@ -118,21 +143,29 @@ These disadvantages should be weighed against the advantages when deciding wheth
 - **Healthcare:** Patient data analysis, treatment effectiveness.
 - **Telecommunications:** Call data analysis, customer churn analysis.
 
+------
+
 ## Slide 13: Best Practices
 - **Data Quality:** Ensure accuracy and consistency of data.
 - **Indexing:** Use appropriate indexes to enhance query performance.
 - **ETL Processes:** Implement efficient ETL processes for data loading.
 - **Documentation:** Maintain thorough documentation for schema design.
 
+-----
+
 ## Slide 14: Challenges and Solutions
 - **Data Volume:** Handle large data volumes with partitioning and indexing.
 - **Data Latency:** Optimize ETL processes to reduce data latency.
 - **Query Performance:** Use materialized views and caching for faster queries.
 
+-----
+
 ## Slide 15: Conclusion
 - **Summary:** Star schema is a fundamental design in data warehousing and OLAP.
 - **Importance:** Enhances performance, simplifies data modeling, and supports complex analysis.
 - **Future:** Continues to be relevant with advancements in big data and analytics.
+
+-----
 
 ## Slide 16: Q&A
 - **Questions:** Open the floor for questions and discussions.
