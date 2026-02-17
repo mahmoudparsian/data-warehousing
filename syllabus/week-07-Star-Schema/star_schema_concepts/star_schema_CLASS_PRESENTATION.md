@@ -6,7 +6,7 @@
 - **Title:** Star Schema and Its Importance in Data Warehousing and OLAP
 - **Subtitle:** Understanding the Backbone of Efficient Data Warehousing
 - **Presented by:** Mahmoud Parsian
-- **Date:** 2026-02-12
+- **Date:** 2026-02-17
 
 -----
 
@@ -27,18 +27,73 @@
 ----
 
 ## Slide 3: Introduction to Data Warehousing
-- **Definition:** A data warehouse is a centralized repository for storing large volumes of structured and unstructured data.
-- **Purpose:** Facilitates reporting, analysis, and decision-making.
+
+- **Definition:** A data warehouse is a centralized 
+  repository for storing large volumes of structured 
+  and unstructured data.
+  
+- **Purpose:** Facilitates reporting, analysis, and 
+  decision-making.
+  
 - **Components:** 
 	* ETL processes, 
-	* data storage, and 
-	* front-end tools for querying and analysis (Tableau, ...)
+	* Data storage (example: Snowflake, MySQL databases), and 
+	* Front-end tools for querying and analysis (Tableau, ...)
 
+----
+## Slide 3.1 What is a Data Warehouse
+
+			A data warehouse is a centralized 
+			repository that enables efficient, 
+			complex analysis of historical data, 
+			defined by four core characteristics:
+	   
+		1. Subject-Oriented (focused on specific 
+	  	   business topics like sales), 
+	
+		2. Integrated (unified data from various sources), 
+	
+		3. Time-Variant (tracks changes over time), and 
+	
+		4. Non-Volatile (data is stable and read-only). 
+	   
+**Subject-Oriented**:
+
+		Instead of focusing on day-to-day operations 
+		(like a transaction system), a data warehouse 
+		is designed to analyze data around specific 
+		subjects such as customers, products, or sales.
+	
+**Integrated:** 
+
+		Data is gathered from multiple disparate sources
+		like SQL databases, CRM, or spreadsheets—and 
+		standardized to ensure consistency in naming,
+		measurement, and encoding.
+
+**Time-Variant:**
+
+	 	Data is stored as a series of snapshots, allowing 
+	 	for the analysis of trends, history, and historical 
+	 	changes over a long period, rather than just the 
+	 	current state.
+
+**Non-Volatile:**
+
+		Once data enters the warehouse, it does not change, 
+		get updated, or get deleted. This ensures that the 
+		data is stable and reliable for querying and auditing. 
+	
 ----
 
 ## Slide 4: What is a Star Schema?
-- **Definition:** A star schema is a type of database schema that is optimized for data warehousing and OLAP.
-- **Structure:** Consists of a central fact table surrounded by dimension tables.
+
+- **Definition:** A star schema is a type of database schema 
+  that is optimized for data warehousing and OLAP.
+  
+- **Structure:** Consists of a central **fact table** surrounded 
+  by **dimension tables**.
+  
 - **Shape:** Resembles a star, hence the name.
 
 ![](./examples_of_star_schema/star_schema_example_0.png)
@@ -46,22 +101,37 @@
 -----
 
 ## Slide 5: Components of a Star Schema
+
 - **Fact Table:**
   - Contains quantitative data (measures).
-  - Example columns: sales_amount, transaction_count.
+  - Example columns: 
+  		- 	`sales_amount`, 
+  		-  `transaction_count`.
+  
 - **Dimension Tables:**
   - Contain descriptive attributes (dimensions).
-  - Example columns: customer_name, product_category, date.
+  - Example columns: 
+  		- `customer_name`, 
+  		- `product_category`, 
+  		- `date`.
 
 ![](../star_schema_examples/star_schema_example_1.png)
 
 -----
 
 ## Slide 6: Designing a Star Schema
-- **Identify Business Processes:** Determine key processes to analyze.
-- **Define Fact Tables:** Identify measures to track.
-- **Define Dimension Tables:** Identify attributes to describe the measures.
-- **Establish Relationships:** Connect dimensions to the fact table via foreign keys.
+
+- **Identify Business Processes:** 
+  Determine key processes to analyze.
+  
+- **Define Fact Tables:** 
+  Identify measures to track.
+  
+- **Define Dimension Tables:** 
+  Identify attributes to describe the measures.
+  
+- **Establish Relationships:** 
+  Connect dimensions to the fact table via foreign keys.
 
 ![](../star_schema_examples/star_schema_example_3.png)
 
@@ -70,21 +140,26 @@
 
 ## Slide 7: Example Star Schema
 - **Fact Table:** `sales`
-  - Columns: sale_id, customer_id, product_id, store_id, date_id, sales_amount.
+  - Columns: `sale_id`, `customer_id`, `product_id`, `store_id`, `date_id`, `sales_amount`.
+  
 - **Dimension Tables:**
-  - `customers`: customer_id, customer_name, customer_address.
-  - `products`: product_id, product_name, product_category.
-  - `stores`: store_id, store_name, store_location.
-  - `dates`: date_id, date, month, quarter, year.
+  - `customers`: `customer_id`, `customer_name`, `customer_address`.
+  - `products`: `product_id`, `product_name`, product_category.
+  - `stores`: `store_id`, `store_name`, `store_location`.
+  - `dates`: `date_id`, `date`, `month`, `quarter`, `year`.
 
 ![](../star_schema_examples/star_schema_example_4.png)
 
 -----
 
 ## Slide 8: Advantages of Star Schema
+
 - **Simplicity:** Easy to understand and implement.
+
 - **Performance:** Optimized for read-heavy operations and complex queries.
+
 - **Scalability:** Can handle large volumes of data.
+
 - **Flexibility:** Supports various types of analysis and reporting.
 
 -----
@@ -121,9 +196,11 @@ These disadvantages should be weighed against the advantages when deciding wheth
 ------
 
 ## Slide 10: Comparison with Other Schemas
+
 - **Star Schema vs. Snowflake Schema:**
   - Star: Denormalized, simpler, faster queries.
   - Snowflake: Normalized, more complex, slower queries.
+  
 - **Star Schema vs. Galaxy Schema:**
   - Star: Single fact table.
   - Galaxy: Multiple fact tables.
