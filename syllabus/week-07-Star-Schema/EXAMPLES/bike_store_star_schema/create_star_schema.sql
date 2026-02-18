@@ -237,11 +237,12 @@ VALUES
 -- -----------
 -- verify data
 -- -----------
-SELECT * FROM stores;
-SELECT * FROM products;
-SELECT * FROM customers;
-SELECT * FROM dates;
-SELECT * FROM sales;
+
+SELECT count(*) FROM stores;
+SELECT count(*) FROM products;
+SELECT count(*) FROM customers;
+SELECT count(*) FROM dates;
+SELECT count(*) FROM sales;
 
 
 Below is a fully working MySQL 8+ scalable data generation script that:
