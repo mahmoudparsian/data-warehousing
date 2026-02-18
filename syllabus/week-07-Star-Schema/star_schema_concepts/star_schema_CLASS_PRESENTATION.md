@@ -205,6 +205,13 @@ These disadvantages should be weighed against the advantages when deciding wheth
   - Star: Single fact table.
   - Galaxy: Multiple fact tables.
 
+#### Star Schema Example:
+![](./images/STAR-SCHEMA-EXAMPLE.jpg)
+
+#### Snowflake Schema Example:
+![](./images/SNOWFLAKE-SCHEMA-EXAMPLE.jpg)
+
+
 -----
 
 ## Slide 11: Star Schema in OLAP
