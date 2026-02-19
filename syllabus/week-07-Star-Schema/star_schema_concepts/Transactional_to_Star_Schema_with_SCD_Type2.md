@@ -241,6 +241,26 @@ VALUES (
 );
 ```
 
+## After SCD Type 2 Process Update:
+
+#### Before:
+
+| customer_key | customer_id | state | effective_date | expiry_date | is_current |
+|--------------|------------|-------|----------------|------------|------------|
+| 1            | 1          | CA    | 2024-01-01     | 9999-12-31 | Y          |
+
+
+#### After:
+
+
+| customer_key | customer_id | state | effective_date | expiry_date | is_current |
+|--------------|-------------|-------|----------------|-------------|------------|
+| 1            | 1           | CA    | 2024-01-01     | 2025-03-01  | N          |
+| 2            | 1           | TX    | 2025-03-01     | 9999-12-31  | Y          |
+
+
+
+
 ------------------------------------------------------------------------
 
 # 8️⃣ ETL Logic with SCD Type 2
