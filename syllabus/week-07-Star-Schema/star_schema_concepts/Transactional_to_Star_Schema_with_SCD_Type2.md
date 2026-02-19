@@ -287,7 +287,105 @@ GROUP BY d.year, dc.state
 ORDER BY d.year, total_sales DESC;
 ```
 
-------------------------------------------------------------------------
+# Slowly Changing Dimensions (SCD)
+
+	Slowly Changing Dimensions (SCD) are
+	data warehousing techniques used to 
+	manage changes in dimension attributes 
+	over time. 
+	
+	Key methods include Type 0 (Fixed), 
+	Type 1 (Overwrite), and Type 2 (Full History). 
+	Others like Type 3-7 are hybrids used for 
+	specialized tracking needs, such as combining 
+	current/historical views. 
+
+## SCD Types Explained
+
+### Type 0: Fixed Dimension
+
+        Description: The value never changes, 
+        even if the source changes. Ideal for 
+        "original" attributes.
+        
+        Example: 
+        				Original_BirthDate,
+        				Original_Customer_Acquisition_Date
+        				
+### Type 1: Overwrite
+        
+        Description: Replaces old data with new data. 
+        No history is kept.
+        
+        Example: Correcting a misspelled customer name
+        (e.g., "Jhon" to "John").
+        
+### Type 2: Add New Row
+
+        Description: Creates a new row for every change,
+        using `Start_Date` and `End_Date` to track validity.
+        
+        Example: 
+        	A customer moves from New York to California; 
+        	a new row is added, keeping the old record for
+        	past sales.
+        	
+### Type 3: Add New Column
+        
+        Description: Tracks changes by adding a 
+        "previous" column, keeping only limited 
+        history.
+        
+        Example: `Current_Region` and `Previous_Region` 
+        in the same row.
+        
+### Type 4: History Table
+
+        Description: Maintains a separate table to 
+        store all historical changes, while the main 
+        table holds the current value.
+        
+        Example: 
+        		`Employee_Data` (current) and 
+        		`Employee_History` (full audit trail).
+
+### Type 5: Hybrid (4 + 1)
+        Description: Uses Type 4 (separate table) 
+        but adds a column in the main table to link 
+        to the history, often using a surrogate key 
+        to enable Type 1 updates.
+
+### Type 6: Hybrid (2 + 1 + 3)
+
+        Description: Combines Types 2, 3, and 1. 
+        It provides a full history (Type 2) while 
+        allowing current values to be reflected 
+        on historical rows (Type 1) using a 
+        `Current_Value` column.
+
+### Type 7: Dual Surrogate/Natural Key
+
+        Description: Similar to Type 2, but the 
+        fact table uses both the natural key (for 
+        easy querying of current data) and the 
+        surrogate key (for historical tracking). 
+
+## Real-World Application Example
+
+Imagine a company tracking employee roles:
+
+    Type 1: Update "Analyst" to "Senior Analyst." 
+    Past reports now show "Senior Analyst" for last year.
+    
+    Type 2: Keep "Analyst" row (active 2023-2024) and 
+    add new "Senior Analyst" row (active 2025). 
+    Last year's sales are correctly tied to "Analyst."
+    
+    Type 3: Add `Previous_Role` column. 
+    When role changes, Role becomes "Senior Analyst,"
+    `Previous_Role` becomes "Analyst." 
+
+------
 
 # 1️⃣1️⃣ Design Checklist
 
