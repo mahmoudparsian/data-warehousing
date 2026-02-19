@@ -255,8 +255,11 @@ Avoid gaps in ranking when ties occur.
 -   Always compute aggregation before applying window functions.
 
 ------------------------------------------------------------------------
+![](./images/cube-example.webp)
 
 ![](./images/OLAP-operations.png)
+
+
 
 
 # 3️⃣ ROLLUP
