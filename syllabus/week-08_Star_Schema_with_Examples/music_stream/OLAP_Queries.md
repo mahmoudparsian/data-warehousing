@@ -482,7 +482,8 @@ WITH ranked_users AS
 (
   SELECT p.user_id, 
          COUNT(DISTINCT CONCAT(d.year, '-', d.month)) AS active_months,
-         RANK() OVER (ORDER BY COUNT(DISTINCT CONCAT(d.year, '-', d.month)) DESC) AS rnk
+         RANK() OVER (ORDER BY COUNT(DISTINCT CONCAT(d.year, '-', d.month)) DESC) 
+           AS rnk
   FROM plays p
   JOIN dates d ON p.date_id = d.date_id
   GROUP BY p.user_id
@@ -504,7 +505,8 @@ WITH ranked_genres AS
          d.quarter, 
          s.genre, 
          COUNT(*) AS play_count,
-         DENSE_RANK() OVER (PARTITION BY d.year, d.quarter ORDER BY COUNT(*) DESC) AS rnk
+         DENSE_RANK() OVER (PARTITION BY d.year, d.quarter 
+                            ORDER BY COUNT(*) DESC) AS rnk
   FROM plays p
   JOIN dates d ON p.date_id = d.date_id
   JOIN songs s ON p.song_id = s.song_id
@@ -563,7 +565,8 @@ WITH quarterly_data AS
           quarter, 
           title, 
           play_count, 
-	        RANK() OVER(PARTITION BY year, quarter ORDER BY play_count DESC) AS rnk
+	        RANK() OVER(PARTITION BY year, quarter 
+	                    ORDER BY play_count DESC) AS rnk
    FROM 
      quarterly_data
 )
@@ -731,21 +734,25 @@ WHERE
 
 ~~~sql
 SELECT u.user_name, 
-       COUNT(p.play_id) AS plays_countFROM  users uINNER JOIN 
-      plays p ON u.user_id = p.user_idGROUP BY 
-   u.user_name;
+       COUNT(p.play_id) AS plays_count
+FROM  users u
+INNER JOIN plays p ON u.user_id = p.user_id
+GROUP BY  u.user_name;
 ~~~
 
 #### 34. Q2: What are the titles and genres of the songs played by Alex?
 
 ~~~sql
 SELECT s.title, 
-       s.genreFROM 
-     users uINNER JOIN 
-     plays p ON u.user_id = p.user_idINNER JOIN 
-     songs s ON p.song_id = s.song_idWHERE 
-     u.user_name = 'Alex';
-
+       s.genre
+FROM 
+     users u
+INNER JOIN 
+     plays p ON u.user_id = p.user_id
+INNER JOIN 
+     songs s ON p.song_id = s.song_id
+WHERE 
+     u.user_name = 'Alex
 ~~~
 
 **better answer:**
@@ -753,10 +760,14 @@ SELECT s.title,
 ~~~sql
 SELECT DISTINCT
        s.title, 
-       s.genreFROM 
-     users uINNER JOIN 
-     plays p ON u.user_id = p.user_idINNER JOIN 
-     songs s ON p.song_id = s.song_idWHERE 
+       s.genre
+FROM 
+     users u
+INNER JOIN 
+     plays p ON u.user_id = p.user_id
+INNER JOIN 
+     songs s ON p.song_id = s.song_id
+WHERE 
      u.user_name = 'Alex';
 
 ~~~
@@ -764,10 +775,14 @@ SELECT DISTINCT
 #### 35. Q3: Which users have played songs by Ed Sheeran?
 
 ~~~sql
-SELECT u.user_nameFROM 
-     users uINNER JOIN 
-     plays p ON u.user_id = p.user_idINNER JOIN 
-     songs s ON p.song_id = s.song_idWHERE 
+SELECT u.user_name
+FROM 
+     users u
+INNER JOIN 
+     plays p ON u.user_id = p.user_id
+INNER JOIN 
+     songs s ON p.song_id = s.song_id
+WHERE 
      s.artist = 'Ed Sheeran';
 ~~~
 
@@ -775,12 +790,15 @@ SELECT u.user_nameFROM
 
 ~~~sql
 SELECT DISTINCT
-       u.user_nameFROM 
-     users uINNER JOIN 
-     plays p ON u.user_id = p.user_idINNER JOIN 
-     songs s ON p.song_id = s.song_idWHERE 
+       u.user_name
+FROM 
+     users u
+INNER JOIN 
+     plays p ON u.user_id = p.user_id
+INNER JOIN 
+     songs s ON p.song_id = s.song_id
+WHERE 
      s.artist = 'Ed Sheeran';
-
 ~~~
 
 
@@ -788,9 +806,12 @@ SELECT DISTINCT
 
 ~~~sql
 SELECT s.title, 
-       s.artistFROM 
-     songs sLEFT JOIN 
-     plays p ON s.song_id = p.song_idWHERE 
+       s.artist
+FROM 
+     songs s
+LEFT JOIN 
+     plays p ON s.song_id = p.song_id
+WHERE 
      p.play_id IS NULL;
 ~~~
 
@@ -799,11 +820,14 @@ SELECT s.title,
 
 ~~~sql
 SELECT u.user_name, 
-       u.emailFROM 
-     users uINNER JOIN  
+       u.email
+FROM 
+     users u
+INNER JOIN  
      plays p ON u.user_id = p.user_id
 INNER JOIN 
-     devices d ON d.device_id = p.device_idWHERE 
+     devices d ON d.device_id = p.device_id
+WHERE 
      u.plan = 'premium'   AND 
      d.device = 'mobile';
 ~~~
@@ -813,11 +837,14 @@ INNER JOIN
 ~~~sql
 SELECT DISTINCT 
        u.user_name, 
-       u.emailFROM 
-     users uINNER JOIN  
+       u.email
+FROM 
+     users u
+INNER JOIN  
      plays p ON u.user_id = p.user_id
 INNER JOIN 
-     devices d ON d.device_id = p.device_idWHERE 
+     devices d ON d.device_id = p.device_id
+WHERE 
      u.plan = 'premium'   AND 
      d.device = 'mobile';
 ~~~
@@ -825,7 +852,19 @@ INNER JOIN
 #### 38. Q6: Which songs have been played by both `Alex` and `Jane`?
 
 ~~~sql
-SELECT s.title, s.artistFROM users uINNER JOIN plays p ON u.user_id = p.user_idINNER JOIN songs s ON p.song_id = s.song_idWHERE u.user_name = 'alex'INTERSECTSELECT s.title, s.artistFROM users uINNER JOIN plays p ON u.user_id = p.user_idINNER JOIN songs s ON p.song_id = s.song_idWHERE u.user_name = 'jane';
+SELECT s.title, s.artist
+FROM users u
+INNER JOIN plays p ON u.user_id = p.user_id
+INNER JOIN songs s ON p.song_id = s.song_id
+WHERE u.user_name = 'alex'
+
+INTERSECT
+
+SELECT s.title, s.artist
+FROM users u
+INNER JOIN plays p ON u.user_id = p.user_id
+INNER JOIN songs s ON p.song_id = s.song_id
+WHERE u.user_name = 'jane';
 
 +-------+--------------+
 | title | artist       |
@@ -840,9 +879,14 @@ SELECT s.title, s.artistFROM users uINNER JOIN plays p ON u.user_id = p.user_i
 
 ~~~sql
 SELECT u.user_name, 
-       u.countryFROM users uINNER JOIN plays p ON u.user_id = p.user_idINNER JOIN songs s ON p.song_id = s.song_idGROUP BY 
+       u.country
+FROM users u
+INNER JOIN plays p ON u.user_id = p.user_id
+INNER JOIN songs s ON p.song_id = s.song_id
+GROUP BY 
      u.user_name, 
-     u.countryHAVING COUNT(DISTINCT s.genre) > 1;
+     u.country
+HAVING COUNT(DISTINCT s.genre) > 1;
 
 +-----------+---------+
 | user_name | country |
@@ -859,14 +903,21 @@ SELECT u.user_name,
 | ted       | CANADA  |
 | vera      | BRAZIL  |
 +-----------+---------+
-11 rows in set (0.00 sec)~~~
+11 rows in set (0.00 sec)
+~~~
 
-##  Questions for YouNow that you’ve gotten the hang of SQL joins, 
+##  Questions for You
+
+Now that you’ve gotten the hang of SQL joins, 
 it’s your turn to put those skills to the test.
-There are 3 questions for you to tackle using 
-the tables and data from our case study. Here’s 
-your chance to show off what you’ve learned!### Q8: Can you figure out how many songs from each genre have been enjoyed by users?
-	Here’s a hint to get you started: Dive into the 
+There are 3 questions for you to tackle using 
+the tables and data from our case study. 
+
+Here’s your chance to show off what you’ve learned!
+
+### Q8: Can you figure out how many songs from each genre have been enjoyed by users?
+
+	Here’s a hint to get you started: Dive into the 
 	‘songs’ and ‘plays’ tables and link them using 
 	the ‘song_id’. Then, group the results by genre 
 	with the GROUP BY clause and count them up with 
@@ -875,8 +926,10 @@ your chance to show off what you’ve learned!### Q8: Can you figure out how 
 	exploring. 
 	
 	There should not be duplicates in results
-	### Q9: Who’s been listening to tunes that stretch beyond 200 seconds?
-	Here’s how you can find out: Bring together the 
+	
+### Q9: Who’s been listening to tunes that stretch beyond 200 seconds?
+
+	Here’s how you can find out: Bring together the 
 	‘users’, ‘plays’, and ‘songs’ tables by joining 
 	them on ‘user_id’ and ‘song_id’. Use the WHERE 
 	clause to sift through the tracks based on their    
