@@ -1,0 +1,12 @@
+store_key,store_id,store_name,city,state,country
+1,S001,Store_SanJose,San Jose,CA,USA
+2,S002,Store_SF,San Francisco,CA,USA
+3,S003,Store_Seattle,Seattle,WA,USA
+4,S004,Store_Austin,Austin,TX,USA
+5,S005,Store_NewYork,New York,NY,USA
+6,S006,Store_Miami,Miami,FL,USA
+7,S007,Store_Chicago,Chicago,IL,USA
+8,S008,Store_Boston,Boston,MA,USA
+9,S009,Store_Denver,Denver,CO,USA
+10,S010,Store_Toronto,Toronto,,CANADA
+11,ONLINE,Online,,,
