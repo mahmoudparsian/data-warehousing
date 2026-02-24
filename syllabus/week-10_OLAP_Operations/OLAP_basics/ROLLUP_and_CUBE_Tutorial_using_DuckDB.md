@@ -1,12 +1,13 @@
-
 # 📊 Teaching CUBE and ROLLUP in DuckDB
 ## Complete OLAP Teaching Module
 
-	DuckDB can be used with Cube in two main ways: 
-	by leveraging DuckDB's built-in CUBE and ROLLUP 
-	SQL clauses for multi-dimensional aggregation, 
-	or by integrating DuckDB as the primary data source 
-	within the Cube semantic layer framework. 
+	DuckDB can be used with Cube in two 
+	main ways: by leveraging DuckDB's 
+	built-in CUBE and ROLLUP SQL clauses 
+	for multi-dimensional aggregation, 
+	or by integrating DuckDB as the primary 
+	data source within the Cube semantic 
+	layer framework. 
 
 ---
 

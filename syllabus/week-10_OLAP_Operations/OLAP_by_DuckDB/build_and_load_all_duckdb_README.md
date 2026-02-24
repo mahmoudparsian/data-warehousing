@@ -1,6 +1,6 @@
-Here is your single one-shot SQL script:
+Here is a single one-shot SQL script:
 
-👉 Download build_and_load_all_duckdb.sql￼
+👉    build_and_load_all_duckdb.sql￼
 
 ⸻
 

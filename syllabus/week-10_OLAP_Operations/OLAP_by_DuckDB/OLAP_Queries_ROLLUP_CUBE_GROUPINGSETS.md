@@ -1,8 +1,14 @@
 # 📊 Online Sales Star Schema — Meaningful OLAP Queries (DuckDB)
 **Format:** English question + SQL (DuckDB)  
-**Schema:** `sales` (fact), `dates`, `customers`, `products`, `stores` (dimensions)  
+
+**Schema:** 
+
+	* FACT table: `sales`, 
+	* DIMs : `dates`, `customers`, `products`, `stores` 
 **Measures:** `quantity`, `unit_price`, `total_amount`  
-**Channel hint:** Online rows have `stores.store_id = 'ONLINE'` (and store_name = 'Online')
+
+**Channel hint:** 
+Online rows have `stores.store_id = 'ONLINE'` (and store_name = 'Online')
 
 ---
 
@@ -23,7 +29,8 @@
 
 ### 1.1 Total revenue by year (simple time aggregation)
 ```sql
-SELECT d.year, SUM(s.total_amount) AS revenue
+SELECT d.year, 
+       SUM(s.total_amount) AS revenue
 FROM sales s
 JOIN dates d ON s.date_key = d.date_key
 GROUP BY d.year
@@ -32,7 +39,8 @@ ORDER BY d.year;
 
 ### 1.2 Total revenue by product category
 ```sql
-SELECT p.category, SUM(s.total_amount) AS revenue
+SELECT p.category, 
+       SUM(s.total_amount) AS revenue
 FROM sales s
 JOIN products p ON s.product_key = p.product_key
 GROUP BY p.category
@@ -41,7 +49,8 @@ ORDER BY revenue DESC;
 
 ### 1.3 Revenue by store (includes Online as a “store”)
 ```sql
-SELECT st.store_name, SUM(s.total_amount) AS revenue
+SELECT st.store_name, 
+       SUM(s.total_amount) AS revenue
 FROM sales s
 JOIN stores st ON s.store_key = st.store_key
 GROUP BY st.store_name
@@ -50,7 +59,8 @@ ORDER BY revenue DESC;
 
 ### 1.4 Average order line value (average total_amount per line item) by year
 ```sql
-SELECT d.year, AVG(s.total_amount) AS avg_line_value
+SELECT d.year, 
+       AVG(s.total_amount) AS avg_line_value
 FROM sales s
 JOIN dates d ON s.date_key = d.date_key
 GROUP BY d.year
@@ -59,11 +69,13 @@ ORDER BY d.year;
 
 ### 1.5 Top categories in January 2024 (basic filter + group)
 ```sql
-SELECT p.category, SUM(s.total_amount) AS total_sales_amount
+SELECT p.category, 
+       SUM(s.total_amount) AS total_sales_amount
 FROM sales s
 JOIN dates d    ON s.date_key = d.date_key
 JOIN products p ON s.product_key = p.product_key
-WHERE d.year = 2024 AND d.month_of_year = 1
+WHERE d.year = 2024 AND 
+      d.month_of_year = 1
 GROUP BY p.category
 ORDER BY total_sales_amount DESC;
 ```
@@ -77,7 +89,8 @@ ORDER BY total_sales_amount DESC;
 ### 2.1 Top-5 products by revenue in 2024
 ```sql
 WITH product_rev AS (
-  SELECT p.product_id, p.product_name, SUM(s.total_amount) AS revenue
+  SELECT p.product_id, p.product_name, 
+         SUM(s.total_amount) AS revenue
   FROM sales s
   JOIN dates d    ON s.date_key = d.date_key
   JOIN products p ON s.product_key = p.product_key
@@ -98,7 +111,8 @@ ORDER BY revenue DESC;
 ### 2.2 Top-5 customers by total spend (lifetime)
 ```sql
 WITH cust_spend AS (
-  SELECT c.customer_id, c.customer_name, SUM(s.total_amount) AS spend
+  SELECT c.customer_id, c.customer_name, 
+         SUM(s.total_amount) AS spend
   FROM sales s
   JOIN customers c ON s.customer_key = c.customer_key
   GROUP BY c.customer_id, c.customer_name
@@ -117,7 +131,8 @@ ORDER BY spend DESC;
 ### 2.3 Top-5 categories per year (Top-5 **within each year**)
 ```sql
 WITH cat_year AS (
-  SELECT d.year, p.category, SUM(s.total_amount) AS revenue
+  SELECT d.year, p.category, 
+         SUM(s.total_amount) AS revenue
   FROM sales s
   JOIN dates d    ON s.date_key = d.date_key
   JOIN products p ON s.product_key = p.product_key
@@ -136,8 +151,9 @@ ORDER BY year, revenue DESC;
 
 ### 2.4 Top-5 stores by revenue in each quarter of 2024
 ```sql
-WITH store_q AS (
-  SELECT d.quarter, st.store_name, SUM(s.total_amount) AS revenue
+WITH store_quarter AS (
+  SELECT d.quarter, st.store_name, 
+         SUM(s.total_amount) AS revenue
   FROM sales s
   JOIN dates d   ON s.date_key = d.date_key
   JOIN stores st ON s.store_key = st.store_key
@@ -146,8 +162,10 @@ WITH store_q AS (
 ),
 ranked AS (
   SELECT *,
-         ROW_NUMBER() OVER (PARTITION BY quarter ORDER BY revenue DESC) AS rn
-  FROM store_q
+         ROW_NUMBER() OVER 
+            (PARTITION BY quarter 
+             ORDER BY revenue DESC) AS rn
+  FROM store_quarter
 )
 SELECT quarter, store_name, revenue
 FROM ranked
@@ -157,16 +175,19 @@ ORDER BY quarter, revenue DESC;
 
 ### 2.5 Top-5 customers per segment (Retail/Wholesale) by spend
 ```sql
-WITH seg_spend AS (
-  SELECT c.segment, c.customer_id, c.customer_name, SUM(s.total_amount) AS spend
+WITH segment_spend AS (
+  SELECT c.segment, c.customer_id, c.customer_name,
+         SUM(s.total_amount) AS spend
   FROM sales s
   JOIN customers c ON s.customer_key = c.customer_key
   GROUP BY c.segment, c.customer_id, c.customer_name
 ),
 ranked AS (
   SELECT *,
-         ROW_NUMBER() OVER (PARTITION BY segment ORDER BY spend DESC) AS rn
-  FROM seg_spend
+         ROW_NUMBER() OVER 
+           (PARTITION BY segment ORDER BY spend DESC) 
+          AS rn
+  FROM segment_spend
 )
 SELECT segment, customer_id, customer_name, spend
 FROM ranked
@@ -185,14 +206,20 @@ ORDER BY segment, spend DESC;
 SELECT
   d.year,
   p.category,
-  CASE WHEN st.store_id = 'ONLINE' THEN 'Online' ELSE 'Physical' END AS channel,
+  CASE 
+      WHEN st.store_id = 'ONLINE' 
+           THEN 'Online' 
+           ELSE 'Physical' 
+      END AS channel,
   SUM(s.total_amount) AS revenue
 FROM sales s
 JOIN dates d    ON s.date_key = d.date_key
 JOIN products p ON s.product_key = p.product_key
 JOIN stores st  ON s.store_key = st.store_key
 GROUP BY CUBE(d.year, p.category, channel)
-ORDER BY d.year NULLS LAST, p.category NULLS LAST, channel NULLS LAST;
+ORDER BY d.year NULLS LAST, 
+         p.category NULLS LAST, 
+         channel NULLS LAST;
 ```
 
 ### 3.2 Revenue cube for (quarter, store_country, category)
@@ -207,7 +234,9 @@ JOIN dates d    ON s.date_key = d.date_key
 JOIN stores st  ON s.store_key = st.store_key
 JOIN products p ON s.product_key = p.product_key
 GROUP BY CUBE(d.quarter, st.country, p.category)
-ORDER BY d.quarter NULLS LAST, store_country NULLS LAST, p.category NULLS LAST;
+ORDER BY d.quarter NULLS LAST, 
+         store_country NULLS LAST, 
+         p.category NULLS LAST;
 ```
 
 ### 3.3 Quantity cube for (year, brand, color)
@@ -221,7 +250,10 @@ FROM sales s
 JOIN dates d    ON s.date_key = d.date_key
 JOIN products p ON s.product_key = p.product_key
 GROUP BY CUBE(d.year, p.brand, p.color)
-ORDER BY d.year NULLS LAST, brand NULLS LAST, color NULLS LAST;
+ORDER BY 
+         d.year NULLS LAST, 
+         brand NULLS LAST, 
+         color NULLS LAST;
 ```
 
 ### 3.4 Revenue cube for (customer_country, store_country, year)
@@ -236,7 +268,10 @@ JOIN customers c ON s.customer_key = c.customer_key
 JOIN stores st   ON s.store_key = st.store_key
 JOIN dates d     ON s.date_key = d.date_key
 GROUP BY CUBE(customer_country, store_country, d.year)
-ORDER BY customer_country NULLS LAST, store_country NULLS LAST, d.year NULLS LAST;
+ORDER BY 
+        customer_country NULLS LAST, 
+        store_country NULLS LAST, 
+        d.year NULLS LAST;
 ```
 
 ### 3.5 CUBE + GROUPING() indicators to label subtotal rows
@@ -254,8 +289,13 @@ JOIN dates d    ON s.date_key = d.date_key
 JOIN products p ON s.product_key = p.product_key
 JOIN stores st  ON s.store_key = st.store_key
 GROUP BY CUBE(d.year, p.category, st.store_name)
-ORDER BY g_year, g_category, g_store,
-         d.year NULLS LAST, p.category NULLS LAST, st.store_name NULLS LAST;
+ORDER BY 
+         g_year, 
+         g_category, 
+         g_store,
+         d.year NULLS LAST, 
+         p.category NULLS LAST, 
+         st.store_name NULLS LAST;
 ```
 
 ---
