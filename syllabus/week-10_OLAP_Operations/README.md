@@ -1,11 +1,13 @@
 # OLAP Operations
 
-* OLAP operations extract insights from 
-  the  data  stored  in multidimensional 
-  hypercubes. 
+	OLAP operations extract 
+	insights from  the data  
+	stored in multidimensional 
+	hypercubes. 
+	
 	
 * OLAP operations:
-	* Drill Down
+	* Drill Down (a.k.a Roll-Down)
 	* Roll Up
 	* Dice
 	* Slice
