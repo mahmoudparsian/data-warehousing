@@ -137,8 +137,11 @@ SELECT 'dates', COUNT(*) FROM dates
 UNION ALL
 SELECT 'sales', COUNT(*) FROM sales;
 
+-- --------------------
 -- Example sanity query
-SELECT p.category, SUM(s.total_amount) AS total_sales_amount
+-- --------------------
+SELECT p.category, 
+       SUM(s.total_amount) AS total_sales_amount
 FROM sales s
 JOIN dates d    ON s.date_key = d.date_key
 JOIN products p ON s.product_key = p.product_key
