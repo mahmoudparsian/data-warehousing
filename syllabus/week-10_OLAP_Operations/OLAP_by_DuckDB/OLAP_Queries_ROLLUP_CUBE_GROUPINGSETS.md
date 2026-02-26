@@ -1,13 +1,16 @@
-# 📊 Online Sales Star Schema — Meaningful OLAP Queries (DuckDB)
+# 📊 Online Sales Star Schema <br> Meaningful OLAP Queries (DuckDB)
 **Format:** English question + SQL (DuckDB)  
 
 **Schema:** 
 
 	* FACT table: `sales`, 
 	* DIMs : `dates`, `customers`, `products`, `stores` 
+
 **Measures:** `quantity`, `unit_price`, `total_amount`  
 
+
 **Channel hint:** 
+
 Online rows have `stores.store_id = 'ONLINE'` (and store_name = 'Online')
 
 ---

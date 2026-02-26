@@ -23,4 +23,4 @@
 
 # 4. [Group By, ROLLUP, and CUBE in Snowflake](./snowflake_groupby_and_cube/)
 
-# 5. [Star Schema and 20+ OLAP Queries](./star_schema_sales_example/)
+# 5. [Star Schema and 20+ OLAP Queries](./OLAP_sales_example/)
