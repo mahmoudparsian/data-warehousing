@@ -1,4 +1,4 @@
-## Medallion Data Architecture
+## 🏛️ Medallion Data Architecture
 
 #### [1. What is a Medallion Data Architecture](./What_is_a_Medallion_Data_Architecture.md)
 
@@ -6,7 +6,7 @@
 
 #### [3. Medallion Architecture Key Concepts and Examples](./Medallion_Architecture_Key_Concepts_and_Examples.pdf)
 
-## Lecture Notes and Examples (folders)
+## 📑 Lecture Notes and Examples (folders)
 
 #### [Introduction to Medallion and Lakehouse](./introduction_to_lakehouse/)
 
