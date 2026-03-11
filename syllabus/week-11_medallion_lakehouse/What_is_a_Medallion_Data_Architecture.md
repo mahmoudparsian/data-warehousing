@@ -110,7 +110,48 @@ the gap between data science notebooks and production pipelines.
 * **Data Lineage and Governance**: The layered approach provides 
 clear data lineage and quality gates at each stage, improving data governance and ensuring data reliability. 
 
+------
 
-In summary, combining the logical organization of the Medallion
-Architecture with the high-performance, embedded nature of DuckDB 
-offers a robust, efficient, and scalable solution for modern data engineering challenges. 
+## Medallion Architecure Summarized
+
+What is Medallion Architecture and from 
+whence does it come? The Medallion Architecture 
+is a data design pattern popularized by Databricks. 
+It organizes data into multiple layers (or “medallions”) 
+to improve data quality, performance, and usability 
+as it moves through the platform.
+
+The layers are:
+
+### Bronze (Raw Layer)
+
+* Stores raw, unprocessed data.
+* Ingested directly from source systems (databases, logs, IoT streams, APIs, etc.).
+* Often includes duplicates, schema drift, and poor quality.
+
+**Purpose:** Immutable record of truth – never delete, only append.
+
+### Silver (Cleansed Layer)
+
+* Data is cleaned, filtered, de-duplicated, and enriched.
+* Joins from multiple bronze sources may occur.
+* Business logic starts here (e.g., data quality rules, standard formats).
+
+**Purpose:** Curated, analytics-ready views/tables.
+
+### Gold (Business Layer)
+
+* Data is aggregated and optimized for analytics, BI dashboards, and ML.
+* Domain-specific data marts (e.g., sales KPIs, fraud detection aggregates).
+
+**Purpose:**  High-performance, business-consumable datasets.
+
+
+
+## Summary
+In summary, combining the logical 
+organization of the Medallion Architecture 
+with the high-performance, embedded nature 
+of DuckDB offers a robust, efficient, and 
+scalable solution for modern data engineering 
+challenges. 
