@@ -10,9 +10,12 @@ class: lead
 
 ## From SQL → Data Systems → Business Impact
 
-- Section 1 → SQL + Business Insight  
-- Section 2 → Classic Data Warehousing  
-- Section 3 → Medallion Architecture  
+- **Section 1 → SQL + Business Insight**
+	- weeks 1, 2
+- **Section 2 → Classic Data Warehousing**  
+	- weeks 3, 4, 5, 6
+- **Section 3 → Medallion Architecture** 
+	- weeks 7, 8, 9, 10
 
 👉 Goal: Build **end-to-end data thinking**
 
