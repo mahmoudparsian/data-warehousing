@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<!--
+
+REDREDREDREDREDREDR(
+REDREDREDREDREDREDREDREDRED
+REDR(                 REDREDR
+REDR(                   REDRED    &&&&&&&&    &&&&&&&&&     &&&&&&&&    &&&     &&&&&&&&    &&&     &&&&&&&&    &&&&    &&&   &&&&&&&&&&&
+REDR(        RED         REDRE    &&&         &&&   &&&     &&&         &&&    &&&    &&&   &&&     &&&         &&%&&   &&&       &&&
+REDR(        RED         REDRE    &&&         &&&   &&&,    &&&         &&&    &&&          &&&     &&&         &&%&&   &&&       &&&
+REDR(                   REDRE     &&&         &&&   &&&     &&&         &&&    &&&          &&&     &&&         &&% &&  &&&       &&&
+REDR(                  REDR       &&&&&&&&    &&&&&&&&      &&&&&&&&    &&&    &&&          &&&     &&&&&&&&    &&% &&  &&&       &&&
+REDR(        REDREDREDR           &&&         &&&   &&&     &&&         &&&    &&&          &&&     &&&         &&%  && &&&       &&&
+REDR(                             &&&         &&&   &&&     &&&         &&&    &&&    &&&   &&&     &&&         &&%  && &&&       &&&
+REDR(                             &&&         &&&   &&&     &&&         &&&    &&&   &&&&   &&&     &&&         &&%  /&&&&&       &&&
+REDR(                             &&&&&&&&    &&&   &&&     &&&         &&&     %&&&&&&&    &&&     &&&&&&&&    &&%   &&&&&       &&&
+REDEREDREDRED
+
+-->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="all">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://blogs.perficient.com/wp-content/themes/perficient_2020/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://blogs.perficient.com/wp-content/themes/perficient_2020/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="194x194" href="https://blogs.perficient.com/wp-content/themes/perficient_2020/favicons/favicon-194x194.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="https://blogs.perficient.com/wp-content/themes/perficient_2020/favicons/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://blogs.perficient.com/wp-content/themes/perficient_2020/favicons/favicon-16x16.png">
+    <link rel="manifest" href="https://blogs.perficient.com/wp-content/themes/perficient_2020/favicons/manifest.json">
+    <link rel="mask-icon" href="https://blogs.perficient.com/wp-content/themes/perficient_2020/favicons/safari-pinned-tab.svg" color="#ee0634">
+    <meta name="apple-mobile-web-app-title" content="Perficient">
+    <meta name="application-name" content="Perficient">
+    <meta name="msapplication-TileColor" content="#ee0634">
+    <meta name="msapplication-TileImage" content="https://blogs.perficient.com/wp-content/themes/perficient_2020/favicons/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <link rel="pingback" href="https://blogs.perficient.com/xmlrpc.php">
+    
+    <meta name="sysdate" content="2017/08/02@10:36:03"/>
+    <meta name="page_type" content="blogs" />
+    <meta name="p:domain_verify" content="6162fdec3ceb0d0f70d78079b2c2c3cc" />
+
+    
+    <!-- Facebook Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+    fbq('init', '911436665572720');
+    fbq('track', "PageView");</script>
+    <!-- End Facebook Pixel Code -->
+
+    <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+<!-- Google Tag Manager for WordPress by gtm4wp.com -->
+<script data-cfasync="false" data-pagespeed-no-defer>
+	var gtm4wp_datalayer_name = "dataLayer";
+	var dataLayer = dataLayer || [];
+
+	const gtm4wp_scrollerscript_debugmode         = false;
+	const gtm4wp_scrollerscript_callbacktime      = 100;
+	const gtm4wp_scrollerscript_readerlocation    = 150;
+	const gtm4wp_scrollerscript_contentelementid  = "content";
+	const gtm4wp_scrollerscript_scannertime       = 60;
+</script>
+<!-- End Google Tag Manager for WordPress by gtm4wp.com -->
+	<!-- This site is optimized with the Yoast SEO plugin v22.0 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>Data Cube Operations - SQL Queries / Blogs / Perficient</title>
+	<meta name="description" content="The three components associated with any Data cube: Measures, Dimensions and Hierarchies." />
+	<link rel="canonical" href="https://blogs.perficient.com/2017/08/02/data-cube-operations-sql-queries/" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Data Cube Operations - SQL Queries / Blogs / Perficient" />
+	<meta property="og:description" content="The three components associated with any Data cube: Measures, Dimensions and Hierarchies." />
+	<meta property="og:url" content="https://blogs.perficient.com/2017/08/02/data-cube-operations-sql-queries/" />
+	<meta property="og:site_name" content="Perficient Blogs" />
+	<meta property="article:published_time" content="2017-08-02T10:36:03+00:00" />
+	<meta property="og:image" content="https://blogs.perficient.com/files/2017/08/cubes.jpg" />
+	<meta property="og:image:width" content="1600" />
+	<meta property="og:image:height" content="600" />
+	<meta property="og:image:type" content="image/jpeg" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:label1" content="Est. reading time" />
+	<meta name="twitter:data1" content="4 minutes" />
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel='dns-prefetch' href='//stats.wp.com' />
+<link rel='dns-prefetch' href='//maxcdn.bootstrapcdn.com' />
+<link rel='dns-prefetch' href='//cdn.openshareweb.com' />
+<link rel='dns-prefetch' href='//cdn.shareaholic.net' />
+<link rel='dns-prefetch' href='//www.shareaholic.net' />
+<link rel='dns-prefetch' href='//analytics.shareaholic.com' />
+<link rel='dns-prefetch' href='//recs.shareaholic.com' />
+<link rel='dns-prefetch' href='//partner.shareaholic.com' />
+<link rel='dns-prefetch' href='//v0.wordpress.com' />
+<link rel='dns-prefetch' href='//c0.wp.com' />
+<link rel="alternate" type="application/rss+xml" title="Perficient Blogs &raquo; Feed" href="https://blogs.perficient.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Perficient Blogs &raquo; Comments Feed" href="https://blogs.perficient.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Perficient Blogs &raquo; Data Cube Operations &#8211; SQL Queries Comments Feed" href="https://blogs.perficient.com/2017/08/02/data-cube-operations-sql-queries/feed/" />
+<!-- Shareaholic - https://www.shareaholic.com -->
+<link rel='preload' href='//cdn.shareaholic.net/assets/pub/shareaholic.js' as='script'/>
+<script data-no-minify='1' data-cfasync='false'>
+_SHR_SETTINGS = {"endpoints":{"local_recs_url":"https:\/\/blogs.perficient.com\/wp-admin\/admin-ajax.php?action=shareaholic_permalink_related","ajax_url":"https:\/\/blogs.perficient.com\/wp-admin\/admin-ajax.php","share_counts_url":"https:\/\/blogs.perficient.com\/wp-admin\/admin-ajax.php?action=shareaholic_share_counts_api"},"site_id":"00c2842b1e881aec3b7cecca0708a368","url_components":{"year":"2017","monthnum":"08","day":"02","hour":"05","minute":"36","second":"03","post_id":"200204","postname":"data-cube-operations-sql-queries","category":"services\/data-intelligence"}};
+</script>
+<script data-no-minify='1' data-cfasync='false' src='//cdn.shareaholic.net/assets/pub/shareaholic.js' data-shr-siteid='00c2842b1e881aec3b7cecca0708a368' async ></script>
+
+<!-- Shareaholic Content Tags -->
+<meta name='shareaholic:site_name' content='Perficient Blogs' />
+<meta name='shareaholic:language' content='en-US' />
+<meta name='shareaholic:url' content='https://blogs.perficient.com/2017/08/02/data-cube-operations-sql-queries/' />
+<meta name='shareaholic:keywords' content='tag:data cube, tag:olap cube, cat:data &amp; intelligence, type:post' />
+<meta name='shareaholic:article_published_time' content='2017-08-02T05:36:03-05:00' />
+<meta name='shareaholic:article_modified_time' content='2017-08-02T05:36:03-05:00' />
+<meta name='shareaholic:shareable_page' content='true' />
+<meta name='shareaholic:site_id' content='00c2842b1e881aec3b7cecca0708a368' />
+<meta name='shareaholic:wp_version' content='9.7.12' />
+<meta name='shareaholic:image' content='https://blogs.perficient.com/files/2017/08/cubes-640x240.jpg' />
+<!-- Shareaholic Content Tags End -->
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/blogs.perficient.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=2559f26b12dca9f72fd58c36157f887b"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83e\udef1\ud83c\udffb\u200d\ud83e\udef2\ud83c\udfff","\ud83e\udef1\ud83c\udffb\u200b\ud83e\udef2\ud83c\udfff")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+<style id='wp-emoji-styles-inline-css' type='text/css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+</style>
+<link rel='stylesheet' id='wp-block-library-css' href='https://c0.wp.com/c/6.4.3/wp-includes/css/dist/block-library/style.min.css' type='text/css' media='all' />
+<style id='wp-block-library-inline-css' type='text/css'>
+.has-text-align-justify{text-align:justify;}
+</style>
+<link rel='stylesheet' id='mediaelement-css' href='https://c0.wp.com/c/6.4.3/wp-includes/js/mediaelement/mediaelementplayer-legacy.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-mediaelement-css' href='https://c0.wp.com/c/6.4.3/wp-includes/js/mediaelement/wp-mediaelement.min.css' type='text/css' media='all' />
+<style id='jetpack-sharing-buttons-style-inline-css' type='text/css'>
+.jetpack-sharing-buttons__services-list{display:flex;flex-direction:row;flex-wrap:wrap;gap:0;list-style-type:none;margin:5px;padding:0}.jetpack-sharing-buttons__services-list.has-small-icon-size{font-size:12px}.jetpack-sharing-buttons__services-list.has-normal-icon-size{font-size:16px}.jetpack-sharing-buttons__services-list.has-large-icon-size{font-size:24px}.jetpack-sharing-buttons__services-list.has-huge-icon-size{font-size:36px}@media print{.jetpack-sharing-buttons__services-list{display:none!important}}ul.jetpack-sharing-buttons__services-list.has-background{padding:1.25em 2.375em}
+</style>
+<style id='classic-theme-styles-inline-css' type='text/css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css' type='text/css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}body .is-layout-grid{display: grid;}body .is-layout-grid > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='wp-video-popup-css' href='https://blogs.perficient.com/wp-content/plugins/responsive-youtube-vimeo-popup/assets/css/wp-video-popup.css?ver=2.9.6' type='text/css' media='all' />
+<link rel='stylesheet' id='vendors-main-css' href='https://blogs.perficient.com/wp-content/themes/perficient_2020/dist/vendors~main.3a0967db11eac04c675c.css?ver=20210519' type='text/css' media='all' />
+<link rel='stylesheet' id='main-css' href='https://blogs.perficient.com/wp-content/themes/perficient_2020/dist/main.3a0967db11eac04c675c.css?ver=20210519' type='text/css' media='all' />
+<link rel='stylesheet' id='font-awesome-css' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css?ver=4.6.1' type='text/css' media='all' />
+<link rel='stylesheet' id='perficient_2020-style-css' href='https://blogs.perficient.com/wp-content/themes/perficient_2020/style.css?ver=20210519' type='text/css' media='all' />
+<link rel='stylesheet' id='tablepress-default-css' href='https://blogs.perficient.com/wp-content/plugins/tablepress/css/build/default.css?ver=2.2.5' type='text/css' media='all' />
+<link rel='stylesheet' id='bsfrt_frontend-css' href='https://blogs.perficient.com/wp-content/plugins/read-meter/assets/min-css/bsfrt-frontend-css.min.css?ver=1.0.6' type='text/css' media='all' />
+<link rel='stylesheet' id='enlighterjs-css' href='https://blogs.perficient.com/wp-content/plugins/enlighter/cache/X1_enlighterjs.min.css?ver=d2XvGDW+zB8N0s4' type='text/css' media='all' />
+<link rel='stylesheet' id='jetpack_css-css' href='https://c0.wp.com/p/jetpack/13.1.1/css/jetpack.css' type='text/css' media='all' />
+<script type="text/javascript" src="https://c0.wp.com/c/6.4.3/wp-includes/js/jquery/jquery.min.js" id="jquery-core-js"></script>
+<script type="text/javascript" src="https://c0.wp.com/c/6.4.3/wp-includes/js/jquery/jquery-migrate.min.js" id="jquery-migrate-js"></script>
+<script type="text/javascript" src="https://blogs.perficient.com/wp-content/plugins/duracelltomi-google-tag-manager/dist/js/analytics-talk-content-tracking.js?ver=1.20" id="gtm4wp-scroll-tracking-js"></script>
+<link rel="https://api.w.org/" href="https://blogs.perficient.com/wp-json/" /><link rel="alternate" type="application/json" href="https://blogs.perficient.com/wp-json/wp/v2/posts/200204" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://blogs.perficient.com/xmlrpc.php?rsd" />
+<link rel="alternate" type="application/json+oembed" href="https://blogs.perficient.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fblogs.perficient.com%2F2017%2F08%2F02%2Fdata-cube-operations-sql-queries%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://blogs.perficient.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fblogs.perficient.com%2F2017%2F08%2F02%2Fdata-cube-operations-sql-queries%2F&#038;format=xml" />
+<script type="application/ld+json" data-schema="200204-post-Default">{"@context":"https:\/\/schema.org\/","@type":"BlogPosting","@id":"https:\/\/blogs.perficient.com\/2017\/08\/02\/data-cube-operations-sql-queries\/#BlogPosting","mainEntityOfPage":"https:\/\/blogs.perficient.com\/2017\/08\/02\/data-cube-operations-sql-queries\/","headline":"Data Cube Operations &#8211; SQL Queries","name":"Data Cube Operations &#8211; SQL Queries","description":"The three components associated with any Data cube: Measures, Dimensions and Hierarchies.","datePublished":"2017-08-02","dateModified":"2017-08-02","author":{"@type":"Person","@id":"https:\/\/blogs.perficient.com\/author\/#Person","name":"","url":"https:\/\/blogs.perficient.com\/author\/","identifier":"","image":{"@type":"ImageObject","@id":"https:\/\/secure.gravatar.com\/avatar\/?s=96&d=mm&r=g","url":"https:\/\/secure.gravatar.com\/avatar\/?s=96&d=mm&r=g","height":96,"width":96}},"publisher":{"@type":"Organization","name":"Perficient Blogs","logo":{"@type":"ImageObject","@id":"https:\/\/blogs.perficient.com\/files\/2018\/02\/favicon-square-trans.png","url":"https:\/\/blogs.perficient.com\/files\/2018\/02\/favicon-square-trans.png","width":241,"height":241}},"image":{"@type":"ImageObject","@id":"https:\/\/blogs.perficient.com\/files\/2017\/08\/cubes.jpg","url":"https:\/\/blogs.perficient.com\/files\/2017\/08\/cubes.jpg","height":600,"width":1600},"url":"https:\/\/blogs.perficient.com\/2017\/08\/02\/data-cube-operations-sql-queries\/","about":["Data &amp; Intelligence"],"wordCount":763,"keywords":["data cube","OLAP cube"]}</script>
+<script type="application/ld+json" data-schema="Breadcrumb">{"@context":"https:\/\/schema.org\/","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"2017","item":"https:\/\/blogs.perficient.com\/2017\/#breadcrumbitem"},{"@type":"ListItem","position":2,"name":"08","item":"https:\/\/blogs.perficient.com\/2017\/\/08\/#breadcrumbitem"},{"@type":"ListItem","position":3,"name":"02","item":"https:\/\/blogs.perficient.com\/2017\/\/08\/\/02\/#breadcrumbitem"},{"@type":"ListItem","position":4,"name":"Data Cube Operations &#8211; SQL Queries","item":"https:\/\/blogs.perficient.com\/2017\/08\/02\/data-cube-operations-sql-queries\/#breadcrumbitem"}]}</script>
+<style type="text/css">
+<!-- Silverlight WordPress Plugin -->
+#silverlightControlHost{height:100%;}
+</style>	<style>img#wpstats{display:none}</style>
+		
+<!-- Google Tag Manager for WordPress by gtm4wp.com -->
+<!-- GTM Container placement set to manual -->
+<script data-cfasync="false" data-pagespeed-no-defer>
+	var dataLayer_content = {"pageTitle":"Data Cube Operations - SQL Queries \/ Blogs \/ Perficient","pagePostType":"post","pagePostType2":"single-post","pageCategory":["data-intelligence"],"pageAttributes":["data-cube","olap-cube"],"pagePostDate":"August 2, 2017","pagePostDateYear":2017,"pagePostDateMonth":8,"pagePostDateDay":2,"pagePostDateDayName":"Wednesday","pagePostDateHour":5,"pagePostDateMinute":36,"pagePostDateIso":"2017-08-02T05:36:03-05:00","pagePostDateUnix":1501652163};
+	dataLayer.push( dataLayer_content );
+</script>
+<script data-cfasync="false">
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PPVNWHL');
+</script>
+<!-- End Google Tag Manager for WordPress by gtm4wp.com -->
+<style type="text/css">
+.entry-content .bsf-rt-reading-time{
+background: #eeeeee;
+
+color: #333333;
+
+font-size: 15px;
+
+margin-top: 
+		1px;
+
+margin-right: 
+		1px;
+
+margin-bottom: 
+		1px;
+
+margin-left: 
+		1px;
+
+padding-top: 
+		0.5em;
+
+padding-right: 
+		0.7em;
+
+padding-bottom: 
+		0.5em;
+
+padding-left: 
+		0.7em;
+
+width: max-content;
+
+display: block;
+
+min-width: 100px;
+
+}
+
+</style>
+		<link rel="icon" href="https://blogs.perficient.com/files/favicon-194x194-1-150x150.png" sizes="32x32" />
+<link rel="icon" href="https://blogs.perficient.com/files/favicon-194x194-1.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://blogs.perficient.com/files/favicon-194x194-1.png" />
+<meta name="msapplication-TileImage" content="https://blogs.perficient.com/files/favicon-194x194-1.png" />
+<style type="text/css" id="wp-custom-css">.home p.body-large {
+	max-width: 70%;
+	margin: 2em auto 0 auto;
+}
+
+.entry a {
+	text-decoration: underline;
+	font-weight: 400;
+}
+
+.entry a:hover {
+	color: #e61717;
+}
+
+code {
+	font-family: monospace;
+	font-size: .9em;
+}
+
+.partner-header-section-image:after {
+	height: 0%;	
+}
+
+@media (min-width: 1220px) {
+.partner-header-section-image:after {
+	height: 130%;
+	margin-top: 11%;
+}
+}
+
+.partner-header-section-image {
+margin-top: 18px;
+	margin-bottom: 18px;
+	}
+
+
+@media (min-width: 1220px) {
+.partner-header-section-image {
+	margin-top: 32px;
+	margin-bottom: 0;
+	margin-left: 1em;
+	}
+}
+@media (min-width: 1220px) {
+.featured-news-article {
+    width: 30%;
+    margin-right: 1em;
+    margin-bottom: 1.875rem;
+}	
+}
+
+.author-page-image-container {
+	width: 150px;
+	height: 150px;
+}
+
+.related-item-img {
+	height: auto;
+}
+
+.eyebrow-header-eyebrow.gold a {
+    font-family: "Roboto Condensed","Arial Narrow","sans-serif" !important;
+}
+
+.single .eyebrow-header-eyebrow.gold a {
+    color: #cc1f20;
+    text-decoration: none;
+}
+
+.pager li > a, .pager li > span {
+	font-weight: 400;
+	color: #cc1f20;
+}
+
+.related-item-img {
+	box-shadow: none;
+}
+
+.single .tag, .single  a[rel~=tag], .archive  a[rel~=tag], #blogs-sidebar li a {
+	color: #cc1f20 !important;
+	text-decoration: underline !important;
+	font-weight: 400 !important;
+}
+
+.single .tag:hover, .single a[rel~=tag]:hover, #blogs-sidebar li a:hover {
+	color: #e61717 !important;
+}
+
+.author-avatar-and-name-avatar img {
+	width: 150px !important;
+	height: auto;
+}
+
+.featured-news-article:hover {
+	background: none;
+}
+
+.author {
+	display: inline;
+}
+
+.body-regular {
+	font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 600;
+}</style>
+<!-- OneTrust Cookies Consent Notice start for perficient.com -->
+<script type="text/javascript" src="https://cdn.cookielaw.org/consent/35b0483f-ab4b-425c-9359-82de0659c0ff/OtAutoBlock.js"></script>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript" charset="UTF-8" data-domain-script="35b0483f-ab4b-425c-9359-82de0659c0ff"></script>
+<script type="text/javascript">
+	function OptanonWrapper() { }
+</script>
+<!-- OneTrust Cookies Consent Notice end for perficient.com -->
+
+</head>
+
+<body data-rsssl=1 class="post-template-default single single-post postid-200204 single-format-standard">
+
+<!-- Facebook Pixel Code for noscript -->
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=911436665572720&ev=PageView&noscript=1" alt="" /></noscript>
+
+
+<!-- GTM Container placement set to manual -->
+<!-- Google Tag Manager (noscript) -->
+				<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PPVNWHL" height="0" width="0" style="display:none;visibility:hidden" aria-hidden="true"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<link rel="stylesheet" href="https://static.cloud.coveo.com/searchui/v2.7968/css/CoveoFullSearch.css" />
+<link rel="stylesheet" href="https://www.perficient.com/Coveo/Hive/css/CoveoForSitecore.css" />
+<script class="coveo-script" type="text/javascript" src='https://static.cloud.coveo.com/searchui/v2.7968/js/CoveoJsSearch.Lazy.min.js'></script>
+<script class="coveo-for-sitecore-script" type="text/javascript" src='https://www.perficient.com/Coveo/Hive/js/CoveoForSitecore.Lazy.min.js'></script>
+<script type="text/javascript" src="https://www.perficient.com/Coveo/Hive/js/cultures/en.js"></script>
+
+<div>
+
+    
+    <!-- Resources -->
+    <div id="coveo3a949f41"
+         class="CoveoForSitecoreContext"
+            data-sc-should-have-analytics-component='true'
+            data-sc-analytics-enabled='true'
+            data-sc-current-language='en'
+            data-prebind-sc-language-field-name='fieldTranslator'
+            data-sc-language-field-name='_language'
+            data-sc-labels='{&quot;If the problem persists contact the administrator.&quot; : &quot;If the problem persists contact the administrator.&quot; , &quot;Search is currently unavailable&quot; : &quot;Oops! Something went wrong on the server.&quot; , &quot;Created&quot; : &quot;Created&quot; , &quot;Created by&quot; : &quot;Created by&quot; , &quot;Creation time.&quot; : &quot;Creation time.&quot; , &quot;Language&quot; : &quot;Language&quot; , &quot;Last time modified.&quot; : &quot;Last time modified.&quot; , &quot;Template&quot; : &quot;Template&quot; , &quot;Uniform resource identifier&quot; : &quot;URI&quot; , &quot;Updated by&quot; : &quot;Updated by&quot;}'
+            data-sc-maximum-age='900000'
+            data-sc-page-name='Data Cube Operations - SQL Queries / Blogs / Perficient'
+            data-sc-page-name-full-path='/2017/08/02/data-cube-operations-sql-queries/'
+            data-sc-index-source-name='Coveo_web_index - prft-blogs'
+            data-sc-is-in-experience-editor='false'
+            data-sc-is-user-anonymous='true'
+            data-sc-item-uri='https://blogs.perficient.com/2017/08/02/data-cube-operations-sql-queries/'
+            data-sc-item-id='200204'
+            data-prebind-sc-latest-version-field-name='fieldTranslator'
+            data-sc-latest-version-field-name='_latestversion'
+            data-sc-rest-endpoint-uri='https://www.perficient.com/coveo/rest'
+            data-sc-site-name='perficient_blogs'
+            data-sc-field-prefix='f'
+            data-sc-field-suffix='68387'
+            data-sc-prefer-source-specific-fields='false'
+            data-sc-external-fields='[{&quot;fieldName&quot;:&quot;permanentid&quot;,&quot;shouldEscape&quot;:false}]'
+            data-sc-source-specific-fields='[{&quot;fieldName&quot;:&quot;attachmentparentid&quot;},{&quot;fieldName&quot;:&quot;author&quot;},{&quot;fieldName&quot;:&quot;clickableuri&quot;},{&quot;fieldName&quot;:&quot;collection&quot;},{&quot;fieldName&quot;:&quot;concepts&quot;},{&quot;fieldName&quot;:&quot;date&quot;},{&quot;fieldName&quot;:&quot;filetype&quot;},{&quot;fieldName&quot;:&quot;indexeddate&quot;},{&quot;fieldName&quot;:&quot;isattachment&quot;},{&quot;fieldName&quot;:&quot;language&quot;},{&quot;fieldName&quot;:&quot;printableuri&quot;},{&quot;fieldName&quot;:&quot;rowid&quot;},{&quot;fieldName&quot;:&quot;size&quot;},{&quot;fieldName&quot;:&quot;title&quot;},{&quot;fieldName&quot;:&quot;topparent&quot;},{&quot;fieldName&quot;:&quot;topparentid&quot;},{&quot;fieldName&quot;:&quot;transactionid&quot;},{&quot;fieldName&quot;:&quot;uri&quot;},{&quot;fieldName&quot;:&quot;urihash&quot;}]'
+>
+    </div>
+    <script type="text/javascript">
+        var endpointConfiguration = {
+            itemUri: "https://blogs.perficient.com/2017/08/02/data-cube-operations-sql-queries/",
+            siteName: "perficient_blogs",
+            restEndpointUri: "https://www.perficient.com/coveo/rest"
+        };
+        if (typeof (CoveoForSitecore) !== "undefined") {
+            CoveoForSitecore.SearchEndpoint.configureSitecoreEndpoint(endpointConfiguration);
+            CoveoForSitecore.version = "5.0.587.9";
+            var context = document.getElementById("coveo3a949f41");
+            if (!!context) {
+                CoveoForSitecore.Context.configureContext(context);
+            }
+        }
+    </script>
+</div>
+
+
+    <div id="app" class="go-to-top">
+        <div class="main main--is-light">
+        <div>
+			<a class="skip-main" href="#main-content">Skip to main content</a>
+		</div>
+        <main-navigation menu-btn-label="Main navigation"
+				 search-btn-label="Search navigation"
+				 logo-label="Go to Perficient home page"
+				 theme="is-light"
+				 :breadcrumb-links="[{&quot;text&quot;:&quot;Insights&quot;,&quot;href&quot;:&quot;https://www.perficient.com/insights&quot;},{&quot;text&quot;:&quot;Blogs&quot;,&quot;href&quot;:&quot;https://blogs.perficient.com/&quot;}]"	
+				 :nav-links='[{&quot;text&quot;:&quot;Who We Are&quot;,&quot;href&quot;:&quot;https://www.perficient.com/who-we-are&quot;,&quot;altText&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}},{&quot;text&quot;:&quot;What We Do&quot;,&quot;href&quot;:&quot;https://www.perficient.com/what-we-do&quot;,&quot;altText&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}},{&quot;text&quot;:&quot;Industries&quot;,&quot;href&quot;:&quot;https://www.perficient.com/industries&quot;,&quot;altText&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;children&quot;:[{&quot;text&quot;:&quot;Automotive&quot;,&quot;href&quot;:&quot;https://www.perficient.com/industries/automotive&quot;,&quot;imgUrl&quot;:&quot;/-/media/images/industries/industry-navigation/nav_automotive_new.ashx&quot;,&quot;altText&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}},{&quot;text&quot;:&quot;Communications + Media + Technology&quot;,&quot;href&quot;:&quot;https://www.perficient.com/industries/communications&quot;,&quot;imgUrl&quot;:&quot;/-/media/images/industries/industry-navigation/cmt-navigation.ashx&quot;,&quot;altText&quot;:&quot;A woman using a VR headset.&quot;,&quot;active&quot;:false,&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}},{&quot;text&quot;:&quot;Consumer Markets&quot;,&quot;href&quot;:&quot;https://www.perficient.com/industries/consumer-markets&quot;,&quot;imgUrl&quot;:&quot;/-/media/images/industries/industry-navigation/nav_consumer-markets_new.ashx&quot;,&quot;altText&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}},{&quot;text&quot;:&quot;Energy + Utilities&quot;,&quot;href&quot;:&quot;https://www.perficient.com/industries/energy-and-utilities&quot;,&quot;imgUrl&quot;:&quot;/-/media/images/industries/industry-navigation/nav_energy-utilities_new.ashx&quot;,&quot;altText&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}},{&quot;text&quot;:&quot;Financial Services&quot;,&quot;href&quot;:&quot;https://www.perficient.com/industries/financial-services&quot;,&quot;imgUrl&quot;:&quot;/-/media/images/industries/industry-navigation/nav_financial-services_new.ashx&quot;,&quot;altText&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}},{&quot;text&quot;:&quot;Healthcare&quot;,&quot;href&quot;:&quot;https://www.perficient.com/industries/healthcare&quot;,&quot;imgUrl&quot;:&quot;/-/media/images/industries/industry-navigation/nav_healthcare_new.ashx&quot;,&quot;altText&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}},{&quot;text&quot;:&quot;Insurance&quot;,&quot;href&quot;:&quot;https://www.perficient.com/industries/insurance&quot;,&quot;imgUrl&quot;:&quot;/-/media/images/industries/industry-navigation/insurance-tile.ashx&quot;,&quot;altText&quot;:&quot;A family relaxing and playing together at home.&quot;,&quot;active&quot;:false,&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}},{&quot;text&quot;:&quot;Life Sciences&quot;,&quot;href&quot;:&quot;https://www.perficient.com/industries/life-sciences&quot;,&quot;imgUrl&quot;:&quot;/-/media/images/industries/industry-navigation/nav_life-sciences_new.ashx&quot;,&quot;altText&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}},{&quot;text&quot;:&quot;Manufacturing&quot;,&quot;href&quot;:&quot;https://www.perficient.com/industries/manufacturing&quot;,&quot;imgUrl&quot;:&quot;/-/media/images/industries/industry-navigation/nav_manufacturing_new.ashx&quot;,&quot;altText&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}}],&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}},{&quot;text&quot;:&quot;Functions&quot;,&quot;href&quot;:&quot;https://www.perficient.com/functions&quot;,&quot;altText&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;children&quot;:[{&quot;text&quot;:&quot;Commerce&quot;,&quot;href&quot;:&quot;https://www.perficient.com/functions/commerce&quot;,&quot;imgUrl&quot;:&quot;/-/media/images/functionals/functions-navigation/nav_commerce.ashx&quot;,&quot;altText&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}},{&quot;text&quot;:&quot;Contact Center&quot;,&quot;href&quot;:&quot;https://www.perficient.com/functions/contact-center&quot;,&quot;imgUrl&quot;:&quot;#&quot;,&quot;altText&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}},{&quot;text&quot;:&quot;Finance&quot;,&quot;href&quot;:&quot;https://www.perficient.com/functions/finance&quot;,&quot;imgUrl&quot;:&quot;/-/media/images/functionals/functions-navigation/nav_finance.ashx&quot;,&quot;altText&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}},{&quot;text&quot;:&quot;Supply Chain&quot;,&quot;href&quot;:&quot;https://www.perficient.com/functions/supply-chain&quot;,&quot;imgUrl&quot;:&quot;/-/media/images/functionals/functions-navigation/nav_supply-chain.ashx&quot;,&quot;altText&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}}],&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}},{&quot;text&quot;:&quot;Insights&quot;,&quot;href&quot;:&quot;https://www.perficient.com/insights&quot;,&quot;altText&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}},{&quot;text&quot;:&quot;Success Stories&quot;,&quot;href&quot;:&quot;https://www.perficient.com/success-stories&quot;,&quot;altText&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}}]'
+				 :utility-links="[{&quot;text&quot;:&quot;Careers&quot;,&quot;href&quot;:&quot;https://www.perficient.com/careers&quot;,&quot;altText&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;HIRING&quot;,&quot;href&quot;:&quot;https://www.perficient.com/careers&quot;}},{&quot;text&quot;:&quot;Investors&quot;,&quot;href&quot;:&quot;https://perficient.gcs-web.com/&quot;,&quot;altText&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}},{&quot;text&quot;:&quot;News Room&quot;,&quot;href&quot;:&quot;https://www.perficient.com/news-room&quot;,&quot;altText&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}},{&quot;text&quot;:&quot;Contact&quot;,&quot;href&quot;:&quot;https://www.perficient.com/contact&quot;,&quot;altText&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}}]"
+				 :trending-topics="[{&quot;text&quot;:&quot;The What, Why, and How of Successful Global Delivery&quot;,&quot;href&quot;:&quot;https://www.perficient.com/search#q=The What Why and How of Successful Global Delivery&quot;,&quot;altText&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}},{&quot;text&quot;:&quot;Podcast: Our Conversation with Special Guest Mark Cuban&quot;,&quot;href&quot;:&quot;https://www.perficient.com/insights/podcasts/what-if-so-what/episode-20-what-if-mark-cuban-joined-our-podcast&quot;,&quot;altText&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}},{&quot;text&quot;:&quot;How Cloud Is Fueling Business Transformation&quot;,&quot;href&quot;:&quot;https://www.perficient.com/search#q=How Cloud Is Fueling Business Transformation&quot;,&quot;altText&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}},{&quot;text&quot;:&quot;AI: Your Key to Achieving Competitive Advantage&quot;,&quot;href&quot;:&quot;https://www.perficient.com/search#q=Artificial Intelligence Your Key to Achieving Competitive&quot;,&quot;altText&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}},{&quot;text&quot;:&quot;Building the Perfect Commerce Tech Stack in B2B&quot;,&quot;href&quot;:&quot;https://www.perficient.com/search#q=Building the Perfect Commerce Tech Stack in B2B&quot;,&quot;altText&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;isEnabled&quot;:false,&quot;alertTextMod&quot;:{&quot;text&quot;:&quot;&quot;,&quot;href&quot;:&quot;&quot;}}]"
+				 :coveo-pipeline="'redesign'"
+				 :search-url="'https://www.perficient.com/search'"
+				 >
+</main-navigation>
+
+
+                <main id="main-content" tabindex="-1" v-pre>
+
+<script>
+if (window.dataLayer) {
+    dataLayer.push({
+    'postDate': 'August 2, 2017',
+    'postAuthor_ID': '',
+    'postAuthor_nicename': '',
+    'postAuthor_display_name': '',
+    'postAuthor_nickname': '',
+    'postName': 'Data Cube Operations &#8211; SQL Queries',
+    'postCategories':'Data &amp; Intelligence',
+    'postTags':'data cube, OLAP cube'    });
+}
+</script>
+
+<!-- Main Content -->
+
+<div class="component-content">
+	<div class="component-wrapper">
+	
+		<stripe theme="light" :extended="false"></stripe>
+		
+		
+            
+
+					
+        <div class="component-container">
+        	<div class="story-two-header">
+                <div class="story-two-header-content">
+
+                    <div class="story-two-header-title">
+                        <p class="story-two-header-title-eyebrow eyebrow-header-eyebrow gold"><a href="https://blogs.perficient.com/category/services/data-intelligence/">Data &amp; Intelligence</a></p>
+                        <h1 class="entry-title heading-four story-two-header-title-header">Data Cube Operations &#8211; SQL Queries</h1>                         <h4 class="byline author-info body-large">by <span class="vcard author"><span class="fn"></span></span> on <span class="date updated">August 2nd, 2017</span>  | <em>~<span class="bsf-rt-reading-time"><span class="bsf-rt-display-label" prefix="">
+		</span> <span class="bsf-rt-display-time" reading_time="3"></span> 
+		<span class="bsf-rt-display-postfix" postfix=""></span></span> minute read</em>                        </h4>
+                    </div>
+
+                    <div class="story-two-header-content-img partner-header-section-image">
+                                                    <img width="600" height="225" src="https://blogs.perficient.com/files/2017/08/cubes.jpg" class="img-responsive wp-post-image" alt="" decoding="async" srcset="https://blogs.perficient.com/files/2017/08/cubes.jpg 1600w, https://blogs.perficient.com/files/2017/08/cubes-300x113.jpg 300w, https://blogs.perficient.com/files/2017/08/cubes-1024x384.jpg 1024w, https://blogs.perficient.com/files/2017/08/cubes-768x288.jpg 768w, https://blogs.perficient.com/files/2017/08/cubes-1536x576.jpg 1536w, https://blogs.perficient.com/files/2017/08/cubes-750x281.jpg 750w, https://blogs.perficient.com/files/2017/08/cubes-640x240.jpg 640w" sizes="(max-width: 600px) 100vw, 600px" />                                            </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="component-content">
+            <div class="content-block two-column-blog main-padding-large">
+                <div class="content-block-text body-regular">
+
+        			<article id="post-200204" class="post-200204 post type-post status-publish format-standard has-post-thumbnail hentry category-data-intelligence tag-data-cube tag-olap-cube">
+            
+			<div class="entry" id="content">
+
+				<div style='display:none;' class='shareaholic-canvas' data-app='share_buttons' data-title='Data Cube Operations - SQL Queries' data-link='https://blogs.perficient.com/2017/08/02/data-cube-operations-sql-queries/' data-app-id-name='post_above_content'></div><div id="bsf_rt_marker"><h2>Introduction</h2>
+<p>Organizations are usually posed with the challenge of turning data into valuable insights. They realize the need for utilizing increasing amounts of “Big Data” in order to compete with other organizations in terms of efficiency, speed and service. The incredible growth of event data poses new challenges. As event logs grow, data processing techniques need to become more efficient and highly scalable.</p>
+<p>An OLAP cube is a data structure that overcomes the limitations of relational databases by providing rapid analysis of data. It is a Multidimensional cube that is built using OLAP databases. OLAP cubes can display and sum large amounts of data while also providing users with searchable access to any data points so that the data can be rolled up, sliced, and diced as needed to handle the widest variety of questions that are relevant to a user’s area of interest.</p>
+<p>An OLAP cube connects to a data source to read and process raw data to perform aggregations and calculations for its associated measures. The data source for all Service Manager OLAP cubes is the data marts, which includes the data marts for both the Operations Manager and Configuration Manager.</p>
+<p>There are three components associated with any Data cube: Measures, Dimensions and Hierarchies.</p>
+<p>The OLAP operations with the SQL queries in real time are explained below:</p>
+<p><a href="https://blogs.perficient.com/files/2017/08/Fig-1-Graph-Representation-of-Data-cube-1.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-7716" src="https://blogs.perficient.com/files/2017/08/Fig-1-Graph-Representation-of-Data-cube-1-300x197.png" alt="Data Cube Operations - SQL Queries" width="516" height="339" /></a></p>
+<p>Fig 1 &#8211; Data cube :Graph representation</p>
+<h3><b><strong><u>Roll up (drill-up): </u></strong></b></h3>
+<p><b> </b> ROLLUP is used in tasks involving subtotals. It creates subtotals at any level of aggregation needed, from the most detailed up to a grand total i.e. climbing up a concept hierarchy for the dimension such as time or geography. Example : A Query could involve a ROLLUP of year&gt;month&gt;day or country&gt;state&gt;city. When a roll-up is performed, one or more dimensions from the data cube are removed because the output would display blank for certain rows.</p>
+<div class='code-block code-block-7' style='margin: 8px 0; clear: both;'>
+<!-- Category: Data & Intelligence --><div class='sitewide-cta'><div class='sitewide-cta-img-container'><a href='https://www.perficient.com/insights/guides/2018/the-future-of-big-data-why-traditional-data-warehouses-wont-solve-your-big-data-challenges'><img src="https://blogs.perficient.com/files/Data_Intellitence_Future_Big_Data-300x241.jpg" alt="Data Intelligence - The Future of Big Data" width="300" height="241" class="alignnone size-medium wp-image-273764" /></a></div><div class='sitewide-cta-description'><h5 class='heading-five'><a href='https://www.perficient.com/insights/guides/2018/the-future-of-big-data-why-traditional-data-warehouses-wont-solve-your-big-data-challenges' style='color: #000; text-decoration: none;'>The Future of Big Data</a></h5><p>With some guidance, you can craft a data platform that is right for your organization’s needs and gets the most return from your data capital.</p><p><strong><a href='https://www.perficient.com/insights/guides/2018/the-future-of-big-data-why-traditional-data-warehouses-wont-solve-your-big-data-challenges' title='Get the Guide' class='red-link'>Get the Guide</a></strong></p></div></div></div>
+<p>The Below ROLL UP operation example would return the total revenue across all products at increasing aggregation levels of location: from state to country to region for different Quarters.</p>
+<p>&nbsp;</p>
+<h5><strong><u>Query Syntax:   </u></strong><span lang="EN-US"><span style="color: #000000; font-family: Calibri;">        </span></span></h5>
+<h5>        SELECT &#8230;GROUP BY ROLLUP ( grouping_Column_reference_list);</h5>
+<p>&nbsp;</p>
+<h5><strong><u>Example: </u></strong></h5>
+<h5 style="text-align: left;">         SELECT Time, Location, product ,sum(revenue) AS Profit FROM sales  GROUP BY ROLLUP(Time, Location, product);</h5>
+<p>&nbsp;</p>
+<p>The Query calculates the standard aggregate values specified in the GROUP BY clause. Then, it creates progressively higher-level subtotals, moving from right to left through the list of grouping columns. Finally, it creates a grand total.</p>
+<h4><strong><u>Benefits of using ROLLUP:</u></strong></h4>
+<p>The above subtotal operation could be achieved using 4 ‘SELECT’ statements with UNION ALL. The Query performance is inefficient, as it involves table access multiple times and the syntax is also complicated.</p>
+<h3><b><strong><u>Drill down (Roll down): </u></strong><strong><u>Query Syntax: </u></strong></b></h3>
+<p>This is a reverse of the ROLL UP operation discussed above. The data is aggregated from a higher level summary to a lower level summary/detailed data.</p>
+<h5><strong><u>Query Syntax:</u></strong></h5>
+<h5>          SELECT &#8230; GROUP BY ROLLDOWN(columns);</h5>
+<p>&nbsp;</p>
+<h5><strong><u>Example: </u></strong></h5>
+<h5>           SELECT Time, Location, product ,sum(revenue) AS Profit FROM sales GROUP BY ROLLDOWN(Time, Location, product);</h5>
+<p>&nbsp;</p>
+<h3><b><strong><u>Slicing :</u></strong></b></h3>
+<p>A slice in a multidimensional array is a column of data corresponding to a single value for one or more members of the dimension. It helps the user to visualize and gather the information specific to a dimension. When you think of slicing, think of it as a specialized filter for a particular value in a dimension. For instance, if a user wanted to know the total number of OPV products sold across all of the market locations (Europe, Far-Ease, North America, South America,) the user would perform a horizontal slice (shown in blue in Fig 1.)</p>
+<h5><strong><u>Query Syntax:</u></strong></h5>
+<h5>         Selection conditions on some attributes using &lt;WHERE clause&gt; &lt;Group by&gt; and   aggregation on some attribute</h5>
+<h5></h5>
+<h5><strong><u>Example: </u></strong></h5>
+<h5>          <span lang="EN-US">Select products, sum(revenue) from sales where Products= ‘OPV’ GROUP  BY Products ;</span></h5>
+<h3><span lang="EN-US"><span style="color: #000000; font-family: Calibri;">  </span></span></h3>
+<div id="attachment_7715" style="width: 404px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" aria-describedby="caption-attachment-7715" class="wp-image-7715" src="https://blogs.perficient.com/files/2017/08/Fig-2-Data-Cube-Slicing-and-Dicing-1-300x220.png" alt="Data Cube Operations - SQL Queries" width="394" height="289" /><p id="caption-attachment-7715" class="wp-caption-text">Fig 2 &#8211; Data cube :Slicing and Dicing</p></div>
+<h3><strong><u>Dicing:</u></strong></h3>
+<p>Dicing is similar to slicing, but it works a little bit differently. When one thinks of slicing, filtering is done to focus on a particular attribute. Dicing, on the other hand, is more of a zoom feature that selects a subset over all the dimensions, but for specific values of the dimension. For instance, if a user wanted to know the revenue earned due to the EL product in the particular market location of Europe, the user would perform a dicing operation (shown in green in Fig 2.)</p>
+<p>&nbsp;</p>
+<h5><strong><u>Query Syntax:   </u></strong><span lang="EN-US">        </span></h5>
+<h5>     Selection conditions on some attributes using &lt;WHERE clause&gt; Group by and aggregation on some attribute</h5>
+<p>&nbsp;</p>
+<h5><strong><u>Example: </u></strong></h5>
+<h5><span lang="EN-US">     </span>Select products, sum(revenue) from sales where Products= ‘EL’ and Location=’Europe’ group by Products;</h5>
+<h5></h5>
+<p>&nbsp;</p>
+</div><div style='display:none;' class='shareaholic-canvas' data-app='share_buttons' data-title='Data Cube Operations - SQL Queries' data-link='https://blogs.perficient.com/2017/08/02/data-cube-operations-sql-queries/' data-app-id-name='post_below_content'></div><div style='display:none;' class='shareaholic-canvas' data-app='recommendations' data-title='Data Cube Operations - SQL Queries' data-link='https://blogs.perficient.com/2017/08/02/data-cube-operations-sql-queries/' data-app-id-name='post_below_content'></div>				
+				
+				
+				<div class="tags-author-info">
+
+					<div class="tags"><h4>Tags</h4><a href="https://blogs.perficient.com/tag/data-cube/" rel="tag">data cube</a> <a href="https://blogs.perficient.com/tag/olap-cube/" rel="tag">OLAP cube</a></div>				</div>
+
+
+				
+			</div>
+
+
+	<div id="bsf-rt-comments"></div>
+<div id="comments" class="comments-area">
+
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply</h3><form action="https://blogs.perficient.com/wp-comments-post.php" method="post" id="commentform" class="comment-form"><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="required"></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required="required" /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="text" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required="required" /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="text" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="comment-subscription-form"><input type="checkbox" name="subscribe_comments" id="subscribe_comments" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" /> <label class="subscribe-label" id="subscribe-label" for="subscribe_comments">Notify me of follow-up comments by email.</label></p><p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='200204' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="ae3d8b9900" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="234"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div><!-- #comments .comments-area -->
+		<nav>
+		  <ul class="pager">
+			<li class="pager-prev"><a href="https://blogs.perficient.com/2017/08/02/should-my-website-adopt-accelerated-mobile-pages-amp/" rel="prev">&larr; PREVIOUS POST</a></li>
+			<li class="pager-next"><a href="https://blogs.perficient.com/2017/08/02/come-see-us-before-you-head-to-the-walt-disney-parks-please/" rel="next">NEXT POST &rarr;</a></li>
+		  </ul>
+		</nav>
+
+
+			</article>
+
+                </div>
+                <div class="content-block-sidebar" id="blogs-sidebar">
+
+					<div class="author-avatar-and-name">
+
+						<div class="author-avatar-and-name-avatar">
+							<a href="https://blogs.perficient.com/author/" style="float: left; margin-right: 1rem;"><img alt='' src='https://secure.gravatar.com/avatar/?s=300&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/?s=600&#038;d=mm&#038;r=g 2x' class='avatar avatar-300 photo avatar-default ' height='300' width='300' loading='lazy' decoding='async'/></a>
+						</div>
+
+						<div class="author-avatar-and-name-description">
+					
+												
+							<h5 class="heading-five"></h5>
+														<p><strong><a href="https://blogs.perficient.com/author/" title="" class="red-link">More from this Author</a></strong></p>
+						</div>
+					</div>
+
+
+                    <div id="custom_html-4" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><!--<h3 style="margin-bottom: 18px;">Subscribe to the Weekly&nbsp;Blog&nbsp;Digest:
+</h3>
+
+<a class="btn btn-sidebar btn-block button-primary" href="https://www.perficient.com/blog-subscription" target="_blank" rel="noopener">Sign Up</a>--></div></div>                    <div class="widget"><h5 class="widgettitle  heading-five">Categories</h5><ul>	<li class="cat-item cat-item-185"><a href="https://blogs.perficient.com/category/services/data-intelligence/">Data &amp; Intelligence</a>
+</li>
+</ul></div>                                        <div id="custom_html-6" class="widget_text widget widget_custom_html"><h5 class="widgettitle heading-five">Follow Us</h5><div class="textwidget custom-html-widget"><a href="https://twitter.com/perficient" rel="noopener" target="_blank"><img src="https://blogs.perficient.com/files/icon-twitter.png" alt="Twitter" width="32" height="32" class="alignnone size-full wp-image-310579" /></a><a href="https://www.linkedin.com/company/perficient/" rel="noopener" target="_blank"><img src="https://blogs.perficient.com/files/icon-linkedin.png" alt="Linkedin" width="32" height="32" class="alignnone size-full wp-image-310578" /></a><a href="https://www.facebook.com/perficient" rel="noopener" target="_blank"><img src="https://blogs.perficient.com/files/icon-facebook.png" alt="Facebook" width="32" height="32" class="alignnone size-full wp-image-310576" /></a><a href="https://www.youtube.com/perficient" rel="noopener" target="_blank"><img src="https://blogs.perficient.com/files/icon-youtube.png" alt="Youtube" width="32" height="32" class="alignnone size-full wp-image-310580" /></a><a href="https://www.instagram.com/perficient/" rel="noopener" target="_blank"><img src="https://blogs.perficient.com/files/icon-instagram.png" alt="Instagram" width="32" height="32" class="alignnone size-full wp-image-310577" /></a></div></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<!-- /Main Content -->
+
+<!-- BEGIN: related posts -->
+        <div class='yarpp yarpp-related yarpp-related-website yarpp-related-none yarpp-template-yarpp-template-grid'>
+</div>
+<!-- END: related posts -->
+
+
+        </main>
+<!--         <main-footer></main-footer> -->
+        </div>
+    </div>
+
+
+		<footer class="footer">
+	<div class="footer-top-section">
+		<div class="footer-wrapper">
+			<div class="footer-container">
+				<div class="footer-container-logo">
+					<a href="https://www.perficient.com/" aria-label="Go to Perficient home page">
+						<i>
+							<svg class="icon white" xmlns="http://www.w3.org/2000/svg" width="140.003" height="31.001" viewBox="0 0 140.003 31.001">
+								<rect class="a" style="opacity: 0" width="140" height="31" transform="translate(0.003 0.001)"></rect>
+								<path d="M12836-172v-31h18.186c7.5,0,11.1,4.393,11.1,10.148,0,6.172-4.02,10.427-12.908,10.427h-4.163v-1.1h3.192c6.107,0,8.885-3.29,8.885-8.093,0-4.521-2.5-7.952-7.777-7.952h-12.494v24.138h8.333V-172Zm78.007-8.369v-11.248h.14c0-3.014.974-5.756,5.14-5.756,3.054,0,4.442,1.507,4.442,3.976v2.193h-2.917v-1.507c0-1.376-.552-2.334-1.8-2.334-1.668,0-1.946,1.1-1.946,3.841v10.835c0,2.6.83,3.017,1.8,3.017,1.109,0,1.943-.821,1.943-2.6v-1.507h2.917v2.469c0,2.328-.973,4.111-4.581,4.111C12915.259-174.884,12914.006-176.939,12914.006-180.37Zm51.087,5.352v-19.614h-3.752V-197.1h10.547v2.607h-3.745v19.476Zm-11.8-.141-3.611-18.787v18.787h-2.774V-197.1h4.3l3.608,18.238V-197.1h2.917v21.942Zm-18.464,0V-197.1h8.33v2.607h-5.273v6.852h5v2.472h-5v7.4h5.273v2.607Zm-7.22,0V-197.1h3.054v21.942Zm-20.538,0V-197.1h3.05v21.942Zm-12.078,0V-197.1h8.327v2.607h-5.276v6.852h5v2.472h-5v10.011Zm-14.019,0V-197.1h4.855c4.445,0,5,1.234,5,6.031,0,3.02-.418,4.255-2.917,4.938,2.08.279,2.774,1.234,2.774,3.3v4.8a17.711,17.711,0,0,0,.143,2.742h-2.917a3.939,3.939,0,0,1-.419-1.921v-4.935c0-2.062-.412-2.61-2.358-2.61h-1.113v9.6Zm3.193-12.2h.831c2.5,0,2.773-.41,2.773-3.707s-.136-3.562-2.079-3.562h-1.525Zm-15.132,12.2V-197.1h8.327v2.607h-5.273v6.852h5v2.472h-5v7.4h5.273v2.607Zm-20.681-13.852v-5.076h.975c1.8,0,2.631.689,2.631,2.469s-.83,2.607-3.05,2.607Zm126.066-5.666a1.35,1.35,0,0,1-.3-.125,1.276,1.276,0,0,1-.249-.192,1.035,1.035,0,0,1-.2-.25,1.194,1.194,0,0,1-.127-.292,1.221,1.221,0,0,1-.045-.327,1.227,1.227,0,0,1,.045-.33,1.194,1.194,0,0,1,.127-.292,1.1,1.1,0,0,1,.2-.25,1.276,1.276,0,0,1,.249-.192,1.214,1.214,0,0,1,.3-.125,1.262,1.262,0,0,1,.33-.042,1.25,1.25,0,0,1,.488.1,1.259,1.259,0,0,1,.395.263,1.265,1.265,0,0,1,.267.391,1.183,1.183,0,0,1,.1.481,1.179,1.179,0,0,1-.1.478,1.3,1.3,0,0,1-.267.391,1.259,1.259,0,0,1-.395.263,1.25,1.25,0,0,1-.488.1A1.261,1.261,0,0,1,12974.422-194.678Zm.045-2.222a1,1,0,0,0-.253.106,1.2,1.2,0,0,0-.214.167.962.962,0,0,0-.165.218,1.119,1.119,0,0,0-.1.257,1.052,1.052,0,0,0-.039.289,1.007,1.007,0,0,0,.039.282,1.12,1.12,0,0,0,.1.257.945.945,0,0,0,.165.215,1.2,1.2,0,0,0,.214.167,1.128,1.128,0,0,0,.253.106,1.043,1.043,0,0,0,.285.038,1.012,1.012,0,0,0,.282-.038,1.054,1.054,0,0,0,.257-.106,1.1,1.1,0,0,0,.218-.167.974.974,0,0,0,.165-.215,1.119,1.119,0,0,0,.107-.253,1.028,1.028,0,0,0,.036-.285,1.051,1.051,0,0,0-.036-.289,1.084,1.084,0,0,0-.107-.257.992.992,0,0,0-.165-.218,1.1,1.1,0,0,0-.218-.167.942.942,0,0,0-.257-.106,1.012,1.012,0,0,0-.282-.038A1.043,1.043,0,0,0,12974.467-196.9Zm.688,1.783a.09.09,0,0,1-.088-.048l-.318-.487a.088.088,0,0,0-.035-.035.126.126,0,0,0-.068-.013h-.123v.584h-.293v-1.5h.5a.753.753,0,0,1,.444.109.369.369,0,0,1,.143.314.428.428,0,0,1-.087.266.464.464,0,0,1-.267.154.179.179,0,0,1,.055.048.5.5,0,0,1,.042.061l.371.552Zm-.633-.792h.186a.71.71,0,0,0,.155-.016.331.331,0,0,0,.1-.048.191.191,0,0,0,.055-.08.384.384,0,0,0,.016-.109.331.331,0,0,0-.016-.106.148.148,0,0,0-.048-.071.192.192,0,0,0-.092-.045.614.614,0,0,0-.146-.016h-.211Z" transform="translate(-12835.999 203.001)"></path>
+							</svg>
+						</i>
+					</a>
+				</div>
+					<ul class="footer-container-social-list">
+	<li class="footer-container-social-list-item">
+		<a href="https://www.instagram.com/perficient/" aria-label="A link to Perficient's Instagram" rel="noopener noreferrer" title="Perficient Instagram" target="_blank">
+		<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" enable-background="new 0 0 32 32" xml:space="preserve" alt="" aria-hidden="true">
+<rect fill-opacity="0" width="32" height="32" />
+<path d="M22.1,11.4c-0.3-0.7-0.8-1.2-1.5-1.5c-1-0.4-3.5-0.3-4.6-0.3s-3.6-0.1-4.6,0.3c-0.7,0.3-1.2,0.8-1.5,1.5  c-0.3,1.5-0.4,3.1-0.3,4.6c0,1.1-0.1,3.6,0.3,4.6c0.3,0.7,0.8,1.2,1.5,1.5c1,0.4,3.5,0.3,4.6,0.3s3.6,0.1,4.6-0.3  c0.7-0.3,1.2-0.8,1.5-1.5c0.3-1.5,0.4-3.1,0.3-4.6C22.5,14.5,22.4,12.9,22.1,11.4z M16,20c-2.2,0-4-1.8-4-4s1.8-4,4-4s4,1.8,4,4  S18.2,20,16,20z M20.2,12.7c-0.5-0.1-0.9-0.5-0.8-1c0-0.4,0.4-0.8,0.8-0.8c0.5-0.1,1,0.3,1,0.8c0.1,0.5-0.3,1-0.8,1  C20.3,12.7,20.2,12.7,20.2,12.7z" />
+<path d="M16,13.4c-1.4,0-2.6,1.2-2.6,2.6s1.2,2.6,2.6,2.6s2.6-1.2,2.6-2.6S17.4,13.4,16,13.4L16,13.4z" />
+<path d="M24.6,4.9H7.4C6,4.9,4.9,6,4.9,7.4v17.1C4.9,25.9,6,27,7.4,27h17.1c1.4,0,2.5-1.1,2.5-2.5V7.4C27.1,6,26,4.9,24.6,4.9z   M23.8,19.2c0,1.2-0.4,2.4-1.3,3.3c-0.9,0.8-2.1,1.3-3.3,1.3c-1.3,0.1-5.2,0.1-6.5,0c-1.2,0-2.4-0.4-3.3-1.3  c-0.8-0.9-1.3-2.1-1.3-3.3C8,17.9,8,14,8.1,12.7c0-1.2,0.4-2.4,1.3-3.3c0.9-0.8,2.1-1.3,3.3-1.3C14,8,17.9,8,19.2,8.1  c1.2,0,2.4,0.4,3.3,1.3c0.8,0.9,1.3,2.1,1.3,3.3C23.9,14.1,23.9,17.9,23.8,19.2z" />
+</svg>
+		</a>
+	</li>
+
+	<li class="footer-container-social-list-item">
+		<a href="https://www.linkedin.com/company/perficient/" aria-label="A link to Perficient's LinkedIn page" rel="noopener noreferrer" title="Perficient LinkedIn" target="_blank">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" alt="" aria-hidden="true">
+  <path d="M25.5 6h-18A1.506 1.506 0 006 7.514v17.972A1.506 1.506 0 007.5 27h18a1.51 1.51 0 001.5-1.514V7.514A1.51 1.51 0 0025.5 6zM12.347 24H9.234V13.978h3.118V24zm-1.556-11.391a1.805 1.805 0 01-1.8-1.8 1.805 1.805 0 011.8-1.8 1.808 1.808 0 011.8 1.8 1.8 1.8 0 01-1.8 1.8zM24.014 24H20.9v-4.875c0-1.162-.023-2.658-1.617-2.658-1.622 0-1.87 1.266-1.87 2.573V24H14.3V13.978h2.986v1.369h.042a3.278 3.278 0 012.948-1.617c3.15 0 3.736 2.077 3.736 4.777z" />
+</svg>
+		</a>
+	</li>
+
+	<li class="footer-container-social-list-item">
+		<a href="https://www.tiktok.com/discover/perficient-life" rel="noopener noreferrer" title="Perficient TikTok" target="_blank">
+		<svg id="a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" alt="" aria-hidden="true">
+  <rect width="32" height="32" fill="rgba(183,153,103,0)" />
+  <g id="b" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+    <path d="M20.1,6c.35,2.98,2.01,4.75,4.9,4.94v3.35c-1.68,.16-3.14-.38-4.85-1.42v6.27c0,7.96-8.68,10.45-12.17,4.74-2.24-3.67-.87-10.11,6.32-10.37v3.53c-.55,.09-1.13,.23-1.67,.41-1.6,.54-2.51,1.56-2.25,3.34,.48,3.43,6.77,4.44,6.25-2.25V6.01h3.47Z" fill-rule="evenodd" />
+  </g>
+</svg>
+		</a>
+	</li>
+
+	<li class="footer-container-social-list-item">
+		<a href="https://www.youtube.com/Perficient" aria-label="A link to Perficient's YouTube channel" rel="noopener noreferrer" title="Perficient&#39;s YouTube Channel" target="_blank">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" alt="" aria-hidden="true">
+  <path d="M28.065 9.816A3.217 3.217 0 0025.8 7.538C23.8 7 15.8 7 15.8 7s-8.005 0-10 .538a3.217 3.217 0 00-2.263 2.278A33.744 33.744 0 003 16.018a33.744 33.744 0 00.535 6.2A3.169 3.169 0 005.8 24.462C7.795 25 15.8 25 15.8 25s8.005 0 10-.538a3.169 3.169 0 002.265-2.242 33.744 33.744 0 00.535-6.2 33.744 33.744 0 00-.535-6.204zM13.182 19.825v-7.613l6.691 3.806z" />
+</svg>
+		</a>
+	</li>
+
+	<li class="footer-container-social-list-item">
+		<a href="https://twitter.com/perficient" aria-label="A link to Perficient's Twitter page" rel="noopener noreferrer" title="Perficient Twitter" target="_blank">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" alt="" aria-hidden="true">
+  <path d="M25.533 10.858A10.573 10.573 0 0028 8.315a9.861 9.861 0 01-2.832.761 4.906 4.906 0 002.162-2.711 9.684 9.684 0 01-3.122 1.188A4.907 4.907 0 0020.614 6a4.917 4.917 0 00-4.914 4.919 5.553 5.553 0 00.122 1.127A13.981 13.981 0 015.675 6.898a4.881 4.881 0 00-.67 2.482 4.915 4.915 0 002.193 4.1 4.953 4.953 0 01-2.223-.624v.061a4.919 4.919 0 003.944 4.824 5.2 5.2 0 01-1.294.167 6.2 6.2 0 01-.925-.076 4.928 4.928 0 004.594 3.414 9.851 9.851 0 01-6.106 2.1A10.18 10.18 0 014 23.284a13.9 13.9 0 007.553 2.208 13.9 13.9 0 0013.995-13.995c0-.213 0-.426-.015-.639z" />
+</svg>
+		</a>
+	</li>
+
+	<li class="footer-container-social-list-item">
+		<a href="https://www.facebook.com/perficient/" aria-label="A link to Perficient's Facebook page" rel="noopener noreferrer" title="Perficient Facebook" target="_blank">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" alt="" aria-hidden="true">
+  <path d="M27.25 15.625A11.623 11.623 0 0015.625 4 11.623 11.623 0 004 15.625a11.629 11.629 0 009.809 11.484v-8.123h-2.954v-3.361h2.953v-2.561c0-2.913 1.734-4.523 4.391-4.523a17.892 17.892 0 012.6.227v2.857h-1.463a1.68 1.68 0 00-1.894 1.815v2.185h3.223l-.516 3.36h-2.708v8.124a11.629 11.629 0 009.809-11.484z" />
+</svg>
+		</a>
+	</li>
+
+	<li class="footer-container-social-list-item">
+		<a href="https://blogs.perficient.com/" aria-label="A link to Perficient's blog" rel="noopener noreferrer" title="Perficient Blog" target="_blank">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" alt="" aria-hidden="true">
+  <path d="M13.073 14.634a1.127 1.127 0 00-1.322 1.116v2.363a1.127 1.127 0 00.783 1.031A2.25 2.25 0 119.5 21.253V9.624a1.122 1.122 0 00-1.125-1.122h-2.25A1.122 1.122 0 005 9.624v11.629a6.753 6.753 0 108.073-6.62zM14.8 4.001a.755.755 0 00-.8.75v1.481a.742.742 0 00.7.745A12.041 12.041 0 0126 18.3a.749.749 0 00.745.7h1.5a.755.755 0 00.75-.8A15.038 15.038 0 0014.8 4.001zm.014 4.5a.756.756 0 00-.814.755v1.5a.748.748 0 00.694.745 7.488 7.488 0 016.793 6.807.753.753 0 00.745.689h1.51a.759.759 0 00.755-.811 10.548 10.548 0 00-9.686-9.69z" />
+</svg>
+		</a>
+	</li>
+
+	</ul>
+			</div>
+			<div class="footer-linklist">
+	<h4 class="gold-heading-four">GET TO KNOW US</h4>
+	<ul>
+				<li class="footer-linklist-item">
+					<a href="https://www.perficient.com/who-we-are">Who We Are</a>
+				</li>
+				<li class="footer-linklist-item">
+					<a href="https://www.perficient.com/what-we-do">What We Do</a>
+				</li>
+				<li class="footer-linklist-item">
+					<a href="https://www.perficient.com/success-stories">Success Stories</a>
+				</li>
+				<li class="footer-linklist-item">
+					<a href="https://www.perficient.com/insights">Insights</a>
+				</li>
+				<li class="footer-linklist-item">
+					<a href="https://www.perficient.com/careers">Careers</a>
+				</li>
+				<li class="footer-linklist-item">
+					<a href="https://perficient.gcs-web.com/">Investors</a>
+				</li>
+				<li class="footer-linklist-item">
+					<a href="https://www.perficient.com/news-room">News Room</a>
+				</li>
+				<li class="footer-linklist-item">
+					<a href="https://www.perficient.com/contact">Contact</a>
+				</li>
+	</ul>
+</div><div class="footer-linklist">
+	<h4 class="gold-heading-four">Explore Industries</h4>
+	<ul>
+				<li class="footer-linklist-item">
+					<a href="https://www.perficient.com/industries/automotive">Automotive</a>
+				</li>
+				<li class="footer-linklist-item">
+					<a href="https://www.perficient.com/industries/communications">Communications + Media + Technology</a>
+				</li>
+				<li class="footer-linklist-item">
+					<a href="https://www.perficient.com/industries/consumer-markets">Consumer Markets</a>
+				</li>
+				<li class="footer-linklist-item">
+					<a href="https://www.perficient.com/industries/energy-and-utilities">Energy + Utilities</a>
+				</li>
+				<li class="footer-linklist-item">
+					<a href="https://www.perficient.com/industries/financial-services">Financial Services</a>
+				</li>
+				<li class="footer-linklist-item">
+					<a href="https://www.perficient.com/industries/healthcare">Healthcare</a>
+				</li>
+				<li class="footer-linklist-item">
+					<a href="https://www.perficient.com/industries/insurance">Insurance</a>
+				</li>
+				<li class="footer-linklist-item">
+					<a href="https://www.perficient.com/industries/life-sciences">Life Sciences</a>
+				</li>
+				<li class="footer-linklist-item">
+					<a href="https://www.perficient.com/industries/manufacturing">Manufacturing</a>
+				</li>
+	</ul>
+</div><div class="footer-linklist">
+	<h4 class="gold-heading-four">Functions</h4>
+	<ul>
+				<li class="footer-linklist-item">
+					<a href="https://www.perficient.com/functions/commerce">Commerce</a>
+				</li>
+				<li class="footer-linklist-item">
+					<a href="https://www.perficient.com/functions/contact-center">Contact Center</a>
+				</li>
+				<li class="footer-linklist-item">
+					<a href="https://www.perficient.com/functions/finance">Finance</a>
+				</li>
+				<li class="footer-linklist-item">
+					<a href="https://www.perficient.com/functions/supply-chain">Supply Chain</a>
+				</li>
+	</ul>
+</div>
+		</div>
+	</div>
+	<div class="footer-bottom-section">
+		<div class="footer-wrapper">
+			<div class="copyright-section">
+				<p>© 2023 Perficient Inc, All Rights Reserved</p>
+			</div>
+				<div class="bottom-link">
+		<a href="https://www.perficient.com/privacy-policy">Privacy Policy</a>
+	</div>
+	<div class="bottom-link">
+		<a href="https://www.perficient.com/terms-of-use" target="|Custom">Terms of Use</a>
+	</div>
+	<div class="bottom-link">
+		<a href="https://www.perficient.com/customer-security-statement">Customer Security Statement</a>
+	</div>
+	<div class="bottom-link">
+		<a href="https://www.perficient.com/human-rights-statement">Human Rights Statement</a>
+	</div>
+	<div class="bottom-link">
+		<a title="Opt Out of the Sale or Sharing of Your Personal Information" href="https://www.perficient.com/privacy-policy#rights">Do Not Share My Personal Information</a>
+	</div>
+
+		</div>
+	</div>
+</footer>
+
+<script type="text/javascript">
+	_linkedin_partner_id = "157154";
+	window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+	window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+</script>
+<script type="text/javascript">
+	(function () {
+		var s = document.getElementsByTagName("script")[0];
+		var b = document.createElement("script");
+		b.type = "text/javascript"; b.async = true;
+		b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+		s.parentNode.insertBefore(b, s);
+	})();
+</script>
+
+<noscript>
+	<img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=157154&fmt=gif" />
+</noscript>
+
+
+    <script src="https://blogs.perficient.com/wp-content/themes/perficient_2020/dist/wp-main.js"></script>
+
+	<style type="text/css">
+/* Inserted by mu-plugins/global-css.php */
+/* Hide Google ReCaptcha v3 floating badges */
+.grecaptcha-badge {
+    visibility: hidden;
+    opacity: 0;
+}
+</style>
+
+<script>
+(function (w,i,d,g,e,t,s) {w[d] = w[d]||[];t= i.createElement(g);
+t.async=1;t.src=e;s=i.getElementsByTagName(g)[0];s.parentNode.insertBefore(t, s);
+})(window, document, '_gscq','script','//widgets.getsitecontrol.com/194256/script.js');
+</script>
+
+<script>
+(function($) {
+  // Fix blog posts with hard-coded single <br>
+  $('.entry br').replaceWith('<br><br>');
+})( jQuery );
+</script><link rel='stylesheet' id='yarppRelatedCss-css' href='https://blogs.perficient.com/wp-content/plugins/yet-another-related-posts-plugin/style/related.css?ver=5.30.9' type='text/css' media='all' />
+<script type="text/javascript" src="https://blogs.perficient.com/wp-content/plugins/fluidvids/js/fluidvids.min.js?ver=2.4.1" id="fluidvids-js"></script>
+<script type="text/javascript" src="https://blogs.perficient.com/wp-content/plugins/responsive-youtube-vimeo-popup/assets/js/wp-video-popup.js?ver=2.9.6" id="wp-video-popup-js"></script>
+<script type="text/javascript" src="https://blogs.perficient.com/wp-content/plugins/duracelltomi-google-tag-manager/dist/js/gtm4wp-form-move-tracker.js?ver=1.20" id="gtm4wp-form-move-tracker-js"></script>
+<script type="text/javascript" src="https://blogs.perficient.com/wp-content/plugins/enlighter/cache/X1_enlighterjs.min.js?ver=d2XvGDW+zB8N0s4" id="enlighterjs-js"></script>
+<script type="text/javascript" id="enlighterjs-js-after">
+/* <![CDATA[ */
+!function(e,n){if("undefined"!=typeof EnlighterJS){var o={"selectors":{"block":"pre.EnlighterJSRAW","inline":"code.EnlighterJSRAW"},"options":{"indent":4,"ampersandCleanup":true,"linehover":true,"rawcodeDbclick":false,"textOverflow":"break","linenumbers":true,"theme":"enlighter","language":"enlighter","retainCssClasses":false,"collapse":false,"toolbarOuter":"","toolbarTop":"{BTN_RAW}{BTN_COPY}{BTN_WINDOW}{BTN_WEBSITE}","toolbarBottom":""}};(e.EnlighterJSINIT=function(){EnlighterJS.init(o.selectors.block,o.selectors.inline,o.options)})()}else{(n&&(n.error||n.log)||function(){})("Error: EnlighterJS resources not loaded yet!")}}(window,console);
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://stats.wp.com/e-202407.js" id="jetpack-stats-js" data-wp-strategy="defer"></script>
+<script type="text/javascript" id="jetpack-stats-js-after">
+/* <![CDATA[ */
+_stq = window._stq || [];
+_stq.push([ "view", JSON.parse("{\"v\":\"ext\",\"blog\":\"30508587\",\"post\":\"200204\",\"tz\":\"-6\",\"srv\":\"blogs.perficient.com\",\"j\":\"1:13.1.1\"}") ]);
+_stq.push([ "clickTrackerInit", "30508587", "200204" ]);
+/* ]]> */
+</script>
+<script defer type="text/javascript" src="https://blogs.perficient.com/wp-content/plugins/akismet/_inc/akismet-frontend.js?ver=1706662490" id="akismet-frontend-js"></script>
+<script type="text/javascript" id="get-the-page-js-extra">
+/* <![CDATA[ */
+var ajaxurl = "https:\/\/blogs.perficient.com\/wp-admin\/admin-ajax.php";
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://blogs.perficient.com/wp-content/plugins/contactic/assets/js/get-the-page.js?ver=1.0" id="get-the-page-js"></script>
+<script type="text/javascript" id="my_loadmore-js-extra">
+/* <![CDATA[ */
+var misha_loadmore_params = {"ajaxurl":"https:\/\/blogs.perficient.com\/wp-admin\/admin-ajax.php","posts":"{\"page\":0,\"year\":2017,\"monthnum\":8,\"day\":2,\"name\":\"data-cube-operations-sql-queries\",\"error\":\"\",\"m\":\"\",\"p\":0,\"post_parent\":\"\",\"subpost\":\"\",\"subpost_id\":\"\",\"attachment\":\"\",\"attachment_id\":0,\"pagename\":\"\",\"page_id\":0,\"second\":\"\",\"minute\":\"\",\"hour\":\"\",\"w\":0,\"category_name\":\"\",\"tag\":\"\",\"cat\":\"\",\"tag_id\":\"\",\"author\":\"\",\"author_name\":\"\",\"feed\":\"\",\"tb\":\"\",\"paged\":0,\"meta_key\":\"\",\"meta_value\":\"\",\"preview\":\"\",\"s\":\"\",\"sentence\":\"\",\"title\":\"\",\"fields\":\"\",\"menu_order\":\"\",\"embed\":\"\",\"category__in\":[],\"category__not_in\":[],\"category__and\":[],\"post__in\":[],\"post__not_in\":[],\"post_name__in\":[],\"tag__in\":[],\"tag__not_in\":[],\"tag__and\":[],\"tag_slug__in\":[],\"tag_slug__and\":[],\"post_parent__in\":[],\"post_parent__not_in\":[],\"author__in\":[],\"author__not_in\":[],\"search_columns\":[],\"ignore_sticky_posts\":1,\"suppress_filters\":false,\"cache_results\":true,\"update_post_term_cache\":true,\"update_menu_item_cache\":false,\"lazy_load_term_meta\":true,\"update_post_meta_cache\":true,\"post_type\":\"\",\"posts_per_page\":12,\"nopaging\":false,\"comments_per_page\":\"50\",\"no_found_rows\":false,\"order\":\"DESC\"}","current_page":"1","max_page":"0","is_home":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://blogs.perficient.com/wp-content/themes/perficient_2020/js/myloadmore.js?ver=2559f26b12dca9f72fd58c36157f887b" id="my_loadmore-js"></script>
+<script>fluidvids.init({selector: ['iframe', 'object', ],players: ['www.youtube.com', 'player.vimeo.com', ]}); </script>	</body>
+</html>
+<!--
+Performance optimized by W3 Total Cache. Learn more: https://www.boldgrid.com/w3-total-cache/
+
+Page Caching using Disk: Enhanced 
+
+Served from: blogs.perficient.com @ 2024-02-16 22:33:21 by W3 Total Cache
+-->

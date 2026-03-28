@@ -1,0 +1,102 @@
+movie_id,movie_title,genre,release_year
+1,The Shawshank Redemption,Drama,1994
+2,The Godfather,Crime,1972
+3,The Dark Knight,Action,2008
+4,Pulp Fiction,Crime,1994
+5,Schindler's List,Biography,1993
+6,The Lord of the Rings,Adventure,2003
+7,Fight Club,Drama,1999
+8,Inception,Sci-Fi,2010
+9,Forrest Gump,Drama,1994
+10,The Matrix,Sci-Fi,1999
+11,Goodfellas,Crime,1990
+12,The Silence of the Lambs,Thriller,1991
+13,Se7en,Crime,1995
+14,The Usual Suspects,Crime,1995
+15,Saving Private Ryan,Drama,1998
+16,The Green Mile,Drama,1999
+17,Interstellar,Sci-Fi,2014
+18,Gladiator,Action,2000
+19,Memento,Mystery,2000
+20,The Departed,Crime,2006
+21,The Prestige,Drama,2006
+22,Whiplash,Drama,2014
+23,The Lion King,Animation,1994
+24,Back to the Future,Adventure,1985
+25,The Pianist,Biography,2002
+26,The Intouchables,Biography,2011
+27,The Wolf of Wall Street,Biography,2013
+28,Shutter Island,Mystery,2010
+29,The Social Network,Biography,2010
+30,Mad Max: Fury Road,Action,2015
+31,The Grand Budapest Hotel,Comedy,2014
+32,Joker,Crime,2019
+33,Parasite,Drama,2019
+34,Django Unchained,Drama,2012
+35,Inglourious Basterds,Adventure,2009
+36,Blade Runner 2049,Sci-Fi,2017
+37,The Imitation Game,Biography,2014
+38,The Revenant,Adventure,2015
+39,A Beautiful Mind,Biography,2001
+40,La La Land,Drama,2016
+41,The Truman Show,Comedy,1998
+42,The Big Lebowski,Comedy,1998
+43,American History X,Drama,1998
+44,Braveheart,Biography,1995
+45,Toy Story,Animation,1995
+46,Finding Nemo,Animation,2003
+47,The Incredibles,Animation,2004
+48,WALL-E,Animation,2008
+49,Up,Animation,2009
+50,Coco,Animation,2017
+51,The Hunt,Thriller,2012
+52,Her,Romance,2013
+53,Amelie,Romance,2001
+54,The Sixth Sense,Mystery,1999
+55,The Others,Horror,2001
+56,A Quiet Place,Horror,2018
+57,Insidious,Horror,2010
+58,Get Out,Horror,2017
+59,The Conjuring,Horror,2013
+60,The Exorcist,Horror,1973
+61,Titanic,Romance,1997
+62,The Notebook,Romance,2004
+63,Casablanca,Romance,1942
+64,Gone with the Wind,Romance,1939
+65,Pride and Prejudice,Romance,2005
+66,Silver Linings Playbook,Romance,2012
+67,The Princess Bride,Adventure,1987
+68,Jurassic Park,Adventure,1993
+69,Pirates of the Caribbean,Adventure,2003
+70,The Goonies,Adventure,1985
+71,Indiana Jones and the Last Crusade,Adventure,1989
+72,E.T. the Extra-Terrestrial,Sci-Fi,1982
+73,Star Wars: Episode IV A New Hope,Sci-Fi,1977
+74,Star Trek,Sci-Fi,2009
+75,Avatar,Sci-Fi,2009
+76,Guardians of the Galaxy,Sci-Fi,2014
+77,The Avengers,Action,2012
+78,Iron Man,Action,2008
+79,Spider-Man: Into the Spider-Verse,Animation,2018
+80,Frozen,Animation,2013
+81,Moana,Animation,2016
+82,Zootopia,Animation,2016
+83,Beauty and the Beast,Animation,1991
+84,Aladdin,Animation,1992
+85,Mulan,Animation,1998
+86,Despicable Me,Animation,2010
+87,Minions,Animation,2015
+88,Shrek,Animation,2001
+89,The Lego Movie,Animation,2014
+90,Kung Fu Panda,Animation,2008
+91,How to Train Your Dragon,Animation,2010
+92,Tangled,Animation,2010
+93,The Secret Life of Pets,Animation,2016
+94,Sing,Animation,2016
+95,Ratatouille,Animation,2007
+96,Monsters Inc.,Animation,2001
+97,Madagascar,Animation,2005
+98,Happy Feet,Animation,2006
+99,The Jungle Book,Animation,1967
+100,Bambi,Animation,1942
+101,The Good the Bad and the Ugly,Western,1966

@@ -1,0 +1,104 @@
+df=         VIN (1-10)  ... 2020 Census Tract
+0       5YJ3E1EB4L  ...      5.307700e+10
+1       5YJ3E1EA7K  ...      6.073005e+09
+2       7JRBR0FL9M  ...      4.103900e+10
+3       5YJXCBE21K  ...      5.307700e+10
+4       5UXKT0C5XH  ...      5.306105e+10
+...            ...  ...               ...
+124711  5YJ3E1EB6N  ...      5.306105e+10
+124712  KNDCM3LD2L  ...      5.305306e+10
+124713  7SAYGDEE0P  ...      5.307300e+10
+124714  1G1FW6S03J  ...      5.305307e+10
+124715  1G1RC6E47F  ...      5.300501e+10
+
+[124716 rows x 15 columns]
+col=::VIN (1-10)::
+col=::County::
+col=::City::
+col=::State::
+col=::Postal Code::
+col=::Model Year::
+col=::Make::
+col=::Model::
+col=::Electric Vehicle Type::
+col=::Electric Range::
+col=::Base MSRP::
+col=::Legislative District::
+col=::DOL Vehicle ID::
+col=::Electric Utility::
+col=::2020 Census Tract::
+df=                VIN  ... Census_Tract_2020
+0       5YJ3E1EB4L  ...      5.307700e+10
+1       5YJ3E1EA7K  ...      6.073005e+09
+2       7JRBR0FL9M  ...      4.103900e+10
+3       5YJXCBE21K  ...      5.307700e+10
+4       5UXKT0C5XH  ...      5.306105e+10
+...            ...  ...               ...
+124711  5YJ3E1EB6N  ...      5.306105e+10
+124712  KNDCM3LD2L  ...      5.305306e+10
+124713  7SAYGDEE0P  ...      5.307300e+10
+124714  1G1FW6S03J  ...      5.305307e+10
+124715  1G1RC6E47F  ...      5.300501e+10
+
+[124716 rows x 15 columns]
+col=::VIN::
+col=::County::
+col=::City::
+col=::State::
+col=::Postal_Code::
+col=::Model_Year::
+col=::Make::
+col=::Model::
+col=::Electric_Vehicle_Type::
+col=::Electric_Range::
+col=::Base_MSRP::
+col=::Legislative_District::
+col=::DOL_Vehicle_ID::
+col=::Electric_Utility::
+col=::Census_Tract_2020::
+conn=::<sqlalchemy.engine.base.Connection object at 0x12a8a1640>::
+
+#-------------------------
+# testing created table...
+#-------------------------
+
+Electric-Vehicle-Population_Data (main) % mysql -h localhost -u root -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 16
+Server version: 8.1.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use test;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> select count(*) from ev_table_from_csv;
++----------+
+| count(*) |
++----------+
+|   124716 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> select * from ev_table_from_csv limit 5;
++-------+------------+-----------+-----------+-------+-------------+------------+-------+---------+----------------------------------------+----------------+-----------+----------------------+----------------+------------------------+-------------------+
+| index | VIN        | County    | City      | State | Postal_Code | Model_Year | Make  | Model   | Electric_Vehicle_Type                  | Electric_Range | Base_MSRP | Legislative_District | DOL_Vehicle_ID | Electric_Utility       | Census_Tract_2020 |
++-------+------------+-----------+-----------+-------+-------------+------------+-------+---------+----------------------------------------+----------------+-----------+----------------------+----------------+------------------------+-------------------+
+|     0 | 5YJ3E1EB4L | Yakima    | Yakima    | WA    |       98908 |       2020 | TESLA | MODEL 3 | Battery Electric Vehicle (BEV)         |            322 |         0 |                   14 |      127175366 | PACIFICORP             |       53077000904 |
+|     1 | 5YJ3E1EA7K | San Diego | San Diego | CA    |       92101 |       2019 | TESLA | MODEL 3 | Battery Electric Vehicle (BEV)         |            220 |         0 |                 NULL |      266614659 | NULL                   |        6073005102 |
+|     2 | 7JRBR0FL9M | Lane      | Eugene    | OR    |       97404 |       2021 | VOLVO | S60     | Plug-in Hybrid Electric Vehicle (PHEV) |             22 |         0 |                 NULL |      144502018 | NULL                   |       41039002401 |
+|     3 | 5YJXCBE21K | Yakima    | Yakima    | WA    |       98908 |       2019 | TESLA | MODEL X | Battery Electric Vehicle (BEV)         |            289 |         0 |                   14 |      477039944 | PACIFICORP             |       53077000401 |
+|     4 | 5UXKT0C5XH | Snohomish | Bothell   | WA    |       98021 |       2017 | BMW   | X5      | Plug-in Hybrid Electric Vehicle (PHEV) |             14 |         0 |                    1 |      106314946 | PUGET SOUND ENERGY INC |       53061051918 |
++-------+------------+-----------+-----------+-------+-------------+------------+-------+---------+----------------------------------------+----------------+-----------+----------------------+----------------+------------------------+-------------------+
+5 rows in set (0.00 sec)
+
+mysql>

@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+
+<hr style="width:150%;text-align:left;margin-left:0">
+
+<h1>Data Warehouse, <br> Data Lake, <br> Data Lakehouse </h1>
+
+<figure><img  src="https://www.databricks.com/sites/default/files/2020/01/data-lakehouse-new.png" alt="Data Warehouse" width="434" height="254" /></figure>
+
+<hr style="width:180%;text-align:left;margin-left:0">
+
+
+<h1>Data Warehouses: Basic Concepts</h1>
+
+<figure><img  src="https://editor.analyticsvidhya.com/uploads/24916data%20warehouse.jpg" alt="Data Warehouse" width="434" height="254" /></figure>
+
+<hr style="width:150%;text-align:left;margin-left:0">
+
+
+<h2>Introduction</h2>
+
+<h3>1.1 What is a data warehouse?</h3>
+<ol>
+<li>A data warehouse is
+
+<ul>
+<li>A type of data management system
+<li>Designed to enable and support <b>business intelligence</b> <br>
+    (BI) activities, especially analytics. <br>
+</ul>
+
+<li>Data warehouses are solely intended to perform <br>
+queries and analysis and often contain large <br>
+amounts of historical data. <br>
+
+<li>The data within a data warehouse is usually <br>
+derived from a wide range of sources such as <br>
+application log files and transaction applications.
+
+<li>A data warehouse is a central repository    <br>
+    of information that can be analyzed to make <br>
+    more <b>informed decisions</b>.
+
+</ol>
+
+<hr style="width:150%;text-align:left;margin-left:0">
+
+<h3>1.2 What are the Components of a Data Warehouse?</h3>
+
+<figure><img  src="https://github.com/mahmoudparsian/data-warehousing/blob/main/webdocs/images/the_components_of_a_data_warehouse.png?raw=true" alt="Data Warehouse" width="434" height="254" /></figure>
+
+<hr style="width:150%;text-align:left;margin-left:0">
+
+<h3>2. What is a Business Intelligence (BI)?</h3>
+
+<ol>
+<li> Business intelligence combines 
+<ul>
+<li><b>business analytics</b>,
+<li><b>data mining</b>, 
+<li><b>data visualization</b>, 
+<li><b>data tools</b> and <br>
+<li>infrastructure, and best practices
+</ul>
+ to help organizations make <br>
+ more <b>data-driven decisions</b>.
+<p class>
+<li> Business Intelligence refers to a  <br>
+     set of processes and technologies  <br>           
+     that convert raw data into  usable <br>
+     and meaningful information to make <br>
+     profitable business decisions. 
+<p class>
+<li> <b>BI</b> is an umbrella term that combines   <br>
+data mining, data tools, business analytics, data  <br>
+visualization, infrastructure, and best practices  <br> 
+to offer quick-to-digest data summaries and aid an <br>
+organization in making more data-driven decisions. 
+<p class>
+<li> BI serves enterprises to unlock sales and marketing <br>
+potential, and innovate new business capabilities.
+</ol>
+
+<hr style="width:150%;text-align:left;margin-left:0">
+
+<h3>3 Examples of a Business Intelligence (BI)?</h3>
+
+<h4>3.1 Example of a Business Intelligence (BI)?</h4>
+<ul>
+<li> What is an example of a business intelligence?       <br>
+<li>For example, a retail store generates data regularly <br>
+related to purchases. They gather information about  <br>
+the seller, age, gender, preferred purchases, and more.   <br>
+ 
+<li>Now, they turn these raw data units into a     <br>
+fruitful chunk of information based on which they    <br>
+plan their future marketing
+</ul>
+
+<h4>3.2 Netflix Example: Business Intelligence (BI) </h4>
+<ul>
+<li>As the largest subscription streaming service, <br>
+Netflix leverages business intelligence and        <br>
+data science to gain new subscribers and enhance   <br>
+user experiences.                                  <br>
+<br>
+<li>BI solutions create personalized watch lists   <br>
+and compelling artwork while persuading users      <br>
+to watch their favorite genres. The recommendation <br>
+system promotes content to the right audience at   <br>
+the right time.
+</ul>
+
+<hr style="width:150%;text-align:left;margin-left:0">
+
+<h3>4. The Purpose of a Data Warehouse?</h3>
+<br>The purpose of a data warehouse is 
+
+<ol>
+<li>To <u>combine multiple sources</u> to <br>
+    create a database (called a Data Warehouse)
+<p>
+<li>Use Data Warehouse to generate different insights 
+<p>
+<li>That help companies <u>make better decisions,</u> <br>
+    forecasting, and keeping users and making <br>
+    them to buy more... 
+
+</ol>
+
+<hr style="width:150%;text-align:left;margin-left:0">
+
+<p class>
+<h3>5. Data & Users:</h3>
+<ol>
+<li>It consists of historical and commutative <br>
+    data from single or multiple sources. 
+<p>
+<li>Most data scientists, big data analysts,   <br>
+    and business analysts use a data warehouse <br>
+    to get their data. 
+    
+<li>This data warehouse can store data from  <br>
+   <u>multiple sources</u>, including internal devices. 
+
+<li>Data is checked and cleaned before each upload <br>
+    to a Data Warehouse
+    
+</ol>
+
+<hr style="width:150%;text-align:left;margin-left:0">
+
+<h2>What might be Data Warehousing?</h2>
+
+<ol>
+<li>Data Warehouses are a place to store our data. <br>
+
+<li>To <u>make better decisions</u>.
+
+<li>The data used in the past and the data <br>
+            that will be useful in the future are <br>
+            stored in a Data Warehouse. <br>
+         
+<li>A Data Warehouse would consist of all raw data <br>
+    used or related to the organization/company. <br>
+    
+<li>It was constructed by integrating multiple  <br>
+    heterogeneous sources of data.              <br>
+    
+<li> Every company's most valuable asset is information. <br>
+    This information is used for operational record      <br>
+    keeping and analytical decision-making.              <br>
+
+<li>Operational Databases might change over time. 
+
+<li>If a company/organization wants to analyze previous <br>
+    actions or profits on data, it may not find data as <br>
+    previous data would have been updated. In this      <br>
+    scenario, Data Warehouse comes into the picture. 
+
+<li>A data warehouse would consist of all the data <br>
+    related to an organization from which we can <br>
+    get our data. <br>
+    
+<li>It helps in the integration of a diversity of application systems. <br>
+
+<li>A data warehouse is a <u>data management system</u> <br>
+    that facilitates and supports business intelligence <br>
+    (BI) activities and analysis. <br>
+
+<li>These are primarily designed to contain large amounts <br>
+    of historical data and to analyze the searches. <br>
+    
+<li>Unlike operational databases, warehouses are <br>
+    not updated frequently. <br>
+</ol>
+
+<hr style="width:150%;text-align:left;margin-left:0">
+
+<h4>Importance of Data Warehouse</h4>
+<ol>
+<li>They extract data from several sources and process     <br>
+    it through <b>ETL (Extract, Transform and Load)</b> to <br>
+    load data into the data warehouse.
+</li>
+<li>Data Warehouses improves the <b>speed</b> and <b>efficiency</b> <br>
+    of accessing different datasets and helps decision-makers <br>
+    to derive insights that will guide them to be apart from  <br>
+    their competitors.
+</li>
+<li>Data Warehouse is highly <b>scalable</b> and efficient, <br>
+    enhancing data conformity and quality<b>.</b>
+</li>
+<li>Data Warehouse is a single source for all the data <br>
+    in the organization/company.
+</li>
+<li><b>A data</b> warehouse <b>platform allows</b> business   <br>
+    leaders to access their organization's past activities    <br>
+    and assess past initiatives successes or failures<b>.</b> <br>
+    This helps executives to see where they can <b>reduce costs, <br>
+    maximize efficiency, and increase sales</b> to boost profit.
+</li>
+</ol>
+
+<hr style="width:150%;text-align:left;margin-left:0">
+
+<h4>The goals of Data Warehouse / BI systems would be:</h4>
+<ol>
+<li> Data Warehouse / BI systems must  <br>
+     make systems easily accessible.
+</li>
+     
+<li> Data Warehouse / BI systems must <br>
+     present information consistently.
+</li>
+     
+<li> These systems must adapt to change.</li>
+
+<li> Data Warehouse / BI systems must  <br> 
+     present information promptly.
+</li>
+
+<li> Systems must be secure bastion that  <br>
+     protects the information assets.
+</li>
+
+<li> They should work as authoritative and  <br>
+     trustworthy for improved decision-making.
+</li>
+
+</ol>
+
+<hr style="width:150%;text-align:left;margin-left:0">
+
+<h2>Divide Data Warehouse into 4 Stages</h2>
+<p class>For better understanding, we can divide <br>
+any data warehouse into 4 stages of the process.</p>
+
+<figure><img decoding="async" fetchpriority="high" class="aligncenter" src="https://editor.analyticsvidhya.com/uploads/62160Data_warehouse_architecture.jpg" alt="Data Warehouse" width="434" height="254" /><figcaption class>Source: Wikipedia</figcaption></figure>
+
+<ul>
+<li><b>1. Collect</b><br>
+<li><b>2. Store</b><br>
+<li><b>3. Analyze </b><br>
+<li><b>4. Consume</b><br>
+</ul>
+
+<p class><b>1. Collect</b><br>
+At the collect stage, we fetch the <b>raw data</b> <br>
+from the source systems and store the data         <br>
+in a layer named the staging layer. This process   <br>
+is called ETL (Extract, Transform and Load data).  <br>
+There are various tools to enable ETL for the      <br>
+data warehouse.</p>
+
+<p class><b>2. Store</b><br>
+We are preparing to store data for our present <br>
+or future information analysis in operational  <br>
+databases or in some other source.</p>
+
+<p class><b>3. Analyze </b><br>
+Structuring the raw data into an understandable <br>
+format helps business analysts or decision-makers <br>
+to get insights from various analyses and <br>
+visualizations of the data.</p>
+
+<p class><b>4. Consume</b><br>
+At this stage, various tools like Power BI <br>
+and Apache Spark are available to help explore <br>
+data in detail.</p>
+
+<p class>
+All these stages tell us the structure or <br>
+process of the data warehouse.</p>
+
+<hr style="width:150%;text-align:left;margin-left:0">
+
+<h2>Characteristics of the Data Warehouse</h2>
+<ul>
+<li><b>1. Integrated</b>
+<li><b>2. Non-Volatile</b>
+<li><b>3. Subject Oriented</b> 
+<li><b>4. Time Variant</b>
+</ul>
+
+<p class><b>1. Integrated:</b>
+<ul>
+<li>Data warehouses are built by integrating data <br>
+    from <b>disparate</b> sources such as relational <br>
+    <b>databases</b> and <b>flat files</b>.
+
+<li>Data Warehouse consists of data that has been <br>
+    combined from numerous sources. The data can  <br>
+    be obtained from many sources:
+    <ul>
+      <li> flat files,   
+      <li> SQL databases, and
+      <li> various other sources... 
+    </ul>
+    
+<li>This integration enhances effective <b>data analysis.</b> <br>
+    Data must be stored consistently and universally          <br>
+    acceptable in a warehouse.</p>
+</ul>
+
+<p class><b>2. Nonvolatile:</b> 
+<ul>
+<li>No matter what data it is, it does not change <br>
+once it enters the warehouse or is not removed    <br>
+from it. 
+<li>Operational and data warehouses are kept separate. <br>
+So, the <b>frequent changes</b> in the operational <br>
+database are <b>not reflected</b> in the data warehouse.</p>
+</ul>
+
+<p class><b>3. Subject Oriented:
+<ul>
+<li>Data Warehouse concentrates on a <b>particular 
+    subject area</b> such as SALES, PRODUCTS, ...
+
+<li></b> Data Warehouses are subject-oriented because they <br>
+provide <b>information</b> about topics <b>rather than ongoing <br>
+operations </b>in an <b>organization</b>. 
+
+<li>Topics may be products, suppliers, customers, etc. 
+
+<li>A data warehouse concentrates on <b>modeling</b> <br>
+and <b>analyzing data</b> for decision-making rather <br>
+than performing day-to-day operations</p>
+
+</ul>
+
+<p class><b>4. Time Variant: 
+<ul>
+<li></b>Information acquired from the data warehouse <br>
+is identified by a specific period. 
+<li>The data warehouse would contain information <br>
+on historical trends.</p>
+</ul>
+
+<hr style="width:150%;text-align:left;margin-left:0">
+
+<h2>The Architecture of the Data Warehouse</h2>
+<div>Data Warehouse architecture comprises a three-tier architectural structure.</div>
+
+<figure><img decoding="async" class="aligncenter" src="https://editor.analyticsvidhya.com/uploads/98685Data_warehouse_architecture.jpeg" alt="Data Warehouse" width="317" height="159" /><figcaption class>Source: Astera Software</figcaption></figure>
+
+<div>
+<p><b>There are 3 approaches for constructing a Data Warehouse architecture </b></p>
+<ul>
+<li><b>Single Tier</b></li>
+<li><b>Two-tier</b></li>
+<li><b>Three Tier</b></li>
+</ul>
+</div>
+<div>
+<h4>Single Tier <span style="text-align: left;">Architecture</span></h4>
+</div>
+<p class>
+
+<ol>
+<li> The main reason for this architecture <br>
+     is to minimize storage levels. 
+<li> The main goal of this architecture is <br>
+     to remove data redundancy.</p>
+</ol>
+
+<h4>Two Tier Architecture</h4>
+<p class>
+<ol>
+<li>
+It is also one of the Data Warehouse layers  <br>
+that separate physically available sources and  <br>
+the data warehouse. 
+<li> This architecture does not support a large number<br>
+     of end-users, and it is also not expandable.
+</ol>
+</p>
+
+<h4>Three Tier Architecture</h4>
+<p class>
+The most widely used architecture of the Data <br>
+ Warehouse consists of a top, middle, and bottom tier.<b><br/>
+</b></p>
+<h4>1. Bottom Tier</h4>
+<p class>
+The bottom tier or data warehouse server usually <br>
+represents a relational database system. To cleanse, <br>
+transform and feed data into the layer, back-end tools are used.</p>
+<h4>2. Middle Tier</h4>
+<div>
+<p>It represents an OLAP server that can be implemented in two ways</p>
+<ol>
+<li> ROLAP (Relational Online Analytical Processing)</b> <br>
+     servers are usually placed between the relational   <br>
+     backend server and the client front-end server.     <br>
+     It performs dynamic multidimensional data analysis  <br>
+     and maps it to a standard relational process.</p>
+
+<li> MOLAP (Multidimensional Online Analytical Processing</b>) <br>
+    deals directly with multidimensional data and operations.</p>
+</ol>
+</div>
+<p class><b>3. Top Tier</b></p>
+<p class>Top Tier is a client-side interface that  <br>
+         gets data from the data warehouse. It consists   <br>
+         of tools like query tools, analysis tools,  <br>
+         reporting tools, and data mining tools.<b><br/>
+</b></p>
+
+<hr style="width:150%;text-align:left;margin-left:0">
+
+<h2>Data Warehouse Components</h2>
+
+<figure><img decoding="async" class="aligncenter" src="https://editor.analyticsvidhya.com/uploads/58642Approach.png" alt="Data Warehouse" width="1024" height="371" /><figcaption class>Source: InterviewBit</figcaption></figure>
+
+<h4>1. Data Warehouse Database</h4>
+<p class>
+1.1 The most significant component of the  <br>
+    Data Warehouse is the <b>database</b>. <br><br>
+    
+1.2 It was implemented with RDBMS technology.   <br>
+    However, this type of implementation is     <br>
+    limited because traditional RDBMS systems   <br>
+    are optimized for processing transactional  <br>
+    databases and not for data warehouses.      <br><br>
+
+1.3 There are a few alternatives, like deploying  <br>
+    RDBMS in parallel, which allows shared memory  <br>
+    on various multiprocessor configurations,       <br>
+    using new index structures to bypass relational   <br>
+    table scans, etc. These are approaches to databases.<br>
+
+<h4>2. ETL (Extract, Transformation, and Loading Tools)</h4>
+
+<figure><img  src="https://editor.analyticsvidhya.com/uploads/60394elt.jpg" alt="Data Warehouse" width="434" height="254" /></figure>
+
+
+<ol>
+<li>These tools are responsible for extracting data  <br>
+from various sources, transforming it into a         <br>
+digestible format, and loading it into the data      <br>
+warehouse. 
+
+<li>There are many functionalities like anonymizing <br>
+    data, eliminating unwanted data loading into    <br>
+    the Data Warehouse, getting a summary,          <br>
+    populating missing data with defaults, etc. 
+    
+<li> In ETL tools. These tools can also generate       <br> 
+background jobs, shell scripts, etc., that update data. <br>
+<li> These tools help maintain the metadata.            <br>
+</ol>
+
+<h4>3. Metadata</h4>
+<ul>
+<li>Metadata is defined as the information  <br>
+    that <b>describes and explains data.</b>
+    
+<li>Metadata provides context with details <br>
+such as the source, type, owner, and <br>
+relationships to other data sets. 
+
+<li> Metadata can help you understand the relevance  <br>
+of a particular data set and guide you on how to <br>
+use it. In a nutshell: Metadata is a cornerstone <br>
+of a modern enterprise data stack. <br>
+</ul>
+
+<pre>
+   -- EXAMPLE-1
+   -- CREATE a DATABASE TABLE
+   create table Sales (
+      transaction_id STRING,
+      customer_id    STRING,
+      amount         DOUBLE,
+      ...
+    )
+
+   -- EXAMPLE-2
+   -- SHOW ALL TABLEs ending with 'sales'
+   show tables like '%sales'
+</pre>
+
+
+<figure><img  src="https://www.altoros.com/blog/wp-content/uploads/2011/06/operational-metadata-for-etl-and-data-warehousing.png" alt="Data Warehouse" width="434" height="254" /></figure>
+
+<p class>
+Metadata is data that defines the data warehouse,         <br>
+which is used in building, maintaining, and managing      <br>
+data warehouses. It provides various frameworks enabling  <br>
+the above usages. These are the essential and critical    <br>
+ingredients in transforming data into knowledge.</p>
+<p class>Metadata can be classified into two categories.</p>
+<p class><b>1. Technical Meta Data:</b> This contains <br>
+            information about the warehouse which is used <br>
+            by data warehouse designers and administrators.</p>
+<p class><b>2. Business Meta Data:</b> This contains information <br>
+            that is easily understood by end users.</p>
+
+<h4>4. Data Warehouse Access / Query Tools</h4>
+<p class>
+Access tools allow users to interact with the <br>
+data warehouse system. These warehouse tools  <br>
+include query and reporting tools, data mining, <br>
+OLAP, and application development tools.</p>
+<p class>These tools are divided into four different categories:</p>
+<ul>
+<li>Query and reporting tools</li>
+<li>Application Development tools</li>
+<li>Data mining tools</li>
+<li>OLAP tools</li>
+</ul>
+<h4>5. Data Warehouse Business architecture</h4>
+<p class>
+This architecture defines the data flow in a <br>
+data warehousing system and includes a data mart <br>
+in it. The data flow can be categorized as <br>
+Up flow, Down flow, Outflow, and Meta flow.</p>
+
+<h4>6. Data Warehouse Reporting Layer</h4>
+<p class>The reporting layer in the data warehouse <br>
+         allows the end user to access the business <br>
+         intelligence (BI) interface or BI database <br>
+         architecture. It acts as a dashboard for <br>
+         visualizing and creating reports and pulling <br>
+         out all the required information.</p>
+
+<h2>Data Marts</h2>
+
+<figure><img  src="https://www.acumence.com/wp-content/uploads/2021/08/what-is-data-mart-and-data-warehouse-diagram.png" alt="Data Warehouse" width="434" height="254" /></figure>
+
+
+<ol>
+<li>This is an access level that allows users to          <br>
+    access or transfer data. It takes less time           <br>
+    and money to build, so it is the most cost-effective  <br>
+    option for large-size data warehouses. It is used     <br>
+    as a partition of data that is created for a specific <br>
+    group of users.</p>
+         
+<li>A "Data Mart" is a subset of a data warehouse       <br>
+    built to maintain a particular department,          <br>
+    region, or business unit. Every department of       <br>
+    a business has a central repository or data mart    <br>
+    to store data.
+         
+<li>A "Data Mart" is a simple form of data warehouse    <br>
+    focused on a single subject or line of business.    <br>
+    With a data mart, teams can access data and gain    <br>
+    insights faster, because they don’t have to spend   <br>
+    time searching within a more complex data warehouse <br>
+    or manually aggregating data from different sources.
+  
+</ol>
+         
+<h2>Life Cycle of a Data Warehousing</h2>
+<p class>Several steps must be followed in order <br>
+to build a successful data warehouse with implementation.</p>
+
+<figure><img decoding="async" loading="lazy" class="aligncenter" src="https://editor.analyticsvidhya.com/uploads/15979lifecycle.jpg" alt="life cycle" width="1100" height="525" /><figcaption class>Source: GeeksforGeeks</figcaption></figure>
+
+<p class>The above diagram indicates the life cycle <br>
+         of data warehousing involving steps for the <br>
+         successful completion of data warehousing.</p>
+
+<h2>Latest Tools and Technologies in Data Warehousing</h2>
+<ul>
+<li>Data Warehousing helps businesses to get deep <br>
+    insights from even large amounts of data. 
+<li>It improved its access to information, reduced <br>
+    response time for queries, etc. Today, cloud   <br>
+    technology has reduced the cost and effort to  <br>
+    build infrastructure for data warehousing. 
+<li>There are various tools and technologies for    <br>
+    data warehousing. Cloud-based data warehousing  <br>
+    tools are fast, highly scalable, efficient, and <br>
+    available regularly. <br>
+    Some of the Data Warehousing tools are:
+</ul>
+
+<h2>Vendors: Data Warehousing Tools</h2>
+<ul>
+<li>Microsoft Azure</li>
+<li>Amazon Redshift</li>
+<li>Snowflake</li>
+<li>Google Big Query</li>
+<li>Amazon DynamoDB</li>
+<li>PostgreSQL</li>
+<li>Amazon S3</li>
+<li>Teradata</li>
+<li>Amazon RDS</li>
+<li>IBM Db2 Warehouse</li>
+<li>Oracle Autonomous Warehouse</li>
+<li>MariaDB</li>
+<li>MySQL</li>
+<li>Cloudera</li>
+</ul>
+<p class>These are some of the Data Warehousing tools.</p>
+
+
+<h2>Conclusion</h2>
+<ul>
+<li>For companies, data warehouses provide    <br>
+    useful insights from their past data that <br>
+    can help make future decisions.
+</li>
+
+<li>This also helps companies to store a large <br>
+    amount of data and keep track of it. 
+</li>
+</ul>
+
+<p class>Some of the beneficial and summarized points would be</p>
+<ul>
+<li>1. Data Warehouse is a system that contains <br>
+    historical and commutative data from multiple <br>
+    sources. These sources can be Cloud Data Warehouse, <br>
+    Virtual Data Warehouse, or Traditional Data Warehouses.
+</li>
+
+<li>2. Data Warehouse is subject-oriented, <br>
+    non-volatile, and Time-variant.
+</li>
+    
+<li>3. Data Warehouse metadata provides information <br>
+    regarding the data warehouse data source, usage, <br>
+    and features.
+</li>
+<li>4. Data Sourcing, transformation, and migration <br>
+    tools perform all conversions and summarizations.
+</li>
+</ul>
+
+</body>
+</html>

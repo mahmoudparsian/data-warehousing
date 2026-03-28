@@ -1,0 +1,57 @@
+% python3 load_excel_financial_to_mysql.py data_financial_sample.xlsx db_config.json
+
+excel_file_name= data_financial_sample.xlsx
+
+db_config= 
+{
+ 'user': 'root', 
+ 'password': 'mp22pass', 
+ 'host': 'localhost', 
+ 'database': 'scu_homeworks'
+}
+
+excel_file= <pandas.io.excel._base.ExcelFile object at 0x106cc86e0>
+
+excel_dataframe=               Segment                   Country    Product Discount Band  ...       Date  Month Number  Month Name  Year
+0          Government                    Canada  Carretera           NaN  ... 2014-01-01             1     January  2014
+1          Government                   Germany  Carretera           NaN  ... 2014-01-01             1     January  2014
+2           Midmarket                    France  Carretera           NaN  ... 2014-06-01             6        June  2014
+3           Midmarket                   Germany  Carretera           NaN  ... 2014-06-01             6        June  2014
+4           Midmarket                    Mexico  Carretera           NaN  ... 2014-06-01             6        June  2014
+..                ...                       ...        ...           ...  ...        ...           ...         ...   ...
+695    Small Business                    France   Amarilla          High  ... 2014-03-01             3       March  2014
+696    Small Business                    Mexico   Amarilla          High  ... 2014-10-01            10     October  2014
+697        Government                    Mexico    Montana          High  ... 2014-02-01             2    February  2014
+698        Government                    Canada      Paseo          High  ... 2014-04-01             4       April  2014
+699  Channel Partners  United States of America        VTT          High  ... 2014-05-01             5         May  2014
+
+[700 rows x 16 columns]
+
+conn= <sqlalchemy.engine.base.Connection object at 0x1076d4ec0>
+
+
+========================================
+Checking Database Table ...
+========================================
+
+mysql> use scu_homeworks;
+
+
+Database changed
+mysql> select count(*) from financial_table;
++----------+
+| count(*) |
++----------+
+|      700 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select * from financial_table limit 3;
++-------+------------+---------+-----------+---------------+------------+---------------------+------------+-------------+-----------+--------+-------+--------+---------------------+--------------+------------+------+
+| index | Segment    | Country | Product   | Discount Band | Units Sold | Manufacturing Price | Sale Price | Gross Sales | Discounts |  Sales | COGS  | Profit | Date                | Month Number | Month Name | Year |
++-------+------------+---------+-----------+---------------+------------+---------------------+------------+-------------+-----------+--------+-------+--------+---------------------+--------------+------------+------+
+|     0 | Government | Canada  | Carretera | NULL          |     1618.5 |                   3 |         20 |       32370 |         0 |  32370 | 16185 |  16185 | 2014-01-01 00:00:00 |            1 | January    | 2014 |
+|     1 | Government | Germany | Carretera | NULL          |       1321 |                   3 |         20 |       26420 |         0 |  26420 | 13210 |  13210 | 2014-01-01 00:00:00 |            1 | January    | 2014 |
+|     2 | Midmarket  | France  | Carretera | NULL          |       2178 |                   3 |         15 |       32670 |         0 |  32670 | 21780 |  10890 | 2014-06-01 00:00:00 |            6 | June       | 2014 |
++-------+------------+---------+-----------+---------------+------------+---------------------+------------+-------------+-----------+--------+-------+--------+---------------------+--------------+------------+------+
+3 rows in set (0.00 sec)

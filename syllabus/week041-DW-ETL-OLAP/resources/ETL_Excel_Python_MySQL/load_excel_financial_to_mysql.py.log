@@ -1,0 +1,54 @@
+Excel_Python_MySQL  % python3 load_excel_to_mysql.py
+excel_file= financial_sample.xlsx
+
+excel_dataframe=               Segment                   Country    Product Discount Band  ...       Date  Month Number  Month Name  Year
+0          Government                    Canada  Carretera           NaN  ... 2014-01-01             1     January  2014
+1          Government                   Germany  Carretera           NaN  ... 2014-01-01             1     January  2014
+2           Midmarket                    France  Carretera           NaN  ... 2014-06-01             6        June  2014
+3           Midmarket                   Germany  Carretera           NaN  ... 2014-06-01             6        June  2014
+4           Midmarket                    Mexico  Carretera           NaN  ... 2014-06-01             6        June  2014
+..                ...                       ...        ...           ...  ...        ...           ...         ...   ...
+695    Small Business                    France   Amarilla          High  ... 2014-03-01             3       March  2014
+696    Small Business                    Mexico   Amarilla          High  ... 2014-10-01            10     October  2014
+697        Government                    Mexico    Montana          High  ... 2014-02-01             2    February  2014
+698        Government                    Canada      Paseo          High  ... 2014-04-01             4       April  2014
+699  Channel Partners  United States of America        VTT          High  ... 2014-05-01             5         May  2014
+
+[700 rows x 16 columns]
+Excel_Python_MySQL  %
+Excel_Python_MySQL  % mysql -h localhost -u root -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.1.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use test;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> select count(*) from financial_table;
++----------+
+| count(*) |
++----------+
+|      700 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select * from financial_table limit 3;
++-------+------------+---------+-----------+---------------+------------+---------------------+------------+-------------+-----------+--------+-------+--------+---------------------+--------------+------------+------+
+| index | Segment    | Country | Product   | Discount Band | Units Sold | Manufacturing Price | Sale Price | Gross Sales | Discounts |  Sales | COGS  | Profit | Date                | Month Number | Month Name | Year |
++-------+------------+---------+-----------+---------------+------------+---------------------+------------+-------------+-----------+--------+-------+--------+---------------------+--------------+------------+------+
+|     0 | Government | Canada  | Carretera | NULL          |     1618.5 |                   3 |         20 |       32370 |         0 |  32370 | 16185 |  16185 | 2014-01-01 00:00:00 |            1 | January    | 2014 |
+|     1 | Government | Germany | Carretera | NULL          |       1321 |                   3 |         20 |       26420 |         0 |  26420 | 13210 |  13210 | 2014-01-01 00:00:00 |            1 | January    | 2014 |
+|     2 | Midmarket  | France  | Carretera | NULL          |       2178 |                   3 |         15 |       32670 |         0 |  32670 | 21780 |  10890 | 2014-06-01 00:00:00 |            6 | June       | 2014 |
++-------+------------+---------+-----------+---------------+------------+---------------------+------------+-------------+-----------+--------+-------+--------+---------------------+--------------+------------+------+
+3 rows in set (0.00 sec)

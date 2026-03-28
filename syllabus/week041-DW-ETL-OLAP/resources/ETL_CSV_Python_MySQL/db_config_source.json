@@ -1,0 +1,6 @@
+{
+    "user": "root",
+    "password": "password",
+    "host": "localhost",
+    "database": "star_schema_db"
+}
