@@ -3,16 +3,20 @@ author: Mahmoud Parsian
 marp: true  
 theme: default  
 paginate: true  
-title: ISBA — Modern Data Warehousing  
+title:  Modern Data Warehousing  
 class: lead  
 ---
 
 # 🎯 Course Objectives
 
 - Understand modern data warehouse architectures
+ 
 - Learn analytical SQL deeply
+
 - Build data pipelines (Bronze → Silver → Gold)
+
 - Think like a data analyst
+
 - Connect SQL with LLMs and AI
 
 
@@ -35,9 +39,12 @@ class: lead
 
 # 📘 Week 1 — SQL Foundations
 
-- SELECT, WHERE, GROUP BY  
+- `SELECT`, `WHERE`, `GROUP BY`  
+
 - Filtering and aggregation  
+
 - Working with real datasets  
+
 - Building SQL intuition  
 
 ---
@@ -45,7 +52,8 @@ class: lead
 # 📊 Week 1 — Example
 
 ```sql
-SELECT region, COUNT(*) AS num_orders
+SELECT region, 
+       COUNT(*) AS num_orders
 FROM sales
 GROUP BY region;
 ```
@@ -55,20 +63,27 @@ GROUP BY region;
 - First business insight  
 - Builds SQL confidence  
 
-👉 Business Insight:
+**👉 Business Insight:** 
+
 - Which region has the most activity?
+
 - Are some regions underperforming?
 
-👉 Question to Students:
+**👉 Question to Students:** 
+
 - If one region is low, what could that mean?
 
 ---
 
 # 📘 Week 2 — Analytical Thinking
 
-- Aggregations + HAVING  
-- Window functions  
+- Aggregations + `HAVING`  
+
+- Window functions 
+	- `ROW_NUMBER`, `RANK`, `DENSE_RANK`, ...
+	 
 - Top-N queries  
+
 - Business-driven SQL  
 
 ---
@@ -76,30 +91,40 @@ GROUP BY region;
 # 📊 Week 2 — Example
 
 ```sql
-SELECT region, amount,
-RANK() OVER (PARTITION BY region ORDER BY amount DESC) rnk
+SELECT region, 
+       amount,
+       RANK() OVER (
+           PARTITION BY region 
+           ORDER BY amount DESC
+       ) AS rnk
 FROM sales;
 ```
 
 - Top-N per region  
+
 - Partitioning concept  
+
 - Ranking logic  
+
 - Real-world use case  
 
-👉 Business Insight:
+### 👉 Business Insight:
 - Identify top customers/products per region
 - Compare performance within groups
 
-👉 Question to Students:
-- Why not just use GROUP BY here?
+### 👉 Question to Students:
+- Why not just use `GROUP BY` here?
 
 ---
 
 # 📘 Week 3 — Data Warehousing
 
-- Star schema  
-- Fact vs dimension  
+- Star schema 
+ 
+- Fact vs Dimension
+ 
 - Analytical modeling  
+
 - OLAP queries  
 
 ---
@@ -107,22 +132,26 @@ FROM sales;
 # 📊 Week 3 — Example
 
 ```sql
-SELECT d.region, SUM(f.sales)
+SELECT d.region, 
+       SUM(f.sales)
 FROM fact_sales f
 JOIN dim_region d ON f.region_id = d.id
 GROUP BY d.region;
 ```
 
 - Fact + dimension join  
+
 - Star schema query  
+
 - Aggregation  
+
 - Business reporting  
 
-👉 Business Insight:
+### 👉 Business Insight:
 - Combine descriptive + numeric data
 - Enable flexible reporting
 
-👉 Question to Students:
+### 👉 Question to Students:
 - Why separate fact and dimension tables?
 
 ---
@@ -130,8 +159,11 @@ GROUP BY d.region;
 # 📘 Week 4 — ETL & OLAP
 
 - ETL vs ELT  
+
 - Data cleaning  
+
 - Roll-up / drill-down  
+
 - Pipeline thinking  
 
 ---
@@ -139,21 +171,25 @@ GROUP BY d.region;
 # 📊 Week 4 — Example
 
 ```sql
-SELECT LOWER(TRIM(region)), SUM(amount)
+SELECT LOWER(TRIM(region)), 
+       SUM(amount)
 FROM raw_sales
 GROUP BY LOWER(TRIM(region));
 ```
 
 - Cleaning + aggregation  
+
 - ETL transformation  
+
 - OLAP query  
+
 - Data quality impact  
 
-👉 Business Insight:
+### 👉 Business Insight:
 - Cleaning changes results significantly
 - Poor data → wrong decisions
 
-👉 Question to Students:
+### 👉 Question to Students:
 - What happens if we skip cleaning?
 
 ---
@@ -161,8 +197,11 @@ GROUP BY LOWER(TRIM(region));
 # 📘 Week 5 — Medallion Architecture
 
 - Bronze / Silver / Gold  
+
 - Layered architecture  
+
 - Data lifecycle  
+
 - Scalability  
 
 ---
@@ -170,21 +209,25 @@ GROUP BY LOWER(TRIM(region));
 # 📊 Week 5 — Example
 
 ```sql
-SELECT region, SUM(amount)
+SELECT region, 
+       SUM(amount)
 FROM silver_sales
 GROUP BY region;
 ```
 
 - Clean → aggregate  
+
 - Layered thinking  
-- Business output  
+
+- Business output 
+ 
 - Reusable logic  
 
-👉 Business Insight:
+### 👉 Business Insight:
 - Gold tables simplify reporting
 - Consistency across dashboards
 
-👉 Question to Students:
+### 👉 Question to Students:
 - Why not query Bronze directly?
 
 ---
@@ -192,8 +235,11 @@ GROUP BY region;
 # 📘 Week 6 — Bronze Layer
 
 - Raw ingestion  
+
 - Handling messy data  
+
 - Data profiling  
+
 - Source of truth  
 
 ---
@@ -201,19 +247,23 @@ GROUP BY region;
 # 📊 Week 6 — Example
 
 ```sql
-SELECT * FROM bronze_sales;
+SELECT * 
+FROM bronze_sales;
 ```
 
 - Raw inspection  
-- Identify issues  
+
+- Identify issues 
+ 
 - Debugging stage  
+
 - No transformation  
 
-👉 Business Insight:
+### 👉 Business Insight:
 - Raw data reveals data problems early
 - Critical for debugging pipelines
 
-👉 Question to Students:
+### 👉 Question to Students:
 - Should business users see this data?
 
 ---
@@ -221,8 +271,11 @@ SELECT * FROM bronze_sales;
 # 📘 Week 7 — Silver Layer
 
 - Cleaning  
+
 - Transformation  
+
 - Validation  
+
 - Trusted datasets  
 
 ---
@@ -236,24 +289,30 @@ WHERE TRY_CAST(amount AS DOUBLE) IS NOT NULL;
 ```
 
 - Clean numeric values  
+
 - Remove bad rows  
+
 - Validation  
+
 - Trust building  
 
-👉 Business Insight:
+### 👉 Business Insight:
 - Trusted data leads to reliable metrics
 - Cleaning decisions affect outcomes
 
-👉 Question to Students:
+### 👉 Question to Students:
 - Are we losing important data here?
 
 ---
 
 # 📘 Week 8 — Gold Layer
 
-- Aggregations  
+- Aggregations
+  
 - KPIs  
+
 - Reporting tables  
+
 - Decision-ready data  
 
 ---
@@ -261,21 +320,25 @@ WHERE TRY_CAST(amount AS DOUBLE) IS NOT NULL;
 # 📊 Week 8 — Example
 
 ```sql
-SELECT region, SUM(amount) AS revenue
+SELECT region, 
+       SUM(amount) AS revenue
 FROM silver_sales
 GROUP BY region;
 ```
 
 - KPI generation  
+
 - Aggregation  
+
 - Business insight  
+
 - Dashboard-ready  
 
-👉 Business Insight:
+### 👉 Business Insight:
 - Direct input to dashboards
 - Drives executive decisions
 
-👉 Question to Students:
+### 👉 Question to Students:
 - What KPI would you add next?
 
 ---
@@ -283,13 +346,18 @@ GROUP BY region;
 # 📘 Week 9 — Pipelines
 
 - End-to-end pipelines  
+
 - Incremental processing  
+
 - Monitoring  
+
 - Performance optimization  
 
 ---
 
 # 📊 Week 9 — Example
+
+#### orders placed “since yesterday at midnight”
 
 ```sql
 SELECT *
@@ -297,16 +365,32 @@ FROM sales
 WHERE order_date > CURRENT_DATE - INTERVAL '1 day';
 ```
 
+#### orders placed in “last 24 hours”
+```sql
+SELECT *
+FROM sales
+WHERE order_date > CURRENT_TIMESTAMP - INTERVAL '1 day';
+```
+
+Requirement      | Correct Expression
+-----------------|-------------------
+Yesterday + today| `CURRENT_DATE - INTERVAL '1 day'`
+Last 24 hours    | `CURRENT_TIMESTAMP - INTERVAL '1 day'`
+
+
 - Incremental load  
-- Efficient processing  
+
+- Efficient processing 
+ 
 - Real-world pattern  
+
 - Performance focus  
 
-👉 Business Insight:
+### 👉 Business Insight:
 - Faster updates = fresher insights
 - Reduces system load
 
-👉 Question to Students:
+### 👉 Question to Students:
 - Why not reload all data every time?
 
 ---
@@ -314,8 +398,11 @@ WHERE order_date > CURRENT_DATE - INTERVAL '1 day';
 # 📘 Week 10 — Final Project
 
 - End-to-end solution  
+
 - Visualization  
+
 - Data storytelling  
+
 - Business presentation  
 
 ---
@@ -323,27 +410,32 @@ WHERE order_date > CURRENT_DATE - INTERVAL '1 day';
 # 📊 Week 10 — Example
 
 - Combine SQL + Python + visualization  
+
 - Build pipeline  
+
 - Present insights  
+
 - Explain decisions  
 
-👉 Business Insight:
+### 👉 Business Insight:
 - Communication is as important as analysis
 - Insight must lead to action
 
-👉 Question to Students:
+### 👉 Question to Students:
 - What makes a story convincing?
 
 ---
 
 # 💬 Final Thought
 
-Data → Insight → Decision  
+## Data → Insight → Decision  
 
 ---
 
 # 🙌 Let’s Begin
 
-- Ask questions  
+- Ask questions
+  
 - Practice  
+
 - Build systems  
