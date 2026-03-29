@@ -1,10 +1,42 @@
 # Insurance Dataset — Metadata Description
 
-This dataset contains demographic and health-related attributes of individuals along with their medical insurance charges.
+### About Dataset
+
+```
+This dataset contains information about how 
+personal attributes, lifestyle choices, and 
+geographic factors influence medical insurance 
+charges. It includes demographic details such 
+as age and gender, health indicators like BMI, 
+family-related information, smoking habits, 
+and regional data. 
+
+The dataset is commonly used to analyze healthcare 
+costs and to build predictive models that estimate 
+insurance expenses based on individual characteristics.
+
+The data is well suited for exploratory analysis, 
+regression modeling, and healthcare cost prediction tasks.
+```
+
+### Key Features
+
+```
+Captures the relationship between personal and 
+lifestyle factors and insurance costs Includes both 
+numerical and categorical variables Suitable for machine 
+learning, statistical analysis, and predictive modeling
+Commonly used as a benchmark dataset for regression problems
+```
+
+### Dataset
+
+This dataset contains demographic and health-related attributes 
+of individuals along with their medical insurance charges.
 
 ---
 
-## Columns Description
+### Columns Description
 
 - **age**
   - Type: INTEGER
