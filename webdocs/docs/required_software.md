@@ -9,16 +9,16 @@
 
 ------
 
-## 2. [Python Programming Language](https://www.python.org)
+## 3. [Python Programming Language](https://www.python.org)
 
 * for ETL
 
 ------
 
-## 3. [Tableau](https://www.tableau.com) 
+## 4. [Tableau](https://www.tableau.com) 
 
 * for wide range of data visualization 
 
 ------
 
-## 4. Shell Programming (very basic, for automation)
+## 5. Shell Programming (very basic, for automation)
