@@ -109,6 +109,12 @@
 
 ---------
 
+## Example Medallion Architecture
+
+![](./webdocs/images/medallion_architecture_example.png)
+
+---------
+
 ## 1. Git Repository
 
 * This repository is a place for Data Warehousing 
