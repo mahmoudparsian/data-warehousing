@@ -26,9 +26,9 @@ A Data Warehouse (DW) is a system designed to:
 
 ## Key Idea
 
-####  Operational systems → run the business  
+#### ✅ Operational systems → run the business  
 
-####  Data warehouse → understand the business  
+#### ✅ Data warehouse → understand the business  
 
 ---
 
@@ -121,6 +121,12 @@ Data is scattered:
 Classic DW = centralized system for  
 storing and analyzing structured data  
 
+## Classic Data Warehousing Architecture
+
+![](./images/data_warehouse_architecture.jpg)
+
+![](./images/data_warehouse_architecture2.webp)
+
 ---
 
 ## Architecture Flow
@@ -174,6 +180,15 @@ Designed for structured, stable analytics
 Medallion = layered data architecture  
 
 Bronze → Silver → Gold  
+
+---
+
+![](./images/medallion_data_architecture.png)
+
+![](./images/medallion_data_architecture2.webp)
+
+![](./images/building-data-pipelines-with-delta-lake.png)
+
 
 ---
 

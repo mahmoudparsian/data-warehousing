@@ -96,7 +96,16 @@
 
 </details>
 
+---
+## Classic Data Warehousing
+
 ![](./webdocs/images/data_warehouse_image.png)
+
+---
+
+## Medallion Architecture Data Warehousing
+
+![](./webdocs/images/medallion_architecture.webp)
 
 ---------
 
