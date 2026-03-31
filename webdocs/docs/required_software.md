@@ -1,8 +1,9 @@
 # Required Software
 
 ------
+## 1. [DuckDB Database](https://duckdb.org/install/)
 
-## 1. [MySQL Database](https://www.mysql.com)
+## 2. [MySQL Database](https://www.mysql.com)
 
 * [MySQL Community Downloads](https://dev.mysql.com/downloads/mysql/)
 
