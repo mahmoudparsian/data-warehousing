@@ -1,385 +1,529 @@
-# Join Operation in Action
+# JOIN operation in Action
 
-
-![](./images/sql_joins.png)
-
-## Table t1
-
-```sql
-CREATE TABLE t1 (
-   id  INT,
-   value1 VARCHAR(5)
-);
-
-INSERT INTO t1(id, value1)
-VALUES
-(1, 'v1'), 
-(1, 'v2'), 
-(2, 'v3'), 
-(2, 'v4'), 
-(3, 'v5'), 
-(4, 'v6'), 
-(5, 'v7');
-
-SELECT id, value1 
-FROM t1;
-+------+--------+
-| id   | value1 |
-+------+--------+
-|    1 | v1     |
-|    1 | v2     |
-|    2 | v3     |
-|    2 | v4     |
-|    3 | v5     |
-|    4 | v6     |
-|    5 | v7     |
-+------+--------+
-7 rows in set (0.000 sec)
-```
-
------
-
-## Table t2
-
-```sql
-CREATE TABLE t2 (
-   id  INT,
-   value2 VARCHAR(5)
-);
-
-INSERT INTO t2(id, value2)
-VALUES
-(1, 'w1'), 
-(1, 'w2'), 
-(2, 'w3'), 
-(2, 'w4'), 
-(2, 'w5'), 
-(3, 'w6'), 
-(6, 'w7'), 
-(7, 'w8');
-
-SELECT id, value2 
-FROM t2;
-+------+--------+
-| id   | value2 |
-+------+--------+
-|    1 | w1     |
-|    1 | w2     |
-|    2 | w3     |
-|    2 | w4     |
-|    2 | w5     |
-|    3 | w6     |
-|    6 | w7     |
-|    7 | w8     |
-+------+--------+
-
-```
-
-------
-
-## INNER-JOIN
-
-	1. The purpose of an INNER JOIN is to 
-	   combine rows from two or more tables 
-	   and return only the rows where the 
-	   join condition is met in both tables.
+	A JOIN operation combines rows from 
+	two or more tables based on a related 
+	column between them, using syntax like 
 	
-	2. The INNER JOIN keyword selects records 
-	   that have matching values in both tables.
+	   SELECT ... 
+	   FROM table1 
+	   JOIN table2 ON table1.column = table2.column;
 	
+	where column is a common attribute 
+	in both table1 and table2.
+
 	
-![](./images/inner_join_1.jpeg)
+## Common Join types include 
 
-![](./images/inner_join_2.png)
+#### `INNER JOIN` (only matching rows)
 
-![](./images/inner-join-example-sql.png)
+#### `LEFT JOIN` (all left table rows + matches from right)
+
+#### `RIGHT JOIN` (all right table rows + matches from left)
+
+#### `FULL OUTER JOIN` (all rows from both)
+
+	✅ All rows from the left table
+	 + All rows from the right table
+	 + Matches where they exist
+	 + NULLs where there is no match
 
 
+## Key concepts
+
+	1. Related Columns: 
+	
+		Joins require a common column between 
+		tables, such as a primary key (PK) in 
+		one table and a foreign key  (FK)  in 
+		another, to establish a logical connection.
+		
+	2. Join Condition: 
+	
+		This is the rule that determines how rows 
+		are matched, usually an equality test in 
+		the ON clause. The column names don't have 
+		to be the same, but their data types must 
+		be compatible.
+
+
+## INNER JOIN: 
+
+	Returns only the rows where there is a match 
+	in both tables based on the join condition.
+	
+	Example: 
+	         SELECT o.order_id, 
+	                c.customer_name 
+	         FROM orders o
+	         INNER JOIN customers c 
+	              ON o.customer_id = c.customer_id;
 
 ![](./images/JOIN_INNER.png)
 
+## A Complete Example
+
 ```sql
-SELECT t1.id AS t1_id,
-       t1.value1,
-       t2.id AS t2_id,
-       t2.value2
-FROM t1
-INNER JOIN t2 USING(id);
+use testdb;
 
-+-------+--------+-------+--------+
-| t1_id | value1 | t2_id | value2 |
-+-------+--------+-------+--------+
-|     1 | v2     |     1 | w1     |
-|     1 | v1     |     1 | w1     |
-|     1 | v2     |     1 | w2     |
-|     1 | v1     |     1 | w2     |
-|     2 | v4     |     2 | w3     |
-|     2 | v3     |     2 | w3     |
-|     2 | v4     |     2 | w4     |
-|     2 | v3     |     2 | w4     |
-|     2 | v4     |     2 | w5     |
-|     2 | v3     |     2 | w5     |
-|     3 | v5     |     3 | w6     |
-+-------+--------+-------+--------+
-11 rows in set (0.001 sec)
 
-SELECT *
-FROM t1
-INNER JOIN t2 USING(id);
-+------+--------+--------+
-| id   | value1 | value2 |
-+------+--------+--------+
-|    1 | v2     | w1     |
-|    1 | v1     | w1     |
-|    1 | v2     | w2     |
-|    1 | v1     | w2     |
-|    2 | v4     | w3     |
-|    2 | v3     | w3     |
-|    2 | v4     | w4     |
-|    2 | v3     | w4     |
-|    2 | v4     | w5     |
-|    2 | v3     | w5     |
-|    3 | v5     | w6     |
-+------+--------+--------+
-11 rows in set (0.001 sec)
+CREATE TABLE A (
+   the_key INT, 
+   value1 VARCHAR(2)
+);
 
-SELECT *
-FROM t1
-INNER JOIN t2 
-   ON t1.id = t2.id;
-+------+--------+------+--------+
-| id   | value1 | id   | value2 |
-+------+--------+------+--------+
-|    1 | v2     |    1 | w1     |
-|    1 | v1     |    1 | w1     |
-|    1 | v2     |    1 | w2     |
-|    1 | v1     |    1 | w2     |
-|    2 | v4     |    2 | w3     |
-|    2 | v3     |    2 | w3     |
-|    2 | v4     |    2 | w4     |
-|    2 | v3     |    2 | w4     |
-|    2 | v4     |    2 | w5     |
-|    2 | v3     |    2 | w5     |
-|    3 | v5     |    3 | w6     |
-+------+--------+------+--------+
-11 rows in set (0.000 sec)
+CREATE TABLE B (
+   the_key INT, 
+   value2 VARCHAR(2)
+);
+
+mysql> show tables;
++------------------+
+| Tables_in_testdb |
++------------------+
+| A                |
+| B                |
++------------------+
+2 rows in set (0.002 sec)
+
+mysql> desc A;
++---------+------------+------+-----+---------+-------+
+| Field   | Type       | Null | Key | Default | Extra |
++---------+------------+------+-----+---------+-------+
+| the_key | int        | YES  |     | NULL    |       |
+| value1  | varchar(2) | YES  |     | NULL    |       |
++---------+------------+------+-----+---------+-------+
+2 rows in set (0.003 sec)
+
+mysql> desc B;
++---------+------------+------+-----+---------+-------+
+| Field   | Type       | Null | Key | Default | Extra |
++---------+------------+------+-----+---------+-------+
+| the_key | int        | YES  |     | NULL    |       |
+| value2  | varchar(2) | YES  |     | NULL    |       |
++---------+------------+------+-----+---------+-------+
+2 rows in set (0.002 sec)
 ```
 
------
+### Populate Tables A and B
 
+```sql
+INSERT INTO A(the_key, value1)
+VALUES
+(1, 'a1'),
+(1, 'a2'),
+(1, 'a3'),
+(2, 'b1'),
+(2, 'b2'),
+(3, 'c1'),
+(5, 'd1'),
+(5, 'e1'),
+(NULL, 'f'),
+(NULL, 'g');
 
-## LEFT-JOIN
+mysql> SELECT * FROM A;
++---------+--------+
+| the_key | value1 |
++---------+--------+
+|       1 | a1     |
+|       1 | a2     |
+|       1 | a3     |
+|       2 | b1     |
+|       2 | b2     |
+|       3 | c1     |
+|       5 | d1     |
+|       5 | e1     |
+|    NULL | f      |
+|    NULL | g      |
++---------+--------+
+10 rows in set (0.001 sec)
 
-	1. The business purpose of a LEFT JOIN is 
-	   to retrieve all records from a "left" 
-	   table while also including matching 
-	   records from a "right" table. 
-	
-	2. This is crucial for scenarios where you 
-	   need to ensure no data is lost from the 
-	   primary (left) table, such as 
-	   
-	   		* listing all customers with their 
-	   		  orders (including customers who 
-	   		  have placed no orders) 
-	   		
-	   		or 
-	   
-	       * showing all departments with their 
-	         employees (including departments 
-	         with no employees). 
+INSERT INTO B(the_key, value2)
+VALUES
+(1, 'p1'),
+(1, 'p2'),
+(2, 'v1'),
+(2, 'v2'),
+(2, 'v3'),
+(3, 't3'),
+(6, 'w6'),
+(7, 'w7'),
+(8, 'w8'),
+(9, 'w9'),
+(NULL, 'z1'),
+(NULL, 'z2');
 
------
-   
-#### how left-join works?
+mysql> select * from B;
++---------+--------+
+| the_key | value2 |
++---------+--------+
+|       1 | p1     |
+|       1 | p2     |
+|       2 | v1     |
+|       2 | v2     |
+|       2 | v3     |
+|       3 | t3     |
+|       6 | w6     |
+|       7 | w7     |
+|       8 | w8     |
+|       9 | w9     |
+|    NULL | z1     |
+|    NULL | z2     |
++---------+--------+
+12 rows in set (0.001 sec)
+```
 
-![](./images/how-left-join-works.webp)
+### INNER JOIN
 
------
+```sql   
+	SELECT A.the_key AS a_key,
+	       A.value1  AS a_value,
+	       B.the_key AS b_key,
+	       B.value2  AS b_value    
+	FROM A
+	INNER JOIN B 
+	    ON A.the_key = B.the_key
+	ORDER BY 
+	         a_key,
+	         a_value,
+	         b_key,
+	         b_value; 
+
++-------+---------+-------+---------+
+| a_key | a_value | b_key | b_value |
++-------+---------+-------+---------+
+|     1 | a1      |     1 | p1      |
+|     1 | a1      |     1 | p2      |
+|     1 | a2      |     1 | p1      |
+|     1 | a2      |     1 | p2      |
+|     1 | a3      |     1 | p1      |
+|     1 | a3      |     1 | p2      |
+|     2 | b1      |     2 | v1      |
+|     2 | b1      |     2 | v2      |
+|     2 | b1      |     2 | v3      |
+|     2 | b2      |     2 | v1      |
+|     2 | b2      |     2 | v2      |
+|     2 | b2      |     2 | v3      |
+|     3 | c1      |     3 | t3      |
++-------+---------+-------+---------+
+13 rows in set (0.000 sec)
+```   
+    
+------
+       
+## LEFT JOIN (or LEFT OUTER JOIN): 
+
+	Returns all rows from the left table, 
+	and the matched rows from the right table. 
+	If there is no match, the result is NULL 
+	for the right table's columns.
 
 ![](./images/JOIN_LEFT.png)
 
+```sql
+	SELECT A.the_key AS a_key,
+	       A.value1  AS a_value,
+	       B.the_key AS b_key,
+	       B.value2  AS b_value    
+	FROM A
+	LEFT JOIN B 
+	    ON A.the_key = B.the_key
+	ORDER BY 
+	         a_key,
+	         a_value,
+	         b_key,
+	         b_value; 
++-------+---------+-------+---------+
+| a_key | a_value | b_key | b_value |
++-------+---------+-------+---------+
+|  NULL | f       |  NULL | NULL    |
+|  NULL | g       |  NULL | NULL    |
+|     1 | a1      |     1 | p1      |
+|     1 | a1      |     1 | p2      |
+|     1 | a2      |     1 | p1      |
+|     1 | a2      |     1 | p2      |
+|     1 | a3      |     1 | p1      |
+|     1 | a3      |     1 | p2      |
+|     2 | b1      |     2 | v1      |
+|     2 | b1      |     2 | v2      |
+|     2 | b1      |     2 | v3      |
+|     2 | b2      |     2 | v1      |
+|     2 | b2      |     2 | v2      |
+|     2 | b2      |     2 | v3      |
+|     3 | c1      |     3 | t3      |
+|     5 | d1      |  NULL | NULL    |
+|     5 | e1      |  NULL | NULL    |
++-------+---------+-------+---------+
+17 rows in set (0.001 sec)
 ```
-SELECT *
-FROM t1
-LEFT JOIN t2 USING(id);
-+------+--------+--------+
-| id   | value1 | value2 |
-+------+--------+--------+
-|    1 | v1     | w2     |
-|    1 | v1     | w1     |
-|    1 | v2     | w2     |
-|    1 | v2     | w1     |
-|    2 | v3     | w5     |
-|    2 | v3     | w4     |
-|    2 | v3     | w3     |
-|    2 | v4     | w5     |
-|    2 | v4     | w4     |
-|    2 | v4     | w3     |
-|    3 | v5     | w6     |
-|    4 | v6     | NULL   |
-|    5 | v7     | NULL   |
-+------+--------+--------+
-13 rows in set (0.001 sec)
-```
-
 ------
+	
+## RIGHT JOIN (or RIGHT OUTER JOIN): 
 
-## RIGHT-JOIN
+	Returns all rows from the right table, 
+	and the matched rows from the left table. 
+	If there is no match, the result is NULL 
+	for the left table's columns.
 
 ![](./images/JOIN_RIGHT.png)
 
-
 ```sql
-SELECT *
-FROM t1
-RIGHT JOIN t2 USING(id);
-+------+--------+--------+
-| id   | value2 | value1 |
-+------+--------+--------+
-|    1 | w1     | v2     |
-|    1 | w1     | v1     |
-|    1 | w2     | v2     |
-|    1 | w2     | v1     |
-|    2 | w3     | v4     |
-|    2 | w3     | v3     |
-|    2 | w4     | v4     |
-|    2 | w4     | v3     |
-|    2 | w5     | v4     |
-|    2 | w5     | v3     |
-|    3 | w6     | v5     |
-|    6 | w7     | NULL   |
-|    7 | w8     | NULL   |
-+------+--------+--------+
-13 rows in set (0.001 sec)
-
+	SELECT A.the_key AS a_key,
+	       A.value1  AS a_value,
+	       B.the_key AS b_key,
+	       B.value2  AS b_value    
+	FROM A
+	RIGHT JOIN B 
+	    ON A.the_key = B.the_key
+	ORDER BY 
+	         a_key,
+	         a_value,
+	         b_key,
+	         b_value; 
++-------+---------+-------+---------+
+| a_key | a_value | b_key | b_value |
++-------+---------+-------+---------+
+|  NULL | NULL    |  NULL | z1      |
+|  NULL | NULL    |  NULL | z2      |
+|  NULL | NULL    |     6 | w6      |
+|  NULL | NULL    |     7 | w7      |
+|  NULL | NULL    |     8 | w8      |
+|  NULL | NULL    |     9 | w9      |
+|     1 | a1      |     1 | p1      |
+|     1 | a1      |     1 | p2      |
+|     1 | a2      |     1 | p1      |
+|     1 | a2      |     1 | p2      |
+|     1 | a3      |     1 | p1      |
+|     1 | a3      |     1 | p2      |
+|     2 | b1      |     2 | v1      |
+|     2 | b1      |     2 | v2      |
+|     2 | b1      |     2 | v3      |
+|     2 | b2      |     2 | v1      |
+|     2 | b2      |     2 | v2      |
+|     2 | b2      |     2 | v3      |
+|     3 | c1      |     3 | t3      |
++-------+---------+-------+---------+
+19 rows in set (0.001 sec)
 ```
 
 ------
 
-## FULL-JOIN
+## FULL OUTER JOIN: 
 
-	MySQL does NOT support FULL JOIN, 
-	but you can simulate it using a UNION 
-	of LEFT JOIN and RIGHT JOIN.
+	Returns all rows when there is a match 
+	in either the left or right table. It 
+	returns NULL for columns of the table 
+	that doesn't have a match.
 
 ![](./images/JOIN_FULL.png)
 
+
+### ✅ `FULL OUTER JOIN` (Not supported natively in MySQL, but can be emulated)
+
 ```sql
-SELECT 
-    t1.id,
-    t1.value1,
-    t2.id AS t2_id,
-    t2.value2
-FROM t1
-LEFT JOIN t2 ON t1.id = t2.id
+	SELECT A.the_key AS a_key,
+	       A.value1  AS a_value,
+	       B.the_key AS b_key,
+	       B.value2  AS b_value    
+	FROM A
+	LEFT JOIN B 
+	    ON A.the_key = B.the_key
+	    
+	UNION
 
-UNION
+	SELECT A.the_key AS a_key,
+	       A.value1  AS a_value,
+	       B.the_key AS b_key,
+	       B.value2  AS b_value    
+	FROM A
+	RIGHT JOIN B 
+	    ON A.the_key = B.the_key
+	    	    
+	ORDER BY 
+	         a_key,
+	         a_value,
+	         b_key,
+	         b_value; 
 
-SELECT
-    t1.id,
-    t1.value1,
-    t2.id AS t2_id,
-    t2.value2
-FROM t2
-LEFT JOIN t1 ON t2.id = t1.id;
-+------+--------+-------+--------+
-| id   | value1 | t2_id | value2 |
-+------+--------+-------+--------+
-|    1 | v1     |     1 | w2     |
-|    1 | v1     |     1 | w1     |
-|    1 | v2     |     1 | w2     |
-|    1 | v2     |     1 | w1     |
-|    2 | v3     |     2 | w5     |
-|    2 | v3     |     2 | w4     |
-|    2 | v3     |     2 | w3     |
-|    2 | v4     |     2 | w5     |
-|    2 | v4     |     2 | w4     |
-|    2 | v4     |     2 | w3     |
-|    3 | v5     |     3 | w6     |
-|    4 | v6     |  NULL | NULL   |
-|    5 | v7     |  NULL | NULL   |
-| NULL | NULL   |     6 | w7     |
-| NULL | NULL   |     7 | w8     |
-+------+--------+-------+--------+
-15 rows in set (0.002 sec)
-
++-------+---------+-------+---------+
+| a_key | a_value | b_key | b_value |
++-------+---------+-------+---------+
+|  NULL | NULL    |  NULL | z1      |
+|  NULL | NULL    |  NULL | z2      |
+|  NULL | NULL    |     6 | w6      |
+|  NULL | NULL    |     7 | w7      |
+|  NULL | NULL    |     8 | w8      |
+|  NULL | NULL    |     9 | w9      |
+|  NULL | f       |  NULL | NULL    |
+|  NULL | g       |  NULL | NULL    |
+|     1 | a1      |     1 | p1      |
+|     1 | a1      |     1 | p2      |
+|     1 | a2      |     1 | p1      |
+|     1 | a2      |     1 | p2      |
+|     1 | a3      |     1 | p1      |
+|     1 | a3      |     1 | p2      |
+|     2 | b1      |     2 | v1      |
+|     2 | b1      |     2 | v2      |
+|     2 | b1      |     2 | v3      |
+|     2 | b2      |     2 | v1      |
+|     2 | b2      |     2 | v2      |
+|     2 | b2      |     2 | v3      |
+|     3 | c1      |     3 | t3      |
+|     5 | d1      |  NULL | NULL    |
+|     5 | e1      |  NULL | NULL    |
++-------+---------+-------+---------+
+23 rows in set (0.001 sec)
 ```
+
 
 ------
 
-## Cross Join = Cartesian Product
+## CROSS JOIN: 
 
+	Returns the Cartesian product of both 
+	tables, combining every row from the 
+	first table with every row from the 
+	second table. 
 
+![](./images/JOIN_CROSS.webp)
 
 ```sql
-SELECT *
-FROM t1, t2;
+	SELECT A.the_key AS a_key,
+	       A.value1  AS a_value,
+	       B.the_key AS b_key,
+	       B.value2  AS b_value    
+	FROM A,
+	     B;
 
--- t1.num_of_rows = 7
--- t2.num_of_rows = 8
--- CROSS-JOIN(t1, t2) = 7 * 8 rows = 56 rows
-
-+------+--------+------+--------+
-| id   | value1 | id   | value2 |
-+------+--------+------+--------+
-|    5 | v7     |    1 | w1     |
-|    4 | v6     |    1 | w1     |
-|    3 | v5     |    1 | w1     |
-|    2 | v4     |    1 | w1     |
-|    2 | v3     |    1 | w1     |
-|    1 | v2     |    1 | w1     |
-|    1 | v1     |    1 | w1     |
-|    5 | v7     |    1 | w2     |
-|    4 | v6     |    1 | w2     |
-|    3 | v5     |    1 | w2     |
-|    2 | v4     |    1 | w2     |
-|    2 | v3     |    1 | w2     |
-|    1 | v2     |    1 | w2     |
-|    1 | v1     |    1 | w2     |
-|    5 | v7     |    2 | w3     |
-|    4 | v6     |    2 | w3     |
-|    3 | v5     |    2 | w3     |
-|    2 | v4     |    2 | w3     |
-|    2 | v3     |    2 | w3     |
-|    1 | v2     |    2 | w3     |
-|    1 | v1     |    2 | w3     |
-|    5 | v7     |    2 | w4     |
-|    4 | v6     |    2 | w4     |
-|    3 | v5     |    2 | w4     |
-|    2 | v4     |    2 | w4     |
-|    2 | v3     |    2 | w4     |
-|    1 | v2     |    2 | w4     |
-|    1 | v1     |    2 | w4     |
-|    5 | v7     |    2 | w5     |
-|    4 | v6     |    2 | w5     |
-|    3 | v5     |    2 | w5     |
-|    2 | v4     |    2 | w5     |
-|    2 | v3     |    2 | w5     |
-|    1 | v2     |    2 | w5     |
-|    1 | v1     |    2 | w5     |
-|    5 | v7     |    3 | w6     |
-|    4 | v6     |    3 | w6     |
-|    3 | v5     |    3 | w6     |
-|    2 | v4     |    3 | w6     |
-|    2 | v3     |    3 | w6     |
-|    1 | v2     |    3 | w6     |
-|    1 | v1     |    3 | w6     |
-|    5 | v7     |    6 | w7     |
-|    4 | v6     |    6 | w7     |
-|    3 | v5     |    6 | w7     |
-|    2 | v4     |    6 | w7     |
-|    2 | v3     |    6 | w7     |
-|    1 | v2     |    6 | w7     |
-|    1 | v1     |    6 | w7     |
-|    5 | v7     |    7 | w8     |
-|    4 | v6     |    7 | w8     |
-|    3 | v5     |    7 | w8     |
-|    2 | v4     |    7 | w8     |
-|    2 | v3     |    7 | w8     |
-|    1 | v2     |    7 | w8     |
-|    1 | v1     |    7 | w8     |
-+------+--------+------+--------+
-56 rows in set (0.000 sec)
-
++-------+---------+-------+---------+
+| a_key | a_value | b_key | b_value |
++-------+---------+-------+---------+
+|  NULL | g       |     1 | p1      |
+|  NULL | f       |     1 | p1      |
+|     5 | e1      |     1 | p1      |
+|     5 | d1      |     1 | p1      |
+|     3 | c1      |     1 | p1      |
+|     2 | b2      |     1 | p1      |
+|     2 | b1      |     1 | p1      |
+|     1 | a3      |     1 | p1      |
+|     1 | a2      |     1 | p1      |
+|     1 | a1      |     1 | p1      |
+|  NULL | g       |     1 | p2      |
+|  NULL | f       |     1 | p2      |
+|     5 | e1      |     1 | p2      |
+|     5 | d1      |     1 | p2      |
+|     3 | c1      |     1 | p2      |
+|     2 | b2      |     1 | p2      |
+|     2 | b1      |     1 | p2      |
+|     1 | a3      |     1 | p2      |
+|     1 | a2      |     1 | p2      |
+|     1 | a1      |     1 | p2      |
+|  NULL | g       |     2 | v1      |
+|  NULL | f       |     2 | v1      |
+|     5 | e1      |     2 | v1      |
+|     5 | d1      |     2 | v1      |
+|     3 | c1      |     2 | v1      |
+|     2 | b2      |     2 | v1      |
+|     2 | b1      |     2 | v1      |
+|     1 | a3      |     2 | v1      |
+|     1 | a2      |     2 | v1      |
+|     1 | a1      |     2 | v1      |
+|  NULL | g       |     2 | v2      |
+|  NULL | f       |     2 | v2      |
+|     5 | e1      |     2 | v2      |
+|     5 | d1      |     2 | v2      |
+|     3 | c1      |     2 | v2      |
+|     2 | b2      |     2 | v2      |
+|     2 | b1      |     2 | v2      |
+|     1 | a3      |     2 | v2      |
+|     1 | a2      |     2 | v2      |
+|     1 | a1      |     2 | v2      |
+|  NULL | g       |     2 | v3      |
+|  NULL | f       |     2 | v3      |
+|     5 | e1      |     2 | v3      |
+|     5 | d1      |     2 | v3      |
+|     3 | c1      |     2 | v3      |
+|     2 | b2      |     2 | v3      |
+|     2 | b1      |     2 | v3      |
+|     1 | a3      |     2 | v3      |
+|     1 | a2      |     2 | v3      |
+|     1 | a1      |     2 | v3      |
+|  NULL | g       |     3 | t3      |
+|  NULL | f       |     3 | t3      |
+|     5 | e1      |     3 | t3      |
+|     5 | d1      |     3 | t3      |
+|     3 | c1      |     3 | t3      |
+|     2 | b2      |     3 | t3      |
+|     2 | b1      |     3 | t3      |
+|     1 | a3      |     3 | t3      |
+|     1 | a2      |     3 | t3      |
+|     1 | a1      |     3 | t3      |
+|  NULL | g       |     6 | w6      |
+|  NULL | f       |     6 | w6      |
+|     5 | e1      |     6 | w6      |
+|     5 | d1      |     6 | w6      |
+|     3 | c1      |     6 | w6      |
+|     2 | b2      |     6 | w6      |
+|     2 | b1      |     6 | w6      |
+|     1 | a3      |     6 | w6      |
+|     1 | a2      |     6 | w6      |
+|     1 | a1      |     6 | w6      |
+|  NULL | g       |     7 | w7      |
+|  NULL | f       |     7 | w7      |
+|     5 | e1      |     7 | w7      |
+|     5 | d1      |     7 | w7      |
+|     3 | c1      |     7 | w7      |
+|     2 | b2      |     7 | w7      |
+|     2 | b1      |     7 | w7      |
+|     1 | a3      |     7 | w7      |
+|     1 | a2      |     7 | w7      |
+|     1 | a1      |     7 | w7      |
+|  NULL | g       |     8 | w8      |
+|  NULL | f       |     8 | w8      |
+|     5 | e1      |     8 | w8      |
+|     5 | d1      |     8 | w8      |
+|     3 | c1      |     8 | w8      |
+|     2 | b2      |     8 | w8      |
+|     2 | b1      |     8 | w8      |
+|     1 | a3      |     8 | w8      |
+|     1 | a2      |     8 | w8      |
+|     1 | a1      |     8 | w8      |
+|  NULL | g       |     9 | w9      |
+|  NULL | f       |     9 | w9      |
+|     5 | e1      |     9 | w9      |
+|     5 | d1      |     9 | w9      |
+|     3 | c1      |     9 | w9      |
+|     2 | b2      |     9 | w9      |
+|     2 | b1      |     9 | w9      |
+|     1 | a3      |     9 | w9      |
+|     1 | a2      |     9 | w9      |
+|     1 | a1      |     9 | w9      |
+|  NULL | g       |  NULL | z1      |
+|  NULL | f       |  NULL | z1      |
+|     5 | e1      |  NULL | z1      |
+|     5 | d1      |  NULL | z1      |
+|     3 | c1      |  NULL | z1      |
+|     2 | b2      |  NULL | z1      |
+|     2 | b1      |  NULL | z1      |
+|     1 | a3      |  NULL | z1      |
+|     1 | a2      |  NULL | z1      |
+|     1 | a1      |  NULL | z1      |
+|  NULL | g       |  NULL | z2      |
+|  NULL | f       |  NULL | z2      |
+|     5 | e1      |  NULL | z2      |
+|     5 | d1      |  NULL | z2      |
+|     3 | c1      |  NULL | z2      |
+|     2 | b2      |  NULL | z2      |
+|     2 | b1      |  NULL | z2      |
+|     1 | a3      |  NULL | z2      |
+|     1 | a2      |  NULL | z2      |
+|     1 | a1      |  NULL | z2      |
++-------+---------+-------+---------+
+120 rows in set (0.000 sec)
 ```
+------
+
+
+## References
+
+[1.The Join Operation](https://www.faastop.com/dbms/30.Join_Operator.html)
+
