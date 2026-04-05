@@ -109,7 +109,7 @@ mysql> select * from PROJECT;
 	from both the tables where the condition 
 	satisfies.
 	
-![](./join_INNER_JOIN.png)
+![](./images/join_INNER_JOIN.png)
 
 
 * Syntax
@@ -177,7 +177,7 @@ mysql>    SELECT EMPLOYEE.EMP_ID, EMPLOYEE.EMP_NAME, PROJECT.DEPARTMENT
 	If there is no matching join value, 
 	it will return NULL.
 
-![](./join_LEFT_JOIN.png)
+![](./images/join_LEFT_JOIN.png)
 
 
 * Syntax
@@ -230,7 +230,7 @@ mysql> SELECT EMPLOYEE.EMP_ID, EMPLOYEE.EMP_NAME, PROJECT.DEPARTMENT
 		If there is no matching in both tables, it 
 		will return NULL.
 
-![](./join_RIGHT_JOIN.png)
+![](./images/join_RIGHT_JOIN.png)
 
 **Errata: Result row: corrected:**
 
@@ -302,7 +302,7 @@ mysql> SELECT  EMPLOYEE.EMP_ID, EMPLOYEE.EMP_NAME,
 		both tables. It puts NULL on the place 
 		of matches not found.
 		
-![](./join_FULL_JOIN.png)
+![](./images/join_FULL_JOIN.png)
 
 * Syntax
 
