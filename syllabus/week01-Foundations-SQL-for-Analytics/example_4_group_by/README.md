@@ -16,7 +16,7 @@ Columns are:
 | column name       | Description and values |
 |-------------------|------------------------|
 |`transaction_id`   | transaction id         |
-|`transation_date`  | as a timestamp spanning for 4 years : 2023, 2024, 2025, 2026|
+|`transaction_date` | as a timestamp spanning for 4 years : 2023, 2024, 2025, 2026|
 |`sale_type`        | ONLINE, INSTORE
 |`product_name`     | {ROBOT, TV, RADIO, TABLE, COMPUTER, BIKE, LAPTOP, WATCH, IPAD, EBIKE}|
 |`price`            | as an integer, based on product|
@@ -67,6 +67,51 @@ any other country,
 
 4.8 Add plotting for all queries
 
+# Corrections:
+
+columns are:
+
+| column name       | Description and values |
+|-------------------|------------------------|
+|`transaction_id`   | transaction id, an integer, no need to be unique        |
+|`transaction_date` | as a timestamp spanning for 4 years : 2023, 2024, 2025, 2026|
+|`sale_type`        | ONLINE, INSTORE
+|`product_name`     | {ROBOT, TV, RADIO, TABLE, COMPUTER, BIKE, LAPTOP, WATCH, IPAD, EBIKE}|
+|`price`            | as an integer, based on product|
+|`quantity`         | as an integer: number of products: 1, 2, 3, 4
+|`gender`           | MALE, FEMALE|
+|`discount`         | this is a total discount for this transaction
+|`country`          | USA, CANADA, GERMANY, INDIA, CHINA, MEXICO, ITALY, FRANCE, SPAIN|
+|`age`              | 18 to 80 |
+|`sales_amount`     | as an integer, derived as: sale_amount = (quantity * price) - discount
+
+
+date as: transaction_date
+
+sales_amount = quantity * price - discount
+	
+For sales_2026.csv, should the timestamps span only:
+
+	•	January, February, March 2026
+
+
+For the notebook, when you say “create 10 cells using GROUP BY,” 
+do you want:
+
+	•	 total of 20 cells:
+	•    exactly 10 query cells total for the GROUP BY section, 
+	•    plus 5 top-N cells and 5 additional business-insight cells
+
+For the “2 bullet points” business insight, do you want that:
+
+	•	for every query in the notebook,
+	
+
+7.	For EDA and notebook plotting,  matplotlib acceptable
+
+8.	For the metadata dictionary in MD/MARP, should it include only:
+
+	•	value domains, business rules, and derived-field formulas such as sales_amount
 
 
 
