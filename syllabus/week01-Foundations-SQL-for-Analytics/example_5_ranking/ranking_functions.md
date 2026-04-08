@@ -555,3 +555,8 @@ memory D SELECT player,
   14 rows                 4 columns
 ```
 
+# References
+
+1. [A Tutorial on SQL Window Functions Using DuckDB.](https://www.kostasp.net/posts/sql_window_functions_tutorial/)
+
+2. 
