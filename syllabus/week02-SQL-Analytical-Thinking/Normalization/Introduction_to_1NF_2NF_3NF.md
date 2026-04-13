@@ -20,6 +20,13 @@
 |Update Anomaly | Having to update multiple rows to change one piece of information, leading to potential inconsistencies if any row is missed.|
 |Deletion Anomaly | Accidientally losing important information when deleting a seemingly unrelated record. |
 
+## Example: Before Normalization
+
+![](./images/before_normalization.webp)
+
+## Example: After Normalization
+![](./images/after_normalization.webp)
+
 
 ## Database normalization is a process...
 
@@ -1781,3 +1788,5 @@ The following are some tutorials for Database Normalization
 2. [Why Normalization in DBMS is Essential for Databases](https://www.simplilearn.com/tutorials/sql-tutorial/what-is-normalization-in-sql)
 
 3. [DBMS - Normalization](https://www.tutorialspoint.com/dbms/database_normalization.htm)
+
+4. [Introduction to Database Normalization](https://www.geeksforgeeks.org/dbms/introduction-of-database-normalization/)
