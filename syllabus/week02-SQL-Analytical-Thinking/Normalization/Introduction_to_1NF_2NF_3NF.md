@@ -1,5 +1,28 @@
 # Database Normalization
 
+	1. Database normalization is the process 
+	of organizing data in a relational 
+	database to reduce redundancy and 
+	improve data integrity. 
+	
+	2. It involves breaking large, complex 
+	tables into smaller, related ones and 
+	establishing logical relationships 
+	between them through keys.
+
+## Core Goals of Normalization
+
+| Goal | Explanation |
+|------|-------------|
+|Eliminate Redundancy |Prevents storing the same piece of information in multiple places, which saves storage space and reduces the risk of contradictory data.|
+|Prevent Anomalies    |Addresses common errors that occur when modifying data|
+|Insertion Anomaly |Being unable to add a new record because it's missing data for an unrelated column.|
+|Update Anomaly | Having to update multiple rows to change one piece of information, leading to potential inconsistencies if any row is missed.|
+|Deletion Anomaly | Accidientally losing important information when deleting a seemingly unrelated record. |
+
+
+## Database normalization is a process...
+
 	✅ Database normalization is a process 
 	   of organizing data within a relational 
 	   database to 
