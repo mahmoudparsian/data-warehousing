@@ -51,6 +51,10 @@
 	    database. 
 
 ------
+# Normalization and Denormalization
+
+![](./images/normalization_and_denormalization.png)
+
 
 # Some Definitions about CK, PK, FK
 
