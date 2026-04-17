@@ -5,6 +5,7 @@
 	   a relational database to 
 	
 		* reduce redundancy, and 
+		
 		* improve data integrity. 
 	
 	2. It involves breaking large, complex 
