@@ -1,14 +1,27 @@
-```
+# Pizza Shop Data Warehouse
+
 Is this worth for my data warehousing class?
 
+```
+source of original data:
+https://mavenanalytics.io/data-playground/pizza-place-sales
+```
+
+
+## Original Data Files
+
+```
       16 data_dictionary.csv
    48621 order_details.csv
    21351 orders.csv
       33 pizza_types.csv
       97 pizzas.csv
    70118 total
+```
 
+## Data Dictionary and MetaData
 
+```
 % cat data_dictionary.csv
 Table,Field,Description
 orders,order_id,Unique identifier for each order placed by a table
@@ -26,36 +39,35 @@ pizza_types,pizza_type_id,Unique identifier for each pizza type
 pizza_types,name,Name of the pizza as shown in the menu
 pizza_types,category,"Category that the pizza fall under in the menu (Classic, Chicken, Supreme, or Veggie)"
 pizza_types,ingredients,"Comma-delimited ingredients used in the pizza as shown in the menu (they all include Mozzarella Cheese, even if not specified; and they all include Tomato Sauce, unless another sauce is specified)"
+```
 
-
- % cat Pizza+Place+Sales.zip.Analysis
-https://mavenanalytics.io/data-playground/pizza-place-sales
+## fictitious pizza place
 
 A year's worth of sales from a fictitious pizza place, 
 including the date and time of each order and the pizzas 
-served, with additional details on the type, size, quantity, 
-price, and ingredients.
+served, with additional details on the type, size, quantity, price, and ingredients.
 
-Recommended Analysis
+## Recommended Analysis
 
-How many customers do we have each day? 
+* How many customers do we have each day? 
 Are there any peak hours?
 
-How many pizzas are typically in an order? 
+* How many pizzas are typically in an order? 
 Do we have any bestsellers?
 
-How much money did we make this year? 
+* How much money did we make this year? 
 Can we indentify any seasonality in the sales?
 
-Are there any pizzas we should take off the menu, 
+* Are there any pizzas we should take off the menu, 
 or any promotions we could leverage?
 
-Pizza Orders. Is this worth for my data warehousing class?
+
+## Pizza Orders. Is this worth for my data warehousing class?
 
 Short answer: yes — this is an excellent dataset for a data warehousing class, especially at the undergraduate / early graduate level. In fact, it’s almost ideal for teaching both star schema design + medallion architecture + OLAP.
 
 Let me give you a structured evaluation (and a few ways to elevate it to your teaching level).
-```
+
 ⸻
 
 ✅ Why this dataset is strong
@@ -95,7 +107,8 @@ This allows you to explicitly teach:
 ```
 3. Natural OLAP queries (excellent for BI layer)
 
-Your “Recommended Analysis” is basically a ready-made OLAP assignment:
+Your “Recommended Analysis” is basically a 
+ready-made OLAP assignment:
 	•	Peak hours → time dimension
 	•	Bestsellers → product dimension
 	•	Revenue → aggregation
@@ -172,7 +185,7 @@ this dataset fits perfectly:
 
 ⸻
 
-🟫 Bronze Layer (raw ingestion)
+# 🟫 Bronze Layer (raw ingestion)
 ```
 CREATE TABLE bronze_orders AS SELECT * FROM read_csv_auto('orders.csv');
 CREATE TABLE bronze_order_details AS SELECT * FROM read_csv_auto('order_details.csv');
@@ -186,7 +199,7 @@ CREATE TABLE bronze_pizza_types AS SELECT * FROM read_csv_auto('pizza_types.csv'
 ```
 ⸻
 
-⚪ Silver Layer (clean + join-ready)
+# ⚪ Silver Layer (clean + join-ready)
 
 ```
 CREATE TABLE silver_order_details AS
@@ -208,7 +221,7 @@ JOIN bronze_orders o
 ```
 ⸻
 
-🟡 Gold Layer (star schema)
+# 🟡 Gold Layer (star schema)
 
 ```
 Fact table
@@ -232,6 +245,7 @@ JOIN bronze_pizza_types pt ON p.pizza_type_id = pt.pizza_type_id;
 ```
 
 ⸻
+
 ```
 Dimensions (optional separation)
 	•	dim_date
@@ -377,6 +391,7 @@ then that record must be dropped.
 
 =====
 This is very solid — you’re already thinking like a real data warehouse architect. 👍
+
 But I’ll push you a bit to make this production-grade + pedagogically stronger.
 
 ⸻
@@ -657,6 +672,7 @@ total 8928
 -rw-r--r--@ 1 max  staff     3374 Apr 19 21:21 pizzas.csv
 
 OKay, first define the project: 
+
 📘 5–5 Marp slides (very clean for teaching)
 Give a story for pizza shop 
 and define our business requirements as detail as possible
@@ -675,16 +691,25 @@ with:
 	•	Gold star schema
 	•	OLAP queries + visualization
 
-In order to avoid the timeout: take your time and create a template for all cells: as detail as possible, then for each cell you will create :  1. why we are doing this step, 2. Impl. in Python+DuckDB, 3. Very Nice Plotting, 4. Business analysis.  The first cell should talk about medallion architecture (very very short). Try to avoid pandas as much as possible, focus is duckdb.
+First we  create a template for all cells: as detail as possible, then for each cell you will create :  1. why we are doing this step, 2. Impl. in Python+DuckDB, 3. Very Nice Plotting, 4. Business analysis.  The first cell should talk about medallion architecture (very very short). Try to avoid pandas as much as possible, focus is duckdb.
 
 I created the notebook template here:
 
 Download the Jupyter notebook template￼
 
 A couple of notes before you review it:
-	•	It is DuckDB-first and keeps Python mostly for orchestration and plotting.
-	•	Each major cell includes the four parts you asked for: why, implementation, plotting, and business analysis.
-	•	The Bronze ingestion uses DuckDB CSV loading patterns, and the Silver layer uses try_strptime for mixed date parsing; if your intentionally messy order_details files are malformed enough to break auto-ingestion, the Bronze ingestion cell is the one to tighten with CSV options like ignore_errors or related parsing controls.  ￼
 
-After you review it, I’ll turn it into the 
-next version you want.
+	•	It is DuckDB-first and keeps Python mostly 
+	  for orchestration and plotting.
+	  
+	•	Each major cell includes the four parts you 
+	  asked for: why, implementation, plotting, 
+	  and business analysis.
+	  
+	•	The Bronze ingestion uses DuckDB CSV loading 
+	  patterns, and the Silver layer uses try_strptime 
+	  for mixed date parsing; if your intentionally 
+	  messy order_details files are malformed enough 
+	  to break auto-ingestion, the Bronze ingestion 
+	  cell is the one to tighten with CSV options 
+	  like ignore_errors or related parsing controls.  ￼
