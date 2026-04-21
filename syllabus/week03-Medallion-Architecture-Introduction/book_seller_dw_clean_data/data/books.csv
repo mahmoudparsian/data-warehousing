@@ -1,0 +1,101 @@
+book_id,book_title,book_genre,author_id,author_name,author_web_site,published_date
+1,Advanced Analytics 1,History,36,Morgan Johnson,https://authors.example.com/morgan-johnson-36,2020-07-27
+2,Guide to Retail 2,Business,3,Taylor Lee,https://authors.example.com/taylor-lee-3,2018-09-29
+3,Advanced SQL 3,Mystery,14,Morgan Smith,https://authors.example.com/morgan-smith-14,2023-08-07
+4,Learning Retail 4,Data Science,26,Morgan Clark,https://authors.example.com/morgan-clark-26,2019-07-26
+5,Inside Retail 5,Children,16,Jamie Garcia,https://authors.example.com/jamie-garcia-16,2024-07-22
+6,Guide to Storytelling 6,Mystery,28,Taylor Johnson,https://authors.example.com/taylor-johnson-28,2020-06-17
+7,Foundations of Data Warehousing 7,Children,9,Casey Clark,https://authors.example.com/casey-clark-9,2018-07-12
+8,Learning Cloud Systems 8,Fantasy,8,Taylor Brown,https://authors.example.com/taylor-brown-8,2024-09-08
+9,Guide to Business Intelligence 9,Technology,5,Sam Clark,https://authors.example.com/sam-clark-5,2023-04-02
+10,Inside Analytics 10,Biography,34,Jordan Miller,https://authors.example.com/jordan-miller-34,2019-04-15
+11,Advanced Data Warehousing 11,Biography,35,Jamie Brown,https://authors.example.com/jamie-brown-35,2021-04-17
+12,Foundations of Analytics 12,Fantasy,28,Taylor Johnson,https://authors.example.com/taylor-johnson-28,2020-12-14
+13,Inside Data Warehousing 13,Fantasy,33,Riley Miller,https://authors.example.com/riley-miller-33,2021-05-07
+14,Practical Python 14,Mystery,33,Riley Miller,https://authors.example.com/riley-miller-33,2022-03-12
+15,Inside Analytics 15,Children,11,Taylor Moore,https://authors.example.com/taylor-moore-11,2024-09-19
+16,The Data Warehousing 16,Data Science,21,Jamie Clark,https://authors.example.com/jamie-clark-21,2022-01-26
+17,The SQL 17,History,20,Sam Miller,https://authors.example.com/sam-miller-20,2024-05-12
+18,Foundations of Data Warehousing 18,Science Fiction,6,Chris Smith,https://authors.example.com/chris-smith-6,2023-12-22
+19,Foundations of Machine Learning 19,Fantasy,9,Casey Clark,https://authors.example.com/casey-clark-9,2019-11-08
+20,Exploring Cloud Systems 20,Children,17,Jordan Brown,https://authors.example.com/jordan-brown-17,2020-05-17
+21,Modern Cloud Systems 21,History,35,Jamie Brown,https://authors.example.com/jamie-brown-35,2022-03-10
+22,Foundations of Data Warehousing 22,Children,29,Alex Brown,https://authors.example.com/alex-brown-29,2020-10-12
+23,Advanced Analytics 23,Science Fiction,15,Jordan Davis,https://authors.example.com/jordan-davis-15,2024-08-06
+24,Exploring SQL 24,History,36,Morgan Johnson,https://authors.example.com/morgan-johnson-36,2018-01-30
+25,Practical Data Warehousing 25,Fiction,5,Sam Clark,https://authors.example.com/sam-clark-5,2018-05-09
+26,Inside SQL 26,Science Fiction,22,Morgan Smith,https://authors.example.com/morgan-smith-22,2021-02-14
+27,Inside Python 27,History,32,Chris Garcia,https://authors.example.com/chris-garcia-32,2024-05-27
+28,Practical Bookselling 28,Data Science,37,Drew Lee,https://authors.example.com/drew-lee-37,2022-07-26
+29,Mastering Cloud Systems 29,Science Fiction,13,Riley Clark,https://authors.example.com/riley-clark-13,2021-12-22
+30,Foundations of Analytics 30,Technology,28,Taylor Johnson,https://authors.example.com/taylor-johnson-28,2019-02-08
+31,Advanced Data Warehousing 31,Technology,4,Sam Moore,https://authors.example.com/sam-moore-4,2020-10-15
+32,Inside Bookselling 32,History,13,Riley Clark,https://authors.example.com/riley-clark-13,2019-07-29
+33,Modern Bookselling 33,Fantasy,28,Taylor Johnson,https://authors.example.com/taylor-johnson-28,2020-10-20
+34,Inside Data Warehousing 34,Data Science,5,Sam Clark,https://authors.example.com/sam-clark-5,2018-07-27
+35,Mastering SQL 35,Fiction,35,Jamie Brown,https://authors.example.com/jamie-brown-35,2019-11-13
+36,Foundations of SQL 36,Data Science,27,Jamie Clark,https://authors.example.com/jamie-clark-27,2022-07-01
+37,Guide to Analytics 37,Fantasy,4,Sam Moore,https://authors.example.com/sam-moore-4,2022-05-19
+38,Modern Cloud Systems 38,Data Science,17,Jordan Brown,https://authors.example.com/jordan-brown-17,2024-03-26
+39,Practical Retail 39,Fantasy,32,Chris Garcia,https://authors.example.com/chris-garcia-32,2020-06-10
+40,Inside Analytics 40,Mystery,4,Sam Moore,https://authors.example.com/sam-moore-4,2021-07-08
+41,Exploring Bookselling 41,Fiction,4,Sam Moore,https://authors.example.com/sam-moore-4,2023-08-22
+42,The Machine Learning 42,Fantasy,34,Jordan Miller,https://authors.example.com/jordan-miller-34,2018-11-25
+43,Exploring Data Warehousing 43,Science Fiction,12,Chris Brown,https://authors.example.com/chris-brown-12,2020-08-21
+44,Exploring SQL 44,Science Fiction,26,Morgan Clark,https://authors.example.com/morgan-clark-26,2024-06-29
+45,Exploring Data Warehousing 45,Fiction,39,Jordan Wilson,https://authors.example.com/jordan-wilson-39,2022-09-14
+46,Inside Storytelling 46,Mystery,38,Casey Brown,https://authors.example.com/casey-brown-38,2020-12-04
+47,Practical Retail 47,Business,14,Morgan Smith,https://authors.example.com/morgan-smith-14,2022-06-10
+48,Foundations of Storytelling 48,Biography,9,Casey Clark,https://authors.example.com/casey-clark-9,2018-10-25
+49,Exploring Business Intelligence 49,Data Science,1,Sam Smith,https://authors.example.com/sam-smith-1,2019-02-14
+50,Practical Machine Learning 50,Children,5,Sam Clark,https://authors.example.com/sam-clark-5,2020-12-22
+51,Mastering SQL 51,Business,9,Casey Clark,https://authors.example.com/casey-clark-9,2022-02-22
+52,Foundations of Machine Learning 52,Fantasy,19,Sam Davis,https://authors.example.com/sam-davis-19,2021-05-24
+53,The Machine Learning 53,Children,40,Chris Garcia,https://authors.example.com/chris-garcia-40,2021-05-11
+54,Modern Data Warehousing 54,Fantasy,7,Alex Johnson,https://authors.example.com/alex-johnson-7,2019-03-15
+55,Modern Retail 55,Fantasy,36,Morgan Johnson,https://authors.example.com/morgan-johnson-36,2024-10-13
+56,Practical Retail 56,Business,14,Morgan Smith,https://authors.example.com/morgan-smith-14,2023-09-02
+57,The Data Warehousing 57,Biography,32,Chris Garcia,https://authors.example.com/chris-garcia-32,2022-10-01
+58,The Storytelling 58,Fiction,18,Jamie Johnson,https://authors.example.com/jamie-johnson-18,2019-06-20
+59,Foundations of Machine Learning 59,Fantasy,17,Jordan Brown,https://authors.example.com/jordan-brown-17,2022-10-18
+60,Mastering Data Warehousing 60,Fiction,36,Morgan Johnson,https://authors.example.com/morgan-johnson-36,2019-09-03
+61,Advanced Business Intelligence 61,Fiction,35,Jamie Brown,https://authors.example.com/jamie-brown-35,2024-03-13
+62,Learning Analytics 62,Technology,10,Alex Moore,https://authors.example.com/alex-moore-10,2021-06-16
+63,Advanced SQL 63,Fiction,24,Sam Davis,https://authors.example.com/sam-davis-24,2020-10-19
+64,Inside Cloud Systems 64,Business,7,Alex Johnson,https://authors.example.com/alex-johnson-7,2024-12-17
+65,Learning Python 65,History,10,Alex Moore,https://authors.example.com/alex-moore-10,2022-08-16
+66,Advanced Cloud Systems 66,Fantasy,2,Morgan Brown,https://authors.example.com/morgan-brown-2,2020-10-13
+67,Mastering Cloud Systems 67,Fantasy,18,Jamie Johnson,https://authors.example.com/jamie-johnson-18,2018-06-08
+68,Practical Bookselling 68,History,31,Taylor Johnson,https://authors.example.com/taylor-johnson-31,2021-12-03
+69,Practical Analytics 69,History,20,Sam Miller,https://authors.example.com/sam-miller-20,2020-03-02
+70,Modern Data Warehousing 70,Business,26,Morgan Clark,https://authors.example.com/morgan-clark-26,2021-02-17
+71,Guide to Machine Learning 71,Children,23,Riley Moore,https://authors.example.com/riley-moore-23,2021-09-18
+72,Modern Python 72,Science Fiction,2,Morgan Brown,https://authors.example.com/morgan-brown-2,2024-07-06
+73,Mastering Business Intelligence 73,Fiction,17,Jordan Brown,https://authors.example.com/jordan-brown-17,2022-11-15
+74,Guide to Business Intelligence 74,Business,23,Riley Moore,https://authors.example.com/riley-moore-23,2023-09-26
+75,Exploring SQL 75,Technology,8,Taylor Brown,https://authors.example.com/taylor-brown-8,2020-11-09
+76,The Machine Learning 76,Technology,3,Taylor Lee,https://authors.example.com/taylor-lee-3,2024-01-15
+77,Guide to Data Warehousing 77,Business,13,Riley Clark,https://authors.example.com/riley-clark-13,2021-09-14
+78,Mastering Retail 78,Business,40,Chris Garcia,https://authors.example.com/chris-garcia-40,2023-09-09
+79,Advanced Cloud Systems 79,Technology,20,Sam Miller,https://authors.example.com/sam-miller-20,2021-04-26
+80,Practical Cloud Systems 80,Fantasy,36,Morgan Johnson,https://authors.example.com/morgan-johnson-36,2022-04-02
+81,Exploring Retail 81,Mystery,12,Chris Brown,https://authors.example.com/chris-brown-12,2022-07-22
+82,Modern Retail 82,Fiction,36,Morgan Johnson,https://authors.example.com/morgan-johnson-36,2020-05-10
+83,Exploring Storytelling 83,Mystery,28,Taylor Johnson,https://authors.example.com/taylor-johnson-28,2023-03-20
+84,Practical Machine Learning 84,Data Science,29,Alex Brown,https://authors.example.com/alex-brown-29,2023-04-23
+85,Modern Machine Learning 85,Science Fiction,11,Taylor Moore,https://authors.example.com/taylor-moore-11,2024-12-11
+86,Practical Retail 86,Science Fiction,22,Morgan Smith,https://authors.example.com/morgan-smith-22,2020-07-09
+87,The Analytics 87,Fantasy,13,Riley Clark,https://authors.example.com/riley-clark-13,2020-09-29
+88,Mastering Bookselling 88,Mystery,31,Taylor Johnson,https://authors.example.com/taylor-johnson-31,2022-08-25
+89,Guide to Bookselling 89,History,37,Drew Lee,https://authors.example.com/drew-lee-37,2022-06-25
+90,The Data Warehousing 90,Fantasy,16,Jamie Garcia,https://authors.example.com/jamie-garcia-16,2022-10-08
+91,Inside Bookselling 91,Fantasy,15,Jordan Davis,https://authors.example.com/jordan-davis-15,2018-07-25
+92,Mastering Bookselling 92,History,36,Morgan Johnson,https://authors.example.com/morgan-johnson-36,2019-07-01
+93,Inside Business Intelligence 93,Children,30,Morgan Johnson,https://authors.example.com/morgan-johnson-30,2021-07-23
+94,Inside Cloud Systems 94,Mystery,29,Alex Brown,https://authors.example.com/alex-brown-29,2024-02-23
+95,Foundations of Bookselling 95,Fantasy,29,Alex Brown,https://authors.example.com/alex-brown-29,2020-11-27
+96,Inside Bookselling 96,Biography,16,Jamie Garcia,https://authors.example.com/jamie-garcia-16,2020-09-06
+97,Mastering Retail 97,Data Science,18,Jamie Johnson,https://authors.example.com/jamie-johnson-18,2020-08-18
+98,Advanced Machine Learning 98,Business,18,Jamie Johnson,https://authors.example.com/jamie-johnson-18,2018-11-27
+99,Practical Cloud Systems 99,Fantasy,9,Casey Clark,https://authors.example.com/casey-clark-9,2019-09-18
+100,Guide to Cloud Systems 100,Science Fiction,14,Morgan Smith,https://authors.example.com/morgan-smith-14,2021-09-17

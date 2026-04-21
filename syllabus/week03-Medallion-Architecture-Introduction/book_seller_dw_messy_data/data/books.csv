@@ -1,0 +1,121 @@
+book_id,book_title,book_genre,author_id,author_name,author_gender,author_web_site,published_date,publisher
+1,Book 1,Technology,3,Author 1,MALE,https://author1.com,2024-01-01,Prentice Hall
+2,Book 2,Data Science,24,Author 2,FEMALE,https://author2.com,2024-01-01,Prentice Hall
+3,Book 3,History,7,Author 3,MALE,https://author3.com,2024-01-01,O'Reilly
+4,Book 4,Data Science,14,Author 4,FEMALE,https://author4.com,2024-01-01,O'Reilly
+5,Book 5,History,12,Author 5,FEMALE,https://author5.com,2024-01-01,O'Reilly
+6,Book 6,Business,29,Author 6,MALE,https://author6.com,2024-01-01,Penguin
+7,Book 7,Business,15,Author 7,FEMALE,https://author7.com,2024-01-01,Prentice Hall
+8,Book 8,Fiction,29,Author 8,MALE,https://author8.com,2024-01-01,O'Reilly
+9,Book 9,Data Science,8,Author 9,MALE,https://author9.com,2024-01-01,Penguin
+10,Book 10,Data Science,11,Author 10,MALE,https://author10.com,2024-01-01,Penguin
+11,Book 11,History,17,Author 11,FEMALE,https://author11.com,2024-01-01,O'Reilly
+12,Book 12,History,6,Author 12,FEMALE,https://author12.com,2024-01-01,Prentice Hall
+13,Book 13,History,30,Author 13,FEMALE,https://author13.com,2024-01-01,O'Reilly
+14,Book 14,Business,12,Author 14,FEMALE,https://author14.com,2024-01-01,Penguin
+15,Book 15,Fiction,23,Author 15,FEMALE,https://author15.com,2024-01-01,O'Reilly
+16,Book 16,History,8,Author 16,FEMALE,https://author16.com,2024-01-01,Prentice Hall
+17,Book 17,Fiction,17,Author 17,FEMALE,https://author17.com,2024-01-01,O'Reilly
+18,Book 18,Fiction,29,Author 18,FEMALE,https://author18.com,2024-01-01,Prentice Hall
+19,Book 19,History,24,Author 19,FEMALE,https://author19.com,2024-01-01,Prentice Hall
+20,Book 20,Data Science,11,Author 20,MALE,https://author20.com,2024-01-01,O'Reilly
+21,Book 21,Business,25,Author 21,FEMALE,https://author21.com,2024-01-01,Prentice Hall
+22,Book 22,Business,26,Author 22,FEMALE,https://author22.com,2024-01-01,Prentice Hall
+23,Book 23,Data Science,16,Author 23,FEMALE,https://author23.com,2024-01-01,O'Reilly
+24,Book 24,History,29,Author 24,MALE,https://author24.com,2024-01-01,Prentice Hall
+25,Book 25,Technology,30,Author 25,MALE,https://author25.com,2024-01-01,O'Reilly
+26,Book 26,Technology,2,Author 26,MALE,https://author26.com,2024-01-01,Prentice Hall
+27,Book 27,History,8,Author 27,MALE,https://author27.com,2024-01-01,O'Reilly
+28,Book 28,Data Science,28,Author 28,FEMALE,https://author28.com,2024-01-01,Penguin
+29,Book 29,Data Science,29,Author 29,MALE,https://author29.com,2024-01-01,Prentice Hall
+30,Book 30,Technology,2,Author 30,FEMALE,https://author30.com,2024-01-01,Prentice Hall
+31,Book 31,Data Science,8,Author 31,MALE,https://author31.com,2024-01-01,Penguin
+32,Book 32,Technology,3,Author 32,MALE,https://author32.com,2024-01-01,Penguin
+33,Book 33,Technology,12,Author 33,FEMALE,https://author33.com,2024-01-01,Penguin
+34,Book 34,Data Science,24,Author 34,MALE,https://author34.com,2024-01-01,O'Reilly
+35,Book 35,Technology,13,Author 35,MALE,https://author35.com,2024-01-01,Penguin
+36,Book 36,Data Science,2,Author 36,MALE,https://author36.com,2024-01-01,Prentice Hall
+37,Book 37,History,21,Author 37,MALE,https://author37.com,2024-01-01,Prentice Hall
+38,Book 38,Business,16,Author 38,MALE,https://author38.com,2024-01-01,Prentice Hall
+39,Book 39,Fiction,18,Author 39,MALE,https://author39.com,2024-01-01,Prentice Hall
+40,Book 40,Fiction,28,Author 40,MALE,https://author40.com,2024-01-01,Prentice Hall
+41,Book 41,Data Science,3,Author 41,FEMALE,https://author41.com,2024-01-01,Penguin
+42,Book 42,Technology,15,Author 42,MALE,https://author42.com,2024-01-01,O'Reilly
+43,Book 43,History,25,Author 43,FEMALE,https://author43.com,2024-01-01,Prentice Hall
+44,Book 44,History,11,Author 44,MALE,https://author44.com,2024-01-01,Prentice Hall
+45,Book 45,Business,9,Author 45,FEMALE,https://author45.com,2024-01-01,O'Reilly
+46,Book 46,Technology,23,Author 46,MALE,https://author46.com,2024-01-01,O'Reilly
+47,Book 47,Technology,9,Author 47,MALE,https://author47.com,2024-01-01,Penguin
+48,Book 48,Data Science,6,Author 48,MALE,https://author48.com,2024-01-01,Prentice Hall
+49,Book 49,Data Science,17,Author 49,MALE,https://author49.com,2024-01-01,Penguin
+50,Book 50,Data Science,23,Author 50,FEMALE,https://author50.com,2024-01-01,Penguin
+51,Book 51,Business,3,Author 51,MALE,https://author51.com,2024-01-01,O'Reilly
+52,Book 52,History,23,Author 52,FEMALE,https://author52.com,2024-01-01,Prentice Hall
+53,Book 53,Fiction,9,Author 53,MALE,https://author53.com,2024-01-01,Penguin
+54,Book 54,Technology,13,Author 54,FEMALE,https://author54.com,2024-01-01,Penguin
+55,Book 55,Technology,17,Author 55,MALE,https://author55.com,2024-01-01,Penguin
+56,Book 56,Technology,4,Author 56,MALE,https://author56.com,2024-01-01,Penguin
+57,Book 57,Data Science,4,Author 57,MALE,https://author57.com,2024-01-01,Penguin
+58,Book 58,History,22,Author 58,FEMALE,https://author58.com,2024-01-01,Prentice Hall
+59,Book 59,Business,18,Author 59,FEMALE,https://author59.com,2024-01-01,Penguin
+60,Book 60,Data Science,24,Author 60,FEMALE,https://author60.com,2024-01-01,Prentice Hall
+61,Book 61,History,1,Author 61,MALE,https://author61.com,2024-01-01,Prentice Hall
+62,Book 62,History,19,Author 62,MALE,https://author62.com,2024-01-01,Penguin
+63,Book 63,Fiction,12,Author 63,MALE,https://author63.com,2024-01-01,O'Reilly
+64,Book 64,Technology,20,Author 64,FEMALE,https://author64.com,2024-01-01,Prentice Hall
+65,Book 65,Business,10,Author 65,MALE,https://author65.com,2024-01-01,O'Reilly
+66,Book 66,Fiction,4,Author 66,MALE,https://author66.com,2024-01-01,Prentice Hall
+67,Book 67,Data Science,27,Author 67,MALE,https://author67.com,2024-01-01,Prentice Hall
+68,Book 68,Technology,14,Author 68,FEMALE,https://author68.com,2024-01-01,Prentice Hall
+69,Book 69,Data Science,29,Author 69,MALE,https://author69.com,2024-01-01,Penguin
+70,Book 70,Business,1,Author 70,FEMALE,https://author70.com,2024-01-01,Prentice Hall
+71,Book 71,Technology,8,Author 71,FEMALE,https://author71.com,2024-01-01,Penguin
+72,Book 72,Technology,19,Author 72,FEMALE,https://author72.com,2024-01-01,Prentice Hall
+73,Book 73,Fiction,5,Author 73,FEMALE,https://author73.com,2024-01-01,Prentice Hall
+74,Book 74,Technology,9,Author 74,MALE,https://author74.com,2024-01-01,Penguin
+75,Book 75,Technology,20,Author 75,FEMALE,https://author75.com,2024-01-01,O'Reilly
+76,Book 76,Fiction,7,Author 76,MALE,https://author76.com,2024-01-01,Penguin
+77,Book 77,History,22,Author 77,FEMALE,https://author77.com,2024-01-01,Penguin
+78,Book 78,Fiction,10,Author 78,FEMALE,https://author78.com,2024-01-01,Prentice Hall
+79,Book 79,Data Science,26,Author 79,FEMALE,https://author79.com,2024-01-01,Prentice Hall
+80,Book 80,Fiction,17,Author 80,FEMALE,https://author80.com,2024-01-01,O'Reilly
+81,Book 81,Fiction,30,Author 81,FEMALE,https://author81.com,2024-01-01,O'Reilly
+82,Book 82,Business,13,Author 82,MALE,https://author82.com,2024-01-01,Penguin
+83,Book 83,Fiction,20,Author 83,FEMALE,https://author83.com,2024-01-01,O'Reilly
+84,Book 84,Fiction,23,Author 84,MALE,https://author84.com,2024-01-01,O'Reilly
+85,Book 85,History,4,Author 85,MALE,https://author85.com,2024-01-01,Prentice Hall
+86,Book 86,Data Science,18,Author 86,MALE,https://author86.com,2024-01-01,Prentice Hall
+87,Book 87,Technology,26,Author 87,MALE,https://author87.com,2024-01-01,O'Reilly
+88,Book 88,Technology,5,Author 88,FEMALE,https://author88.com,2024-01-01,Prentice Hall
+89,Book 89,Data Science,23,Author 89,FEMALE,https://author89.com,2024-01-01,Prentice Hall
+90,Book 90,Data Science,17,Author 90,FEMALE,https://author90.com,2024-01-01,Penguin
+91,Book 91,Data Science,18,Author 91,FEMALE,https://author91.com,2024-01-01,Penguin
+92,Book 92,Business,17,Author 92,MALE,https://author92.com,2024-01-01,O'Reilly
+93,Book 93,History,9,Author 93,MALE,https://author93.com,2024-01-01,Penguin
+94,Book 94,Fiction,23,Author 94,MALE,https://author94.com,2024-01-01,Prentice Hall
+95,Book 95,Business,26,Author 95,MALE,https://author95.com,2024-01-01,Prentice Hall
+96,Book 96,Fiction,24,Author 96,MALE,https://author96.com,2024-01-01,O'Reilly
+97,Book 97,Fiction,29,Author 97,MALE,https://author97.com,2024-01-01,Prentice Hall
+98,Book 98,History,2,Author 98,FEMALE,https://author98.com,2024-01-01,Prentice Hall
+99,Book 99,Fiction,9,Author 99,FEMALE,https://author99.com,2024-01-01,O'Reilly
+100,Book 100,Fiction,12,Author 100,FEMALE,https://author100.com,2024-01-01,O'Reilly
+84,Book 84,Fiction,23,Author 84,MALE,https://author84.com,2024-01-01,O'Reilly
+31,Book 31,Data Science,8,Author 31,MALE,https://author31.com,2024-01-01,Penguin
+57,Book 57,Data Science,4,Author 57,MALE,https://author57.com,2024-01-01,Penguin
+25,Book 25,Technology,30,Author 25,MALE,https://author25.com,2024-01-01,O'Reilly
+17,Book 17,Fiction,17,Author 17,FEMALE,https://author17.com,2024-01-01,O'Reilly
+24,Book 24,History,29,Author 24,MALE,https://author24.com,2024-01-01,Prentice Hall
+3,Book 3,History,7,Author 3,MALE,https://author3.com,2024-01-01,O'Reilly
+28,Book 28,Data Science,28,Author 28,FEMALE,https://author28.com,2024-01-01,Penguin
+29,Book 29,Data Science,29,Author 29,MALE,https://author29.com,2024-01-01,Prentice Hall
+14,Book 14,Business,12,Author 14,FEMALE,https://author14.com,2024-01-01,Penguin
+100,Book 100,Fiction,12,Author 100,FEMALE,https://author100.com,2024-01-01,O'Reilly
+93,Book 93,History,9,Author 93,MALE,https://author93.com,2024-01-01,Penguin
+77,Book 77,History,22,Author 77,FEMALE,https://author77.com,2024-01-01,Penguin
+15,Book 15,Fiction,23,Author 15,FEMALE,https://author15.com,2024-01-01,O'Reilly
+1,Book 1,Technology,3,Author 1,MALE,https://author1.com,2024-01-01,Prentice Hall
+22,Book 22,Business,26,Author 22,FEMALE,https://author22.com,2024-01-01,Prentice Hall
+4,Book 4,Data Science,14,Author 4,FEMALE,https://author4.com,2024-01-01,O'Reilly
+30,Book 30,Technology,2,Author 30,FEMALE,https://author30.com,2024-01-01,Prentice Hall
+62,Book 62,History,19,Author 62,MALE,https://author62.com,2024-01-01,Penguin
+80,Book 80,Fiction,17,Author 80,FEMALE,https://author80.com,2024-01-01,O'Reilly
