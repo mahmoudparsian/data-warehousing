@@ -1,10 +1,8 @@
-Medallion Architecture in 1200 records.
+# Medallion Architecture in 1400 Messy records.
 
-The data has the following columns:
 
 ## 📊 Sales Dataset Schema
 
-## Sales Dataset Schema
 
 | Column Name        | Description                                              | Values / Notes |
 |--------------------|----------------------------------------------------------|----------------|
@@ -38,7 +36,7 @@ November 2025 and December 2025
 
 ## CSV Data
 
-* 1200 records
+* 1400 records
 * 100 real-looking customers
 * skewed purchasing behavior
 * strong sales concentration in November and December 2025
@@ -49,12 +47,13 @@ November 2025 and December 2025
 
 Files:
 
-* medallion_sales_1200.csv￼
-* medallion_sales_1200_summary.txt￼
+* `sale_records_1400_messy.csv`
+* `sale_records_1400_messy.csv.with.annotation`
+
 
 What’s included:
 
-* 1200 clean records
+* 1400 messy records
 * exactly 100 customers
 * real-looking customer names and emails
 * skewed customer purchasing behavior
@@ -64,57 +63,73 @@ What’s included:
 
 A quick sanity check from the generated data:
 
-* total records: 1200
+* total records: 1400
 * unique customers: 100
-* strongest month: November 2025 with 259 sales
-* next strongest month: December 2025 with 192 sales
+* strongest month: November 2025 
+* next strongest month: December 2025 
 * dominant customers are clearly present
 
 
 ===============
 
-Added/Modified Data:
+# Added/Modified Data:
 
-Rules of Business for a Data Warehousing:
+## Rules of Business for a Data Warehousing:
 
-1. if a sale_id is null/missing, 
-then it means that the transaction is cancelled.
-This is important to know how many transactions 
+### RULE-1:
+if a `sale_id` is null/missing, 
+
+* then it means that the transaction is cancelled.
+* This is important to know how many transactions 
 are cancelled, and for which products?
 
 
-2. if a product is missing, then 
-the entire record must be dropped 
-(not a valid record)
-(it is not a cancelled transaction)
+### RULE-2:
+if a product is missing, then 
 
-3. if a customer_name is null/missing/empty,
-the entire record must be dropped 
-(not a valid record)
-(it is not a cancelled transaction)
+* the entire record must be dropped 
+* it is not a valid record
+* it is not a cancelled transaction
 
-4. if discount is null/missing/negative,
-then discount is set to 0.00 (zero)
+### RULE-3:
+if a customer_name is null/missing/empty,
 
-5. The sale_date might have the 
+* then entire record must be dropped 
+* it is not a valid record
+* it is not a cancelled transaction
+
+### RULE-4: 
+if discount filed/column is null/missing/negative,
+
+* then discount is set to 0.00 (zero)
+
+### RULE-5:
+The `sale_dat`e might have the 
 following sale formats:
 
-    12/31/2025
-    2025-12-31
 
-If the sale_date format is not one of the 
+    		12/31/2025
+    		
+    		2025-12-31
+
+* If the sale_date format is not one of the 
 two formats, the entire record must be dropped 
 
-6. If a sale_date is null/missing/malformed/invalid,
-the entire record must be dropped 
-(it is not a cancelled transaction)
+### RULE-6:
+If a `sale_date` is null/missing/malformed/invalid,
 
-7. deduplication, drop duplicate records:
-all record fields must be identical
+* then entire record must be dropped 
+* it is not a cancelled transaction
 
-8. final sale price of a transaction is computed by
+### RULE-7:
+deduplication, drop duplicate records:
 
-   (quantity * unit_price) - discount
+* drop a record if all record fields are identical
+
+### RULE-8:
+The final sale price of a transaction is computed by
+
+		(quantity * unit_price) - discount
 
 
 

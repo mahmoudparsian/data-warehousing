@@ -1,10 +1,8 @@
-Medallion Architecture in 1200 records.
+# Medallion Architecture in 1200 records.
 
-The data has the following columns:
 
 ## 📊 Sales Dataset Schema
 
-## Sales Dataset Schema
 
 | Column Name        | Description                                              | Values / Notes |
 |--------------------|----------------------------------------------------------|----------------|
@@ -49,8 +47,8 @@ November 2025 and December 2025
 
 Files:
 
-* medallion_sales_1200.csv￼
-* medallion_sales_1200_summary.txt￼
+* `medallion_sales_1200.csv￼`
+* `medallion_sales_1200_summary.txt￼`
 
 What’s included:
 
