@@ -1,0 +1,24 @@
+What changed:
+
+* each business rule is now shown one-by-one
+* every step explains:
+    * why
+    * how
+    * SQL
+    * source layer → target layer
+* added audit summaries and plots after key transformations
+* added 10 OLAP business insight queries on the Gold layer
+
+The rule mapping is explicit in the notebook:
+
+* Rule 7 → silver.step01_dedup
+* Rule 4 → silver.step03_discount_fixed
+* Rules 5 and 6 → silver.step04_date_parsed
+* Rules 2 and 3 → silver.rejected_records
+* Rule 1 → silver.cancelled_transactions
+* Rule 8 → silver.sales_clean
+
+One note:
+
+* this revised notebook expects the messy file to be named medallion_sales_messy.csv
+* if your file has a different name, change it in Cell 02

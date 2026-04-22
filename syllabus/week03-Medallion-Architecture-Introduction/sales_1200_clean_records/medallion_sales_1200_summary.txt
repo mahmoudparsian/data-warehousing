@@ -1,0 +1,42 @@
+Medallion Architecture dataset summary
+========================================
+Total records: 1200
+Unique customers: 100
+
+Sales by product:
+  IPHONE: 337
+  COMPUTER: 244
+  TV: 206
+  IPAD: 149
+  WATCH: 134
+  EBIKE: 130
+
+Sales by sale_type:
+  ON-LINE: 645
+  IN-STORE: 555
+
+Sales by store_location:
+  USA: 651
+  CANADA: 322
+  ENGLAND: 227
+
+Sales by month:
+  2025-01: 45
+  2025-02: 53
+  2025-03: 65
+  2025-04: 74
+  2025-05: 64
+  2025-06: 72
+  2025-07: 86
+  2025-08: 83
+  2025-09: 94
+  2025-10: 113
+  2025-11: 259
+  2025-12: 192
+
+Top 5 dominant customers by number of purchases:
+  Megan Carter (megan.carter83@outlook.com): 292
+  Kevin Johnson (kevin.johnson34@yahoo.com): 130
+  Rebecca White (rebecca.white18@proton.me): 75
+  Jack Gonzalez (jack.gonzalez6@yahoo.com): 50
+  Ryan Jackson (ryan.jackson94@proton.me): 46
