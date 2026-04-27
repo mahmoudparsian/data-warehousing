@@ -140,7 +140,9 @@ FROM read_csv_auto(
 ```sql
 SELECT * 
 FROM bronze.sales_raw;
+```
 
+```
 ┌────────┬─────────┬───────────┬──────────┬───────────────┬────────────────┬───┬──────────┬────────────┬──────────┬────────────────┬────────────┐
 │ row_id │ sale_id │ sale_type │ product  │ customer_name │ customer_email │ … │ quantity │ unit_price │ discount │ store_location │ sale_date  │
 │ int64  │ varchar │  varchar  │ varchar  │    varchar    │    varchar     │ … │ varchar  │  varchar   │ varchar  │    varchar     │  varchar   │
@@ -218,7 +220,9 @@ WHERE rn = 1;
 SELECT * 
 FROM  silver.step01_dedup 
 ORDER by row_id;
+```
 
+```
 ┌────────┬─────────┬───────────┬──────────┬───────────────┬────────────────┬──────────────────┬──────────┬────────────┬──────────┬───────────────>
 │ row_id │ sale_id │ sale_type │ product  │ customer_name │ customer_email │ customer_country │ quantity │ unit_price │ discount │ store_location>
 │ int64  │ varchar │  varchar  │ varchar  │    varchar    │    varchar     │     varchar      │ varchar  │  varchar   │ varchar  │    varchar    >
@@ -335,7 +339,9 @@ FROM silver.step01_dedup;
 SELECT * 
 FROM silver.step02_standardized 
 ORDER BY row_id;
+```
 
+```
 ┌────────┬─────────────┬───────────┬──────────┬───────────────┬───┬──────────┬────────────┬──────────────┬────────────────┬───────────────┐
 │ row_id │ sale_id_raw │ sale_type │ product  │ customer_name │ … │ quantity │ unit_price │ discount_raw │ store_location │ sale_date_raw │
 │ int64  │   varchar   │  varchar  │ varchar  │    varchar    │ … │  int32   │   double   │   varchar    │    varchar     │    varchar    │
@@ -398,7 +404,9 @@ FROM (
 SELECT * 
 FROM silver.step03_discount_fixed 
 ORDER BY row_id;
+```
 
+```
 ┌────────┬─────────────┬───────────┬──────────┬───────────────┬───┬──────────────┬────────────────┬───────────────┬──────────────┬──────────┐
 │ row_id │ sale_id_raw │ sale_type │ product  │ customer_name │ … │ discount_raw │ store_location │ sale_date_raw │ discount_num │ discount │
 │ int64  │   varchar   │  varchar  │ varchar  │    varchar    │ … │   varchar    │    varchar     │    varchar    │    double    │  double  │
@@ -476,7 +484,9 @@ FROM silver.step03_discount_fixed;
 SELECT * 
 FROM silver.step04_date_parsed 
 ORDER BY row_id;
+```
 
+```
 ┌────────┬─────────────┬───────────┬──────────┬───────────────┬───┬────────────────┬───────────────┬──────────────┬──────────┬────────────┐
 │ row_id │ sale_id_raw │ sale_type │ product  │ customer_name │ … │ store_location │ sale_date_raw │ discount_num │ discount │ sale_date  │
 │ int64  │   varchar   │  varchar  │ varchar  │    varchar    │ … │    varchar     │    varchar    │    double    │  double  │    date    │
@@ -496,12 +506,14 @@ ORDER BY row_id;
 
 ## ✅ 1. Debuggable (VERY IMPORTANT)
 
-```
+```sql
 SELECT sale_date_raw, 
        sale_date
 FROM silver.step04_date_parsed
 WHERE sale_date IS NULL;
+```
 
+```
 ┌───────────────┬───────────┐
 │ sale_date_raw │ sale_date │
 │    varchar    │   date    │
@@ -602,11 +614,13 @@ WHERE
 
 ## View `silver.rejected_records`
 
-```
+```sql
 SELECT * 
 FROM silver.rejected_records 
 ORDER BY row_id;
+```
 
+```
 ┌────────┬─────────────┬───────────┬──────────┬───────────────┬───┬───────────────┬──────────────┬──────────┬────────────┬───────────────────────┐
 │ row_id │ sale_id_raw │ sale_type │ product  │ customer_name │ … │ sale_date_raw │ discount_num │ discount │ sale_date  │     reject_reason     │
 │ int64  │   varchar   │  varchar  │ varchar  │    varchar    │ … │    varchar    │    double    │  double  │    date    │        varchar        │
@@ -687,11 +701,13 @@ WHERE
 
 ## View `silver.cancelled_transactions`
 
-```
+```sql
 SELECT * 
 FROM silver.cancelled_transactions 
 ORDER BY row_id;
+```
 
+```
 ┌────────┬─────────────┬───────────┬─────────┬───────────────┬───┬────────────────┬───────────────┬──────────────┬──────────┬────────────┐
 │ row_id │ sale_id_raw │ sale_type │ product │ customer_name │ … │ store_location │ sale_date_raw │ discount_num │ discount │ sale_date  │
 │ int64  │   varchar   │  varchar  │ varchar │    varchar    │ … │    varchar     │    varchar    │    double    │  double  │    date    │
@@ -781,7 +797,9 @@ WHERE
 SELECT * 
 FROM silver.sales_clean 
 ORDER BY sale_id;
+```
 
+```
 ┌─────────┬───────────┬─────────┬───────────────┬────────────────┬───┬────────────┬──────────┬────────────┬──────────┬──────────────────┐
 │ sale_id │ sale_type │ product │ customer_name │ customer_email │ … │ sale_date  │ quantity │ unit_price │ discount │ final_sale_price │
 │  int32  │  varchar  │ varchar │    varchar    │    varchar     │ … │    date    │  int32   │   double   │  double  │      double      │
@@ -898,7 +916,9 @@ FROM (
 ```sql
 SELECT * 
 FROM gold.dim_customer;
+```
 
+```
 ┌──────────────┬───────────────┬────────────────┬──────────────────┐
 │ customer_key │ customer_name │ customer_email │ customer_country │
 │    int64     │    varchar    │    varchar     │     varchar      │
@@ -935,7 +955,9 @@ FROM (
 ```sql
 SELECT * 
 FROM gold.dim_product;
+```
 
+```
 ┌─────────────┬─────────┐
 │ product_key │ product │
 │    int64    │ varchar │
@@ -988,7 +1010,9 @@ JOIN gold.dim_product p
 ```sql
 SELECT * 
 FROM gold.fact_sales;
+```
 
+```
 ┌─────────┬──────────────┬─────────────┬──────────┬────────────┬──────────┬──────────────────┐
 │ sale_id │ customer_key │ product_key │ quantity │ unit_price │ discount │ final_sale_price │
 │  int32  │    int64     │    int64    │  int32   │   double   │  double  │      double      │
