@@ -1,0 +1,11 @@
+sale_id,sale_type,product,customer_name,customer_email,customer_country,quantity,unit_price,discount,store_location,sale_date
+1001,ON-LINE,TV,John Smith,john@a.com,USA,1,900,50,USA,12/31/2025
+1002,IN-STORE,IPHONE,Mary Jones,mary@a.com,CANADA,2,1100,-20,CANADA,2025-12-30
+,ON-LINE,WATCH,Bob Lee,bob@a.com,USA,3,200,10,USA,12/29/2025
+1004,ON-LINE,,Alice Brown,alice@a.com,ENGLAND,1,700,0,ENGLAND,12/28/2025
+1005,IN-STORE,EBIKE,,no_name@a.com,USA,1,2200,100,USA,2025-12-27
+1006,ON-LINE,COMPUTER,David Kim,david@a.com,USA,1,1500,,USA,31-12-25
+1007,IN-STORE,IPAD,Susan Clark,susan@a.com,FRANCE,2,700,20,CANADA,
+1001,ON-LINE,TV,John Smith,john@a.com,USA,1,900,50,USA,12/31/2025
+1009,ON-LINE,WATCH,Rita Patel,rita@a.com,GERMANY,4,250,30,ENGLAND,2025-12-26
+1010,IN-STORE,COMPUTER,Omar Khan,omar@a.com,MEXICO,1,1400,0,USA,2025-02-29
