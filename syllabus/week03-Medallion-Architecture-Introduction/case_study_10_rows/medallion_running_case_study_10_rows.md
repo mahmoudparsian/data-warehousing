@@ -142,7 +142,7 @@ SELECT *
 FROM bronze.sales_raw;
 ```
 
-```
+```text
 ┌────────┬─────────┬───────────┬──────────┬───────────────┬────────────────┬───┬──────────┬────────────┬──────────┬────────────────┬────────────┐
 │ row_id │ sale_id │ sale_type │ product  │ customer_name │ customer_email │ … │ quantity │ unit_price │ discount │ store_location │ sale_date  │
 │ int64  │ varchar │  varchar  │ varchar  │    varchar    │    varchar     │ … │ varchar  │  varchar   │ varchar  │    varchar     │  varchar   │
