@@ -717,7 +717,7 @@ ORDER BY row_id;
 
 `final_sale_price = (quantity * unit_price) - discount`
 
-## SQL
+## Create `silver.sales_clean`
 
 ```sql
 CREATE OR REPLACE TABLE silver.sales_clean AS
