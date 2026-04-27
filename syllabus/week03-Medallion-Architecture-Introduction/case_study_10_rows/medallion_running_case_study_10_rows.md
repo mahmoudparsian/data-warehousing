@@ -15,12 +15,18 @@ author: Mahmoud Parsian
 
 ### One dataset flowing through Bronze → Silver → Gold
 
+---
+
 ## Database 
 
 ```
 % duckdb --version
 v1.5.2 (Variegata) 8a5851971f
 ```
+
+---
+
+## Scenario
 
 This document follows the **same 10 messy sales rows** through a medallion pipeline.
 
