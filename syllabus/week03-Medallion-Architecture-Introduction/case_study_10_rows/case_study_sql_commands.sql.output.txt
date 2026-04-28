@@ -1,0 +1,218 @@
+┌──────────────┐
+│ count_star() │
+│    int64     │
+├──────────────┤
+│           10 │
+└──────────────┘
+┌────────┬─────────┬───────────┬──────────┬───────────────┬────────────────┬──────────────────┬──────────┬────────────┬──────────┬────────────────┬────────────┐
+│ row_id │ sale_id │ sale_type │ product  │ customer_name │ customer_email │ customer_country │ quantity │ unit_price │ discount │ store_location │ sale_date  │
+│ int64  │ varchar │  varchar  │ varchar  │    varchar    │    varchar     │     varchar      │ varchar  │  varchar   │ varchar  │    varchar     │  varchar   │
+├────────┼─────────┼───────────┼──────────┼───────────────┼────────────────┼──────────────────┼──────────┼────────────┼──────────┼────────────────┼────────────┤
+│      1 │ 1001    │ ON-LINE   │ TV       │ John Smith    │ john@a.com     │ USA              │ 1        │ 900        │ 50       │ USA            │ 12/31/2025 │
+│      2 │ 1002    │ IN-STORE  │ IPHONE   │ Mary Jones    │ mary@a.com     │ CANADA           │ 2        │ 1100       │ -20      │ CANADA         │ 2025-12-30 │
+│      3 │ NULL    │ ON-LINE   │ WATCH    │ Bob Lee       │ bob@a.com      │ USA              │ 3        │ 200        │ 10       │ USA            │ 12/29/2025 │
+│      4 │ 1004    │ ON-LINE   │ NULL     │ Alice Brown   │ alice@a.com    │ ENGLAND          │ 1        │ 700        │ 0        │ ENGLAND        │ 12/28/2025 │
+│      5 │ 1005    │ IN-STORE  │ EBIKE    │ NULL          │ no_name@a.com  │ USA              │ 1        │ 2200       │ 100      │ USA            │ 2025-12-27 │
+│      6 │ 1006    │ ON-LINE   │ COMPUTER │ David Kim     │ david@a.com    │ USA              │ 1        │ 1500       │ NULL     │ USA            │ 31-12-25   │
+│      7 │ 1007    │ IN-STORE  │ IPAD     │ Susan Clark   │ susan@a.com    │ FRANCE           │ 2        │ 700        │ 20       │ CANADA         │ NULL       │
+│      8 │ 1001    │ ON-LINE   │ TV       │ John Smith    │ john@a.com     │ USA              │ 1        │ 900        │ 50       │ USA            │ 12/31/2025 │
+│      9 │ 1009    │ ON-LINE   │ WATCH    │ Rita Patel    │ rita@a.com     │ GERMANY          │ 4        │ 250        │ 30       │ ENGLAND        │ 2025-12-26 │
+│     10 │ 1010    │ IN-STORE  │ COMPUTER │ Omar Khan     │ omar@a.com     │ MEXICO           │ 1        │ 1400       │ 0        │ USA            │ 2025-02-29 │
+└────────┴─────────┴───────────┴──────────┴───────────────┴────────────────┴──────────────────┴──────────┴────────────┴──────────┴────────────────┴────────────┘
+  10 rows                                                                                                                                           12 columns
+┌──────────────┐
+│ count_star() │
+│    int64     │
+├──────────────┤
+│            9 │
+└──────────────┘
+┌────────┬─────────┬───────────┬──────────┬───────────────┬────────────────┬──────────────────┬──────────┬────────────┬──────────┬────────────────┬────────────┬───────┐
+│ row_id │ sale_id │ sale_type │ product  │ customer_name │ customer_email │ customer_country │ quantity │ unit_price │ discount │ store_location │ sale_date  │  rn   │
+│ int64  │ varchar │  varchar  │ varchar  │    varchar    │    varchar     │     varchar      │ varchar  │  varchar   │ varchar  │    varchar     │  varchar   │ int64 │
+├────────┼─────────┼───────────┼──────────┼───────────────┼────────────────┼──────────────────┼──────────┼────────────┼──────────┼────────────────┼────────────┼───────┤
+│      1 │ 1001    │ ON-LINE   │ TV       │ John Smith    │ john@a.com     │ USA              │ 1        │ 900        │ 50       │ USA            │ 12/31/2025 │     1 │
+│      2 │ 1002    │ IN-STORE  │ IPHONE   │ Mary Jones    │ mary@a.com     │ CANADA           │ 2        │ 1100       │ -20      │ CANADA         │ 2025-12-30 │     1 │
+│      3 │ NULL    │ ON-LINE   │ WATCH    │ Bob Lee       │ bob@a.com      │ USA              │ 3        │ 200        │ 10       │ USA            │ 12/29/2025 │     1 │
+│      4 │ 1004    │ ON-LINE   │ NULL     │ Alice Brown   │ alice@a.com    │ ENGLAND          │ 1        │ 700        │ 0        │ ENGLAND        │ 12/28/2025 │     1 │
+│      5 │ 1005    │ IN-STORE  │ EBIKE    │ NULL          │ no_name@a.com  │ USA              │ 1        │ 2200       │ 100      │ USA            │ 2025-12-27 │     1 │
+│      6 │ 1006    │ ON-LINE   │ COMPUTER │ David Kim     │ david@a.com    │ USA              │ 1        │ 1500       │ NULL     │ USA            │ 31-12-25   │     1 │
+│      7 │ 1007    │ IN-STORE  │ IPAD     │ Susan Clark   │ susan@a.com    │ FRANCE           │ 2        │ 700        │ 20       │ CANADA         │ NULL       │     1 │
+│      9 │ 1009    │ ON-LINE   │ WATCH    │ Rita Patel    │ rita@a.com     │ GERMANY          │ 4        │ 250        │ 30       │ ENGLAND        │ 2025-12-26 │     1 │
+│     10 │ 1010    │ IN-STORE  │ COMPUTER │ Omar Khan     │ omar@a.com     │ MEXICO           │ 1        │ 1400       │ 0        │ USA            │ 2025-02-29 │     1 │
+└────────┴─────────┴───────────┴──────────┴───────────────┴────────────────┴──────────────────┴──────────┴────────────┴──────────┴────────────────┴────────────┴───────┘
+┌──────────────┐
+│ count_star() │
+│    int64     │
+├──────────────┤
+│            9 │
+└──────────────┘
+┌────────┬─────────────┬───────────┬──────────┬───────────────┬────────────────┬──────────────────┬──────────┬────────────┬──────────────┬────────────────┬───────────────┐
+│ row_id │ sale_id_raw │ sale_type │ product  │ customer_name │ customer_email │ customer_country │ quantity │ unit_price │ discount_raw │ store_location │ sale_date_raw │
+│ int64  │   varchar   │  varchar  │ varchar  │    varchar    │    varchar     │     varchar      │  int32   │   double   │   varchar    │    varchar     │    varchar    │
+├────────┼─────────────┼───────────┼──────────┼───────────────┼────────────────┼──────────────────┼──────────┼────────────┼──────────────┼────────────────┼───────────────┤
+│      1 │ 1001        │ ON-LINE   │ TV       │ John Smith    │ john@a.com     │ USA              │        1 │      900.0 │ 50           │ USA            │ 12/31/2025    │
+│      2 │ 1002        │ IN-STORE  │ IPHONE   │ Mary Jones    │ mary@a.com     │ CANADA           │        2 │     1100.0 │ -20          │ CANADA         │ 2025-12-30    │
+│      3 │ NULL        │ ON-LINE   │ WATCH    │ Bob Lee       │ bob@a.com      │ USA              │        3 │      200.0 │ 10           │ USA            │ 12/29/2025    │
+│      4 │ 1004        │ ON-LINE   │ NULL     │ Alice Brown   │ alice@a.com    │ ENGLAND          │        1 │      700.0 │ 0            │ ENGLAND        │ 12/28/2025    │
+│      5 │ 1005        │ IN-STORE  │ EBIKE    │ NULL          │ no_name@a.com  │ USA              │        1 │     2200.0 │ 100          │ USA            │ 2025-12-27    │
+│      6 │ 1006        │ ON-LINE   │ COMPUTER │ David Kim     │ david@a.com    │ USA              │        1 │     1500.0 │ NULL         │ USA            │ 31-12-25      │
+│      7 │ 1007        │ IN-STORE  │ IPAD     │ Susan Clark   │ susan@a.com    │ FRANCE           │        2 │      700.0 │ 20           │ CANADA         │ NULL          │
+│      9 │ 1009        │ ON-LINE   │ WATCH    │ Rita Patel    │ rita@a.com     │ GERMANY          │        4 │      250.0 │ 30           │ ENGLAND        │ 2025-12-26    │
+│     10 │ 1010        │ IN-STORE  │ COMPUTER │ Omar Khan     │ omar@a.com     │ MEXICO           │        1 │     1400.0 │ 0            │ USA            │ 2025-02-29    │
+└────────┴─────────────┴───────────┴──────────┴───────────────┴────────────────┴──────────────────┴──────────┴────────────┴──────────────┴────────────────┴───────────────┘
+┌──────────────┐
+│ count_star() │
+│    int64     │
+├──────────────┤
+│            9 │
+└──────────────┘
+┌────────┬─────────────┬───────────┬──────────┬───────────────┬────────────────┬──────────────────┬──────────┬────────────┬──────────────┬────────────────┬───────────────┬──────────────┬──────────┐
+│ row_id │ sale_id_raw │ sale_type │ product  │ customer_name │ customer_email │ customer_country │ quantity │ unit_price │ discount_raw │ store_location │ sale_date_raw │ discount_num │ discount │
+│ int64  │   varchar   │  varchar  │ varchar  │    varchar    │    varchar     │     varchar      │  int32   │   double   │   varchar    │    varchar     │    varchar    │    double    │  double  │
+├────────┼─────────────┼───────────┼──────────┼───────────────┼────────────────┼──────────────────┼──────────┼────────────┼──────────────┼────────────────┼───────────────┼──────────────┼──────────┤
+│      1 │ 1001        │ ON-LINE   │ TV       │ John Smith    │ john@a.com     │ USA              │        1 │      900.0 │ 50           │ USA            │ 12/31/2025    │         50.0 │     50.0 │
+│      2 │ 1002        │ IN-STORE  │ IPHONE   │ Mary Jones    │ mary@a.com     │ CANADA           │        2 │     1100.0 │ -20          │ CANADA         │ 2025-12-30    │        -20.0 │      0.0 │
+│      3 │ NULL        │ ON-LINE   │ WATCH    │ Bob Lee       │ bob@a.com      │ USA              │        3 │      200.0 │ 10           │ USA            │ 12/29/2025    │         10.0 │     10.0 │
+│      4 │ 1004        │ ON-LINE   │ NULL     │ Alice Brown   │ alice@a.com    │ ENGLAND          │        1 │      700.0 │ 0            │ ENGLAND        │ 12/28/2025    │          0.0 │      0.0 │
+│      5 │ 1005        │ IN-STORE  │ EBIKE    │ NULL          │ no_name@a.com  │ USA              │        1 │     2200.0 │ 100          │ USA            │ 2025-12-27    │        100.0 │    100.0 │
+│      6 │ 1006        │ ON-LINE   │ COMPUTER │ David Kim     │ david@a.com    │ USA              │        1 │     1500.0 │ NULL         │ USA            │ 31-12-25      │         NULL │      0.0 │
+│      7 │ 1007        │ IN-STORE  │ IPAD     │ Susan Clark   │ susan@a.com    │ FRANCE           │        2 │      700.0 │ 20           │ CANADA         │ NULL          │         20.0 │     20.0 │
+│      9 │ 1009        │ ON-LINE   │ WATCH    │ Rita Patel    │ rita@a.com     │ GERMANY          │        4 │      250.0 │ 30           │ ENGLAND        │ 2025-12-26    │         30.0 │     30.0 │
+│     10 │ 1010        │ IN-STORE  │ COMPUTER │ Omar Khan     │ omar@a.com     │ MEXICO           │        1 │     1400.0 │ 0            │ USA            │ 2025-02-29    │          0.0 │      0.0 │
+└────────┴─────────────┴───────────┴──────────┴───────────────┴────────────────┴──────────────────┴──────────┴────────────┴──────────────┴────────────────┴───────────────┴──────────────┴──────────┘
+┌──────────────┐
+│ count_star() │
+│    int64     │
+├──────────────┤
+│            9 │
+└──────────────┘
+┌────────┬─────────────┬───────────┬──────────┬───────────────┬────────────────┬──────────────────┬──────────┬────────────┬──────────────┬────────────────┬───────────────┬──────────────┬──────────┬────────────┐
+│ row_id │ sale_id_raw │ sale_type │ product  │ customer_name │ customer_email │ customer_country │ quantity │ unit_price │ discount_raw │ store_location │ sale_date_raw │ discount_num │ discount │ sale_date  │
+│ int64  │   varchar   │  varchar  │ varchar  │    varchar    │    varchar     │     varchar      │  int32   │   double   │   varchar    │    varchar     │    varchar    │    double    │  double  │    date    │
+├────────┼─────────────┼───────────┼──────────┼───────────────┼────────────────┼──────────────────┼──────────┼────────────┼──────────────┼────────────────┼───────────────┼──────────────┼──────────┼────────────┤
+│      1 │ 1001        │ ON-LINE   │ TV       │ John Smith    │ john@a.com     │ USA              │        1 │      900.0 │ 50           │ USA            │ 12/31/2025    │         50.0 │     50.0 │ 2025-12-31 │
+│      2 │ 1002        │ IN-STORE  │ IPHONE   │ Mary Jones    │ mary@a.com     │ CANADA           │        2 │     1100.0 │ -20          │ CANADA         │ 2025-12-30    │        -20.0 │      0.0 │ 2025-12-30 │
+│      3 │ NULL        │ ON-LINE   │ WATCH    │ Bob Lee       │ bob@a.com      │ USA              │        3 │      200.0 │ 10           │ USA            │ 12/29/2025    │         10.0 │     10.0 │ 2025-12-29 │
+│      4 │ 1004        │ ON-LINE   │ NULL     │ Alice Brown   │ alice@a.com    │ ENGLAND          │        1 │      700.0 │ 0            │ ENGLAND        │ 12/28/2025    │          0.0 │      0.0 │ 2025-12-28 │
+│      5 │ 1005        │ IN-STORE  │ EBIKE    │ NULL          │ no_name@a.com  │ USA              │        1 │     2200.0 │ 100          │ USA            │ 2025-12-27    │        100.0 │    100.0 │ 2025-12-27 │
+│      6 │ 1006        │ ON-LINE   │ COMPUTER │ David Kim     │ david@a.com    │ USA              │        1 │     1500.0 │ NULL         │ USA            │ 31-12-25      │         NULL │      0.0 │ NULL       │
+│      7 │ 1007        │ IN-STORE  │ IPAD     │ Susan Clark   │ susan@a.com    │ FRANCE           │        2 │      700.0 │ 20           │ CANADA         │ NULL          │         20.0 │     20.0 │ NULL       │
+│      9 │ 1009        │ ON-LINE   │ WATCH    │ Rita Patel    │ rita@a.com     │ GERMANY          │        4 │      250.0 │ 30           │ ENGLAND        │ 2025-12-26    │         30.0 │     30.0 │ 2025-12-26 │
+│     10 │ 1010        │ IN-STORE  │ COMPUTER │ Omar Khan     │ omar@a.com     │ MEXICO           │        1 │     1400.0 │ 0            │ USA            │ 2025-02-29    │          0.0 │      0.0 │ NULL       │
+└────────┴─────────────┴───────────┴──────────┴───────────────┴────────────────┴──────────────────┴──────────┴────────────┴──────────────┴────────────────┴───────────────┴──────────────┴──────────┴────────────┘
+┌───────────────┬───────────┐
+│ sale_date_raw │ sale_date │
+│    varchar    │   date    │
+├───────────────┼───────────┤
+│ 2025-02-29    │ NULL      │
+│ 31-12-25      │ NULL      │
+│ NULL          │ NULL      │
+└───────────────┴───────────┘
+┌──────────────┐
+│ count_star() │
+│    int64     │
+├──────────────┤
+│            5 │
+└──────────────┘
+┌────────┬─────────────┬───────────┬──────────┬───────────────┬────────────────┬──────────────────┬──────────┬────────────┬──────────────┬────────────────┬───────────────┬──────────────┬──────────┬────────────┬─────────────────────────────────────┐
+│ row_id │ sale_id_raw │ sale_type │ product  │ customer_name │ customer_email │ customer_country │ quantity │ unit_price │ discount_raw │ store_location │ sale_date_raw │ discount_num │ discount │ sale_date  │            reject_reason            │
+│ int64  │   varchar   │  varchar  │ varchar  │    varchar    │    varchar     │     varchar      │  int32   │   double   │   varchar    │    varchar     │    varchar    │    double    │  double  │    date    │               varchar               │
+├────────┼─────────────┼───────────┼──────────┼───────────────┼────────────────┼──────────────────┼──────────┼────────────┼──────────────┼────────────────┼───────────────┼──────────────┼──────────┼────────────┼─────────────────────────────────────┤
+│      4 │ 1004        │ ON-LINE   │ NULL     │ Alice Brown   │ alice@a.com    │ ENGLAND          │        1 │      700.0 │ 0            │ ENGLAND        │ 12/28/2025    │          0.0 │      0.0 │ 2025-12-28 │ REJECT_MISSING_PRODUCT              │
+│      5 │ 1005        │ IN-STORE  │ EBIKE    │ NULL          │ no_name@a.com  │ USA              │        1 │     2200.0 │ 100          │ USA            │ 2025-12-27    │        100.0 │    100.0 │ 2025-12-27 │ REJECT_MISSING_CUSTOMER_NAME        │
+│      6 │ 1006        │ ON-LINE   │ COMPUTER │ David Kim     │ david@a.com    │ USA              │        1 │     1500.0 │ NULL         │ USA            │ 31-12-25      │         NULL │      0.0 │ NULL       │ REJECT_INVALID_OR_MISSING_SALE_DATE │
+│      7 │ 1007        │ IN-STORE  │ IPAD     │ Susan Clark   │ susan@a.com    │ FRANCE           │        2 │      700.0 │ 20           │ CANADA         │ NULL          │         20.0 │     20.0 │ NULL       │ REJECT_INVALID_OR_MISSING_SALE_DATE │
+│     10 │ 1010        │ IN-STORE  │ COMPUTER │ Omar Khan     │ omar@a.com     │ MEXICO           │        1 │     1400.0 │ 0            │ USA            │ 2025-02-29    │          0.0 │      0.0 │ NULL       │ REJECT_INVALID_OR_MISSING_SALE_DATE │
+└────────┴─────────────┴───────────┴──────────┴───────────────┴────────────────┴──────────────────┴──────────┴────────────┴──────────────┴────────────────┴───────────────┴──────────────┴──────────┴────────────┴─────────────────────────────────────┘
+┌──────────────┐
+│ count_star() │
+│    int64     │
+├──────────────┤
+│            1 │
+└──────────────┘
+┌────────┬─────────────┬───────────┬─────────┬───────────────┬────────────────┬──────────────────┬──────────┬────────────┬──────────────┬────────────────┬───────────────┬──────────────┬──────────┬────────────┐
+│ row_id │ sale_id_raw │ sale_type │ product │ customer_name │ customer_email │ customer_country │ quantity │ unit_price │ discount_raw │ store_location │ sale_date_raw │ discount_num │ discount │ sale_date  │
+│ int64  │   varchar   │  varchar  │ varchar │    varchar    │    varchar     │     varchar      │  int32   │   double   │   varchar    │    varchar     │    varchar    │    double    │  double  │    date    │
+├────────┼─────────────┼───────────┼─────────┼───────────────┼────────────────┼──────────────────┼──────────┼────────────┼──────────────┼────────────────┼───────────────┼──────────────┼──────────┼────────────┤
+│      3 │ NULL        │ ON-LINE   │ WATCH   │ Bob Lee       │ bob@a.com      │ USA              │        3 │      200.0 │ 10           │ USA            │ 12/29/2025    │         10.0 │     10.0 │ 2025-12-29 │
+└────────┴─────────────┴───────────┴─────────┴───────────────┴────────────────┴──────────────────┴──────────┴────────────┴──────────────┴────────────────┴───────────────┴──────────────┴──────────┴────────────┘
+┌──────────────┐
+│ count_star() │
+│    int64     │
+├──────────────┤
+│            3 │
+└──────────────┘
+┌─────────┬───────────┬─────────┬───────────────┬────────────────┬──────────────────┬────────────────┬────────────┬──────────┬────────────┬──────────┬──────────────────┐
+│ sale_id │ sale_type │ product │ customer_name │ customer_email │ customer_country │ store_location │ sale_date  │ quantity │ unit_price │ discount │ final_sale_price │
+│  int32  │  varchar  │ varchar │    varchar    │    varchar     │     varchar      │    varchar     │    date    │  int32   │   double   │  double  │      double      │
+├─────────┼───────────┼─────────┼───────────────┼────────────────┼──────────────────┼────────────────┼────────────┼──────────┼────────────┼──────────┼──────────────────┤
+│    1001 │ ON-LINE   │ TV      │ John Smith    │ john@a.com     │ USA              │ USA            │ 2025-12-31 │        1 │      900.0 │     50.0 │            850.0 │
+│    1002 │ IN-STORE  │ IPHONE  │ Mary Jones    │ mary@a.com     │ CANADA           │ CANADA         │ 2025-12-30 │        2 │     1100.0 │      0.0 │           2200.0 │
+│    1009 │ ON-LINE   │ WATCH   │ Rita Patel    │ rita@a.com     │ GERMANY          │ ENGLAND        │ 2025-12-26 │        4 │      250.0 │     30.0 │            970.0 │
+└─────────┴───────────┴─────────┴───────────────┴────────────────┴──────────────────┴────────────────┴────────────┴──────────┴────────────┴──────────┴──────────────────┘
+┌────────────────────────┬───────────┐
+│         stage          │ row_count │
+│        varchar         │   int64   │
+├────────────────────────┼───────────┤
+│ bronze.sales_raw       │        10 │
+│ after_dedup            │         9 │
+│ rejected_records       │         5 │
+│ cancelled_transactions │         1 │
+│ trusted_sales_clean    │         3 │
+└────────────────────────┴───────────┘
+┌──────────────┐
+│ count_star() │
+│    int64     │
+├──────────────┤
+│            3 │
+└──────────────┘
+┌──────────────┬───────────────┬────────────────┬──────────────────┐
+│ customer_key │ customer_name │ customer_email │ customer_country │
+│    int64     │    varchar    │    varchar     │     varchar      │
+├──────────────┼───────────────┼────────────────┼──────────────────┤
+│            1 │ John Smith    │ john@a.com     │ USA              │
+│            2 │ Mary Jones    │ mary@a.com     │ CANADA           │
+│            3 │ Rita Patel    │ rita@a.com     │ GERMANY          │
+└──────────────┴───────────────┴────────────────┴──────────────────┘
+┌──────────────┐
+│ count_star() │
+│    int64     │
+├──────────────┤
+│            3 │
+└──────────────┘
+┌─────────────┬─────────┐
+│ product_key │ product │
+│    int64    │ varchar │
+├─────────────┼─────────┤
+│           1 │ IPHONE  │
+│           2 │ TV      │
+│           3 │ WATCH   │
+└─────────────┴─────────┘
+┌──────────────┐
+│ count_star() │
+│    int64     │
+├──────────────┤
+│            3 │
+└──────────────┘
+┌──────────┬────────────┬──────────┬───────────┬─────────┬────────────┬────────────┬───────────┬──────────┐
+│ date_key │ full_date  │ year_num │ month_num │ day_num │ year_month │ month_name │ day_name  │ day_type │
+│  int64   │    date    │  int64   │   int64   │  int64  │  varchar   │  varchar   │  varchar  │ varchar  │
+├──────────┼────────────┼──────────┼───────────┼─────────┼────────────┼────────────┼───────────┼──────────┤
+│        1 │ 2025-12-26 │     2025 │        12 │      26 │ 2025-12    │ December   │ Friday    │ WEEKDAY  │
+│        2 │ 2025-12-30 │     2025 │        12 │      30 │ 2025-12    │ December   │ Tuesday   │ WEEKDAY  │
+│        3 │ 2025-12-31 │     2025 │        12 │      31 │ 2025-12    │ December   │ Wednesday │ WEEKDAY  │
+└──────────┴────────────┴──────────┴───────────┴─────────┴────────────┴────────────┴───────────┴──────────┘
+┌──────────────┐
+│ count_star() │
+│    int64     │
+├──────────────┤
+│            3 │
+└──────────────┘
+┌─────────┬──────────────┬─────────────┬──────────┬──────────┬────────────┬──────────┬──────────────────┐
+│ sale_id │ customer_key │ product_key │ date_key │ quantity │ unit_price │ discount │ final_sale_price │
+│  int32  │    int64     │    int64    │  int64   │  int32   │   double   │  double  │      double      │
+├─────────┼──────────────┼─────────────┼──────────┼──────────┼────────────┼──────────┼──────────────────┤
+│    1001 │            1 │           2 │        3 │        1 │      900.0 │     50.0 │            850.0 │
+│    1002 │            2 │           1 │        2 │        2 │     1100.0 │      0.0 │           2200.0 │
+│    1009 │            3 │           3 │        1 │        4 │      250.0 │     30.0 │            970.0 │
+└─────────┴──────────────┴─────────────┴──────────┴──────────┴────────────┴──────────┴──────────────────┘

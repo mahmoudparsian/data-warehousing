@@ -879,9 +879,20 @@ NOTES:
 
 * So Gold is built only from `silver.sales_clean`.
 
+* Next, we build a "Star Schema"
+
+```
+
+             dim_customer
+                   │
+                   │       
+dim_product ───  fact_sales  ─── dim_date
+
+```
+
 ---
 
-# Gold Example — Customer Dimension
+# 🟡 Gold Example — Customer Dimension
 
 From the 3 trusted rows, we create a dimension:
 
@@ -929,7 +940,7 @@ FROM gold.dim_customer;
 └──────────────┴───────────────┴────────────────┴──────────────────┘
 ```
 
-# Gold Example — Product Dimension
+# 🟡 Gold Example — Product Dimension
 
 ```sql
 CREATE OR REPLACE TABLE gold.dim_product AS
@@ -969,7 +980,69 @@ FROM gold.dim_product;
 ```
 ---
 
-# Gold Example — Fact Table
+## 🟡 Gold Example: Date Dimension
+
+### Build a Date Dimension
+
+Date Dimension = the most powerful dimension in analytics
+
+```sql
+CREATE OR REPLACE TABLE gold.dim_date AS
+SELECT
+    -- =========================
+    -- SURROGATE KEY
+    -- =========================
+    ROW_NUMBER() OVER (ORDER BY sale_date) AS date_key,
+
+    -- =========================
+    -- CORE DATE
+    -- =========================
+    sale_date AS full_date,
+
+    -- =========================
+    -- DATE ATTRIBUTES
+    -- =========================
+    EXTRACT(YEAR FROM sale_date) AS year_num,
+    EXTRACT(MONTH FROM sale_date) AS month_num,
+    EXTRACT(DAY FROM sale_date) AS day_num,
+
+    STRFTIME(sale_date, '%Y-%m') AS year_month,
+    STRFTIME(sale_date, '%B') AS month_name,
+    STRFTIME(sale_date, '%A') AS day_name,
+
+    -- =========================
+    -- BUSINESS FLAGS
+    -- =========================
+    CASE 
+        WHEN STRFTIME(sale_date, '%w') IN ('0','6') THEN 'WEEKEND'
+        ELSE 'WEEKDAY'
+    END AS day_type
+
+FROM (
+    SELECT DISTINCT sale_date
+    FROM silver.sales_clean
+);
+```
+
+### Verify Date Dimension
+
+```sql
+SELECT *
+FROM gold.dim_date
+ORDER BY date_key;
+```
+
+### View `gold.dim_date`
+
+| date_key | full_date  | year | month | day | year_month | month_name | day_name  | day_type |
+|----------|-----------|------|-------|-----|------------|------------|-----------|----------|
+| 1        | 2025-12-26 | 2025 | 12    | 26  | 2025-12    | December   | Friday    | WEEKDAY  |
+| 2        | 2025-12-30 | 2025 | 12    | 30  | 2025-12    | December   | Tuesday   | WEEKDAY  |
+| 3        | 2025-12-31 | 2025 | 12    | 31  | 2025-12    | December   | Wednesday | WEEKDAY  |
+
+
+
+# 🟡 Gold Example — Fact Table
 
 ```
 CREATE OR REPLACE TABLE gold.fact_sales AS
@@ -984,6 +1057,7 @@ SELECT
     -- =========================
     c.customer_key,
     p.product_key,
+    d.date_key,
 
     -- =========================
     -- MEASURES
@@ -1002,7 +1076,10 @@ JOIN gold.dim_customer c
     ON s.customer_email = c.customer_email
 
 JOIN gold.dim_product p
-    ON s.product = p.product;
+    ON s.product = p.product
+
+JOIN gold.dim_date d
+    ON s.sale_date = d.full_date;
 ```
 
 ## View `gold.fact_sales`
