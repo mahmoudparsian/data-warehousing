@@ -27,12 +27,12 @@
 
 | File                   | Description               |
 |------------------------|---------------------------|
-|`README.md`             | this file you are reading |
-|`sales_data_10_rows.csv`| sales data set: 10 rows
-|`medallion_running_case_study_10_rows.md` | medallion architecture: step-by-step |
-|`case_study_sql_commands.sql` | SQL commands in proper order |
-|`case_study_sql_commands.sql.output.txt` | Output of SQL commands |
-|`medallion_architecture.webp` | medallion architecture image|
+|[`README.md`](./README.md)             | this file you are reading |
+|[`sales_data_10_rows.csv`](./sales_data_10_rows.csv)| sales data set: 10 rows
+|[`medallion_running_case_study_10_rows.md`](./medallion_running_case_study_10_rows.md) | medallion architecture: step-by-step |
+|[`case_study_sql_commands.sql`](./case_study_sql_commands.sql) | SQL commands in proper order |
+|[`case_study_sql_commands.sql.output.txt`](./case_study_sql_commands.sql.output.txt) | Output of SQL commands |
+|[`medallion_architecture.webp`](./medallion_architecture.webp) | medallion architecture image|
 
 
 # How to Run SQL Commands (command line)
