@@ -1,3 +1,17 @@
+-- ---------------------------
+-- Medallion Data Architecture
+-- ---------------------------
+
+-- -----------------------------------------
+-- Medallion data architecture Steps:
+--
+-- Every step is done according to the 
+-- business rules outlined in file:
+-- `medallion_running_case_study_10_rows.md`
+--
+-- Database: duckdb
+-- ------------------------------------------
+
 -- create bronze, silver, and gold schemas
 CREATE SCHEMA IF NOT EXISTS bronze;
 CREATE SCHEMA IF NOT EXISTS silver;
@@ -21,7 +35,6 @@ FROM bronze.sales_raw;
 
 SELECT * 
 FROM bronze.sales_raw;
-
 
 
 
