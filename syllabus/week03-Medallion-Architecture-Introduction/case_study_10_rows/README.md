@@ -2,19 +2,24 @@
 
 	🟫 Bronze → ⚪ Silver → 🟡 Gold
 
-
-	This project demonstrates a complete Medallion Data 
-	Architecture (Bronze → Silver → Gold) using a small 
-	10-rows transactional dataset. Starting from raw, messy 
-	data (missing values, invalid dates, duplicates), the 
-	pipeline progressively cleans, validates, and transforms 
-	the data into a trusted analytical model. The Silver 
-	layer enforces business rules (rejecting bad data and 
-	identifying cancelled transactions), while the Gold layer 
-	builds a star schema with dimension tables (`customer`, 
-	`product`, `date`) and a fact table for analytics. This 
-	compact example is designed for teaching and clearly 
-	illustrates how raw data becomes reliable business insights.
+	This project demonstrates a complete Medallion 
+	Data Architecture (Bronze → Silver → Gold) using 
+	a small 10-rows transactional dataset. 
+	
+	Starting from raw, messy data (missing values, 
+	invalid  dates,  duplicates),  the  pipeline 
+	progressively cleans, validates, and transforms 
+	the data into a trusted analytical model. 
+	
+	The Silver layer enforces business rules (rejecting 
+	bad data and identifying cancelled transactions), 
+	while the  Gold layer builds a  star  schema with 
+	dimension tables (`customer`, `product`, `date`) and 
+	a fact table for analytics. 
+	
+	This compact example is designed for teaching and 
+	clearly illustrates how raw data becomes reliable 
+	business insights.
 
 ![](./medallion_architecture.webp)
 
