@@ -27,7 +27,7 @@
 
 # Medallion Jupyter Notebook
 
-[`medallion_running_case_study_10_rows.ipynb`](./medallion_running_case_study_10_rows.ipynb) 
+### [`medallion_running_case_study_10_rows.ipynb`](./medallion_running_case_study_10_rows.ipynb) 
 
 ---
 
