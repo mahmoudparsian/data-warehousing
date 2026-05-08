@@ -1,6 +1,6 @@
 # `LIMIT N` vs `rnk <= N`
 
-1. create a simple jupyter/notebook/DuckDB. 
+## 1. create a simple jupyter/notebook/DuckDB. 
 
 Create a sales table with 6 countries, like:
 
@@ -13,10 +13,10 @@ MEXICO  500
 FRANCE  400
 ```
 
-Show the clear difference between `LIMIT 2`
+Understand the clear difference between `LIMIT 2`
 and `RANK()` with `rnk <= 2`.
 
-[View `limit_vs_rank.ipynb`](./limit_vs_rank.ipynb)
+## [View `limit_vs_rank.ipynb`](./limit_vs_rank.ipynb)
 
 The notebook walks through the key insight step by step:
 
