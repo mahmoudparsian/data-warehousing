@@ -1,6 +1,10 @@
 # What is a Data Exploration
 
-**Data exploration**, also called **exploratory data analysis (EDA)**, is the process of examining and understanding a dataset before formal modeling or hypothesis testing. It helps uncover patterns, spot anomalies, test assumptions, and check the quality of the data.
+* **Data exploration**, also called **exploratory data analysis (EDA)**, is the process of examining and understanding a dataset before formal modeling or hypothesis testing. 
+
+* **Data exploration** helps uncover patterns, spot anomalies, test assumptions, and check the quality of the data.
+
+---
 
 ### 🔍 Key Goals of Data Exploration:
 
@@ -10,10 +14,17 @@
 4. **Visualize distributions** and relationships between variables.
 5. **Spot potential outliers or data quality issues.**
 
+---
+
 ### 🧰 Common Techniques:
 
-* `df.info()`, `df.describe()` for basic summary
-* `value_counts()`, `groupby()` for categorical patterns
+Let `df` (as a DataFrame) represents your data set:
+
+
+* `df.info()`
+* `df.describe()` for basic summary
+* `value_counts()`, 
+* `groupby()` for categorical patterns
 * Plots:
 
   * Histograms, Boxplots (distribution)
@@ -24,6 +35,7 @@
 
 ### 📈 Example Tools in Python:
 
+* DuckDB
 * Pandas
 * Seaborn
 * Matplotlib
@@ -35,18 +47,25 @@
 
 ---
 
-### 🏷️ **Step-by-Step Iris Data Exploration**
+## 🏷️ **Step-by-Step Iris Data Exploration**
+
+### Step 1: Load necessary libraries
 
 ```python
-# Step 1: Load necessary libraries
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+```
 
-# Step 2: Load the Iris dataset from Seaborn
+### Step 2: Load the Iris dataset from Seaborn
+
+```python
 iris = sns.load_dataset("iris")
+```
 
-# Step 3: View the first few rows
+### Step 3: View the first few rows
+
+```python
 print(iris.head())
 ```
 
