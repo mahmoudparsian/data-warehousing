@@ -1,4 +1,4 @@
-Project Implementation Steps:
+# *** Project Implementation Steps ***
 
 # 1. Use Jupyter/Notebook/DuckDB
 
