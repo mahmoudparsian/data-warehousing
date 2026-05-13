@@ -1,5 +1,7 @@
 # Medallion Architecture in Action
 
+🟫 Bronze → ⚪ Silver → 🟡 Gold
+
 ## Executive Summary
 
 This project presents a comprehensive data 
