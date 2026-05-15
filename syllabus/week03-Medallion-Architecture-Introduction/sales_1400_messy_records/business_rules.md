@@ -78,3 +78,9 @@ sale_id,sale_type,product,customer_name,customer_email,customer_country,quantity
 > all record fields must be identical
 ```
 ```
+
+# 8. email: convert to lowecase
+
+# 9. customer_country: convert to uppercase
+
+# 10: sale_type: convert to Uppercase
