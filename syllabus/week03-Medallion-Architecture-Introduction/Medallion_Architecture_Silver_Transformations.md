@@ -1,15 +1,33 @@
 # Common Design Patterns <br> in the Medallion Architecture
 
 * SQL Examples are in [DuckDB](https://duckdb.org)
-* `% duckdb --version` <br> 
-`v1.5.2 (Variegata) 8a5851971f`
-* Last Updated at: `2026-04-26`
 
-The Medallion Data Architecture is a design pattern used to logically organize data in a Lakehouse, with the primary goal of incrementally improving data quality and structure as it moves through various stages. This architecture is often called a "multi-hop" pattern because data "hops" from raw to refined states across three main layers: Bronze, Silver, and Gold. 
+* `% duckdb --version` <br> 
+`v1.5.2 (Variegata)`
+
+* Last Updated at: `2026-05-15`
+
+```
+   The  Medallion  Data  Architecture  is  a  design
+   pattern  used  to  logically  organize  data in a
+   Lakehouse, with the primary goal of incrementally
+   improving data quality and  structure as it moves
+   through various stages. 
+      
+   This  architecture  is often called a "multi-hop"
+   pattern  because data "hops" from raw to  refined
+   states  across three main layers: Bronze, Silver,
+   and Gold. 
+   
+          🟫 Bronze  →  ⚪  Silver  →  🟡  Gold
+
+```
 
 ![](./images/building-data-pipelines-with-delta-lake.png)
 ## The Three Core Layers
-Common design patterns within each layer focus on specific transformation and storage goals.
+
+Common design patterns within each layer focus 
+on specific transformation and storage goals.
 
 ### Bronze Layer (Raw Ingestion):
 
