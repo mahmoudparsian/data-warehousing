@@ -1,12 +1,15 @@
-What changed:
+Notes for Jupyter Notebook: dw_1400_messy_records.ipynb
 
 * each business rule is now shown one-by-one
+
 * every step explains:
     * why
     * how
     * SQL
     * source layer → target layer
+
 * added audit summaries and plots after key transformations
+
 * added 10 OLAP business insight queries on the Gold layer
 
 The rule mapping is explicit in the notebook:
@@ -20,5 +23,7 @@ The rule mapping is explicit in the notebook:
 
 One note:
 
-* this revised notebook expects the messy file to be named medallion_sales_messy.csv
+* this revised notebook expects the messy file to be 
+  named sale_records_1400_messy.csv
+  
 * if your file has a different name, change it in Cell 02

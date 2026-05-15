@@ -1,6 +1,6 @@
 # Data and Business Rules
 
-# 0. Sample Data
+# Sample Data
 
 ```text
 % head sale_records_1400_messy.csv
@@ -15,8 +15,11 @@ sale_id,sale_type,product,customer_name,customer_email,customer_country,quantity
 8,ON-LINE,IPAD,Jeffrey Parker,jeffrey.parker39@proton.me,MEXICO,2,700,0.00,ENGLAND,12/18/2025
 9,ON-LINE,WATCH,George Stewart,george.stewart40@yahoo.com,ENGLAND,1,250,0.00,CANADA,04/15/2025
 ```
+---
 
-# 1. Business Rule: `sale_id`
+# Business Rule
+
+## 1. Business Rule: `sale_id`
 
 ```
 > # 1. if a sale_id is null/missing,
@@ -25,7 +28,7 @@ sale_id,sale_type,product,customer_name,customer_email,customer_country,quantity
 > are cancelled, and for which products?
 ```
 
-# 2. Business Rule: `product`
+## 2. Business Rule: `product`
 
 ```
 > # 2. if a product is missing, then
@@ -34,7 +37,7 @@ sale_id,sale_type,product,customer_name,customer_email,customer_country,quantity
 > (it is not a cancelled transaction)
 ```
 
-# 3. Business Rule: `customer_name`
+## 3. Business Rule: `customer_name`
 
 ```
 > 3. if a customer_name is null/missing/empty,
@@ -43,14 +46,14 @@ sale_id,sale_type,product,customer_name,customer_email,customer_country,quantity
 > (it is not a cancelled transaction)
 ```
 
-# 4. Business Rule: `discount`
+## 4. Business Rule: `discount`
 
 ```
 > 4. if discount is null/missing/negative,
 > then discount is set to 0.00 (zero)
 ```
 
-# 5. Business Rule: `sale_date`
+## 5. Business Rule: `sale_date`
 
 ```
 > 5. The sale_date might have the
@@ -64,7 +67,7 @@ sale_id,sale_type,product,customer_name,customer_email,customer_country,quantity
 > (it is not a cancelled transaction)
 ```
 
-# 6. Business Rule: `sale_date: NULL/missing`
+## 6. Business Rule: `sale_date: NULL/missing`
 
 ```
 > 6. If a sale_date is null/missing/malformed/invalid,
@@ -72,7 +75,7 @@ sale_id,sale_type,product,customer_name,customer_email,customer_country,quantity
 > 
 ```
 
-# 7. Business Rule: `deduplication`
+## 7. Business Rule: `deduplication`
 
 > 7. deduplication, drop duplicate records:
 > all record fields must be identical:
@@ -80,15 +83,18 @@ sale_id,sale_type,product,customer_name,customer_email,customer_country,quantity
 ```
 ```
 
-# 8. Business Rule: calculate final sale price as:
+## 8. Business Rule: calculate final sale price as:
 
-`final_sale_price = (quantity * unit_price) - discount`
+```
+final_sale_price = (quantity * unit_price) - discount
+```
 
-# 9. Business Rule: email: convert to lowecase
 
-# 10. Business Rule: `customer_country`: convert to uppercase
+## 9. Business Rule: email: convert to lowercase
 
-# 11: Business Rule: `sale_type`: convert to uppercase
+## 10. Business Rule: `customer_country`: convert to uppercase
 
-# 12: Business Rule:  Clean product names and standardize them to uppercase
+## 11: Business Rule: `sale_type`: convert to uppercase
+
+## 12: Business Rule:  clean product names and standardize them to uppercase
 
