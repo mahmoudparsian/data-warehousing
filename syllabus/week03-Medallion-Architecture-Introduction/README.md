@@ -9,7 +9,7 @@ title: Medallion Data Architecture in Action
 **Medallion Architecture** is a layered design 
 for organizing data in a data warehouse:
 
-> 🟫 Bronze → ⚪ Silver → 🟡 Gold
+#  🟫 Bronze → ⚪ Silver → 🟡 Gold
 ![](./images/medallion_architecture_0.webp)
 
 
