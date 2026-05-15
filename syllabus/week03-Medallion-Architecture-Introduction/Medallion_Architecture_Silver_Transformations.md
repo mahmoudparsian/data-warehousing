@@ -8,6 +8,8 @@
 * Last Updated at: `2026-05-15`
 
 ```
+          🟫 Bronze  →  ⚪  Silver  →  🟡  Gold
+
    The  Medallion  Data  Architecture  is  a  design
    pattern  used  to  logically  organize  data in a
    Lakehouse, with the primary goal of incrementally
@@ -19,7 +21,6 @@
    states  across three main layers: Bronze, Silver,
    and Gold. 
    
-          🟫 Bronze  →  ⚪  Silver  →  🟡  Gold
 
 ```
 
