@@ -25,7 +25,7 @@ sale_id,sale_type,product,customer_name,customer_email,customer_country,quantity
 > are cancelled, and for which products?
 ```
 
-# 2. Business Rule: `sale_id`
+# 2. Business Rule: `product`
 
 ```
 > # 2. if a product is missing, then
