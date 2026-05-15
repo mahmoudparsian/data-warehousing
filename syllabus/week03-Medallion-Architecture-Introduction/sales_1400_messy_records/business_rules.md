@@ -75,12 +75,20 @@ sale_id,sale_type,product,customer_name,customer_email,customer_country,quantity
 # 7. Business Rule: `deduplication`
 
 > 7. deduplication, drop duplicate records:
-> all record fields must be identical
+> all record fields must be identical:
+> drop exact duplicate rows
 ```
 ```
 
-# 8. email: convert to lowecase
+# 8. Business Rule: calculate final sale price as:
 
-# 9. customer_country: convert to uppercase
+`final_sale_price = (quantity * unit_price) - discount`
 
-# 10: sale_type: convert to Uppercase
+# 9. Business Rule: email: convert to lowecase
+
+# 10. Business Rule: `customer_country`: convert to uppercase
+
+# 11: Business Rule: `sale_type`: convert to uppercase
+
+# 12: Business Rule:  Clean product names and standardize them to uppercase
+
