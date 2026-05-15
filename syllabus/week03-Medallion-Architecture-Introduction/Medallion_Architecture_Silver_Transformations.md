@@ -2153,8 +2153,9 @@ your source system dumps files. Your Silver Layer script
 (above) acts as the bridge that cleanses that "lake" of 
 files into a high-performance, queryable table.
 
+---
 
-## 20 common SQL patterns for moving data from Bronze to Silver using DuckDB. Each includes a simple "Before" and "After" visualization.
+## 20 Common SQL patterns for moving data <br> from Bronze to Silver using DuckDB. <br> Each includes a simple "Before" and "After" visualization.
 
 
 ## 1. Data Type Enforcement (Casting)
