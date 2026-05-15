@@ -5,11 +5,13 @@ paginate: true
 title: Medallion Data Architecture in Action
 ---
 
-## 🟡 What is Medallion Data Architecture?
+# 🟡 What is Medallion Data Architecture?
+
 **Medallion Architecture** is a layered design 
 for organizing data in a data warehouse:
 
 #  🟫 Bronze → ⚪ Silver → 🟡 Gold
+
 ![](./images/medallion_architecture_0.webp)
 
 
@@ -138,12 +140,18 @@ ensuring **data quality, traceability, and reliable analytics**.
 
 ### Content of this folder
 
-1. [`Medallion_Architecture_Introduction.md`](./Medallion_Architecture_Introduction.md)
+1. [Medallion Architecture Flagship Case Study](./case_study_10_rows)
 
-2. [`book_seller_clean_data`: A Complete Example on a Clean data](./book_seller_clean_data)
+2. [`Medallion_Architecture_Introduction.md`](./Medallion_Architecture_Introduction.md)
 
-3. [`book_seller_messy_data`: A Complete Example on a Messy data](./book_seller_messy_data)
+3. [`Medallion_Architecture_Silver_Transformations.md`](./Medallion_Architecture_Silver_Transformations.md)
 
-4. [`sales_1200_clean_records`: A Complete Example on a Clean data](./sales_1200_clean_records)
+4. [`book_seller_clean_data`: A Complete Example on a Clean data](./book_seller_clean_data)
 
-5. [`sales_1400_messy_records`: A Complete Example on a Messy data](./sales_1400_messy_records)
+5. [`book_seller_messy_data`: A Complete Example on a Messy data](./book_seller_messy_data)
+
+6. [`sales_1200_clean_records`: A Complete Example on a Clean data](./sales_1200_clean_records)
+
+7. [`sales_1400_messy_records`: A Complete Example on a Messy data](./sales_1400_messy_records)
+
+8. [`sales_18K_messy_records`: A Complete Example on a Messy data](./sales_18K_messy_records)
