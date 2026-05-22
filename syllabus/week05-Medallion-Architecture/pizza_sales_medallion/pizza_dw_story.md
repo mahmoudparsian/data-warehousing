@@ -23,7 +23,9 @@ class: lead
 
 ## From Raw Data to Business Insights
 
-- Real-world dataset (2015–2016)
+- Real-world dataset for two years:
+	- 2015
+	- 2016
 - Messy + evolving data
 - Goal: Build a **modern data warehouse**
 
