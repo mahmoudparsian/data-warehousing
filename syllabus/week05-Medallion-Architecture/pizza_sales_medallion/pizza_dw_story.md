@@ -215,6 +215,7 @@ we move to:
 
 👉 Jupyter Notebook (full pipeline)
 with:
+
 	•	Bronze ingestion
 	•	Silver cleaning (based on these rules)
 	•	Gold star schema

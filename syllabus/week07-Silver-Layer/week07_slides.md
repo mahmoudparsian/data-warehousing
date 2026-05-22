@@ -1,13 +1,16 @@
 ---
 marp: true
+
 theme: default
+
 paginate: true
+
 size: 16:9
+
 ---
 
 # Week 7  
-## Silver — Cleaning, Conformance & Integration (Elite v3 — Diagrams + Full SQL Pipeline)
-
+## Silver — Cleaning, Conformance & Integration 
 ---
 
 # PART 0 — FROM CLEANING TO INTEGRATION
@@ -26,16 +29,15 @@ Week 7:
 
 ## Core Shift
 
-👉 Cleaning fixes records  
-👉 Conformance fixes meaning  
-👉 Integration fixes system boundaries
+### 1. 👉 Cleaning fixes records  
+### 2.👉 Conformance fixes meaning  
+### 3. 👉 Itegration fixes system boundaries
 
 ---
 
 ## Critical Insight
 
-Two datasets can each be “clean”
-and still produce the wrong answer when combined.
+### Two datasets can each be “clean” <br> and still produce the wrong  <br> answer when combined.
 
 ---
 
@@ -67,16 +69,18 @@ Bronze (raw files / raw tables)
 
 ## What Silver Really Does
 
-```text
-Raw systems do not naturally agree.
-Silver forces them to agree.
-```
+
+1. Raw systems do not naturally agree.
+
+2. Silver forces them to agree.
+
 
 ---
 
 ## Why This Matters
 
 Without Silver:
+
 - joins fail
 - KPIs split
 - categories fragment
@@ -205,10 +209,11 @@ match
 ## Multi-Year Insurance Data
 
 We have:
-- insurance.2021.csv
-- insurance.2022.csv
-- insurance.2023.csv
-- insurance.2024.csv
+
+- `insurance.2021.csv`
+- `insurance.2022.csv`
+- `insurance.2023.csv`
+- `insurance.2024.csv`
 
 ---
 
@@ -236,10 +241,10 @@ We have:
 
 Assume raw Bronze tables already exist:
 
-- bronze_insurance_2021
-- bronze_insurance_2022
-- bronze_insurance_2023
-- bronze_insurance_2024
+- `bronze_insurance_2021`
+- `bronze_insurance_2022`
+- `bronze_insurance_2023`
+- `bronze_insurance_2024`
 
 ---
 
@@ -351,7 +356,9 @@ SELECT * FROM conformed;
 ## What This Step Does
 
 - standardizes smoker values
+
 - standardizes region values
+
 - creates comparable categories across years
 
 ---
@@ -384,9 +391,11 @@ SELECT * FROM cleaned;
 
 ## Why This Matters
 
-- removes unusable metric rows
-- limits obvious outlier distortion
-- removes exact duplicates
+- Removes unusable metric rows
+
+- Limits obvious outlier distortion
+
+- Removes exact duplicates
 
 ---
 
@@ -427,8 +436,10 @@ SELECT * FROM enriched;
 
 ## Why This Matters
 
-Silver is not only about removing bad data.
-It is also about adding reusable business features.
+* Silver is not only about removing bad data.
+
+
+* It is also about adding reusable business features.
 
 ---
 
@@ -463,10 +474,14 @@ FROM enriched;
 ## Validation Logic
 
 Check that:
-- the table still has expected volume
-- the metric is not NULL
-- categories collapsed properly
-- the distribution is reasonable
+
+- The table still has expected volume
+
+- The metric is not NULL
+
+- Categories collapsed properly
+
+- The distribution is reasonable
 
 ---
 
@@ -557,6 +572,7 @@ FROM cleaned;
 This is not just SQL.
 
 It is:
+
 - schema alignment
 - conformance
 - cleaning
@@ -575,9 +591,13 @@ All inside one coherent Silver pipeline.
 ## Discussion 1
 
 Which step is most dangerous:
+
 - schema alignment
+
 - conformance
+
 - join logic
+
 - validation
 
 Why?
@@ -608,7 +628,9 @@ What if the same person legitimately appears in two years?
 
 ```text
 NE          → avg 1200
+
 north-east  → avg 1400
+
 northeast   → avg 1300
 ```
 
@@ -636,6 +658,7 @@ Same data, different pipeline quality, different KPI.
 
 ```text
 customers.customer_id = '00123'
+
 transactions.customer_id = '123'
 ```
 
@@ -648,6 +671,7 @@ Join result:
 
 ```text
 customers.customer_id = '00123'
+
 transactions.customer_id = '00123'
 ```
 
@@ -659,6 +683,7 @@ Join result:
 ## Insight
 
 Key conformance is not optional.
+
 It is fundamental to integration quality.
 
 ---
@@ -690,5 +715,7 @@ You are not just cleaning data.
 You are:
 
 👉 aligning meaning across systems  
+
 👉 protecting KPI correctness  
+
 👉 producing one trusted integrated dataset

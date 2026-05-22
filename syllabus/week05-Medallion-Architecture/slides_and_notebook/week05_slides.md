@@ -1,13 +1,18 @@
 ---
+
 marp: true
 theme: default
 paginate: true
 size: 16:9
+
 ---
 
 # Week 5  
-## Medallion Architecture (Elite v5 — Master Level)
+## Medallion Architecture 
 
+![](medallion-architecture.png)
+
+![](medallion-architecture-2.png)
 ---
 
 # PART 0 — THE REAL SHIFT
@@ -17,7 +22,9 @@ size: 16:9
 ## What You Learned So Far
 
 - SQL (Week 1–2)
+
 - Star Schema (Week 3)
+
 - ETL Pipeline (Week 4)
 
 ---
@@ -25,16 +32,17 @@ size: 16:9
 ## What You Now Learn
 
 👉 Data is NOT just processed  
+
 👉 Data is **managed over time**
 
 ---
 
 ## Core Transition
 
-Traditional mindset:
+Traditional mindset: <br>
 👉 build pipeline
 
-Modern mindset:
+Modern mindset: <br>
 👉 design **data lifecycle**
 
 ---
@@ -49,7 +57,7 @@ Modern mindset:
 |--------|--------|
 | NE | 1000 |
 | north-east | 1200 |
-| NE | 1500 |
+| northeast | 1500 |
 
 ---
 
@@ -80,7 +88,7 @@ What % came from "NE" vs "north-east"?
 
 ---
 
-# PART 2 — MEDALLION = INFORMATION PRESERVATION
+# PART 2 — <br> MEDALLION = INFORMATION PRESERVATION
 
 ---
 
@@ -93,7 +101,9 @@ What % came from "NE" vs "north-east"?
 ## Layers Represent:
 
 - Bronze → raw truth  
+
 - Silver → interpreted truth  
+
 - Gold → business truth  
 
 ---
@@ -110,15 +120,25 @@ What % came from "NE" vs "north-east"?
 
 ## Definition
 
-Raw, immutable data
+### Raw, <br> immutable data
+
+		Bronze layer: The bronze layer contains 
+		raw data as it is ingested from source 
+		systems. 
+		
+		This data is typically unprocessed and 
+		unvalidated.
 
 ---
 
 ## Properties
 
 - append-only  
+
 - no deletes  
+
 - no updates  
+
 - schema-on-read  
 
 ---
@@ -152,13 +172,22 @@ Raw, immutable data
 
 Data after applying rules
 
+		Silver layer: The silver layer contains 
+		processed and validated data. 
+		
+		The data in the silver layer is typically 
+		structured and ready for analysis.
+
 ---
 
 ## What Happens Here?
 
 - cleaning  
+
 - validation  
+
 - normalization  
+
 - enrichment  
 
 ---
@@ -174,10 +203,10 @@ Data after applying rules
 
 ## Advanced Idea
 
-👉 Silver = CONTRACTED DATA
+### 👉 Silver = CONTRACTED DATA
 
-Meaning:
-👉 rules are agreed upon
+### Meaning:
+* 👉 rules are agreed upon
 
 ---
 
@@ -203,20 +232,29 @@ NE → northwest ❌
 
 Data structured for consumption
 
+		Gold layer: The gold layer contains enriched 
+		data that is optimized for specific business needs. 
+		
+		The data in the gold layer is typically aggregated 
+		and denormalized.
+
 ---
 
 ## Examples
 
 - star schema  
+
 - aggregates  
+
 - dashboards  
 
 ---
 
 ## Example
 
-fact_insurance  
-dim_region  
+`fact_insurance`  
+
+`dim_region`  
 
 ---
 
@@ -238,14 +276,19 @@ dim_region
 
 ## Flow
 
-Bronze → Silver → Gold
+### Bronze 
+### → 
+### Silver 
+### → 
+### Gold
 
 ---
 
 ## But Also:
 
-Gold depends on Silver  
-Silver depends on Bronze  
+* Gold depends on Silver  
+
+* Silver depends on Bronze  
 
 ---
 
@@ -285,10 +328,11 @@ Raw → Bronze → Silver → Gold
 
 ## Difference
 
-Traditional:
+Traditional: <br>
 👉 one irreversible step  
 
-Medallion:
+
+Medallion: <br>
 👉 multiple reversible steps  
 
 ---
@@ -314,7 +358,9 @@ Load everything
 Apply rules:
 
 - remove NULL  
+
 - standardize  
+
 - derive columns  
 
 ---
