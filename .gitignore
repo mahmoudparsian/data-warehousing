@@ -1,0 +1,41 @@
+# OS / editor
+.DS_Store
+*.swp
+
+# Python / notebooks
+__pycache__/
+__marimo__/
+.ipynb_checkpoints/
+*.log
+
+# Generated databases (rebuilt by notebooks)
+*.duckdb
+*.duckdb.wal
+*.wal
+
+# Backups / scratch copies
+*.copy
+*.backup*
+*.bkp
+*.save
+*.dirty/
+
+# Large data hosted outside the repo (GitHub limit: 100 MB/file)
+syllabus/week05-Medallion-Architecture-Introduction/lakehouse/examples/used_cars_dataset/vehicles.csv
+syllabus/week05-Medallion-Architecture-Introduction/lakehouse/examples/used_cars_dataset/vehicles.zip
+
+# Files students create while doing labs
+syllabus/*/labs/silver_*/
+syllabus/*/labs/gold_*.parquet
+syllabus/*/labs/*.parquet
+syllabus/week04-Star-Schema-and-OLAP/OLAP/OLAP_by_DuckDB/revenue_by_day_category.csv
+syllabus/week05-Medallion-Architecture-Introduction/lakehouse/examples/whitehouse_visitor_logs/whitehouse_waves-2016_12.csv
+
+# Secrets: never commit API keys or passwords
+.env
+**/.streamlit/secrets.toml
+
+# Marimo cache and files students export from lab notebooks
+__marimo__/
+syllabus/*/labs/*.csv
+resources/data/yellow_tripdata_2024-01.parquet
