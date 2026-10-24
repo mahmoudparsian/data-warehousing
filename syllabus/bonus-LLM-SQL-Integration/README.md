@@ -29,8 +29,8 @@
 
 # 1. Files in this folder:
 
-file/folder   | description
-------------- | -------------| 
+| File / folder | Description |
+|---|---|
 | `db_schema` | Sample database schema |
 | `docs`      | Basic documentation and references|
 |`MySQL_LLM_Integration_Slides.pptx` | PowerPoint Slides |

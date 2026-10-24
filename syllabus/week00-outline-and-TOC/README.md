@@ -40,7 +40,7 @@ Project guidelines: [`../PROJECT/`](../PROJECT/)
 
 > ⚠️ **Keep one DuckDB version.** A `.duckdb` *file* written by a newer DuckDB can't be opened by an older one.
 > Check that `duckdb --version` (CLI) and `python3 -c "import duckdb; print(duckdb.__version__)"` match.
-> In-memory work (most labs) is not affected.
+> This matters for the labs that use a database file (Lab 4.2 and weeks 6–10) if you open the same file from both the DuckDB CLI and a notebook.
 
 Check your setup by running [`week00_3_demo_notebook.py`](week00_3_demo_notebook.py) with `marimo edit week00_3_demo_notebook.py` (from this folder): it needs no data files.
 

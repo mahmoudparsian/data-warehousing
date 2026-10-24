@@ -32,7 +32,7 @@ By the end of the week you can:
 | [`labs/`](labs/) | Labs 10.1 and 10.2 (sheet `.md` + Marimo notebook, released in class) · `week_10_lab_setup.sql` (builds the **final** pizza warehouse: both channels, 2015–2016, with week 9's June correction, plus the week-8 marts) |
 | `week10_notebook_medallion.py` | A compact end-to-end example on messy insurance data: Bronze → Silver → Gold → KPI, then a Day-2 incremental run showing **KPI drift** (naive vs sliding window) |
 | [`insurance_bronze_raw.csv`](insurance_bronze_raw.csv) · [metadata](insurance_bronze_raw.metadata.md) | The small messy dataset used by the notebook |
-| `insurance_inforgraphic.jpg` | An example of a one-page visual summary (infographic) |
+| [`insurance_infographic.jpg`](insurance_infographic.jpg) | An example of a one-page visual summary (infographic) |
 
 ## 🎤 Final project presentations
 

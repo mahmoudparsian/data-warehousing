@@ -43,7 +43,7 @@ By the end of the week you can:
 
 ## ⚙️ Setup
 
-- DuckDB CLI and Python (`duckdb pandas matplotlib jupysql duckdb-engine`), as before.
+- DuckDB CLI and Python (`duckdb pandas matplotlib marimo`), as before ([Required software](../../course_information/required_software.md)).
 - **Tableau** Desktop or Public (free with a student license). Tableau decks: [`../../resources/Tableau/`](../../resources/Tableau/).
 - Build the online-sales star once before Session 2 (about 2 seconds):
   `cd OLAP/OLAP_by_DuckDB && duckdb online_sales.duckdb < build_and_load_all_duckdb.sql`

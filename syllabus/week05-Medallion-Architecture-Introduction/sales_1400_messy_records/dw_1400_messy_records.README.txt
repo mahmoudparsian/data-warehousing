@@ -1,4 +1,4 @@
-Notes for Jupyter Notebook: dw_1400_messy_records.ipynb
+Notes for the Marimo notebook: dw_1400_messy_records.py  (open it with: marimo edit dw_1400_messy_records.py)
 
 * each business rule is now shown one-by-one
 
@@ -26,4 +26,4 @@ One note:
 * this revised notebook expects the messy file to be 
   named sale_records_1400_messy.csv
   
-* if your file has a different name, change it in Cell 02
+* if your file has a different name, change csv_file in the cell that loads it

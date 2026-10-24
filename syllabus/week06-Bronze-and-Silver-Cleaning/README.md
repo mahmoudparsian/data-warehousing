@@ -43,5 +43,5 @@ As before. The labs use a DuckDB **database file** (`duckdb pizza.duckdb` in `la
 
 ## ✅ Before week 7
 
-- Finish both labs and keep `labs/pizza.duckdb`.
+- Finish both labs. Week 7 rebuilds these Silver tables with its own setup script, so you don't need to keep `pizza.duckdb`.
 - Read sections 1–4 (casting, dedup, nulls, enrichment) of the [Silver transformations deep dive](../week07-Silver-Layer-Cleaning-and-Conforming/Medallion_Architecture_Silver_Transformations.md).

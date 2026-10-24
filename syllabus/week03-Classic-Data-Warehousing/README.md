@@ -48,11 +48,11 @@ By the end of the week you can:
 
 ## ⚙️ Setup
 
-DuckDB CLI, or Python with `duckdb pandas matplotlib jupysql duckdb-engine`.
-Notebooks use relative paths, so open them from their own folder.
+DuckDB CLI, or Python with `duckdb pandas matplotlib marimo` (see [Required software](../../course_information/required_software.md)).
+Notebooks use relative paths, so open them from their own folder (`marimo edit <notebook>.py`).
 
 ## ✅ Before week 4
 
-- Finish both labs. Keep your star schema from Lab 3.1: week 4 queries it with OLAP operations.
+- Finish both labs. Week 4 builds on today's ideas (grain, surrogate keys, facts, dimensions) with slowly changing dimensions and OLAP.
 - Read the [star schema tutorial](resources/5-star-schema-introduction/star_schema_tutorial_practical_guide.md).
 - Install **Tableau** (Desktop or Public, free with a student license). We start using it in week 4.

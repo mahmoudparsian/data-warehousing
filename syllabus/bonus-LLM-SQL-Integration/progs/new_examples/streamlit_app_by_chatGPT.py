@@ -62,10 +62,11 @@ Save as app.py:
 import streamlit as st
 import mysql.connector
 import pandas as pd
+import os
 import openai
 
-# Set your OpenAI API key
-openai.api_key = "YOUR_OPENAI_API_KEY"
+# OpenAI API key: from the environment, never typed into code (export OPENAI_API_KEY="sk-...")
+openai.api_key = os.environ["OPENAI_API_KEY"]
 
 # MySQL connection
 def get_connection():

@@ -47,4 +47,4 @@ Then start every session with `SET TimeZone = 'UTC';` so everyone gets the same 
 
 ## ✅ Before week 8
 
-- Finish both labs and keep `labs/pizza.duckdb` (with `silver.sales_lines`). Week 8 builds the Gold star schema from it.
+- Finish both labs. Week 8 builds the Gold star schema on `silver.sales_lines`; its setup script rebuilds that table, so you don't need to keep `pizza.duckdb`.

@@ -165,6 +165,10 @@ GROUP BY LOWER(TRIM(region));
 
 - OLAP: roll-up, drill-down, slice, dice  
 
+- Slowly changing dimensions (Type 1 / Type 2)  
+
+- First Tableau chart  
+
 ---
 
 # 📊 Week 4 — Example
@@ -236,7 +240,9 @@ GROUP BY region;
 
 - Raw ingestion, lineage, new files arriving  
 
-- Schema drift between loads  
+- Load errors and bad encodings (`store_rejects`)  
+
+- Keys that collide across batches  
 
 - Data profiling  
 

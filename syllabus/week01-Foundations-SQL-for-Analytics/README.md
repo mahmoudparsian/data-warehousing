@@ -38,11 +38,10 @@ By the end of the week you can:
 
 ## ⚙️ Setup
 
-You need DuckDB, plus Python with `duckdb pandas matplotlib jupysql` for the notebooks.
+You need DuckDB and Python with `duckdb pandas matplotlib marimo` (see [Required software](../../course_information/required_software.md)).
 
-- Notebooks read data with **relative paths**, so open them from their own folder.
-  The lecture notebooks read `../example_1_insurance/insurance.csv`.
-- Notebooks that use `%sql` / `%%sql` need **JupySQL**: `pip install jupysql duckdb-engine`.
+- Every notebook is a **Marimo** notebook (`.py`): open it from its own folder, e.g. `marimo edit week01_notebook_2.py`.
+- Notebooks read data with **relative paths**; the lecture notebooks read `../example_1_insurance/insurance.csv`.
 
 ## ✅ Before week 2
 

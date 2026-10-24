@@ -43,5 +43,5 @@ Start each session with `SET TimeZone = 'UTC';`. Tableau Desktop/Public for Lab 
 
 ## ✅ Before week 9
 
-- Finish both labs; keep `labs/pizza.duckdb` and your dashboard screenshot.
+- Finish both labs and keep your dashboard screenshot. Week 9 rebuilds the warehouse with its own setup script, so you don't need to keep `pizza.duckdb`.
 - Week 9 asks: what happens when **new data arrives every day**? Think about which of your weeks 6–8 steps you would have to rerun.

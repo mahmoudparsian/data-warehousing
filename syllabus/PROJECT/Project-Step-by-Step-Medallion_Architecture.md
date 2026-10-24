@@ -1,6 +1,9 @@
 # *** Project Implementation Steps ***
 
-# 1. Use Jupyter/Notebook/DuckDB
+The detailed version (15 steps, with the week where each was taught, incl. reconciliation and new batches):
+[project workshop checklist](../week09-End-to-End-Pipeline-and-Project-Workshop/project_workshop_checklist.md).
+
+# 1. Use DuckDB with a Marimo notebook (or Python scripts)
 
 # 2. Read data by DuckDB (raw data)
 
@@ -18,11 +21,9 @@
 * Filling NULL by some values based on business rules
    
    
-# 6. Silver clean layer → Gold layer data  
+# 6. Silver clean layer → Gold layer: star schema (fact + dimensions) and marts (week 8)
 
-# 7. Gold layer data → Star Schema
-
-# 8. Create 7 OLAP queries using Star Schema
+# 7. Create 7 OLAP queries using the Star Schema
 
 #### For each OLAP query, do the following:
 

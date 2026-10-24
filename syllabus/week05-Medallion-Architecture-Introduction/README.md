@@ -46,11 +46,11 @@ The book-seller Medallion example from week 3 is here: [clean](../week03-Classic
 
 ## ⚙️ Setup
 
-As before (DuckDB CLI; Python with `duckdb pandas matplotlib seaborn jupysql duckdb-engine`).
+As before (DuckDB CLI; Python with `duckdb pandas matplotlib seaborn marimo`; [Required software](../../course_information/required_software.md)).
 Large data: the used-cars and White House examples need a download or unzip first (see their READMEs).
 Files the labs create (`silver_*/`, `*.parquet`) are git-ignored.
 
 ## ✅ Before week 6
 
-- Finish both labs. Keep your Lab 5.1 reconciliation numbers: week 6 starts from Bronze.
+- Finish both labs. Week 6 starts a new running case, a pizza shop, and goes deep into Bronze and Silver. Bring the reconciliation habit from Lab 5.1.
 - Read [Medallion in a nutshell](Medallion_Architecture_in_a_Nutshell.md).

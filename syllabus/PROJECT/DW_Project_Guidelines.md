@@ -6,7 +6,7 @@
 		and will be updated on a daily basis.
 
 * The goal of this project is to design, build, 
-  and demo a data warehouse, and fianlly 
+  and demo a data warehouse, and finally:
   
 * Provide/show 7 OLAP queries, which will help 
   the businesses to make better decisions
@@ -124,10 +124,10 @@ Components of your project should cover:
 3. Presentation of your project to the whole class 
 
 	* Presentation time: 15 to 20 minutes
-	* Will be done 2 weeks before final exam
+	* In week 10 (see [Deadlines](#2-deadlines))
 
 
-## 7. Data Set Descripton
+## 7. Data Set Description
 
 To describe a dataset, you typically need to: 
 
@@ -246,7 +246,7 @@ it's often used to test and compare the performance of different
 classification algorithms as beginners learn basic machine learning 
 concepts like data preprocessing and model evaluation. 
 
-[Iris Data Set explanation](https://www.google.com/url?sa=i&url=https%3A%2F%2Feminebozkus.medium.com%2Fexploring-the-iris-flower-dataset-4e000bcc266c&psig=AOvVaw1Go-kA_gCR6iyZmW-B5vWF&ust=1737704841918000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCNDpw5uti4sDFQAAAAAdAAAAABAE)
+[Iris Data Set explanation](https://eminebozkus.medium.com/exploring-the-iris-flower-dataset-4e000bcc266c)
 
 
 ## 9. Project Document Structure
@@ -293,8 +293,12 @@ concepts like data preprocessing and model evaluation.
 
 #### Reloading New Batch to Existing DW	
 ~~~python	
-	# 4. Reloading New Batch to Existing DW
-	
+	# 4. Reloading New Batch to Existing DW (the week 9 pattern)
+	#    - load only files not yet in your load log (idempotent: running twice loads nothing)
+	#    - tag every row with its run id and source file (lineage)
+	#    - process only the new run through Silver and Gold
+	#    - rebuild only the mart dates/partitions the new run touched
+	reload_new_batch(new_files, load_log)
 ~~~
   
 ### 4. **Star schema**
@@ -310,4 +314,4 @@ concepts like data preprocessing and model evaluation.
 1. English Query
 2. SQL Query
 3. Results and Interpretation
-4. How does it help the Business to make better descisions
+4. How does it help the Business to make better decisions
