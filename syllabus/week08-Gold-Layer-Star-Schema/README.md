@@ -22,8 +22,8 @@ By the end of the week you can:
 
 | Session | Topic | Material | Lab (30 min) |
 |---|---|---|---|
-| 1 | Gold modeling: business-first design, grain, dimensions, surrogate keys, validation | [slides 1: Gold modeling](week08_slides_1_gold_modeling.md) (Parts 0–8) · `week08_notebook.py` | [Lab 8.1](labs/week_08_lab_01_student.md): pizza star schema · notebook `week_08_lab_01_student.py` |
-| 2 | KPIs that add up, data marts, Gold → Tableau | [slides 2: KPIs & marts](week08_slides_2_kpis_and_marts.md) · [slides 1](week08_slides_1_gold_modeling.md) (Parts 9–18) · demo: [`insurance_medallion_example/`](insurance_medallion_example/) (`medallion_executive_dashboard.py`) | [Lab 8.2](labs/week_08_lab_02_student.md): KPIs, 2 marts, dashboard · notebook `week_08_lab_02_student.py` |
+| 1 | Gold modeling: business-first design, grain, dimensions, surrogate keys, validation | [slides 1: Gold modeling](week08_slides_1_gold_modeling.md) (Parts 0–8) · [`week08_notebook.py`](week08_notebook.py) | [Lab 8.1](labs/week_08_lab_01_student.md): pizza star schema · notebook [`week_08_lab_01_student.py`](labs/week_08_lab_01_student.py) |
+| 2 | KPIs that add up, data marts, Gold → Tableau | [slides 2: KPIs & marts](week08_slides_2_kpis_and_marts.md) · [slides 1](week08_slides_1_gold_modeling.md) (Parts 9–18) · demo: [`insurance_medallion_example/`](insurance_medallion_example/) ([`medallion_executive_dashboard.py`](insurance_medallion_example/medallion_executive_dashboard.py)) | [Lab 8.2](labs/week_08_lab_02_student.md): KPIs, 2 marts, dashboard · notebook [`week_08_lab_02_student.py`](labs/week_08_lab_02_student.py) |
 
 ## 📂 What's in this folder
 

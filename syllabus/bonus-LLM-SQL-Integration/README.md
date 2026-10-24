@@ -12,8 +12,7 @@
   `export OPENAI_API_KEY="sk-..."` (macOS/Linux) · `setx OPENAI_API_KEY "sk-..."` (Windows).
   `.env` files and `.streamlit/secrets.toml` are git-ignored.
 - `progs/example_1…3_*.py` use the current OpenAI Python client (`openai >= 1.0`).
-  The Streamlit apps in `progs/new_examples/` (`streamlit_app*.py`) use the **retired** `Completion` API (`text-davinci-003`):
-  read them as design examples; they need updating before they run.
+  The two old Streamlit apps (retired OpenAI API) were archived; a working Streamlit app is in Part 2 of the walkthrough below.
 - LLM-generated SQL can be wrong. **Always read the SQL before running it**, and use a read-only database user.
 
 ## Where to start

@@ -86,7 +86,6 @@ value in real-world enterprise environments.
 | [`create_messy_data.py`](create_messy_data.py)    | Python program, wchich generates messy data          |
 | [`data_messy`](./data_messy)             | Data folder for messy data                           |
 | [`data_original`](./data_original)           | Data folder for original clean data.                 |
-| [`data.is.messy`]()           | To remind us that the data is messy for analysis.    |
 | [`EDA_insurance_dw.py`](./EDA_insurance_dw.py)  | EDA for messy insurance data                         |
 | [`images`](./images)                  | Image folder                                         |
 | [`medallion_build_star_schema.py`](./medallion_build_star_schema.py) | Notebook: Medallion Architecture in Action |

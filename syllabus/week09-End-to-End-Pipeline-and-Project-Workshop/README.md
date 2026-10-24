@@ -22,8 +22,8 @@ By the end of the week you can:
 
 | Session | Topic | Material | Lab (30 min) |
 |---|---|---|---|
-| 1 | Pipelines over time: state, watermarks, idempotency, incremental Silver and Gold | [slides 1: pipelines + incremental](week09_slides_1_pipelines_incremental.md) (Parts 0–9) · [slides 2: DuckDB patterns](week09_slides_2_incremental_in_duckdb.md) (Patterns 1–5) | [Lab 9.1](labs/week_09_lab_01_student.md): monthly files, one run at a time · notebook `week_09_lab_01_student.py` |
-| 2 | Late data, partition rebuilds, corrections, validation · **project workshop** | [slides 1](week09_slides_1_pipelines_incremental.md) (Parts 10–20) · [slides 2](week09_slides_2_incremental_in_duckdb.md) (Patterns 6–8) · [project checklist](project_workshop_checklist.md) | [Lab 9.2](labs/week_09_lab_02_student.md): late data, a corrected re-send, the proof · notebook `week_09_lab_02_student.py` |
+| 1 | Pipelines over time: state, watermarks, idempotency, incremental Silver and Gold | [slides 1: pipelines + incremental](week09_slides_1_pipelines_incremental.md) (Parts 0–9) · [slides 2: DuckDB patterns](week09_slides_2_incremental_in_duckdb.md) (Patterns 1–5) | [Lab 9.1](labs/week_09_lab_01_student.md): monthly files, one run at a time · notebook [`week_09_lab_01_student.py`](labs/week_09_lab_01_student.py) |
+| 2 | Late data, partition rebuilds, corrections, validation · **project workshop** | [slides 1](week09_slides_1_pipelines_incremental.md) (Parts 10–20) · [slides 2](week09_slides_2_incremental_in_duckdb.md) (Patterns 6–8) · [project checklist](project_workshop_checklist.md) | [Lab 9.2](labs/week_09_lab_02_student.md): late data, a corrected re-send, the proof · notebook [`week_09_lab_02_student.py`](labs/week_09_lab_02_student.py) |
 
 ## 📂 What's in this folder
 

@@ -21,8 +21,8 @@ By the end of the week you can:
 
 | Session | Topic | Material | Lab (30 min) |
 |---|---|---|---|
-| 1 | Analytical thinking + window functions | [slides 1: analytical thinking](week02_slides_1.md) · [slides 2: window functions](week02_slides_2_window_functions.md) · `week02_notebook_1.py` (exercises) · `week02_notebook_3.py` (advanced, with plots) | [Lab 2.1](labs/week_02_lab_01_student.md): window functions · notebook `week_02_lab_01_student.py` |
-| 2 | Exploratory data analysis with SQL | [What is EDA?](EDA/1.What_is_Exploratory_Data_Analysis.md) (slides) · `EDA/2.EDA_basic.py` · `EDA/3.EDA_comprehensive.py` | [Lab 2.2](labs/week_02_lab_02_student.md): EDA on 4 yearly files · notebook `week_02_lab_02_student.py` |
+| 1 | Analytical thinking + window functions | [slides 1: analytical thinking](week02_slides_1.md) · [slides 2: window functions](week02_slides_2_window_functions.md) · [`week02_notebook_1.py`](week02_notebook_1.py) (exercises) · [`week02_notebook_3.py`](week02_notebook_3.py) (advanced, with plots) | [Lab 2.1](labs/week_02_lab_01_student.md): window functions · notebook [`week_02_lab_01_student.py`](labs/week_02_lab_01_student.py) |
+| 2 | Exploratory data analysis with SQL | [What is EDA?](EDA/1.What_is_Exploratory_Data_Analysis.md) (slides) · [`EDA/2.EDA_basic.py`](EDA/2.EDA_basic.py) · [`EDA/3.EDA_comprehensive.py`](EDA/3.EDA_comprehensive.py) | [Lab 2.2](labs/week_02_lab_02_student.md): EDA on 4 yearly files · notebook [`week_02_lab_02_student.py`](labs/week_02_lab_02_student.py) |
 
 ## 📂 What's in this folder
 

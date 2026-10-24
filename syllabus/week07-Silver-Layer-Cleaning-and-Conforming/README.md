@@ -22,8 +22,8 @@ By the end of the week you can:
 
 | Session | Topic | Material | Lab (30 min) |
 |---|---|---|---|
-| 1 | Conformance: schema alignment, canonical codes, mapping tables, time zones | [slides 1: conformance & integration](week07_slides_1_conformance_and_integration.md) · [slides 2: DuckDB patterns](week07_slides_2_conforming_in_practice.md) (Steps 1–4) | [Lab 7.1](labs/week_07_lab_01_student.md): conform the delivery app · notebook `week_07_lab_01_student.py` |
-| 2 | Integration: quarantine, source conflicts, `UNION ALL`, reconciliation, cross-source KPIs | [slides 2](week07_slides_2_conforming_in_practice.md) (Steps 5–7) · [Silver transformations deep dive](Medallion_Architecture_Silver_Transformations.md) · `week07_notebook.py` | [Lab 7.2](labs/week_07_lab_02_student.md): one Silver table, two channels · notebook `week_07_lab_02_student.py` |
+| 1 | Conformance: schema alignment, canonical codes, mapping tables, time zones | [slides 1: conformance & integration](week07_slides_1_conformance_and_integration.md) · [slides 2: DuckDB patterns](week07_slides_2_conforming_in_practice.md) (Steps 1–4) | [Lab 7.1](labs/week_07_lab_01_student.md): conform the delivery app · notebook [`week_07_lab_01_student.py`](labs/week_07_lab_01_student.py) |
+| 2 | Integration: quarantine, source conflicts, `UNION ALL`, reconciliation, cross-source KPIs | [slides 2](week07_slides_2_conforming_in_practice.md) (Steps 5–7) · [Silver transformations deep dive](Medallion_Architecture_Silver_Transformations.md) · [`week07_notebook.py`](week07_notebook.py) | [Lab 7.2](labs/week_07_lab_02_student.md): one Silver table, two channels · notebook [`week_07_lab_02_student.py`](labs/week_07_lab_02_student.py) |
 
 ## 📂 What's in this folder
 

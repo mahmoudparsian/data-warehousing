@@ -22,8 +22,8 @@ By the end of the week you can:
 
 | Session | Topic | Material | Lab (30 min) |
 |---|---|---|---|
-| 1 | Star schema in depth: SCD, conformed dimensions, factless facts, data marts | [slides](week04_slides_star_schema_SCD_OLAP.md) (first half) · [SCD module](star_schema/slowly_changing_dimensions/0.README.md) · demo: [`week04_notebook_bike_store_star_schema_OLAP.py`](week04_notebook_bike_store_star_schema_OLAP.py) | [Lab 4.1](labs/week_04_lab_01_student.md): SCD Type 1 and 2 · notebook `week_04_lab_01_student.py` |
-| 2 | OLAP: roll-up, drill-down, slice, dice, pivot; `ROLLUP`, `CUBE`, `GROUPING SETS`; first Tableau chart | [slides](week04_slides_star_schema_SCD_OLAP.md) (second half) · [OLAP index](OLAP/README.md) · [ROLLUP & CUBE in DuckDB](OLAP/OLAP_basics/ROLLUP_and_CUBE_Tutorial_using_DuckDB.md) · [45 OLAP queries](OLAP/OLAP_by_DuckDB/OLAP_Queries_ROLLUP_CUBE_GROUPINGSETS.md) | [Lab 4.2](labs/week_04_lab_02_student.md): OLAP on 1M sales + Tableau · notebook `week_04_lab_02_student.py` |
+| 1 | Star schema in depth: SCD, conformed dimensions, factless facts, data marts | [slides](week04_slides_star_schema_SCD_OLAP.md) (first half) · [SCD module](star_schema/slowly_changing_dimensions/0.README.md) · demo: [`week04_notebook_bike_store_star_schema_OLAP.py`](week04_notebook_bike_store_star_schema_OLAP.py) | [Lab 4.1](labs/week_04_lab_01_student.md): SCD Type 1 and 2 · notebook [`week_04_lab_01_student.py`](labs/week_04_lab_01_student.py) |
+| 2 | OLAP: roll-up, drill-down, slice, dice, pivot; `ROLLUP`, `CUBE`, `GROUPING SETS`; first Tableau chart | [slides](week04_slides_star_schema_SCD_OLAP.md) (second half) · [OLAP index](OLAP/README.md) · [ROLLUP & CUBE in DuckDB](OLAP/OLAP_basics/ROLLUP_and_CUBE_Tutorial_using_DuckDB.md) · [45 OLAP queries](OLAP/OLAP_by_DuckDB/OLAP_Queries_ROLLUP_CUBE_GROUPINGSETS.md) | [Lab 4.2](labs/week_04_lab_02_student.md): OLAP on 1M sales + Tableau · notebook [`week_04_lab_02_student.py`](labs/week_04_lab_02_student.py) |
 
 ## 📂 What's in this folder
 

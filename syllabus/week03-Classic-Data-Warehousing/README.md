@@ -21,8 +21,8 @@ By the end of the week you can:
 
 | Session | Topic | Material | Lab (30 min) |
 |---|---|---|---|
-| 1 | What a data warehouse is; OLTP vs OLAP; fact, dimension, grain | [slides: Classic DW](week03_slides_1_intro_to_DW.md) · [intro-to-DW deck](slides_intro_to_DW/) (pptx/pdf) · [OLTP vs OLAP table](resources/1-OLTP_vs_OLAP_comparison_table.md) · demo: [`book_seller_basic_dw_clean_data/`](book_seller_basic_dw_clean_data/) | [Lab 3.1](labs/week_03_lab_01_student.md): operational tables → star schema · notebook `week_03_lab_01_student.py` |
-| 2 | ETL / ELT for data warehousing | [slides: ETL for DW](ETL/week03_slides_2_ETL_for_DW.md) · [ETL & ELT in pictures](ETL/resources/README.md) · demo: [`book_seller_basic_dw_messy_data/`](book_seller_basic_dw_messy_data/) | [Lab 3.2](labs/week_03_lab_02_student.md): ETL on messy sales data · notebook `week_03_lab_02_student.py` |
+| 1 | What a data warehouse is; OLTP vs OLAP; fact, dimension, grain | [slides: Classic DW](week03_slides_1_intro_to_DW.md) · [intro-to-DW deck](slides_intro_to_DW/) (pptx/pdf, *optional reading*) · [OLTP vs OLAP table](resources/1-OLTP_vs_OLAP_comparison_table.md) · demo: [`book_seller_basic_dw_clean_data/`](book_seller_basic_dw_clean_data/) | [Lab 3.1](labs/week_03_lab_01_student.md): operational tables → star schema · notebook [`week_03_lab_01_student.py`](labs/week_03_lab_01_student.py) |
+| 2 | ETL / ELT for data warehousing | [slides: ETL for DW](ETL/week03_slides_2_ETL_for_DW.md) · [ETL & ELT in pictures](ETL/resources/README.md) · demo: [`book_seller_basic_dw_messy_data/`](book_seller_basic_dw_messy_data/) | [Lab 3.2](labs/week_03_lab_02_student.md): ETL on messy sales data · notebook [`week_03_lab_02_student.py`](labs/week_03_lab_02_student.py) |
 
 ## 📂 What's in this folder
 
@@ -35,7 +35,7 @@ By the end of the week you can:
 | [`Data_Modeling/`](Data_Modeling/) | Data modeling and dimensional modeling: [overview](Data_Modeling/README.md) plus reading (PDF/pptx) |
 | [`resources/`](resources/) | OLTP vs OLAP · intro to DW & BI · [star schema tutorial](resources/5-star-schema-introduction/star_schema_tutorial_practical_guide.md) · [retail star schema demo](resources/6-demo_star_schema/) · complete ETL examples 3 and 4 (MySQL) |
 | [`ETL/`](ETL/) | ETL slides; [`resources/`](ETL/resources/) with many ETL examples (see below) |
-| [`slides_intro_to_DW/`](slides_intro_to_DW/) | Introduction to data warehousing (pptx and 28-page PDF) |
+| [`slides_intro_to_DW/`](slides_intro_to_DW/) | Introduction to data warehousing (pptx and 28-page PDF): **optional reading**, not covered in class |
 
 ### ETL examples (`ETL/resources/`)
 

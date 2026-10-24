@@ -1,8 +1,8 @@
 # Data Set Examples 
 
 * data must make sense for data warehousing
-* your data must span over years (2 to 5 years) 
-* with minimum of 1 to 10 million records
+* your data must span **2 to 5 years**
+* with at least **1 million rows** in your fact table
 
 ## sample data sets
 
@@ -45,6 +45,8 @@ TRIP ID,START TIME,STOP TIME,BIKE ID,TRIP DURATION,FROM STATION ID,FROM STATION 
 -------
 
 [6. City of Chicago, Taxi Trips](https://catalog.data.gov/dataset/taxi-trips-2024/resource/89b74374-dec6-473e-a143-8e7bb1dfa5b1)
+
+The portal publishes one file per year: download **at least 2 years** to meet the 2–5 year rule.
 
 ~~~
 Downloaded file name: Taxi_Trips__2024-_.csv

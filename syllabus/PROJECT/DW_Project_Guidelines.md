@@ -96,8 +96,8 @@ This project covers **30%** of your overall grade (see [Grading](../../course_in
 ## 4. Data
 
 * your data must make sense for data warehousing
-* your data must span over years (2 to 5 years) 
-* with minimum of 1 to 10 million records
+* your data must span **2 to 5 years**
+* with at least **1 million rows** in your fact table
 
 -------
 
@@ -107,7 +107,7 @@ This project covers **30%** of your overall grade (see [Grading](../../course_in
 
 2. How you will build a Data Warehouse 
 
-3. Database: DuckDB (as in the course) or your choice (must be able to hold at least 10 millions of records per table).
+3. Database: DuckDB (as in the course) or your choice (must handle your data: at least 1 million rows in the fact table).
 	* source database and files
 	* target database (where a data warehouse is built)
 
@@ -123,8 +123,8 @@ Components of your project should cover:
 
 3. Presentation of your project to the whole class 
 
-	* Presentation time: 15 to 20 minutes
-	* In week 10 (see [Deadlines](#2-deadlines))
+	* Presentation time: **10 minutes + 3 minutes of questions** per team
+	* In week 10, in **both** sessions (teams are assigned to a session; see [Deadlines](#2-deadlines))
 
 
 ## 7. Data Set Description

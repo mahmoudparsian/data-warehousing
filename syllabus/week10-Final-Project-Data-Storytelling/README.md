@@ -22,8 +22,8 @@ By the end of the week you can:
 
 | Session | Topic | Material | Lab (30 min) |
 |---|---|---|---|
-| 1 | Why DW + Medallion, KPIs, storytelling | [slides 1: KPIs & storytelling](week10_slides_1_kpis_and_storytelling.md) · [slides 2: story from Gold](week10_slides_2_story_from_gold.md) (Steps 1–4) | [Lab 10.1](labs/week_10_lab_01_student.md): the pizza shop's 2016 story · notebook `week_10_lab_01_student.py` |
-| 2 | Honest dashboards, the one-slide story · **final project presentations** | [slides 2](week10_slides_2_story_from_gold.md) (Steps 5–7 + checklist) · [project checklist (week 9)](../week09-End-to-End-Pipeline-and-Project-Workshop/project_workshop_checklist.md) | [Lab 10.2](labs/week_10_lab_02_student.md): KPI mart, Tableau, one slide · notebook `week_10_lab_02_student.py` |
+| 1 | Why DW + Medallion, KPIs, storytelling · **final project presentations (part 1)** | [slides 1: KPIs & storytelling](week10_slides_1_kpis_and_storytelling.md) · [slides 2: story from Gold](week10_slides_2_story_from_gold.md) (Steps 1–4) | [Lab 10.1](labs/week_10_lab_01_student.md): the pizza shop's 2016 story · notebook [`week_10_lab_01_student.py`](labs/week_10_lab_01_student.py) |
+| 2 | Honest dashboards, the one-slide story · **final project presentations (part 2)** | [slides 2](week10_slides_2_story_from_gold.md) (Steps 5–7 + checklist) · [project checklist (week 9)](../week09-End-to-End-Pipeline-and-Project-Workshop/project_workshop_checklist.md) | [Lab 10.2](labs/week_10_lab_02_student.md): KPI mart, Tableau, one slide · notebook [`week_10_lab_02_student.py`](labs/week_10_lab_02_student.py) |
 
 ## 📂 What's in this folder
 
@@ -35,6 +35,8 @@ By the end of the week you can:
 | [`insurance_infographic.jpg`](insurance_infographic.jpg) | An example of a one-page visual summary (infographic) |
 
 ## 🎤 Final project presentations
+
+In **both** sessions of week 10, after the lab: **10 minutes + 3 minutes of questions** per team (teams are assigned to a session in class).
 
 - Requirements and grading: [`../PROJECT/DW_Project_Guidelines.md`](../PROJECT/DW_Project_Guidelines.md)
 - Before you present, go through the **final-presentation checklist** at the end of [slides 2](week10_slides_2_story_from_gold.md),

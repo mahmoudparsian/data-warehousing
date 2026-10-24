@@ -27,8 +27,8 @@ By the end of the week you can:
 
 | Session | Topic | Material | Lab (30 min) |
 |---|---|---|---|
-| 1 | Why Medallion; Bronze → Silver → Gold with business rules | [slides](slides_and_notebook/week05_slides.md) · [Medallion in a nutshell](Medallion_Architecture_in_a_Nutshell.md) · [Classic DW vs Medallion](../week00-outline-and-TOC/week00_5_dw_vs_medallion_slides.md) · demo: [10-rows case study](case_study_10_rows/) | [Lab 5.1](labs/week_05_lab_01_student.md): 1,400 messy sales → 3 layers · notebook `week_05_lab_01_student.py` |
-| 2 | Medallion as a lakehouse: files, Parquet, partitions | [slides: lakehouse with DuckDB](slides_and_notebook/week05_slides_2_lakehouse_with_duckdb.md) · [From DW to lakehouse](lakehouse/introduction_to_lakehouse/1.From_DW_to_Lakehouse_DuckDB_Tutorial.md) · demo: [`lakehouse/examples/insurance_4_years/`](lakehouse/examples/insurance_4_years/) | [Lab 5.2](labs/week_05_lab_02_student.md): layers as Parquet files · notebook `week_05_lab_02_student.py` |
+| 1 | Why Medallion; Bronze → Silver → Gold with business rules | [slides](slides_and_notebook/week05_slides.md) · [Medallion in a nutshell](Medallion_Architecture_in_a_Nutshell.md) · [Classic DW vs Medallion](../week00-outline-and-TOC/week00_5_dw_vs_medallion_slides.md) · demo: [10-rows case study](case_study_10_rows/) | [Lab 5.1](labs/week_05_lab_01_student.md): 1,400 messy sales → 3 layers · notebook [`week_05_lab_01_student.py`](labs/week_05_lab_01_student.py) |
+| 2 | Medallion as a lakehouse: files, Parquet, partitions | [slides: lakehouse with DuckDB](slides_and_notebook/week05_slides_2_lakehouse_with_duckdb.md) · [From DW to lakehouse](lakehouse/introduction_to_lakehouse/1.From_DW_to_Lakehouse_DuckDB_Tutorial.md) · demo: [`lakehouse/examples/insurance_4_years/`](lakehouse/examples/insurance_4_years/) | [Lab 5.2](labs/week_05_lab_02_student.md): layers as Parquet files · notebook [`week_05_lab_02_student.py`](labs/week_05_lab_02_student.py) |
 
 ## 📂 What's in this folder
 
