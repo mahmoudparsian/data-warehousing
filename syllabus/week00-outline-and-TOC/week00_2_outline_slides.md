@@ -17,23 +17,21 @@ class: lead
 
 - Think like a data analyst
 
-- Connect SQL with LLMs and AI
+- Present findings with Tableau and Python charts
+
+- (Bonus) Connect SQL with LLMs and AI
 
 
 ---
 
 # 📅 Course Roadmap (Detailed)
 
-- Week 1 → SQL Foundations  
-- Week 2 → Analytical Thinking  
-- Week 3 → Data Warehousing  
-- Week 4 → ETL & OLAP  
-- Week 5 → Medallion Architecture  
-- Week 6 → Bronze Layer  
-- Week 7 → Silver Layer  
-- Week 8 → Gold Layer  
-- Week 9 → Pipelines  
-- Week 10 → Final Project  
+| Block | Weeks | Topic |
+|---|---|---|
+| A | 1–2 | SQL analytics review: foundations · analytical thinking & EDA |
+| B | 3–4 | Classic data warehousing & ETL · star schema & OLAP |
+| C | 5–8 | Medallion: introduction · Bronze · Silver · Gold & star schema |
+| D | 9–10 | End-to-end pipeline & project workshop · final project & storytelling |
 
 ---
 
@@ -75,7 +73,7 @@ GROUP BY region;
 
 ---
 
-# 📘 Week 2 — Analytical Thinking
+# 📘 Week 2 — Analytical Thinking & EDA
 
 - Aggregations + `HAVING`  
 
@@ -83,6 +81,8 @@ GROUP BY region;
 	- `ROW_NUMBER`, `RANK`, `DENSE_RANK`, ...
 	 
 - Top-N queries  
+
+- Exploratory data analysis (EDA) with SQL  
 
 - Business-driven SQL  
 
@@ -117,7 +117,45 @@ FROM sales;
 
 ---
 
-# 📘 Week 3 — Data Warehousing
+# 📘 Week 3 — Classic Data Warehousing & ETL
+
+- OLTP vs OLAP; Inmon vs Kimball  
+
+- ETL vs ELT  
+
+- Data cleaning  
+
+- Pipeline thinking  
+
+---
+
+# 📊 Week 3 — Example
+
+```sql
+SELECT LOWER(TRIM(region)), 
+       SUM(amount)
+FROM raw_sales
+GROUP BY LOWER(TRIM(region));
+```
+
+- Cleaning + aggregation  
+
+- ETL transformation  
+
+- Reporting query  
+
+- Data quality impact  
+
+### 👉 Business Insight:
+- Cleaning changes results significantly
+- Poor data → wrong decisions
+
+### 👉 Question to Students:
+- What happens if we skip cleaning?
+
+---
+
+# 📘 Week 4 — Star Schema & OLAP
 
 - Star schema 
  
@@ -125,11 +163,11 @@ FROM sales;
  
 - Analytical modeling  
 
-- OLAP queries  
+- OLAP: roll-up, drill-down, slice, dice  
 
 ---
 
-# 📊 Week 3 — Example
+# 📊 Week 4 — Example
 
 ```sql
 SELECT d.region, 
@@ -153,44 +191,6 @@ GROUP BY d.region;
 
 ### 👉 Question to Students:
 - Why separate fact and dimension tables?
-
----
-
-# 📘 Week 4 — ETL & OLAP
-
-- ETL vs ELT  
-
-- Data cleaning  
-
-- Roll-up / drill-down  
-
-- Pipeline thinking  
-
----
-
-# 📊 Week 4 — Example
-
-```sql
-SELECT LOWER(TRIM(region)), 
-       SUM(amount)
-FROM raw_sales
-GROUP BY LOWER(TRIM(region));
-```
-
-- Cleaning + aggregation  
-
-- ETL transformation  
-
-- OLAP query  
-
-- Data quality impact  
-
-### 👉 Business Insight:
-- Cleaning changes results significantly
-- Poor data → wrong decisions
-
-### 👉 Question to Students:
-- What happens if we skip cleaning?
 
 ---
 
@@ -232,15 +232,15 @@ GROUP BY region;
 
 ---
 
-# 📘 Week 6 — Bronze Layer
+# 📘 Week 6 — Bronze in Depth & Silver Cleaning
 
-- Raw ingestion  
+- Raw ingestion, lineage, new files arriving  
 
-- Handling messy data  
+- Schema drift between loads  
 
 - Data profiling  
 
-- Source of truth  
+- Silver cleaning: nulls, standardization, outliers, dedup  
 
 ---
 
@@ -268,11 +268,11 @@ FROM bronze_sales;
 
 ---
 
-# 📘 Week 7 — Silver Layer
+# 📘 Week 7 — Silver: Conformance & Integration
 
-- Cleaning  
+- Combining several sources  
 
-- Transformation  
+- Conforming codes, names and keys  
 
 - Validation  
 
@@ -305,13 +305,13 @@ WHERE TRY_CAST(amount AS DOUBLE) IS NOT NULL;
 
 ---
 
-# 📘 Week 8 — Gold Layer
+# 📘 Week 8 — Gold Layer & Star Schema
 
 - Aggregations
   
 - KPIs  
 
-- Reporting tables  
+- Star schema (facts + dimensions) in Gold  
 
 - Decision-ready data  
 
@@ -343,7 +343,7 @@ GROUP BY region;
 
 ---
 
-# 📘 Week 9 — Pipelines
+# 📘 Week 9 — End-to-End Pipeline & Project Workshop
 
 - End-to-end pipelines  
 
@@ -351,7 +351,7 @@ GROUP BY region;
 
 - Monitoring  
 
-- Performance optimization  
+- Project workshop: build your own pipeline  
 
 ---
 

@@ -1,0 +1,6 @@
+{
+    "user": "root",
+    "password": "YOUR_MYSQL_PASSWORD",
+    "host": "localhost",
+    "database": "movies_db"
+}

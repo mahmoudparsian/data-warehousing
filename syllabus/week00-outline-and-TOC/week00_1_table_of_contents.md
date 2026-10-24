@@ -1,6 +1,6 @@
 ---
 marp: true
-title: Course Structure — 3 Core Sections
+title: Course Structure — 3 Core Sections + Wrap-up
 paginate: true
 theme: default
 class: lead
@@ -13,11 +13,14 @@ class: lead
 - **Section 1 → SQL + Business Insight**
 	- weeks 1, 2
 	
-- **Section 2 → Classic Data Warehousing**  
-	- weeks 3, 4, 5, 6
+- **Section 2 → Classic Data Warehousing + Star Schema**  
+	- weeks 3, 4
 	
-- **Section 3 → Medallion Architecture** 
-	- weeks 7, 8, 9, 10
+- **Section 3 → Medallion Architecture + Star Schema** 
+	- weeks 5, 6, 7, 8
+
+- **Wrap-up → End-to-End Pipeline + Final Project** 
+	- weeks 9, 10
 
 👉 Goal: Build **end-to-end data thinking**
 
@@ -132,6 +135,20 @@ class: lead
 - Support dashboards and decision-making  
 
 👉 Insight: Architecture enables **scalable systems**
+
+---
+
+# 🏁 Wrap-up — Weeks 9 & 10
+
+- Week 9: build one pipeline end to end (Bronze → Silver → Gold → dashboard)
+
+- Week 9: project workshop (bring your dataset, get feedback)
+
+- Week 10: final project presentations and data storytelling
+
+- Dashboards in **Tableau** and **Python** charts
+
+👉 Outcome: Think like a **BI professional**
 
 ---
 

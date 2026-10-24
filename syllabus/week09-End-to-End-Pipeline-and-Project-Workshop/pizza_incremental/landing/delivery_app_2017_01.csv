@@ -1,0 +1,13 @@
+OrderRef,OrderedAt,Item,Size,Qty,UnitPrice
+DLV-2016-01783,2017-01-01T01:36:37Z,The Detroit Style Pizza,Large,1,$32.00
+DLV-2016-01783,2017-01-01T01:36:37Z,The Napolitana Pizza,Large,1,$20.50
+DLV-2016-01783,2017-01-01T01:36:37Z,The California Chicken Pizza,Medium,1,$16.75
+DLV-2016-02021,2017-01-01T01:40:14Z,Pepper Salami,Small,2,$12.50
+DLV-2016-02021,2017-01-01T01:40:14Z,The Mexicana Pizza,Large,2,$20.25
+DLV-2016-02159,2017-01-01T00:12:29Z,Calabrese,Large,2,$20.25
+DLV-2016-02159,2017-01-01T00:12:29Z,Pepper Salami,Small,1,$12.50
+DLV-2016-02159,2017-01-01T00:12:29Z,The Pepperoni Pizza,Large,1,$15.25
+DLV-2016-04668,2017-01-01T00:39:25Z,The Brie Carre Pizza,Small,1,$23.65
+DLV-2016-05176,2017-01-01T02:04:55Z,The Chicken Pesto Pizza,Large,3,$20.75
+DLV-2016-05176,2017-01-01T02:04:55Z,Pepperoni,Medium,2,$12.50
+DLV-2016-05978,2017-01-01T01:49:31Z,the calabrese pizza ,Large,1,$20.25

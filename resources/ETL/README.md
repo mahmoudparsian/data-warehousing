@@ -75,7 +75,7 @@
 
 4.1.0 [Create Parquet File by PySpark (as a data source)](./ETL_Parquet_Python_MySQL/create_parquet.py)
 
-4.1.1 [Create Parquet File by PySpark (log file)](./ETL_Parquet_Python_MySQL/create_parquet.py.log)
+4.1.1 [Create Parquet File by PySpark (log file)](./ETL_Parquet_Python_MySQL/create_parquet_output.txt)
 
 4.2 [ETL: 1. extract, 2. transform, and 3. load](./ETL_Parquet_Python_MySQL/etl_read_parquet_from_file_transform_and_load_to_mysql.py)
 
@@ -85,7 +85,7 @@
 
 5.1.0 [Create Parquet File by PySpark (as a data source)](./ETL_Parquet_Python_MySQL/create_parquet.py)
 
-5.1.1 [Create Parquet File by PySpark (log file)](./ETL_Parquet_Python_MySQL/create_parquet.py.log)
+5.1.1 [Create Parquet File by PySpark (log file)](./ETL_Parquet_Python_MySQL/create_parquet_output.txt)
 
 5.2 [ETL: 1. extract, 2. load, and 3. transform](./ETL_Parquet_Python_MySQL/elt_read_parquet_from_file_and_load_to_mysql_then_transform.py)
 

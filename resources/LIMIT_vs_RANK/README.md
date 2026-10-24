@@ -16,7 +16,7 @@ FRANCE  400
 Understand the clear difference between `LIMIT 2`
 and `RANK()` with `rnk <= 2`.
 
-## [View `limit_vs_rank.ipynb`](./limit_vs_rank.ipynb)
+## [View `limit_vs_rank.py`](./limit_vs_rank.py)
 
 The notebook walks through the key insight step by step:
 

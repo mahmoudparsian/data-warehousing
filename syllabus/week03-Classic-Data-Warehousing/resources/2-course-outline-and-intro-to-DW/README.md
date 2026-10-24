@@ -6,7 +6,7 @@
 
 * BI = Business Intelligence
 
-![](../README_DW_Inmon_Model.png)
+![](../../../../course_information/images/README_DW_Inmon_Model.png)
 
 
 ## What is Data Warehousing?

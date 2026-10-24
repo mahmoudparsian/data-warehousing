@@ -1,44 +1,19 @@
-Week 1 : Data Warehousing class: SQL Foundations
+# Example 1 — SQL Foundations on an Insurance Dataset
 
-consider the following dataset: insurance.csv
+Used in **Session 1** and in [Lab 1.1](../labs/week_01_lab_01_student.md).
 
-```
- % ls -l insurance.csv
--rw-r--r--@ 1 max  staff  55631 Mar 29 11:41 insurance.csv
+| File | What it is |
+|---|---|
+| `insurance.csv` | 1,338 customers: `age, gender, bmi, children, smoker, region, charges` |
+| [`insurance_metadata_description.md`](insurance_metadata_description.md) | What each column means |
+| `week1_sql_foundations.py` | 10 basic, 10 intermediate and 5 advanced queries, each with SQL, explanation, business insight and a plot |
+| [`week1_sql_foundations.marp.md`](week1_sql_foundations.marp.md) | Slide version (Marp) |
 
-% wc -l insurance.csv
-    1339 insurance.csv
-    
-week011-Foundations-SQL-for-Analytics (main) % head insurance.csv
-age,gender,bmi,children,smoker,region,charges
-19,female,27.9,0,yes,southwest,16884.924
-18,male,33.77,1,no,southeast,1725.5523
-28,male,33,3,no,southeast,4449.462
-33,male,22.705,0,no,northwest,21984.47061
-32,male,28.88,0,no,northwest,3866.8552
-31,female,25.74,0,no,southeast,3756.6216
-46,female,33.44,1,no,southeast,8240.5896
-37,female,27.74,3,no,northwest,7281.5056
-37,male,29.83,2,no,northeast,6406.4107
+Quick start (DuckDB CLI, run in this folder):
+
+```sql
+CREATE TABLE insurance AS SELECT * FROM read_csv_auto('insurance.csv');
+SELECT smoker, ROUND(AVG(charges), 2) AS avg_charges FROM insurance GROUP BY smoker;
 ```
 
-1. Provide Metadata Description:
-
-Give a description of every column as a bullet item
-
-deliver this as insurance_metadata_description.md file
-
-2. Use DuckDB and Jupyter Notebook to deliver "SQL Foundations":
-
-```
-Provide 10 basic, 10 intermediate, and 5 advanced queries
-
-For each query:
-
-a. Define the query: what problem this query is going to solve
-b. provide a solution in a nicely formatted SQL
-c. provide explanation of SQL solution
-d. give a business insight for the query/solution
-e. if possible provide a nice plot and explain the plot 
-   from business point of view
-```
+> One cell in the notebook contains an **intentional error** (a missing comma), so you can see what DuckDB's error messages look like.

@@ -1,39 +1,12 @@
-# GROUP BY Tutorial using DuckDB
+# Example 3 — GROUP BY Masterclass (1 million sales rows)
 
-1. Generate sales.csv for 1000,000 rows
+A generated sales table (`sales.csv`, ~1M rows, 2023–2025) with realistic skew:
+USA dominates, FEMALE:MALE ≈ 2:1, uneven product mix.
+Columns are described in [`sales_data_dictionary.md`](sales_data_dictionary.md).
 
-Columns are:
-
-```
-transation_date: as a timestamp spanning for 3 years: 2023, 2024, 2025
-product_name_ as: {TV, RADIO, TABLE, COMPUTER, BIKE, LAPTOP, WATCH, IPAD, EBIKE}
-price: based on product
-gender: MALE, FEMALE
-country: USA, CANADA, GERMANY, INDIA, CHINA, MEXICO, ITALY, FRANCE, SPAIN
-age: 18 to 70
-```
-
-Do not generate symmetric data, for example USA will have more sales than
-any other country, 
-
-The number of FEMALE will be 2 to 1
-
-Product sales should not be even based on product name
-
-2. Create a Notebook, which reads data,
-then
-2.1 create 10 cells: using "group by" 
-* Give a business insight to each query
-    -- monthly sales
-    -- yearly sales
-    -- sale by country
-    -- sale by gender
-    -- sale by age group
-    ...
-    
-2.2 create 5 top-N queries
-    * Give a business insight to each query
-    
-2.3 Add plotting for all queries
-
-
+| File | What it is | When |
+|---|---|---|
+| `EDA_sales_data.py` | Exploratory analysis through GROUP BY business questions | Week 1 |
+| `Window_Functions_Module.py` | Window functions: SQL + insight + plot | Preview, covered in **week 2** |
+| `Medallion_sales_data.py` | The same data in a Bronze → Silver → Gold pipeline | Preview, covered in **weeks 5–8** |
+| `generate_sales_data.py` | Script that generated `sales.csv` | — |

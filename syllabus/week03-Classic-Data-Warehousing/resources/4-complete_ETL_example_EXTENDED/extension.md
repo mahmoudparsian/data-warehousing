@@ -12,7 +12,7 @@ source database configuration:
 % cat db_config_source.json
 {
     "user": "root",
-    "password": "mp22pass",
+    "password": "YOUR_MYSQL_PASSWORD",
     "host": "localhost",
     "database": "scu_homeworks"
 }
@@ -22,7 +22,7 @@ target database configuration:
 % cat db_config_target.json
 {
     "user": "root",
-    "password": "mp22pass",
+    "password": "YOUR_MYSQL_PASSWORD",
     "host": "localhost",
     "database": "scu2_homeworks"
 }

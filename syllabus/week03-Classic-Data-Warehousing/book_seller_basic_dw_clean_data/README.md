@@ -125,51 +125,12 @@ city        TEXT
 	how many of each book is sold each day.
 ```
 
-# What to do:
+# Files
 
-1. create 2 downloadable CSV files:
+| File | What it is |
+|---|---|
+| `data/books.csv` | 100 books (operational table) |
+| `data/sales.csv` | 10,000 sales transactions, 2024–2025 (operational table) |
+| `book_seller_to_star_schema.py` | Demo: full ETL into `dim_book`, `dim_location`, `dim_date`, `dim_book_format`, `fact_sales`, plus validation and BI queries |
 
-1.1 data does not need to be messy for the 1st iteration
-
-1.2 sales table: 10,000 rows
-
-1.3 books table: 100 rows
-
-2. Show complete ETL --> Star Schema
-
-```
-You may use Python, DuckDB, Pandas, ...
-as a downloadable jupyter notebook
-```
-
-## Generated the files.
-
-```
-books.csv￼
-
-sales.csv￼
-
-book_seller_to_star_schema_poc.ipynb￼
-
-What I assumed for this first iteration:
-	•	Clean data, as requested
-	•	sales.csv has 10,000 rows
-	•	books.csv has 100 rows
-	•	The notebook uses Python + Pandas + DuckDB
-	•	The star schema includes:
-	•	   dim_book
-	•	   dim_location
-	•	   dim_date
-	•	   dim_book_format
-	•	   fact_sales
-
-The notebook includes:
-	•	loading the operational tables
-	•	explaining the transactional design
-	•	designing the star schema
-	•	full ETL into dimensions and fact table
-	•	validation checks
-	•	3 BI SQL queries
-	•	a few simple plots
-```
-
+Used in [Lab 3.1](../labs/week_03_lab_01_student.md).

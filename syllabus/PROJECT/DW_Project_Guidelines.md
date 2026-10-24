@@ -1,6 +1,6 @@
 # Data Warehousing Project 
 
-* Last updated date: 2/10/2026, 1:00 PM PST 
+* Winter Quarter 2027 (MSIS-2419) · dates marked **TBD** are set when the quarter's schedule is published
 
 		NOTE: This is a live document 
 		and will be updated on a daily basis.
@@ -24,24 +24,22 @@
 
 | Activity                      | Must be completed by/before      |
 |-------------------------------|----------------------------------| 
-| Team selection                | done                             |
-| Data selection                | done                             |
-| Exploratory Data Presentation | done                             |
-| Final Project Presentation    | March 3, 2026: Teams 1, 2, 3     |
-| Final Project Presentation    | March 5, 2026: Teams 4, 5        |
+| Team selection                | **TBD**                          |
+| Data selection                | **TBD**                          |
+| Exploratory Data Presentation | **TBD**                          |
+| Project workshop (in class)   | week 9                           |
+| Final Project Presentation    | week 10, **TBD** (teams assigned to the two sessions in class) |
 
 
 ## 3. Points
 
-This project covers 40% of your overall grade.
+This project covers **30%** of your overall grade (see [Grading](../../course_information/grading_and_class_conduct.md)).
 
-* 10% points: Exploratory Data Presentation
-
-* 10% points: Project Documentation
+* 10% points: Project Documentation and Exploratory Data Analysis (presentation)
 
 * 10% points: Project Implementation
 
-* 10% points: Final Project Presentation with Powerpoint and Tableau
+* 10% points: Final Project Presentation with slides and Tableau (or Python charts)
 
 
 ### 3.1 Data Exploration: 
@@ -109,7 +107,7 @@ This project covers 40% of your overall grade.
 
 2. How you will build a Data Warehouse 
 
-3. Database: MySQL or you choice (must be able to hold at least 10 millions of records per table).
+3. Database: DuckDB (as in the course) or your choice (must be able to hold at least 10 millions of records per table).
 	* source database and files
 	* target database (where a data warehouse is built)
 

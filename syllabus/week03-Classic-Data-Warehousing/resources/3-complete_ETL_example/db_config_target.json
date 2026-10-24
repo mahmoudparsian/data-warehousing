@@ -1,6 +1,6 @@
 {
     "user": "root",
-    "password": "mp22pass",
+    "password": "YOUR_MYSQL_PASSWORD",
     "host": "localhost",
     "database": "scu2_homeworks"
 }
