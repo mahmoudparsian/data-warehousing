@@ -1,11 +1,24 @@
-# MSIS-2419 — Business Intelligence and Data Warehousing
+<div align="center">
+
+# MSIS-2419 · Business Intelligence and Data Warehousing
 
 **Santa Clara University · Leavey School of Business**
+
 **Information Systems & Analytics — Graduate Program**
 
 ![Course: MSIS-2419](https://img.shields.io/badge/Course-MSIS--2419-862633) ![Level: Graduate](https://img.shields.io/badge/Level-Graduate-555555) ![Units: 4](https://img.shields.io/badge/Units-4-555555) ![Duration: 10 weeks, 20 sessions](https://img.shields.io/badge/Duration-10%20weeks%2C%2020%20sessions-555555) ![Quarter: Winter 2027](https://img.shields.io/badge/Quarter-Winter%202027-555555)
+
 [![SQL engine: DuckDB](https://img.shields.io/badge/SQL%20engine-DuckDB-FFF000?logo=duckdb&logoColor=black)](https://duckdb.org) [![Notebooks: Marimo](https://img.shields.io/badge/Notebooks-Marimo-1C7ED6)](https://marimo.io) [![Language: Python](https://img.shields.io/badge/Language-Python-3776AB?logo=python&logoColor=white)](https://www.python.org) [![BI: Tableau](https://img.shields.io/badge/BI-Tableau-E97627?logo=tableau&logoColor=white)](https://www.tableau.com)
+
 ![Architecture: Medallion](https://img.shields.io/badge/Architecture-Bronze%20%E2%86%92%20Silver%20%E2%86%92%20Gold-B87333) ![Modeling: Star schema](https://img.shields.io/badge/Modeling-Star%20schema%20%26%20OLAP-2E7D32) ![Labs: 20 in-class](https://img.shields.io/badge/Labs-20%20in--class-6A1B9A)
+
+**[📅 Syllabus](syllabus/README.md)** · **[⚙️ Week 0: setup](syllabus/week00-outline-and-TOC/)** · **[📘 Course info](course_information/course_info_and_desc.md)** · **[📊 Grading](course_information/grading_and_class_conduct.md)** · **[🗓️ Dates](course_information/class_meeting_dates_hours.md)** · **[🧑‍🤝‍🧑 Project](syllabus/PROJECT/README.md)**
+
+</div>
+
+---
+
+## Course at a Glance
 
 | | |
 |---|---|
@@ -17,31 +30,41 @@
 | **Prerequisites** | ISBA 2401 (Data Analytics with Python) and ISBA 2402 (Database Management Systems — Fundamentals of SQL) |
 | **Primary tools** | [DuckDB](https://duckdb.org) · [Marimo](https://marimo.io) notebooks · Python · [Tableau](https://www.tableau.com) |
 
+
 ---
 
 ## Contents
 
 1. [Course Description](#course-description)
-2. [Course Schedule](#course-schedule)
-3. [Grading at a Glance](#grading-at-a-glance)
-4. [Getting Started](#getting-started)
-5. [Repository Structure](#repository-structure)
-6. [Course Policies & Information](#course-policies--information)
-7. [Background: Data Warehousing in One Page](#background-data-warehousing-in-one-page)
+2. [What You Will Learn](#what-you-will-learn)
+3. [Course Schedule](#course-schedule)
+4. [Grading at a Glance](#grading-at-a-glance)
+5. [Getting Started](#getting-started)
+6. [Repository Structure](#repository-structure)
+7. [Course Policies & Information](#course-policies--information)
+8. [Background: Data Warehousing in One Page](#background-data-warehousing-in-one-page)
 
 ---
 
 ## Course Description
 
-From the [course catalog](https://www.scu.edu/business/isa/academics/courses/):
-
-*Introduces the business, technology, and managerial issues related to BI and DW solutions. Students will acquire practical skills in collecting business requirements, planning, defining, designing and developing a BI solution. Emphasis is placed on learning how to derive business value from BI and DW solutions. Hands-on experience will be obtained using a variety of BI tools.*
+> *Introduces the business, technology, and managerial issues related to BI and DW solutions. Students will acquire practical skills in collecting business requirements, planning, defining, designing and developing a BI solution. Emphasis is placed on learning how to derive business value from BI and DW solutions. Hands-on experience will be obtained using a variety of BI tools.*
+>
+> — [SCU course catalog](https://www.scu.edu/business/isa/academics/courses/)
 
 **What you will build.** Starting from SQL for analytics, you design star schemas and OLAP queries, then build a
-**Medallion** warehouse (Bronze → Silver → Gold) for one running case, a pizza shop: raw files with real problems,
-a second sales channel to conform, monthly incremental loads, a Gold star schema, KPIs, dashboards and a final data story.
-Every session ends with a **30-minute in-class lab**. In teams, you also build and present your own data warehouse
-([project](syllabus/PROJECT/DW_Project_Guidelines.md)).
+**Medallion** warehouse (Bronze → Silver → Gold) for one running case, a pizza shop. Every session ends with a
+**30-minute in-class lab**, and in teams of two you build and present your own data warehouse
+([project](syllabus/PROJECT/README.md)).
+
+**The running case, end to end (weeks 6–10):**
+
+```text
+ shop POS files ─┐
+                 ├─► 🟫 Bronze ─► ⚪ Silver ─► 🟡 Gold star schema ─► KPIs · marts · dashboard · data story
+ delivery app  ──┘   (as it      (clean,      (facts, dimensions,
+ (monthly files)      arrived)    conformed)   incremental loads)
+```
 
 **Why DuckDB and Marimo?** DuckDB is an analytical database that runs inside Python with no server to install, so class time
 goes to SQL and design, not setup. Every notebook in the course (lectures and labs) is a [Marimo](https://marimo.io) notebook:
@@ -52,7 +75,20 @@ import duckdb
 duckdb.sql("SELECT 'Hello, data warehouse!' AS greeting").show()
 ```
 
-More: [Course information & learning outcomes](course_information/course_info_and_desc.md).
+---
+
+## What You Will Learn
+
+| | By the end of the course, you can … |
+|:---:|---|
+| 🧮 | Translate business questions into analytical SQL (aggregation, `CASE`, window functions) and explain the results |
+| 🔍 | Profile a dataset (EDA) and turn its problems into explicit data-quality rules |
+| ⭐ | Design a star schema: grain, facts, dimensions, surrogate keys, slowly changing dimensions |
+| 🏗️ | Build traceable ETL / ELT and **Medallion** pipelines (Bronze, Silver, Gold) that reconcile every row |
+| 🔗 | Conform and integrate several sources; load data incrementally, handle late data and corrections, and prove the result |
+| 📊 | Write OLAP queries, define KPIs correctly, build data marts and dashboards, and present a data story |
+
+All ten learning outcomes: [Course information](course_information/course_info_and_desc.md).
 
 ---
 
@@ -162,117 +198,64 @@ All pages are in [`course_information/`](course_information/).
 ## Background: Data Warehousing in One Page
 
 <details>
-<summary>
+<summary><b>What is a database?</b></summary>
 
-## What is a Database? 
+<br>
 
-</summary>
-
->  the DATABASE helps to perform the **fundamental operation of business**:
-> 
-* keep customer records
-* product records
-* transactions, 
-* patient profile records
-* patient DNA samples,
-* ...
+A **database** supports the **day-to-day operations of a business**: it keeps customer records, product records,
+transactions, patient profiles, lab samples, and so on.
 
 </details>
-
 
 <details>
-<summary>
+<summary><b>What is a data warehouse?</b></summary>
 
-## What is a Data Warehouse?
+<br>
 
-</summary>
+A **data warehouse** helps you **analyze your business**. At its core, it is a centralized, read-optimized system built
+for querying, reporting and analytics. It is where business data goes after it has been cleaned, structured and
+denormalized for performance, and it usually keeps **years** of history.
 
->  the DATA WAREHOUSE helps you to **analyze your business**.
+Operational databases are built for transactions (fast inserts, updates and deletes). A warehouse is built for
+**OLAP** (online analytical processing): aggregations, joins, historical trends, and heavy read-only queries.
 
 </details>
-
-
-
 
 <details>
-<summary>
+<summary><b>What is data warehousing?</b></summary>
 
-## What does a Data Warehouse look like?
+<br>
 
-</summary>
+**Data warehousing (DW)** is the practice of gathering data from many sources and integrating it to answer business
+questions. The data warehouse is the foundation of a **business intelligence (BI)** system, which analyzes and reports on that data.
 
-		Where do you store a petabyte of data for  
-		business intelligence?  A  data warehouse, 
-		that’s where. Data spans for 2+ years...
-		
-		At  its  core, a   Data  Warehouse  is  a 
-		centralized, read-optimized system designed 
-		specifically for querying, reporting,  and 
-		analytics. It’s where  your business  data 
-		goes  after it’s  been cleaned, structured,  
-		and denormalized for performance. 
-		
-		Unlike operational databases that are built 
-		for transactions —  fast  inserts,  updates, 
-		deletes — a warehouse is built for OLAP (online 
-		analytical processing): aggregations, joins, 
-		historical trends, and slow-but-heavy queries.
-		
 </details>
-
 
 <details>
-<summary>
+<summary><b>Skills you will develop</b></summary>
 
-## What is Data Warehousing?
+<br>
 
-</summary>
-
-		Data  warehousing (DW) is a technique 
-		of gathering and  analyzing data from 
-		many sources to get valuable business 
-		insights. Typically, a data warehouse 
-		integrates and analyzes business data 
-		from many sources. 	
-			
-		The data  warehouse  is the  basis of 
-		the business intelligence (BI) system, 
-		which can analyze and report on data.
+Derive insights from data by building analytical, managerial and technical skills: from SQL and data modeling,
+through data pipelines, to dashboards and a business recommendation.
 
 </details>
 
+<table>
+<tr>
+<td align="center" width="50%"><b>Classic data warehousing</b><br><br><img src="course_information/images/data_warehouse_image.png" alt="Classic data warehouse architecture"></td>
+<td align="center" width="50%"><b>Medallion architecture</b><br><br><img src="course_information/images/medallion_architecture.webp" alt="Medallion architecture: Bronze, Silver, Gold"></td>
+</tr>
+</table>
 
-<details>
-<summary>
-
-## Skills you will develop: 
-
-</summary>
-
-
-		Derive insights from data by 
-		building analytical, managerial 
-		and baseline technical skills.
-
-</details>
-
----
-## Classic Data Warehousing
-
-![](./course_information/images/data_warehouse_image.png)
+<p align="center"><b>An example Medallion pipeline</b><br><br><img src="course_information/images/medallion_architecture_example.png" alt="Example Medallion architecture" width="85%"></p>
 
 ---
 
-## Medallion Architecture Data Warehousing
+<div align="center">
 
-![](./course_information/images/medallion_architecture.webp)
+**MSIS-2419 · Business Intelligence and Data Warehousing** · Department of Information Systems & Analytics · Santa Clara University
 
----------
+Instructor: [Dr. Mahmoud Parsian](https://www.scu.edu/business/isa/faculty/parsian/) · [Syllabus](syllabus/README.md) · [Course information](course_information/)
 
-## Example Medallion Architecture
-
-![](./course_information/images/medallion_architecture_example.png)
-
----
-
-*MSIS-2419 · Department of Information Systems & Analytics · Santa Clara University · Instructor: [Dr. Mahmoud Parsian](https://www.scu.edu/business/isa/faculty/parsian/)*
+</div>
