@@ -36,19 +36,22 @@ Component                                         | %  |  %  |
 `2.3`  Project presentation                       |    | 10  |
 `3.` Midterm Exam                                 | 10 |     |
 `4.` Final Exam                                   | 20 |     |
-`5.` Bonus (for exceptional work)                 |  2 |     |
 **Total**                                         | 100|     |
+`5.` Bonus (for exceptional work) — extra credit, added on top of the 100 | up to +2 |     |
 
 **In-class labs:** 30 minutes each, done **in class** (a lab sheet and a Marimo notebook, released at the start of the session).
 Submit your work as instructed in class. Project details: [Project guidelines](../syllabus/PROJECT/DW_Project_Guidelines.md).
+
+**Bonus:** up to 2 extra percentage points for exceptional work, added to your
+course percentage (so the maximum is 102%). Any percentage of 94 or higher,
+including above 100, is an A.
 
 
 ## Letter Grade Distribution:
 
 Letter Grade | Percentage Points | Scale of 1 to 4
 -------------| ------------------|----------------
-A+           | 100 – 97          | 4.0
-A            | 96.9 – 94         | 4.0
+A            | 94 and above      | 4.0
 A-           | 93.9 – 90         | 3.7
 B+           | 89.9 – 87         | 3.3
 B            | 86.9 – 83         | 3.0
@@ -61,14 +64,17 @@ D            | 66.9 – 63         | 1.0
 D-           | 62.9 – 60         | 0.7
 F            | Below 60          | 0.0
 
+Your course percentage is rounded to the nearest tenth (one decimal place)
+before this table is applied: 93.95 → 94.0 → A; 93.94 → 93.9 → A-.
+
 
 
 ## Course Policies
 
 ### General
 
-* Quizzes and exams are closed book, closed notes
-* No makeup quizzes or exams will be given
+* The midterm and final exams are closed book, closed notes, closed software
+* No makeup exams will be given
 * Grades in the C range represent performance that meets expectations
 * Grades in the B range represent performance that is substantially better
   than the expectations

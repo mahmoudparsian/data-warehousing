@@ -132,7 +132,7 @@ Optional: [Bonus — LLM + SQL integration](syllabus/bonus-LLM-SQL-Integration/)
 | **Project** — documentation & EDA 10 · implementation 10 · presentation 10 | 30 |
 | **Midterm exam** — closed book, lock-down browser | 10 |
 | **Final exam** — closed book, lock-down browser | 20 |
-| **Bonus** — exceptional work | 2 |
+| **Bonus** — exceptional work, extra credit on top of the 100 | up to +2 |
 
 Full policy: [Grading and class conduct](course_information/grading_and_class_conduct.md) · [Academic integrity](course_information/academic_integrity.md).
 
