@@ -48,13 +48,15 @@ If not installed:
 # 🍎 Mac — Install DuckDB
 
 ```bash
-pip3 install duckdb
+pip3 install "duckdb>=2.0"
 ```
 
 Verify:
 ```bash
 python3 -c "import duckdb; print(duckdb.__version__)"
 ```
+
+It must print **2.0** or newer.
 
 ---
 
@@ -99,13 +101,15 @@ python --version
 # 🪟 Windows — Install DuckDB
 
 ```bash
-pip install duckdb
+pip install "duckdb>=2.0"
 ```
 
 Verify:
 ```bash
 python -c "import duckdb; print(duckdb.__version__)"
 ```
+
+It must print **2.0** or newer.
 
 ---
 
@@ -150,7 +154,7 @@ SELECT 1;
 ### Problem 1 — pip not found
 Fix:
 ```
-python -m pip install duckdb
+python -m pip install "duckdb>=2.0"
 ```
 
 ---
@@ -159,7 +163,7 @@ python -m pip install duckdb
 
 Mac:
 ```
-pip3 install --user duckdb
+pip3 install --user "duckdb>=2.0"
 ```
 
 Windows:
@@ -171,7 +175,7 @@ Run terminal as Administrator
 
 Use:
 ```
-python3 -m pip install duckdb
+python3 -m pip install "duckdb>=2.0"
 ```
 
 ---

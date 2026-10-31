@@ -5,7 +5,7 @@
 #   step 3: movies_dw.duckdb   --> 20 OLAP queries
 #
 # Usage (from this folder):
-#     pip install duckdb
+#     pip install "duckdb>=2.0"
 #     python3 run_pipeline.py
 #
 # Why one program? A database file written by a NEWER DuckDB cannot be opened

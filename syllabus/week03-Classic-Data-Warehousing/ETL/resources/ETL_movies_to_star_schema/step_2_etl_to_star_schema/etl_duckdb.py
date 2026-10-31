@@ -6,7 +6,7 @@
 #     sys.argv[1] = source: the transactional database built in step 1
 #     sys.argv[2] = target: the star-schema database (created / replaced)
 #
-# Requirements:  pip install duckdb
+# Requirements:  pip install "duckdb>=2.0"
 #
 # Star schema (see star_schema.drawio.png):
 #

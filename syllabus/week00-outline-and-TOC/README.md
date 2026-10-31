@@ -32,14 +32,15 @@ Project guidelines: [`../PROJECT/`](../PROJECT/)
 
 | Tool | Used for | Install |
 |---|---|---|
-| **DuckDB** | The database for the whole course | [duckdb.org/docs/installation](https://duckdb.org/docs/installation/) (CLI) |
-| **Python 3.11+** | All notebooks (they are Marimo notebooks: `.py` files) | `pip install duckdb pandas matplotlib seaborn` |
+| **DuckDB 2.0+** | The database for the whole course | [duckdb.org/docs/installation](https://duckdb.org/docs/installation/) (CLI, version 2.0 or newer) |
+| **Python 3.11+** | All notebooks (they are Marimo notebooks: `.py` files) | `pip install "duckdb>=2.0" pandas matplotlib seaborn` |
 | **Marimo** | The course notebooks (`.py`) and the in-class **lab notebooks** (`week_NN_lab_0X_student.py` in each `labs/` folder) | `pip install marimo`, then `marimo edit week_01_lab_01_student.py` from the lab's folder |
 | **EDA extras** | Excel files, statistics and interactive charts in the week 2 EDA examples | `pip install openpyxl scipy plotly` |
 | **Tableau** | Dashboards (from week 4 on) | Tableau Desktop / Public, free with a student license |
 
 > ⚠️ **Keep one DuckDB version.** A `.duckdb` *file* written by a newer DuckDB can't be opened by an older one.
-> Check that `duckdb --version` (CLI) and `python3 -c "import duckdb; print(duckdb.__version__)"` match.
+> Check that `duckdb --version` (CLI) and `python3 -c "import duckdb; print(duckdb.__version__)"` match and both start with **2.**
+> (if Python shows `1.x`, run `pip install --upgrade "duckdb>=2.0"`; on a Mac, `brew upgrade duckdb` for the CLI).
 > This matters for the labs that use a database file (Lab 4.2 and weeks 6–10) if you open the same file from both the DuckDB CLI and a notebook.
 
 Check your setup by running [`week00_3_demo_notebook.py`](week00_3_demo_notebook.py) with `marimo edit week00_3_demo_notebook.py` (from this folder): it needs no data files.

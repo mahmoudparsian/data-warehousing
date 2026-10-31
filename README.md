@@ -142,7 +142,7 @@ Full policy: [Grading and class conduct](course_information/grading_and_class_co
 
 1. Install the tools ([details](course_information/required_software.md)):
    ```bash
-   pip install duckdb pandas matplotlib seaborn marimo
+   pip install "duckdb>=2.0" pandas matplotlib seaborn marimo
    ```
 2. Clone this repository, then check your setup with the week 0 demo notebook:
    ```bash

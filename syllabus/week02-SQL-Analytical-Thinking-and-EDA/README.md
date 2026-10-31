@@ -38,7 +38,7 @@ By the end of the week you can:
 
 ## ⚙️ Setup
 
-Same as week 1, plus `seaborn` for `EDA/2.EDA_basic.py`: `pip install duckdb pandas matplotlib seaborn marimo`
+Same as week 1, plus `seaborn` for `EDA/2.EDA_basic.py`: `pip install "duckdb>=2.0" pandas matplotlib seaborn marimo`
 (extras for the more-examples notebooks: `openpyxl scipy plotly`; see [Required software](../../course_information/required_software.md)).
 Open each Marimo notebook from its own folder (`marimo edit <notebook>.py`): they use relative paths.
 

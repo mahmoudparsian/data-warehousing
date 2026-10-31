@@ -5,14 +5,16 @@ Step-by-step setup (and a notebook to check it): [Week 0: Software setup](../syl
 ------
 ## 1. [DuckDB](https://duckdb.org/docs/installation/)
 
-* The database for the whole course: the CLI (`duckdb`) and the Python package (`pip install duckdb`)
+* The database for the whole course: the CLI (`duckdb`) and the Python package (`pip install "duckdb>=2.0"`)
+* **DuckDB 2.0 or newer** for both (it needs Python 3.11+): `duckdb --version` and
+  `python3 -c "import duckdb; print(duckdb.__version__)"` must both start with **2.**
 * Keep **one DuckDB version** for the CLI and Python: a database file written by a newer version can't be opened by an older one
 
 ------
 
 ## 2. [Python](https://www.python.org) 3.11+
 
-* `pip install duckdb pandas matplotlib seaborn`
+* `pip install "duckdb>=2.0" pandas matplotlib seaborn`
 * Extras for the week 2 EDA examples: `pip install openpyxl scipy plotly`
 
 ------

@@ -16,7 +16,7 @@ CSV files ──step 1──▶ movies_db.duckdb ──step 2: ETL──▶ movi
 ## ▶️ Run it (about 2 seconds)
 
 ```bash
-pip install duckdb
+pip install "duckdb>=2.0"
 python3 run_pipeline.py
 ```
 
