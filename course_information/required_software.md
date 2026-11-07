@@ -22,7 +22,7 @@ Step-by-step setup (and a notebook to check it): [Week 0: Software setup](../syl
 ## 3. [Marimo](https://marimo.io) notebooks
 
 * All course notebooks and the in-class lab notebooks are Marimo notebooks (`.py` files)
-* `pip install marimo`, then `marimo edit <notebook>.py` from the notebook's folder
+* `pip install marimo sqlglot` (`sqlglot` runs the SQL cells), then `marimo edit <notebook>.py` from the notebook's folder
 
 ------
 

@@ -1,6 +1,6 @@
-## Instructor, Adjunct Professor: Mahmoud Parsian
+## Instructor, Assistant Teaching Professor: Mahmoud Parsian
 
-* [Mahmoud Parsian, Adjunct Professor at Santa Clara University](https://www.scu.edu/business/isa/faculty/parsian/)
+* [Mahmoud Parsian, Assistant Teaching Professor at Santa Clara University](https://www.scu.edu/business/isa/faculty/parsian/)
 
 * [Ph.D in Computer Science, LinkedIn Profile](https://www.linkedin.com/in/mahmoudparsian/)
 

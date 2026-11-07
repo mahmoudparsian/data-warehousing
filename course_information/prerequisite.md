@@ -1,6 +1,6 @@
 # Prerequisites Description
 
-**Catalog prerequisites:** ISBA 2401 (Data Analytics with Python) and ISBA 2402 (Database Management Systems — Fundamentals of SQL).
+**Catalog prerequisites:** ISBA 2401 (Data Analytics with Python) and ISBA 2402 / MSIS-2402 (Database Management Systems — Fundamentals of SQL).
 
 In order to succeed in this class, you need to know the following.
 

@@ -27,7 +27,7 @@
 | **Quarter** | Winter 2027 (January–March) · [dates & hours](course_information/class_meeting_dates_hours.md) |
 | **Instructor** | [Dr. Mahmoud Parsian](https://www.scu.edu/business/isa/faculty/parsian/) |
 | **Teaching assistant** | to be announced |
-| **Prerequisites** | ISBA 2401 (Data Analytics with Python) and ISBA 2402 (Database Management Systems — Fundamentals of SQL) |
+| **Prerequisites** | ISBA 2401 (Data Analytics with Python) and ISBA 2402 / MSIS-2402 (Database Management Systems — Fundamentals of SQL) |
 | **Primary tools** | [DuckDB](https://duckdb.org) · [Marimo](https://marimo.io) notebooks · Python · [Tableau](https://www.tableau.com) |
 
 
@@ -142,7 +142,7 @@ Full policy: [Grading and class conduct](course_information/grading_and_class_co
 
 1. Install the tools ([details](course_information/required_software.md)):
    ```bash
-   pip install "duckdb>=2.0" pandas matplotlib seaborn marimo
+   pip install "duckdb>=2.0" pandas matplotlib seaborn marimo sqlglot
    ```
 2. Clone this repository, then check your setup with the week 0 demo notebook:
    ```bash

@@ -34,7 +34,7 @@ Project guidelines: [`../PROJECT/`](../PROJECT/)
 |---|---|---|
 | **DuckDB 2.0+** | The database for the whole course | [duckdb.org/docs/installation](https://duckdb.org/docs/installation/) (CLI, version 2.0 or newer) |
 | **Python 3.11+** | All notebooks (they are Marimo notebooks: `.py` files) | `pip install "duckdb>=2.0" pandas matplotlib seaborn` |
-| **Marimo** | The course notebooks (`.py`) and the in-class **lab notebooks** (`week_NN_lab_0X_student.py` in each `labs/` folder) | `pip install marimo`, then `marimo edit week_01_lab_01_student.py` from the lab's folder |
+| **Marimo** | The course notebooks (`.py`) and the in-class **lab notebooks** (`week_NN_lab_0X_student.py` in each `labs/` folder) | `pip install marimo sqlglot`, then `marimo edit week_01_lab_01_student.py` from the lab's folder |
 | **EDA extras** | Excel files, statistics and interactive charts in the week 2 EDA examples | `pip install openpyxl scipy plotly` |
 | **Tableau** | Dashboards (from week 4 on) | Tableau Desktop / Public, free with a student license |
 

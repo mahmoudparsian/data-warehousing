@@ -22,7 +22,7 @@ applies, and the instructor will correct this page.
 | **Format** | 10 weeks · 20 sessions (2 per week) · 100 minutes per session, each with a 30-minute in-class lab |
 | **Meetings** | *To be announced on Camino* <!-- TODO(syllabus): days and times --> |
 | **Classroom** | *To be announced on Camino* <!-- TODO(syllabus): room --> |
-| **Prerequisites** | ISBA 2401 (Data Analytics with Python) and ISBA 2402 (Database Management Systems — Fundamentals of SQL) — see [Prerequisites](prerequisite.md) |
+| **Prerequisites** | ISBA 2401 (Data Analytics with Python) and ISBA 2402 / MSIS-2402 (Database Management Systems — Fundamentals of SQL) — see [Prerequisites](prerequisite.md) |
 | **Learning management system** | Camino (Canvas) — announcements, Discussions, gradebook |
 | **Course materials** | Course repository: <https://github.com/mahmoudparsian/data-warehousing> |
 

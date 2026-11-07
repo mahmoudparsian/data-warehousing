@@ -6,7 +6,7 @@
 
 **Catalog:** 4 units · graduate · 10 weeks, 2 sessions per week (100 minutes each).
 *Introduces the business, technology, and managerial issues related to BI and DW solutions. Students will acquire practical skills in collecting business requirements, planning, defining, designing and developing a BI solution. Emphasis is placed on learning how to derive business value from BI and DW solutions. Hands-on experience will be obtained using a variety of BI tools.*
-**Prerequisites:** ISBA 2401 (Data Analytics with Python) and ISBA 2402 (Database Management Systems — Fundamentals of SQL). See [Prerequisites](prerequisite.md).
+**Prerequisites:** ISBA 2401 (Data Analytics with Python) and ISBA 2402 / MSIS-2402 (Database Management Systems — Fundamentals of SQL). See [Prerequisites](prerequisite.md).
 
 
 1. A data warehouse is a
