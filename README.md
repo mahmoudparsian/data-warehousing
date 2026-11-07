@@ -12,7 +12,7 @@
 
 ![Architecture: Medallion](https://img.shields.io/badge/Architecture-Bronze%20%E2%86%92%20Silver%20%E2%86%92%20Gold-B87333) ![Modeling: Star schema](https://img.shields.io/badge/Modeling-Star%20schema%20%26%20OLAP-2E7D32) ![Labs: 20 in-class](https://img.shields.io/badge/Labs-20%20in--class-6A1B9A)
 
-**[📅 Syllabus](syllabus/README.md)** · **[⚙️ Week 0: setup](syllabus/week00-outline-and-TOC/)** · **[📘 Course info](course_information/course_info_and_desc.md)** · **[📊 Grading](course_information/grading_and_class_conduct.md)** · **[🗓️ Dates](course_information/class_meeting_dates_hours.md)** · **[🧑‍🤝‍🧑 Project](syllabus/PROJECT/README.md)**
+**[📄 Course syllabus](course_information/SYLLABUS.md)** ([PDF](course_information/SYLLABUS.pdf)) · **[📅 Weekly schedule](syllabus/README.md)** · **[⚙️ Week 0: setup](syllabus/week00-outline-and-TOC/)** · **[📘 Course info](course_information/course_info_and_desc.md)** · **[📊 Grading](course_information/grading_and_class_conduct.md)** · **[🗓️ Dates](course_information/class_meeting_dates_hours.md)** · **[🧑‍🤝‍🧑 Project](syllabus/PROJECT/README.md)**
 
 </div>
 
