@@ -1,0 +1,67 @@
+# Rebuild the one-ZIP-per-week downloads after every push that touches syllabus/,
+# and attach them to the "weekly-zips" GitHub Release. Students download from links like:
+#   https://github.com/<owner>/<repo>/releases/download/weekly-zips/week03-Classic-Data-Warehousing.zip
+# Generic: the same file runs in mahmoudparsian/data-warehousing (MSIS-2419) and mahmoudparsian/OMIS-113.
+name: Build week ZIPs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "syllabus/**"
+      - ".github/scripts/build_week_zips.py"
+      - ".github/workflows/week-zips.yml"
+  workflow_dispatch:   # adds a "Run workflow" button on the Actions tab
+
+permissions:
+  contents: write      # needed to create/update the release
+
+concurrency:
+  group: week-zips
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build one ZIP per syllabus folder
+        run: python3 .github/scripts/build_week_zips.py dist
+
+      - name: Upload ZIPs to the "weekly-zips" release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh release view weekly-zips >/dev/null 2>&1; then
+            gh release create weekly-zips \
+              --title "Weekly folders (ZIP downloads)" \
+              --notes "Created by the Build week ZIPs workflow." \
+              --latest=false
+          fi
+          gh release upload weekly-zips dist/*.zip --clobber
+
+          # Delete ZIPs for folders that were renamed or removed, so an old
+          # link fails instead of serving an out-of-date folder.
+          for asset in $(gh release view weekly-zips --json assets --jq '.assets[].name'); do
+            if [ ! -f "dist/$asset" ]; then
+              echo "deleting stale asset $asset"
+              gh release delete-asset weekly-zips "$asset" --yes
+            fi
+          done
+
+          # GitHub always adds "Source code (zip/tar.gz)" to a release and builds them
+          # from the tag's commit. Move the tag to this commit so those stay current too.
+          git tag -f weekly-zips "$GITHUB_SHA"
+          git push -f origin refs/tags/weekly-zips
+
+          cat > notes.md <<NOTES
+          ⬇️ **Download one of the \`weekNN-….zip\` files below** (one per week; \`bonus-…\` and \`PROJECT\` too).
+
+          Ignore "Source code (zip)" and "Source code (tar.gz)". GitHub adds those automatically, and they hold the whole repository.
+
+          Each ZIP keeps the course's folder layout (\`syllabus/weekNN-…/\`) and also holds the data from earlier weeks that its notebooks and labs read. A week's labs appear in its ZIP once they are released in class.
+
+          Last updated: $(date -u '+%Y-%m-%d %H:%M UTC') from commit ${GITHUB_SHA::7}.
+          NOTES
+          gh release edit weekly-zips --notes-file notes.md

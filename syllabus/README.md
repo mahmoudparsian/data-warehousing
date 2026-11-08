@@ -7,6 +7,8 @@ Labs are released in class (lab sheet + Marimo notebook in each week's `labs/` f
 
 Start here: [Week 0 — Course outline & software setup](week00-outline-and-TOC/README.md)
 
+No git? [Download a week as one ZIP file](../course_information/DOWNLOADING_COURSE_FILES.md) (its data and, once released, its labs included).
+
 ## 📅 Weekly schedule
 
 | Week | Session 1 · Lab | Session 2 · Lab |

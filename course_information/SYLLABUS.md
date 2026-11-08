@@ -24,7 +24,7 @@ applies, and the instructor will correct this page.
 | **Classroom** | *To be announced on Camino* <!-- TODO(syllabus): room --> |
 | **Prerequisites** | ISBA 2401 (Data Analytics with Python) and ISBA 2402 / MSIS-2402 (Database Management Systems — Fundamentals of SQL) — see [Prerequisites](prerequisite.md) |
 | **Learning management system** | Camino (Canvas) — announcements, Discussions, gradebook |
-| **Course materials** | Course repository: <https://github.com/mahmoudparsian/data-warehousing> |
+| **Course materials** | Course repository: <https://github.com/mahmoudparsian/data-warehousing> — or one ZIP per week ([`DOWNLOADING_COURSE_FILES.md`](DOWNLOADING_COURSE_FILES.md)) |
 
 ### Instructor
 
@@ -247,6 +247,7 @@ share your accommodation letter with the instructor.
 |---|---|
 | [`course_info_and_desc.md`](course_info_and_desc.md) | Course information, description, learning outcomes |
 | [`class_meeting_dates_hours.md`](class_meeting_dates_hours.md) | All quarter dates in one place |
+| [`DOWNLOADING_COURSE_FILES.md`](DOWNLOADING_COURSE_FILES.md) | One ZIP per week, no git needed |
 | [`grading_and_class_conduct.md`](grading_and_class_conduct.md) | Grading, letter grades, course policies |
 | [`midterm_exam.md`](midterm_exam.md) · [`final_exam.md`](final_exam.md) | The exams |
 | [`office_hours.md`](office_hours.md) | Office hours and how to ask questions |
