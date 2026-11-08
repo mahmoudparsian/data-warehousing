@@ -34,6 +34,7 @@ Replace username, password, host, port, database with
 your corresponding values.
 """
 
+import os
 import sys
 import json
 import pandas as pd
@@ -47,7 +48,9 @@ def read_json(json_config_file):
     with open(json_config_file) as f:
         # Load the JSON data into a Python dictionary
         config_as_dict = json.load(f)
-        return config_as_dict
+    # the password is not stored in the JSON file: it comes from the MYSQL_PASSWORD environment variable
+    config_as_dict["password"] = os.environ.get("MYSQL_PASSWORD", "")
+    return config_as_dict
 #end-def
 #-----------------------------------------
 #
@@ -85,7 +88,7 @@ print("excel_file_name=", excel_file_name)
 db_config_file = sys.argv[2]
 
 db_config = read_json(db_config_file)
-print("db_config=", db_config)
+print("db_config=", {k: v for k, v in db_config.items() if k != "password"})
 
 
 # create Excel file as an excel_file object

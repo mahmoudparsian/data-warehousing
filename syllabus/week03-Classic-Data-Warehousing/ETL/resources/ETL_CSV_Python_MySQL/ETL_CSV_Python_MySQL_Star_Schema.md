@@ -93,13 +93,14 @@ date_dimension = pd.DataFrame({
 We will use the `mysql-connector-python` library to connect to the MySQL database.
 
 ```python
+import os
 import mysql.connector
 
 # Connect to MySQL
 conn = mysql.connector.connect(
     host='localhost',
     user='your_username',
-    password='your_password',
+    password=os.environ.get("MYSQL_PASSWORD", ""),
     database='your_database'
 )
 cursor = conn.cursor()
@@ -216,6 +217,7 @@ conn.close()
 Here is the complete code example for the ETL process:
 
 ```python
+import os
 import pandas as pd
 import mysql.connector
 
@@ -251,7 +253,7 @@ date_dimension = pd.DataFrame({
 conn = mysql.connector.connect(
     host='localhost',
     user='your_username',
-    password='your_password',
+    password=os.environ.get("MYSQL_PASSWORD", ""),
     database='your_database'
 )
 cursor = conn.cursor()
@@ -364,7 +366,9 @@ def read_json(json_config_file):
     with open(json_config_file) as f:
         # Load the JSON data into a Python dictionary
         config_as_dict = json.load(f)
-        return config_as_dict
+    # the password is not stored in the JSON file: it comes from the MYSQL_PASSWORD environment variable
+    config_as_dict["password"] = os.environ.get("MYSQL_PASSWORD", "")
+    return config_as_dict
 #end-def
 #-----------------------------------------
 
@@ -379,10 +383,10 @@ db_config_source_file = sys.argv[1]
 db_config_target_file = sys.argv[2]
 
 source_db_config = read_json(db_config_source_file)
-print("source_db_config=", source_db_config)
+print("source_db_config=", {k: v for k, v in source_db_config.items() if k != "password"})
 
 target_db_config = read_json(db_config_target_file)
-print("target_db_config=", target_db_config)
+print("target_db_config=", {k: v for k, v in target_db_config.items() if k != "password"})
 
 # Create a connection to the Source MySQL database
 source_conn = mysql.connector.connect(**source_db_config)

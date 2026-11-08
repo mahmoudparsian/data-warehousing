@@ -1,3 +1,4 @@
+import os
 import json
 import sys
 
@@ -10,7 +11,9 @@ def read_json(json_config_file):
     with open(json_config_file) as f:
         # Load the JSON data into a Python dictionary
         config_as_dict = json.load(f)
-        return config_as_dict
+    # the password is not stored in the JSON file: it comes from the MYSQL_PASSWORD environment variable
+    config_as_dict["password"] = os.environ.get("MYSQL_PASSWORD", "")
+    return config_as_dict
 #end-def
 #-----------------------------------------
 

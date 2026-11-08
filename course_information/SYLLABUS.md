@@ -19,8 +19,8 @@ applies, and the instructor will correct this page.
 | **Course** | MSIS-2419 — Business Intelligence and Data Warehousing |
 | **Units** | 4 (graduate) |
 | **Quarter** | Winter 2027: January 4 – March 20, 2027 |
-| **Format** | 10 weeks · 20 sessions (2 per week) · 100 minutes per session, each with a 30-minute in-class lab |
-| **Meetings** | *To be announced on Camino* <!-- TODO(syllabus): days and times --> |
+| **Format** | 10 weeks · 20 sessions (2 per week) · 95 minutes per session, each with a 30-minute in-class lab |
+| **Meetings** | Mondays and Wednesdays, 5:45–7:20 pm (Pacific Time) · no class on Mon Jan 18 (Martin Luther King Jr. Day) and Mon Feb 15 (Presidents' Day) |
 | **Classroom** | *To be announced on Camino* <!-- TODO(syllabus): room --> |
 | **Prerequisites** | ISBA 2401 (Data Analytics with Python) and ISBA 2402 / MSIS-2402 (Database Management Systems — Fundamentals of SQL) — see [Prerequisites](prerequisite.md) |
 | **Learning management system** | Camino (Canvas) — announcements, Discussions, gradebook |

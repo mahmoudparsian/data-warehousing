@@ -3,6 +3,8 @@
 ## Database Configurations
 
 Update the content of the following files accordingly.
+The password is not stored in these files: set it in the `MYSQL_PASSWORD` environment variable
+(for example `export MYSQL_PASSWORD='...'` in your terminal) before running `etl.py`.
 
 * `db_config_source.json` (for source table)
 
@@ -15,7 +17,6 @@ Update the content of the following files accordingly.
 % cat db_config_source.json
 {
     "user": "root",
-    "password": "YOUR_MYSQL_PASSWORD",
     "host": "localhost",
     "database": "scu_homeworks"
 }
@@ -27,7 +28,6 @@ Update the content of the following files accordingly.
 % cat db_config_target.json
 {
     "user": "root",
-    "password": "YOUR_MYSQL_PASSWORD",
     "host": "localhost",
     "database": "scu2_homeworks"
 }

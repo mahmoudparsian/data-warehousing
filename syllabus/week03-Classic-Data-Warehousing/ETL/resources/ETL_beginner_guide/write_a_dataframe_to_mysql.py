@@ -35,6 +35,7 @@ SQLAlchemy is the Python SQL toolkit and
            full power and flexibility of SQL.
 """
 
+import os
 import pandas as pd
 from sqlalchemy import create_engine
 
@@ -58,7 +59,7 @@ df:
 #--------------------------------
 # Create a SQLAlchemy engine to connect to your MySQL database
 #engine = create_engine('mysql+mysqlconnector://user:password@host:port/database_name')
-engine = create_engine('mysql+mysqlconnector://root:YOUR_MYSQL_PASSWORD@localhost:3306/test_db')
+engine = create_engine(f"mysql+mysqlconnector://root:{os.environ.get('MYSQL_PASSWORD', '')}@localhost:3306/test_db")
 
 # Write the DataFrame to a MySQL table
 df.to_sql('my_table_name', engine, if_exists='replace', index=False)

@@ -2,7 +2,7 @@
 
 **MSIS-2419 · Business Intelligence and Data Warehousing** · Winter 2027 (January–March)
 
-10 weeks · 2 sessions per week (100 minutes each) · a **30-minute in-class lab in every session** (20 labs).
+10 weeks · 2 sessions per week (95 minutes each) · a **30-minute in-class lab in every session** (20 labs).
 Labs are released in class (lab sheet + Marimo notebook in each week's `labs/` folder). Dates: [Class Meeting Dates & Hours](../course_information/class_meeting_dates_hours.md).
 
 Start here: [Week 0 — Course outline & software setup](week00-outline-and-TOC/README.md)

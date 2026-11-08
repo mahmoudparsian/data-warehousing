@@ -1,4 +1,5 @@
 # test: skip — needs a MySQL server with the example's destination_table (MySQL reference example; see README.md)
+import os
 import marimo
 
 __generated_with = "0.25.2"
@@ -42,7 +43,7 @@ def _(mo):
 @app.cell
 def _(create_engine, pd):
     engine = create_engine(
-        "mysql+mysqlconnector://root:YOUR_MYSQL_PASSWORD@localhost/scu2_homeworks"
+        f"mysql+mysqlconnector://root:{os.environ.get('MYSQL_PASSWORD', '')}@localhost/scu2_homeworks"
     )
 
     query = '''

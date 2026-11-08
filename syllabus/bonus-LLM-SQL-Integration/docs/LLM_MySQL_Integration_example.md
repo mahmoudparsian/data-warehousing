@@ -10,7 +10,7 @@ How to let a Large Language Model (LLM) turn a question in plain English into SQ
 > - Set your OpenAI key in the shell, never in a file: `export OPENAI_API_KEY="sk-..."`. `OpenAI()` and LangChain's
 >   `ChatOpenAI` read it from there automatically.
 > - LLM-generated SQL can be wrong or harmful (`DROP TABLE`). Read the SQL before running it, and connect with a **read-only** database user.
-> - The examples use MySQL (`company_db`); replace `your_password` with your own setting. The same ideas work with DuckDB.
+> - The examples use MySQL (`company_db`); the MySQL password is read from the `MYSQL_PASSWORD` environment variable. The same ideas work with DuckDB.
 
 ---
 
@@ -54,6 +54,7 @@ You can write this by hand in a Python string, or query it from the database (be
 ### The complete script
 
 ```python
+import os
 import mysql.connector
 from openai import OpenAI
 
@@ -62,7 +63,7 @@ from openai import OpenAI
 mysql_config = {
     'host': 'localhost',
     'user': 'root',
-    'password': 'your_password',
+    'password': os.environ.get("MYSQL_PASSWORD", ""),
     'database': 'company_db'
 }
 
@@ -285,6 +286,7 @@ my_langchain_app/
 
 ```python
 # sql_agent.py
+import os
 from sqlalchemy import create_engine
 from langchain.chat_models import ChatOpenAI
 from langchain.agents.agent_toolkits import SQLDatabaseToolkit
@@ -294,7 +296,7 @@ from langchain.sql_database import SQLDatabase
 # The OpenAI key comes from the OPENAI_API_KEY environment variable (ChatOpenAI reads it).
 
 # MySQL connection
-MYSQL_URI = "mysql+mysqlconnector://root:your_password@localhost/company_db"
+MYSQL_URI = f"mysql+mysqlconnector://root:{os.environ.get('MYSQL_PASSWORD', '')}@localhost/company_db"
 
 # SQLAlchemy engine and LangChain database wrapper
 engine = create_engine(MYSQL_URI)
@@ -368,12 +370,13 @@ my_nl_sql_app/
 
 ```python
 # langchain_sql_agent.py
+import os
 from langchain_openai import ChatOpenAI
 from langchain.sql_database import SQLDatabase
 from langchain_experimental.sql import SQLDatabaseChain
 
-# MySQL connection URL, e.g. mysql+pymysql://root:your_password@localhost:3306/company_db
-MYSQL_URL = "mysql+pymysql://root:your_password@localhost:3306/company_db"
+# MySQL connection URL, e.g. mysql+pymysql://root:<password>@localhost:3306/company_db
+MYSQL_URL = f"mysql+pymysql://root:{os.environ.get('MYSQL_PASSWORD', '')}@localhost:3306/company_db"
 
 # The OpenAI key comes from the OPENAI_API_KEY environment variable (ChatOpenAI reads it).
 

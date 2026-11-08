@@ -11,6 +11,7 @@
 #      % python3 read_parquet_from_file_and_load_to_mysql.py
 #-----------------------------
 
+import os
 import pandas as pd
 
 """
@@ -58,7 +59,7 @@ df=      sepal.length  sepal.width  petal.length  petal.width    variety
 # mysql+pymysql://<username>:<password>@<host>/<dbname>[?<options>]
 
 db_user = "root"
-db_password = "myrootpassword"
+db_password = os.environ.get("MYSQL_PASSWORD", "")
 db_name = "test"
 db_host = 'localhost'
 db_port = 3306

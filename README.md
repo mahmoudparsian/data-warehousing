@@ -22,7 +22,7 @@
 
 | | |
 |---|---|
-| **Format** | 10 weeks · 20 sessions (2 per week, 100 minutes each) · a 30-minute in-class lab in every session |
+| **Format** | 10 weeks · 20 sessions (Mon & Wed, 95 minutes each) · a 30-minute in-class lab in every session |
 | **Credit** | 4 units |
 | **Quarter** | Winter 2027 (January–March) · [dates & hours](course_information/class_meeting_dates_hours.md) |
 | **Instructor** | [Dr. Mahmoud Parsian](https://www.scu.edu/business/isa/faculty/parsian/) |
@@ -115,11 +115,11 @@ Full schedule with both sessions' topics: [Syllabus](syllabus/README.md) · Star
 
 Optional: [Bonus — LLM + SQL integration](syllabus/bonus-LLM-SQL-Integration/).
 
-**A typical session (100 minutes):**
+**A typical session (95 minutes):**
 
 | Part | Activity |
 |---|---|
-| First ~70 minutes | Lecture and live demo (slides + Marimo notebooks) |
+| First ~65 minutes | Lecture and live demo (slides + Marimo notebooks) |
 | Last 30 minutes | In-class lab: released at the start of the session in the week's `labs/` folder (a lab sheet + a Marimo notebook) |
 
 ---

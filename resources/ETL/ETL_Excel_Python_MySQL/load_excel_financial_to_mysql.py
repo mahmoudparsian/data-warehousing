@@ -34,11 +34,12 @@ Replace username, password, host, port, database with
 your corresponding values.
 """
 
+import os
 from sqlalchemy import create_engine
 
 # engine = create_engine("mysql+pymysql://" + "username" + ":" + "password" + "@" + "host" + ":" + "port" + "/" + "database" + "?" + "charset=utf8mb4")
 db_user = "root"
-db_password = "password"
+db_password = os.environ.get("MYSQL_PASSWORD", "")
 db_name = "test"
 engine = create_engine("mysql+pymysql://" + db_user + ":" + db_password + "@" + "localhost" + ":" + "3306" + "/" + db_name + "?" + "charset=utf8mb4")
 

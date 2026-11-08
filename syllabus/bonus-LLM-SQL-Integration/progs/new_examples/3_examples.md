@@ -30,6 +30,7 @@ Here are two scenarios that go beyond “basic” query execution:
     •    Python executes query on MySQL.
     •    Results are shown to the user.
     
+import os
 import mysql.connector
 from openai import OpenAI
 
@@ -40,7 +41,7 @@ client = OpenAI(api_key="YOUR_OPENAI_API_KEY")
 conn = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="yourpassword",
+    password=os.environ.get("MYSQL_PASSWORD", ""),
     database="company_db"
 )
 cursor = conn.cursor()
@@ -100,6 +101,7 @@ conn.close()
     •    OpenAI generates human-readable insights.
     
 
+import os
 import mysql.connector
 from openai import OpenAI
 
@@ -110,7 +112,7 @@ client = OpenAI(api_key="YOUR_OPENAI_API_KEY")
 conn = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="yourpassword",
+    password=os.environ.get("MYSQL_PASSWORD", ""),
     database="company_db"
 )
 cursor = conn.cursor()
@@ -301,6 +303,7 @@ Workflow
 
 Python Implementation
 
+import os
 import mysql.connector
 from openai import OpenAI
 
@@ -311,7 +314,7 @@ client = OpenAI(api_key="YOUR_OPENAI_API_KEY")
 conn = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="yourpassword",
+    password=os.environ.get("MYSQL_PASSWORD", ""),
     database="company_db"
 )
 cursor = conn.cursor()

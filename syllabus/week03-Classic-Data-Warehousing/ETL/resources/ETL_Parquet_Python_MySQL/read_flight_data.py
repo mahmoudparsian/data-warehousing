@@ -22,6 +22,7 @@
 # import required library
 from sqlalchemy import create_engine
 
+import os
 import pandas as pd
 import sys
 
@@ -38,7 +39,7 @@ def get_db_connection():
     # mysql+pymysql://<username>:<password>@<host>/<dbname>[?<options>]
 
     db_user = "root"
-    # db_password = "myrootpassword"
+    db_password = os.environ.get("MYSQL_PASSWORD", "")
     db_name = "test"
     db_host = 'localhost'
     db_port = 3306

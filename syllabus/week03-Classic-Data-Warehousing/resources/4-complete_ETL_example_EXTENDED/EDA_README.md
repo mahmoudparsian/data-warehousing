@@ -33,11 +33,12 @@ pip install pandas matplotlib seaborn sqlalchemy mysql-connector-python
 
 3️⃣ Load Data from MySQL into Pandas
 
+import os
 import pandas as pd
 from sqlalchemy import create_engine
 
 engine = create_engine(
-    "mysql+mysqlconnector://root:YOUR_MYSQL_PASSWORD@localhost/scu2_homeworks"
+    f"mysql+mysqlconnector://root:{os.environ.get('MYSQL_PASSWORD', '')}@localhost/scu2_homeworks"
 )
 
 query = """

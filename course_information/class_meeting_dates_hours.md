@@ -6,9 +6,10 @@
 
 | What | When / where |
 |---|---|
-| First class | **TBD** (January 2027) |
+| First class | **Monday, January 4, 2027** |
 | Last class | **TBD** (March 2027) |
-| Class meetings | **TBD** — 2 sessions per week, 100 minutes each |
+| Class meetings | **Mondays and Wednesdays, 5:45–7:20 pm (Pacific Time)** — 2 sessions per week, 95 minutes each |
+| No class | Monday, January 18 (Martin Luther King Jr. Day) · Monday, February 15 (Presidents' Day) |
 | Room | **TBD** |
 | Midterm exam | **TBD** — see [Midterm Exam](midterm_exam.md) |
 | Final project presentations | **TBD** (week 10) — see [Project guidelines](../syllabus/PROJECT/DW_Project_Guidelines.md) |

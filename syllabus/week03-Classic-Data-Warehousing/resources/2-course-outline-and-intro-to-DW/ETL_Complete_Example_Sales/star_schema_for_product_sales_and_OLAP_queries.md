@@ -192,13 +192,14 @@ Here are some sample OLAP queries:
 Here is a Python script to create the schema, insert data, and run the OLAP queries:
 
 ```python
+import os
 import mysql.connector
 import pandas as pd
 
 # Database connection details
 db_config = {
     'user': 'root',
-    'password': 'password',
+    'password': os.environ.get("MYSQL_PASSWORD", ""),
     'host': 'localhost',
     'database': 'sales_db'
 }

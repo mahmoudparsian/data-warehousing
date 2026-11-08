@@ -123,13 +123,14 @@ CREATE TABLE destination_table (
 
 ~~~python
 
+import os
 import mysql.connector
 
 # Database Configuration
 DB_CONFIG = {
     "host": "localhost",
     "user": "your_username",
-    "password": "your_password",
+    "password": os.environ.get("MYSQL_PASSWORD", ""),
     "database": "etl_demo"
 }
 

@@ -6,6 +6,7 @@ pip install sqlalchemy
 pip install mysql-connector-python
 
 """
+import os
 import sys
 import pandas as pd
 from sqlalchemy import create_engine
@@ -16,7 +17,7 @@ df = pd.read_csv(csv_file)
 
 # Step 2: Create a connection to the MySQL database
 #engine = create_engine('mysql+mysqlconnector://username:password@localhost/mydatabase')
-engine = create_engine('mysql+mysqlconnector://root:YOUR_MYSQL_PASSWORD@localhost/homeworks')
+engine = create_engine(f"mysql+mysqlconnector://root:{os.environ.get('MYSQL_PASSWORD', '')}@localhost/homeworks")
 
 # Step 3: Load the data into the MySQL table
 df.to_sql(name='my_table', con=engine, if_exists='append', index=False)

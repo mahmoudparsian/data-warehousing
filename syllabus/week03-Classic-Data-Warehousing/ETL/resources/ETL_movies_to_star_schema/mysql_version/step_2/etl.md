@@ -107,6 +107,7 @@ INSERT INTO locations (city, state, country) VALUES
 Now we'll implement the ETL process in Python.
 
 ```python
+import os
 import pandas as pd
 import mysql.connector
 from sqlalchemy import create_engine
@@ -114,7 +115,7 @@ from sqlalchemy import create_engine
 # Database connection details
 db_config = {
     'user': 'root',
-    'password': 'password',
+    'password': os.environ.get("MYSQL_PASSWORD", ""),
     'host': 'localhost',
     'database': 'sales_db'
 }

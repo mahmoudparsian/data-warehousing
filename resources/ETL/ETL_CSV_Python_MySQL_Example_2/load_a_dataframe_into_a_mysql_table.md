@@ -7,13 +7,14 @@ To load a Pandas DataFrame into a MySQL table using Python, several steps are ne
 Establish a Connection: Establish a connection to the MySQL database using a library like `mysql.connector` or `pymysql`. This requires specifying the host, user, password, and database name. 
 
 ~~~python
+    import os
     import mysql.connector
     import pandas as pd
     
     mydb = mysql.connector.connect(
       host="your_host",
       user="your_user",
-      password="your_password",
+      password=os.environ.get("MYSQL_PASSWORD", ""),
       database="your_database"
     )
     
@@ -61,6 +62,7 @@ Close Connection: After the data is loaded, close the database connection.
 # 5. Complete Example: 
 
 ~~~python
+import os
 import mysql.connector
 import pandas as pd
 
@@ -72,7 +74,7 @@ df = pd.DataFrame(data)
 mydb = mysql.connector.connect(
     host="your_host",
     user="your_user",
-    password="your_password",
+    password=os.environ.get("MYSQL_PASSWORD", ""),
     database="your_database"
 )
 

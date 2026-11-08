@@ -158,6 +158,7 @@ mysql> select * from destination_table;
 Save this as etl.py and run it.
 """
 
+import os
 import sys
 import json
 import mysql.connector
@@ -272,7 +273,6 @@ config_as_dict =
 {
     "host": "localhost",
     "user": "your_username",
-    "password": "your_password",
     "database": "your_database"
 }
 """
@@ -280,7 +280,9 @@ def read_json(json_config_file):
     with open(json_config_file) as f:
         # Load the JSON data into a Python dictionary
         config_as_dict = json.load(f)
-        return config_as_dict
+    # the password is not stored in the JSON file: it comes from the MYSQL_PASSWORD environment variable
+    config_as_dict["password"] = os.environ.get("MYSQL_PASSWORD", "")
+    return config_as_dict
 #end-def
 #-----------------------------------------
 #
@@ -308,10 +310,10 @@ db_config_target_file = sys.argv[2]
 print("db_config_target_file=", db_config_target_file)
 
 source_db_config = read_json(db_config_source_file)
-print("source_db_config=", source_db_config)
+print("source_db_config=", {k: v for k, v in source_db_config.items() if k != "password"})
 
 target_db_config = read_json(db_config_target_file)
-print("target_db_config=", target_db_config)
+print("target_db_config=", {k: v for k, v in target_db_config.items() if k != "password"})
 
 
 #------------

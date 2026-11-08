@@ -58,13 +58,14 @@ airport_fee: double
 >>> # Connect String:
 >>> # mysql+pymysql://<username>:<password>@<host>/<dbname>[?<options>]
 
+>>> import os
 >>> db_user = "root"
->>> db_password = "myrootpassword"
+>>> db_password = os.environ.get("MYSQL_PASSWORD", "")
 >>> db_name = "test"
 
 >>> connection_string = "mysql+pymysql://%s:%s@%s:%s/%s" % (db_user, db_password, 'localhost', '3306', db_name)
 >>> connection_string
-'mysql+pymysql://root:myrootpassword@localhost:3306/test'
+'mysql+pymysql://root:<your password>@localhost:3306/test'
 
 >>> from sqlalchemy import create_engine
 >>> engine = create_engine(connection_string)

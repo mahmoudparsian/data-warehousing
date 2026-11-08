@@ -24,6 +24,7 @@
 #required packages.
 
 
+import os
 import pandas as pd
 import sys
 from sqlalchemy import create_engine
@@ -32,7 +33,7 @@ from sqlalchemy import create_engine
 def create_db_connection():
     # engine = create_engine("mysql+pymysql://" + "username" + ":" + "password" + "@" + "host" + ":" + "port" + "/" + "database" + "?" + "charset=utf8mb4")
     db_user = "root"
-    db_password = "YOUR_MYSQL_PASSWORD"
+    db_password = os.environ.get("MYSQL_PASSWORD", "")
     db_name = "test"
     engine = create_engine("mysql+pymysql://" + db_user + ":" + db_password + "@" + "localhost" + ":" + "3306" + "/" + db_name + "?" + "charset=utf8mb4")
     return engine.connect()

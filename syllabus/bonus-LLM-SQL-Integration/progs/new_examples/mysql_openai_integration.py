@@ -1,4 +1,5 @@
 # test: skip — needs a MySQL server (company_db) and an OpenAI API key in OPENAI_API_KEY (bonus module)
+import os
 import marimo
 
 __generated_with = "0.25.2"
@@ -126,7 +127,7 @@ def _():
     conn = mysql.connector.connect(
         host="localhost",
         user="root",
-        password="yourpassword",
+        password=os.environ.get("MYSQL_PASSWORD", ""),
         database="company_db"
     )
     cursor = conn.cursor()
