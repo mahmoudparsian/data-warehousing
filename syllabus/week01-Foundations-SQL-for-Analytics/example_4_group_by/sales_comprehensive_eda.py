@@ -9,7 +9,11 @@ def _():
     import duckdb
     import pandas as pd
     import matplotlib.pyplot as plt
-    from IPython.display import display, Markdown
+    import marimo as _mo  # marimo's own display tools (students do not install IPython)
+    def display(*objs):
+        for _obj in objs:
+            _mo.output.append(_obj)
+    Markdown = _mo.md
 
     INPUT_PATHS = ["sales_2023.csv","sales_2024.csv","sales_2025.csv","sales_2026.csv"]
     con = duckdb.connect()

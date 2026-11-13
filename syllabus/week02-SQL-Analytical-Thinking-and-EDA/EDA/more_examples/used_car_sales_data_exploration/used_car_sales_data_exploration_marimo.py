@@ -451,15 +451,11 @@ def _(df_7):
     #--------------------
     # Sales by Region
     #
-    # pip install --upgrade nbformat
     #--------------------
     states = df_7['STATE'].value_counts().index
     _salescount = df_7['STATE'].value_counts().values
     #
     import plotly.graph_objs as go
-    from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
-    #
-    init_notebook_mode(connected=True)
 
     data = [ dict(
             type='choropleth',
@@ -478,8 +474,8 @@ def _(df_7):
         )
     )
 
-    fig = dict(data=data, layout=layout)
-    iplot(fig, filename='d3-cloropleth-map')
+    _fig = go.Figure(data=data, layout=layout)
+    _fig
     return
 
 

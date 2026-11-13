@@ -9,6 +9,8 @@ Step-by-step setup (and a notebook to check it): [Week 0: Software setup](../syl
 * **DuckDB 2.0 or newer** for both (it needs Python 3.11+): `duckdb --version` and
   `python3 -c "import duckdb; print(duckdb.__version__)"` must both start with **2.**
 * Keep **one DuckDB version** for the CLI and Python: a database file written by a newer version can't be opened by an older one
+* Installing the CLI — Mac: `brew install duckdb`. Windows: **not** `winget` (its DuckDB package stops at 1.5.6); download it by hand,
+  step by step in [Week 0: Windows: install the DuckDB CLI 2.0](../syllabus/week00-outline-and-TOC/README.md#windows-install-the-duckdb-cli-20)
 
 ------
 

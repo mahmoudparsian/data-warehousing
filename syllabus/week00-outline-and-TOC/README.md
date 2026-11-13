@@ -32,7 +32,7 @@ Project guidelines: [`../PROJECT/`](../PROJECT/)
 
 | Tool | Used for | Install |
 |---|---|---|
-| **DuckDB 2.0+** | The database for the whole course | [duckdb.org/docs/installation](https://duckdb.org/docs/installation/) (CLI, version 2.0 or newer) |
+| **DuckDB 2.0+** | The database for the whole course | CLI, version 2.0 or newer — Mac: `brew install duckdb`; Windows: [download it by hand](#windows-install-the-duckdb-cli-20) (not `winget`) |
 | **Python 3.11+** | All notebooks (they are Marimo notebooks: `.py` files) | `pip install "duckdb>=2.0" pandas matplotlib seaborn` |
 | **Marimo** | The course notebooks (`.py`) and the in-class **lab notebooks** (`week_NN_lab_0X_student.py` in each `labs/` folder) | `pip install marimo sqlglot`, then `marimo edit week_01_lab_01_student.py` from the lab's folder |
 | **EDA extras** | Excel files, statistics and interactive charts in the week 2 EDA examples | `pip install openpyxl scipy plotly` |
@@ -40,8 +40,30 @@ Project guidelines: [`../PROJECT/`](../PROJECT/)
 
 > ⚠️ **Keep one DuckDB version.** A `.duckdb` *file* written by a newer DuckDB can't be opened by an older one.
 > Check that `duckdb --version` (CLI) and `python3 -c "import duckdb; print(duckdb.__version__)"` match and both start with **2.**
-> (if Python shows `1.x`, run `pip install --upgrade "duckdb>=2.0"`; on a Mac, `brew upgrade duckdb` for the CLI).
+> (if Python shows `1.x`, run `pip install --upgrade "duckdb>=2.0"`; for the CLI: on a Mac `brew upgrade duckdb`, on Windows the steps below).
 > This matters for the labs that use a database file (Lab 4.2 and weeks 6–10) if you open the same file from both the DuckDB CLI and a notebook.
+
+### Windows: install the DuckDB CLI 2.0
+
+**Don't use `winget install DuckDB.cli`:** as of November 2026, WinGet's DuckDB package stops at **1.5.6**, and a 1.5 CLI
+can't open database files made by DuckDB 2.0 ("version number 999"). Install it by hand instead
+(if you already have the WinGet version, remove it first: `winget uninstall --id DuckDB.cli --exact`):
+
+1. In **Settings > System > About**, look at **System type**: x64 (Intel/AMD) or Arm.
+2. At [duckdb.org/install](https://duckdb.org/install/), choose **Windows / CLI** and download
+   **`duckdb-cli-windows-amd64.tar.gz`** (x64) or **`duckdb-cli-windows-arm64.tar.gz`** (Arm) to your **Downloads** folder.
+3. In Command Prompt, unpack it (Arm: change `amd64` to `arm64`):
+
+   ```
+   mkdir "%USERPROFILE%\duckdb-cli"
+   tar -xzf "%USERPROFILE%\Downloads\duckdb-cli-windows-amd64.tar.gz" -C "%USERPROFILE%\duckdb-cli"
+   ```
+
+   You should now have `duckdb-cli\duckdb.exe`. If the files landed in an extra folder, move **duckdb.exe** up into `duckdb-cli`.
+4. Add that folder to your PATH: Start menu → search **Edit environment variables for your account** → under **User variables**,
+   edit **Path** → **New** → paste the full path of your `duckdb-cli` folder (copy it from File Explorer; no `duckdb.exe`, no quote marks).
+   Keep the existing entries.
+5. **Close Command Prompt, open a new one**, and run `duckdb --version`: it must start with **v2.**
 
 Check your setup by running [`week00_3_demo_notebook.py`](week00_3_demo_notebook.py) with `marimo edit week00_3_demo_notebook.py` (from this folder): it needs no data files.
 

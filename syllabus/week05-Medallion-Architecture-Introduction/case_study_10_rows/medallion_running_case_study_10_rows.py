@@ -103,7 +103,11 @@ def _():
     import pandas as pd
     import matplotlib.pyplot as plt
     from pathlib import Path
-    from IPython.display import display, Markdown
+    import marimo as _mo  # marimo's own display tools (students do not install IPython)
+    def display(*objs):
+        for _obj in objs:
+            _mo.output.append(_obj)
+    Markdown = _mo.md
 
     pd.set_option("display.max_columns", 50)
     pd.set_option("display.width", 140)
