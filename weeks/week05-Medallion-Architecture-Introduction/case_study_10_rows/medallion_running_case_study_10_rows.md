@@ -21,7 +21,7 @@ author: Mahmoud Parsian
 
 ```
 % duckdb --version
-v1.5.2 (Variegata) 8a5851971f
+v2.0.0 (Cyanoptera) d54cbbe3df
 ```
 
 ---

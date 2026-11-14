@@ -98,6 +98,11 @@ D desc sales;
 └─────────────┴─────────────┴─────────┴─────────┴─────────┴─────────┘
 ```
 
+> Recorded with DuckDB 1.4.4. Re-checked on **DuckDB 2.0.0** (2026-11-13): every result below is the same.
+> Two display details differ in 2.0: `desc` shows a compact box (name and type per column), and the
+> row count ("18 rows") is printed below a long table instead of inside it.
+
+
 View Data:
 
 ```sql

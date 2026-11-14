@@ -22,6 +22,9 @@
 
 # Check your DuckDb environment
 
+> Recorded in class on 2026-04-02 with DuckDB 1.5.1. Re-checked on **DuckDB 2.0.0** (2026-11-13): same results.
+> Queries without `ORDER BY` (`DISTINCT`, `GROUP BY`) may list their rows in a different order on every run.
+
 ```
 % type duckdb
 duckdb is /opt/homebrew/bin/duckdb
@@ -305,7 +308,7 @@ sales D .exit
 % duckdb sales.duckdb
 DuckDB v1.5.1 (Variegata)
 Enter ".help" for usage hints.
-sales D sales D SHOW TABLES;
+sales D SHOW TABLES;
 ┌─────────┐
 │  name   │
 │ varchar │

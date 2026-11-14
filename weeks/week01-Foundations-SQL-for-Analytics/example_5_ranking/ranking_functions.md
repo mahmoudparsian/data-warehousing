@@ -51,7 +51,7 @@ robert,10
 
 ```
 % duckdb
-DuckDB v1.5.1 (Variegata)
+DuckDB v2.0.0 (Cyanoptera)
 Enter ".help" for usage hints.
 memory D create table players as select * from 'players.csv';
 
@@ -395,7 +395,7 @@ robert,JAPAN,10
 
 ```
 % duckdb
-DuckDB v1.5.1 (Variegata)
+DuckDB v2.0.0 (Cyanoptera)
 Enter ".help" for usage hints.
 memory D CREATE TABLE players 
          as SELECT * from 'players_with_countries.csv';

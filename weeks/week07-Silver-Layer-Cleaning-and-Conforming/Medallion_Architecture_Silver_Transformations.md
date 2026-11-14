@@ -3,7 +3,7 @@
 * SQL Examples are in [DuckDB](https://duckdb.org)
 
 * `% duckdb --version` <br> 
-`v1.5.2 (Variegata)`
+`v2.0.0 (Cyanoptera)` (written with v1.5.2; the complete working example in section 7 re-checked on 2.0.0, 2026-11-13)
 
 * Last Updated at: `2026-05-15`
 
@@ -728,7 +728,6 @@ memory D
 
 #### Step-2. Transform to Silver Layer by flattening (unnesting)
 ```sql
-sql
 CREATE OR REPLACE TABLE sales_silver AS
 SELECT 
     sale_id,

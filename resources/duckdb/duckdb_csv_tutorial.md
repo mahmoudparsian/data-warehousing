@@ -183,7 +183,7 @@ age,gender,bmi,children,smoker,region,charges
 
 ```
 % duckdb
-DuckDB v1.5.1 (Variegata)
+DuckDB v2.0.0 (Cyanoptera)
 
 memory D CREATE TABLE insurance AS SELECT * FROM 'insurance.csv';
 

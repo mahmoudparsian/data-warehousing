@@ -52,7 +52,7 @@ Use a database called: `test.duckdb`:
 
 ```sql
 % duckdb test.duckdb
-DuckDB v1.5.1 (Variegata)
+DuckDB v2.0.0 (Cyanoptera)
 Enter ".help" for usage hints.
 
 test D CREATE TABLE scores (
