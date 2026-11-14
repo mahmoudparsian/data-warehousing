@@ -12,7 +12,7 @@
 
 ![Architecture: Medallion](https://img.shields.io/badge/Architecture-Bronze%20%E2%86%92%20Silver%20%E2%86%92%20Gold-B87333) ![Modeling: Star schema](https://img.shields.io/badge/Modeling-Star%20schema%20%26%20OLAP-2E7D32) ![Labs: 20 in-class](https://img.shields.io/badge/Labs-20%20in--class-6A1B9A)
 
-**[📄 Course syllabus](course_information/SYLLABUS.md)** ([PDF](course_information/SYLLABUS.pdf)) · **[📅 Weekly schedule](syllabus/README.md)** · **[⬇️ Download a week (ZIP)](course_information/DOWNLOADING_COURSE_FILES.md)** · **[⚙️ Week 0: setup](syllabus/week00-outline-and-TOC/)** · **[📘 Course info](course_information/course_info_and_desc.md)** · **[📊 Grading](course_information/grading_and_class_conduct.md)** · **[🗓️ Dates](course_information/class_meeting_dates_hours.md)** · **[🧑‍🤝‍🧑 Project](syllabus/PROJECT/README.md)**
+**[📄 Course syllabus](course_information/SYLLABUS.md)** ([PDF](course_information/SYLLABUS.pdf)) · **[📅 Weekly schedule](weeks/README.md)** · **[⬇️ Download a week (ZIP)](course_information/DOWNLOADING_COURSE_FILES.md)** · **[⚙️ Week 0: setup](weeks/week00-outline-and-TOC/)** · **[📘 Course info](course_information/course_info_and_desc.md)** · **[📊 Grading](course_information/grading_and_class_conduct.md)** · **[🗓️ Dates](course_information/class_meeting_dates_hours.md)** · **[🧑‍🤝‍🧑 Project](weeks/PROJECT/README.md)**
 
 </div>
 
@@ -55,7 +55,7 @@
 **What you will build.** Starting from SQL for analytics, you design star schemas and OLAP queries, then build a
 **Medallion** warehouse (Bronze → Silver → Gold) for one running case, a pizza shop. Every session ends with a
 **30-minute in-class lab**, and in teams of two you build and present your own data warehouse
-([project](syllabus/PROJECT/README.md)).
+([project](weeks/PROJECT/README.md)).
 
 **The running case, end to end (weeks 6–10):**
 
@@ -94,26 +94,26 @@ All ten learning outcomes: [Course information](course_information/course_info_a
 
 ## Course Schedule
 
-Full schedule with both sessions' topics: [Syllabus](syllabus/README.md) · Start with [Week 0: outline & software setup](syllabus/week00-outline-and-TOC/).
+Full schedule with both sessions' topics: [Weekly schedule](weeks/README.md) · Start with [Week 0: outline & software setup](weeks/week00-outline-and-TOC/).
 
 | Week | Module | Session 1 lab | Session 2 lab |
 |:---:|---|---|---|
 | | **A · SQL analytics review** | | |
-| **1** | [Foundations of SQL for Analytics](syllabus/week01-Foundations-SQL-for-Analytics/) | From Business Questions to SQL (Insurance) | GROUP BY, HAVING and CASE on Sales Data |
-| **2** | [SQL Analytical Thinking & Exploratory Data Analysis](syllabus/week02-SQL-Analytical-Thinking-and-EDA/) | Window Functions: Keep the Rows, Add the Insight | Exploratory Data Analysis (EDA) with SQL |
+| **1** | [Foundations of SQL for Analytics](weeks/week01-Foundations-SQL-for-Analytics/) | From Business Questions to SQL (Insurance) | GROUP BY, HAVING and CASE on Sales Data |
+| **2** | [SQL Analytical Thinking & Exploratory Data Analysis](weeks/week02-SQL-Analytical-Thinking-and-EDA/) | Window Functions: Keep the Rows, Add the Insight | Exploratory Data Analysis (EDA) with SQL |
 | | **B · Classic data warehousing** | | |
-| **3** | [Classic Data Warehousing & ETL](syllabus/week03-Classic-Data-Warehousing/) | From Operational Tables to Your First Star Schema | ETL: Extract, Clean and Load Messy Sales Data |
-| **4** | [Star Schema in Depth & OLAP](syllabus/week04-Star-Schema-and-OLAP/) | Slowly Changing Dimensions: Keeping History Right | OLAP on a Star Schema: Roll-up, Drill-down, Slice, Dice, Pivot, CUBE … and Tableau |
+| **3** | [Classic Data Warehousing & ETL](weeks/week03-Classic-Data-Warehousing/) | From Operational Tables to Your First Star Schema | ETL: Extract, Clean and Load Messy Sales Data |
+| **4** | [Star Schema in Depth & OLAP](weeks/week04-Star-Schema-and-OLAP/) | Slowly Changing Dimensions: Keeping History Right | OLAP on a Star Schema: Roll-up, Drill-down, Slice, Dice, Pivot, CUBE … and Tableau |
 | | **C · Medallion architecture** | | |
-| **5** | [Medallion Architecture: Introduction](syllabus/week05-Medallion-Architecture-Introduction/) | Your First Medallion Pipeline: Bronze → Silver → Gold | Medallion as a Lakehouse: Layers as Files |
-| **6** | [Bronze in Depth & Silver Cleaning](syllabus/week06-Bronze-and-Silver-Cleaning/) | Bronze in Depth: Landing Real Files, Batch by Batch | Silver Cleaning: From Bronze to Trusted Order Lines |
-| **7** | [Silver: Conforming & Integrating Sources](syllabus/week07-Silver-Layer-Cleaning-and-Conforming/) | Conforming a Second Source: the Delivery App | Integrating Two Sources into One Trusted Silver Table |
-| **8** | [Gold Layer & Star Schema](syllabus/week08-Gold-Layer-Star-Schema/) | Gold: A Star Schema for the Pizza Shop | Gold KPIs and Data Marts (and a Tableau Dashboard) |
+| **5** | [Medallion Architecture: Introduction](weeks/week05-Medallion-Architecture-Introduction/) | Your First Medallion Pipeline: Bronze → Silver → Gold | Medallion as a Lakehouse: Layers as Files |
+| **6** | [Bronze in Depth & Silver Cleaning](weeks/week06-Bronze-and-Silver-Cleaning/) | Bronze in Depth: Landing Real Files, Batch by Batch | Silver Cleaning: From Bronze to Trusted Order Lines |
+| **7** | [Silver: Conforming & Integrating Sources](weeks/week07-Silver-Layer-Cleaning-and-Conforming/) | Conforming a Second Source: the Delivery App | Integrating Two Sources into One Trusted Silver Table |
+| **8** | [Gold Layer & Star Schema](weeks/week08-Gold-Layer-Star-Schema/) | Gold: A Star Schema for the Pizza Shop | Gold KPIs and Data Marts (and a Tableau Dashboard) |
 | | **D · Wrap-up** | | |
-| **9** | [End-to-End Pipeline, Incremental Processing & Project Workshop](syllabus/week09-End-to-End-Pipeline-and-Project-Workshop/) | An Incremental Pipeline: New Files Arrive Every Month | Late Data, Corrections, and Proving the Pipeline Right |
-| **10** | [Final Project & Data Storytelling](syllabus/week10-Final-Project-Data-Storytelling/) | From Gold to a Data Story: KPIs, Like-for-Like, Drivers | Dashboard and One-Slide Story |
+| **9** | [End-to-End Pipeline, Incremental Processing & Project Workshop](weeks/week09-End-to-End-Pipeline-and-Project-Workshop/) | An Incremental Pipeline: New Files Arrive Every Month | Late Data, Corrections, and Proving the Pipeline Right |
+| **10** | [Final Project & Data Storytelling](weeks/week10-Final-Project-Data-Storytelling/) | From Gold to a Data Story: KPIs, Like-for-Like, Drivers | Dashboard and One-Slide Story |
 
-Optional: [Bonus — LLM + SQL integration](syllabus/bonus-LLM-SQL-Integration/).
+Optional: [Bonus — LLM + SQL integration](weeks/bonus-LLM-SQL-Integration/).
 
 **A typical session (95 minutes):**
 
@@ -146,10 +146,10 @@ Full policy: [Grading and class conduct](course_information/grading_and_class_co
    ```
 2. Clone this repository, then check your setup with the week 0 demo notebook:
    ```bash
-   cd syllabus/week00-outline-and-TOC
+   cd weeks/week00-outline-and-TOC
    marimo edit week00_3_demo_notebook.py
    ```
-3. Each week, open the week's folder (`syllabus/weekNN-…/`): its `README.md` lists the slides, notebooks and labs.
+3. Each week, open the week's folder (`weeks/weekNN-…/`): its `README.md` lists the slides, notebooks and labs.
 
 ---
 
@@ -159,7 +159,7 @@ Full policy: [Grading and class conduct](course_information/grading_and_class_co
 .
 ├── README.md                    this page
 ├── course_information/          course description, dates, grading, policies, exams, software, books
-├── syllabus/
+├── weeks/
 │   ├── README.md                the weekly schedule
 │   ├── week00-outline-and-TOC/  course outline and software setup
 │   ├── week01-… … week10-…/     one folder per week: README, slides, Marimo notebooks, data, labs/
@@ -256,6 +256,6 @@ through data pipelines, to dashboards and a business recommendation.
 
 **MSIS-2419 · Business Intelligence and Data Warehousing** · Department of Information Systems & Analytics · Santa Clara University
 
-Instructor: [Dr. Mahmoud Parsian](https://www.scu.edu/business/isa/faculty/parsian/) · [Syllabus](syllabus/README.md) · [Course information](course_information/)
+Instructor: [Dr. Mahmoud Parsian](https://www.scu.edu/business/isa/faculty/parsian/) · [Weekly schedule](weeks/README.md) · [Course information](course_information/)
 
 </div>

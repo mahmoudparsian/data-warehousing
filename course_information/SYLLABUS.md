@@ -93,8 +93,8 @@ By the end of the course, students can:
 ## 4. Course Schedule
 
 Two sessions per week; every session has a **30-minute in-class lab** (20 labs).
-Week pages, slides, notebooks and labs: [Syllabus](../syllabus/README.md) — start with
-[Week 0: course outline and software setup](../syllabus/week00-outline-and-TOC/README.md).
+Week pages, slides, notebooks and labs: [Weekly schedule](../weeks/README.md) — start with
+[Week 0: course outline and software setup](../weeks/week00-outline-and-TOC/README.md).
 
 | Week | Topic | Labs |
 |:---:|---|---|
@@ -108,12 +108,12 @@ Week pages, slides, notebooks and labs: [Syllabus](../syllabus/README.md) — st
 | 8 | Gold Layer & Star Schema | 8.1 Gold: A Star Schema · 8.2 Gold KPIs and Data Marts (and Tableau) |
 | 9 | End-to-End Pipeline, Incremental Processing & Project Workshop | 9.1 An Incremental Pipeline · 9.2 Late Data, Corrections, Proving the Pipeline Right |
 | 10 | Final Project & Data Storytelling | 10.1 From Gold to a Data Story · 10.2 Dashboard and One-Slide Story |
-| Bonus | *Optional:* LLM + SQL Integration | [Bonus module](../syllabus/bonus-LLM-SQL-Integration/README.md) |
+| Bonus | *Optional:* LLM + SQL Integration | [Bonus module](../weeks/bonus-LLM-SQL-Integration/README.md) |
 
 | Assessment | When |
 |---|---|
 | **Midterm Exam** | *To be announced on Camino* <!-- TODO(syllabus): midterm date --> — during a class session ([`midterm_exam.md`](midterm_exam.md)) |
-| **Final project presentations** | Week 10 ([Project guidelines](../syllabus/PROJECT/DW_Project_Guidelines.md)) <!-- TODO(syllabus): presentation dates --> |
+| **Final project presentations** | Week 10 ([Project guidelines](../weeks/PROJECT/DW_Project_Guidelines.md)) <!-- TODO(syllabus): presentation dates --> |
 | **Final Exam** | *Finals week, to be announced on Camino* <!-- TODO(syllabus): final exam date, time, room --> ([`final_exam.md`](final_exam.md)) |
 
 ---
@@ -126,7 +126,7 @@ Week pages, slides, notebooks and labs: [Syllabus](../syllabus/README.md) — st
 2. *Building the Data Lakehouse* — Bill Inmon, Mary Levins, Ranjeet Srivastava ([PDF](https://www.databricks.com/wp-content/uploads/2021/10/The-Data-Lakehouse.pdf))
 
 **Software** — set up before the first lab, following
-[Week 0: software setup](../syllabus/week00-outline-and-TOC/README.md) (it includes a
+[Week 0: software setup](../weeks/week00-outline-and-TOC/README.md) (it includes a
 notebook that checks your installation). Full list: [`required_software.md`](required_software.md).
 
 | Tool | Used for |
@@ -166,7 +166,7 @@ notebook that checks your installation). Full list: [`required_software.md`](req
 
 In teams, students design, build and present a data warehouse on a dataset of their
 choice; presentations are in week 10. Details:
-[Project guidelines](../syllabus/PROJECT/DW_Project_Guidelines.md).
+[Project guidelines](../weeks/PROJECT/DW_Project_Guidelines.md).
 
 ### Exams
 
@@ -235,7 +235,7 @@ share your accommodation letter with the instructor.
 | Need | Where |
 |---|---|
 | A question about course content | Ask in class, come to office hours, post on **Camino Discussions** (students, the TA, and the instructor respond), or [email the instructor](mailto:mparsian@scu.edu) |
-| Installing the course software | [Week 0: software setup](../syllabus/week00-outline-and-TOC/README.md) · [`required_software.md`](required_software.md) |
+| Installing the course software | [Week 0: software setup](../weeks/week00-outline-and-TOC/README.md) · [`required_software.md`](required_software.md) |
 | SQL or Python refreshers | [`sql_tutorials.md`](sql_tutorials.md) · [`python_tutorials.md`](python_tutorials.md) · [`sql_style_guide.md`](sql_style_guide.md) |
 | LockDown Browser or other SCU technology | SCU Technology Help: (408) 554-5700, or a [Computing Support Request](https://help.scu.edu/TDClient/111/Portal/Home/) |
 
@@ -254,8 +254,8 @@ share your accommodation letter with the instructor.
 | [`prerequisite.md`](prerequisite.md) | What you need to know before the course |
 | [`required_books.md`](required_books.md) · [`required_software.md`](required_software.md) | Books and software |
 | [`academic_integrity.md`](academic_integrity.md) | Academic integrity |
-| [Syllabus (weekly schedule)](../syllabus/README.md) | Week pages, slides, notebooks, labs |
-| [Project guidelines](../syllabus/PROJECT/DW_Project_Guidelines.md) | The team project |
+| [Weekly schedule](../weeks/README.md) | Week pages, slides, notebooks, labs |
+| [Project guidelines](../weeks/PROJECT/DW_Project_Guidelines.md) | The team project |
 
 ---
 

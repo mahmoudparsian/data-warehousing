@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Build one ZIP per syllabus/ folder for students who do not use git.
+"""Build one ZIP per weeks/ folder for students who do not use git.
 
     week07-Silver-Layer-Cleaning-and-Conforming.zip
     └── <repo>-week07-Silver-Layer-Cleaning-and-Conforming/
-        └── syllabus/
+        └── weeks/
             ├── week07-Silver-Layer-Cleaning-and-Conforming/      ← the week folder (with labs/ once released)
             └── week06-Bronze-and-Silver-Cleaning/pizza_sales_medallion/data/
                                                                   ← other-week data this week's notebooks/labs read
@@ -69,13 +69,13 @@ def main():
         while f:
             dirs.add(f)
             f = posixpath.dirname(f)
-    folders = sorted({f.split("/")[1] for f in files if f.startswith("syllabus/") and f.count("/") >= 2})
+    folders = sorted({f.split("/")[1] for f in files if f.startswith("weeks/") and f.count("/") >= 2})
 
     def under(path):
         return [f for f in files if f == path or f.startswith(path + "/")]
 
     for folder in folders:
-        top = f"syllabus/{folder}"
+        top = f"weeks/{folder}"
         chosen = set(under(top))
         extra, todo, seen = set(), list(chosen), set()
         while todo:
@@ -92,7 +92,7 @@ def main():
                 while p and p not in fileset and p not in dirs:     # glob tails like orders_201*.csv: back up to an existing folder
                     p = posixpath.dirname(p)
                 parts = p.split("/")
-                if len(parts) < 3 or parts[0] != "syllabus" or parts[1] == folder:
+                if len(parts) < 3 or parts[0] != "weeks" or parts[1] == folder:
                     continue                                        # not another week's sub-path (a whole week is never pulled in)
                 if p not in extra:
                     extra.add(p)
@@ -107,7 +107,7 @@ def main():
             for f in sorted(chosen):
                 z.write(f, f"{root}/{f}")
         size = os.path.getsize(zpath) / 1e6
-        note = ("  + " + ", ".join(sorted(e[len('syllabus/'):] for e in extra))) if extra else ""
+        note = ("  + " + ", ".join(sorted(e[len('weeks/'):] for e in extra))) if extra else ""
         print(f"built {folder}.zip  ({len(chosen)} files, {size:.1f} MB){note}")
     return 0
 

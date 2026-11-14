@@ -1,4 +1,4 @@
-# Rebuild the one-ZIP-per-week downloads after every push that touches syllabus/,
+# Rebuild the one-ZIP-per-week downloads after every push that touches weeks/,
 # and attach them to the "weekly-zips" GitHub Release. Students download from links like:
 #   https://github.com/<owner>/<repo>/releases/download/weekly-zips/week03-Classic-Data-Warehousing.zip
 # Generic: the same file runs in mahmoudparsian/data-warehousing (MSIS-2419) and mahmoudparsian/OMIS-113.
@@ -8,7 +8,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "syllabus/**"
+      - "weeks/**"
       - ".github/scripts/build_week_zips.py"
       - ".github/workflows/week-zips.yml"
   workflow_dispatch:   # adds a "Run workflow" button on the Actions tab
@@ -26,7 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build one ZIP per syllabus folder
+      - name: Build one ZIP per week folder
         run: python3 .github/scripts/build_week_zips.py dist
 
       - name: Upload ZIPs to the "weekly-zips" release
@@ -60,7 +60,7 @@ jobs:
 
           Ignore "Source code (zip)" and "Source code (tar.gz)". GitHub adds those automatically, and they hold the whole repository.
 
-          Each ZIP keeps the course's folder layout (\`syllabus/weekNN-…/\`) and also holds the data from earlier weeks that its notebooks and labs read. A week's labs appear in its ZIP once they are released in class.
+          Each ZIP keeps the course's folder layout (\`weeks/weekNN-…/\`) and also holds the data from earlier weeks that its notebooks and labs read. A week's labs appear in its ZIP once they are released in class.
 
           Last updated: $(date -u '+%Y-%m-%d %H:%M UTC') from commit ${GITHUB_SHA::7}.
           NOTES

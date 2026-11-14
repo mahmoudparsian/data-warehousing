@@ -1,4 +1,4 @@
-# Syllabus
+# Weekly Schedule
 
 **MSIS-2419 · Business Intelligence and Data Warehousing** · Winter 2027 (January–March)
 

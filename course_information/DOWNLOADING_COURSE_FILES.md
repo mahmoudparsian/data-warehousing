@@ -36,7 +36,7 @@ Each ZIP file holds **one folder**, laid out exactly like the course repository,
 ```
 week07-Silver-Layer-Cleaning-and-Conforming.zip
 └── MSIS-2419-week07-Silver-Layer-Cleaning-and-Conforming/
-    └── syllabus/
+    └── weeks/
         ├── week07-Silver-Layer-Cleaning-and-Conforming/      ← the week: slides, notebook, labs/
         └── week06-Bronze-and-Silver-Cleaning/
             └── pizza_sales_medallion/data/                   ← week 6 data the labs read
@@ -53,7 +53,7 @@ Example: week 7's first lab.
 3. Open **Terminal** and go into the week's `labs/` folder:
 
    ```bash
-   cd ~/Downloads/MSIS-2419-week07-Silver-Layer-Cleaning-and-Conforming/syllabus/week07-Silver-Layer-Cleaning-and-Conforming/labs
+   cd ~/Downloads/MSIS-2419-week07-Silver-Layer-Cleaning-and-Conforming/weeks/week07-Silver-Layer-Cleaning-and-Conforming/labs
    ```
 
 4. Open the lab notebook with Marimo:
@@ -78,7 +78,7 @@ Example: week 7's first lab.
 3. Windows puts the files in a folder named after the ZIP file, so the path has one extra level. This is normal:
 
    ```
-   Downloads\week07-Silver-Layer-Cleaning-and-Conforming\MSIS-2419-week07-Silver-Layer-Cleaning-and-Conforming\syllabus\week07-Silver-Layer-Cleaning-and-Conforming\labs
+   Downloads\week07-Silver-Layer-Cleaning-and-Conforming\MSIS-2419-week07-Silver-Layer-Cleaning-and-Conforming\weeks\week07-Silver-Layer-Cleaning-and-Conforming\labs
    ```
 
 4. Open **PowerShell**, go into that folder (`cd` followed by the path above, starting with `$HOME\Downloads\…`), and run:
@@ -87,7 +87,7 @@ Example: week 7's first lab.
    marimo edit week_07_lab_01_student.py
    ```
 
-If `marimo` is "not recognized", see [Week 0: software setup](../syllabus/week00-outline-and-TOC/README.md).
+If `marimo` is "not recognized", see [Week 0: software setup](../weeks/week00-outline-and-TOC/README.md).
 
 ## 🔄 Getting Updates
 

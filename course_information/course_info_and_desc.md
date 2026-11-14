@@ -46,7 +46,7 @@
    plus **Tableau** and Python charts for dashboards.
 
 7. **Project:** in teams, students design, build and present a data warehouse on a dataset of their choice
-   ([project guidelines](../syllabus/PROJECT/DW_Project_Guidelines.md)).
+   ([project guidelines](../weeks/PROJECT/DW_Project_Guidelines.md)).
 
 ## 3. Learning Outcomes
 

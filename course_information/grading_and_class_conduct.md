@@ -40,7 +40,7 @@ Component                                         | %  |  %  |
 `5.` Bonus (for exceptional work) — extra credit, added on top of the 100 | up to +2 |     |
 
 **In-class labs:** 30 minutes each, done **in class** (a lab sheet and a Marimo notebook, released at the start of the session).
-Submit your work as instructed in class. Project details: [Project guidelines](../syllabus/PROJECT/DW_Project_Guidelines.md).
+Submit your work as instructed in class. Project details: [Project guidelines](../weeks/PROJECT/DW_Project_Guidelines.md).
 
 **Bonus:** up to 2 extra percentage points for exceptional work, added to your
 course percentage (so the maximum is 102%). Any percentage of 94 or higher,
