@@ -7,7 +7,7 @@
 | What | When / where |
 |---|---|
 | First class | **Monday, January 4, 2027** |
-| Last class | **TBD** (March 2027) |
+| Last class | **Wednesday, March 17, 2027** |
 | Class meetings | **Mondays and Wednesdays, 5:45–7:20 pm (Pacific Time)** — 2 sessions per week, 95 minutes each |
 | No class | Monday, January 18 (Martin Luther King Jr. Day) · Monday, February 15 (Presidents' Day) |
 | Room | **TBD** |

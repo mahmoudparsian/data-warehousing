@@ -30,7 +30,7 @@ Step-by-step setup (and a notebook to check it): [Week 0: Software setup](../wee
 
 ## 4. [Tableau](https://www.tableau.com)
 
-* Dashboards, from week 4 on (Tableau Desktop / Public, free with a student license)
+* Dashboards, from week 4 on (Tableau Desktop, free with a Tableau for Students license, or Tableau Public, free)
 * No Tableau? The same charts in Python (pandas + matplotlib) are accepted
 
 ------
