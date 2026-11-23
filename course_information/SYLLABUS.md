@@ -18,7 +18,7 @@ applies, and the instructor will correct this page.
 |---|---|
 | **Course** | MSIS-2419 — Business Intelligence and Data Warehousing |
 | **Units** | 4 (graduate) |
-| **Quarter** | Winter 2027: January 4 – March 20, 2027 |
+| **Quarter** | Winter 2027: January 4 – March 19, 2027 |
 | **Format** | 10 weeks · 20 sessions (2 per week) · 95 minutes per session, each with a 30-minute in-class lab |
 | **Meetings** | Mondays and Wednesdays, 5:45–7:20 pm (Pacific Time) · first class Mon January 4, last class Wed March 17, 2027 · no class on Mon Jan 18 (Martin Luther King Jr. Day) and Mon Feb 15 (Presidents' Day) |
 | **Classroom** | *To be announced on Camino* <!-- TODO(syllabus): room --> |
@@ -160,7 +160,7 @@ notebook that checks your installation). Full list: [`required_software.md`](req
 ### Labs
 
 - 30 minutes each, done **in class**: a lab sheet and a Marimo notebook, released at
-  the start of the session. Submit your work as instructed in class.
+  the start of the session. Submit your work in **Camino** before the session ends.
 - The lowest 2 of the 20 lab scores are dropped.
 
 ### Project
@@ -196,7 +196,7 @@ Full policy: [`grading_and_class_conduct.md`](grading_and_class_conduct.md).
 ## 7. Late Work
 
 **No late labs or project deliverables are accepted**, under any circumstances.
-Labs are done and submitted in class.
+Labs are done in class and submitted in Camino before the session ends.
 
 ---
 

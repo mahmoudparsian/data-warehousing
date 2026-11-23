@@ -399,10 +399,12 @@ SELECT
     -- ' blackfriday ' -> 'BLACKFRIDAY'
     UPPER(TRIM(promo_code)) AS promo_code,   
     
-    -- 'john DOE'      -> 'John Doe'  
-    INITCAP(TRIM(customer_name)) AS customer_name 
+    -- ' john DOE '    -> 'JOHN DOE'
+    UPPER(TRIM(customer_name)) AS customer_name 
 FROM sales_raw;
 ```
+
+> DuckDB has no `INITCAP()` ("John Doe" casing). For matching and grouping, one consistent case is what matters, so we use `UPPER()`.
 
 * Pro-Tips for DuckDB Silver Layers:
 
@@ -2189,10 +2191,10 @@ FROM bronze_sales;
 ## 2. String Grooming (Trim & Case)
 
 * Before: `" john DOE "`.
-* After: `"John Doe"`.
+* After: `"JOHN DOE"`.
 
 ```sql
-SELECT INITCAP(TRIM(cust_name)) AS cust_name 
+SELECT UPPER(TRIM(cust_name)) AS cust_name 
 FROM bronze_sales;
 ```
 
@@ -2414,7 +2416,7 @@ WITH base_transformation AS (
         TRY_CAST(price AS DECIMAL(12,2)) AS raw_price,
 
         -- 2. STRING GROOMING
-        INITCAP(TRIM(cust_name)) AS customer_name,
+        UPPER(TRIM(cust_name)) AS customer_name,
 
         -- 3. TIMEZONE NORMALIZATION (To UTC)
         raw_ts::TIMESTAMP AT TIME ZONE 'UTC' AS event_ts,

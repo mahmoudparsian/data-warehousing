@@ -26,7 +26,7 @@ Project guidelines: [`../PROJECT/`](../PROJECT/)
 
 - **2 sessions × 95 minutes** (Mondays and Wednesdays, 5:45–7:20 pm Pacific Time)
 - Each session: lecture + live demo, then a **30-minute in-class lab** (2 labs per week)
-- Labs are **released at the start of their session** in each week's `labs/` folder (a lab sheet `.md` + a Marimo notebook `.py`). Do them in class and submit as instructed.
+- Labs are **released at the start of their session** in each week's `labs/` folder (a lab sheet `.md` + a Marimo notebook `.py`). Do them in class and submit them in **Camino** before the session ends.
 
 ## ⚙️ Software setup (do this before week 1)
 
