@@ -16,13 +16,15 @@ By the end of the week you can:
 4. Compute percent of total, running totals, moving averages and `LAG`/`LEAD` changes.
 5. Profile a dataset with SQL: shape, NULLs, suspicious values, duplicates, distributions, outliers.
 6. Spot a misleading trend caused by a change in the mix of a group.
+7. Combine and clean data that arrives as many files: `read_csv` with `union_by_name` and `filename`, dates with `try_strptime`,
+   duplicates with `ROW_NUMBER()` + `QUALIFY`, orphans with `LEFT JOIN … IS NULL`, and a reconciliation (counts, `EXCEPT`).
 
 ## 📅 Sessions
 
 | Session | Topic | Material | Lab (30 min) |
 |---|---|---|---|
 | 1 | Analytical thinking + window functions | [slides 1: analytical thinking](week02_slides_1.md) · [slides 2: window functions](week02_slides_2_window_functions.md) · [`week02_notebook_1.py`](week02_notebook_1.py) (exercises) · [`week02_notebook_3.py`](week02_notebook_3.py) (advanced, with plots) | [Lab 2.1](labs/week_02_lab_01_student.md): window functions · notebook [`week_02_lab_01_student.py`](labs/week_02_lab_01_student.py) |
-| 2 | Exploratory data analysis with SQL | [What is EDA?](EDA/1.What_is_Exploratory_Data_Analysis.md) (slides) · [`EDA/2.EDA_basic.py`](EDA/2.EDA_basic.py) · [`EDA/3.EDA_comprehensive.py`](EDA/3.EDA_comprehensive.py) | [Lab 2.2](labs/week_02_lab_02_student.md): EDA on 4 yearly files · notebook [`week_02_lab_02_student.py`](labs/week_02_lab_02_student.py) |
+| 2 | Exploratory data analysis with SQL | [What is EDA?](EDA/1.What_is_Exploratory_Data_Analysis.md) (slides) · [`EDA/2.EDA_basic.py`](EDA/2.EDA_basic.py) · [`EDA/3.EDA_comprehensive.py`](EDA/3.EDA_comprehensive.py) · **SQL toolkit, Part 2** (~25 min): [slides](sql_toolkit_for_medallion/week02_slides_3_sql_toolkit_part2.md) · [`week02_slides_3_sql_toolkit_part2.py`](sql_toolkit_for_medallion/week02_slides_3_sql_toolkit_part2.py) (same, as a notebook) · [exercises](sql_toolkit_for_medallion/sql_toolkit_part2_exercises.md) · [`sql_toolkit_part2_exercises.py`](sql_toolkit_for_medallion/sql_toolkit_part2_exercises.py) | [Lab 2.2](labs/week_02_lab_02_student.md): EDA on 4 yearly files · notebook [`week_02_lab_02_student.py`](labs/week_02_lab_02_student.py) |
 
 ## 📂 What's in this folder
 
@@ -32,6 +34,7 @@ By the end of the week you can:
 | `week02_notebook_2.py` | 10 questions on insurance data: NL query → SQL → plot → insight |
 | [`EDA/`](EDA/) | EDA slides, two notebooks, and `data/insurance.2021–2024.csv` (one file per year) |
 | [`EDA/more_examples/`](EDA/more_examples/) | More EDA case studies (car sales, online retail, used cars) plus an [EDA report template](EDA/more_examples/data_exploration_TOC.md) |
+| [`sql_toolkit_for_medallion/`](sql_toolkit_for_medallion/) | **SQL toolkit for the medallion architecture, Part 2: combine, parse, deduplicate, reconcile** (many files, date formats, `QUALIFY`, orphans, `EXCEPT`, a CTE pipeline into a Silver table): slides + notebook, 6 exercises + notebook, on bike-share members + two monthly rental files (`data/`). Part 1 is in [week 1](../week01-Foundations-SQL-for-Analytics/sql_toolkit_for_medallion/) |
 | [`Ranking_Algorithms/`](Ranking_Algorithms/) | Ranking functions explained with examples. Files 2 and 3 use **MySQL**; the syntax is the same in DuckDB |
 | [`Join_Operation/`](Join_Operation/) | **Review:** INNER / LEFT / RIGHT / FULL / CROSS joins. You need joins for star schemas in week 4 |
 | [`super_store_data_analysis/`](super_store_data_analysis/) | Optional practice: 19 analysis queries on 51k Superstore orders (written for MySQL) |

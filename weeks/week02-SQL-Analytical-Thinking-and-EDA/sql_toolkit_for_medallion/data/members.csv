@@ -1,0 +1,44 @@
+member_id,full_name,email,city,plan,monthly_fee,age,signup_date,updated_at
+101,Ben Patel,ben.patel101@example.com,santa clara,annual,9.50,32,2025-06-22,2025-06-22 09:00:00
+102,Nico Lopez,nico.lopez102@example.com,"San Francisco ",Monthly,15.00,33,2025-04-27,2025-04-27 09:00:00
+103,Wen Garcia,wen.garcia103@example.com,"SANTA CLARA ",monthly,15.00,36,2025-10-21,2025-10-21 09:00:00
+104,Wen Silva,wen.silva104@example.com,"San Francisco "," ",,60,2025-04-07,2025-04-07 09:00:00
+105,Victor Silva,victor.silva105@example.com,san jose,Monthly,15.00,31,2025-01-01,2025-01-01 09:00:00
+106,Kemi Garcia,kemi.garcia106@example.com," San Jose"," ANNUAL ",9.50," 51",2025-05-05,2025-05-05 09:00:00
+107,Sam Patel,sam.patel107@example.com,SAN JOSE," ANNUAL ",9.50,44,2025-05-10,2025-05-10 09:00:00
+108,Rosa Silva,,SAN JOSE,annual,9.50,41,2025-03-09,2025-03-09 09:00:00
+109,Ana Lopez,ana.lopez109@example.com,Santa Clara,Monthly,15.00,20,2025-07-28,2025-07-28 09:00:00
+110,Uma Patel,uma.patel110@example.com,San Francisco,Monthly,$15.00,35,2025-11-09,2025-11-09 09:00:00
+111,Isla Rossi,isla.rossi111@example.com,Santa Clara,Monthly,15.00,37,2025-09-20,2025-09-20 09:00:00
+112,Ben Haddad,ben.haddad112@example.com,san jose," ANNUAL ",9.50,unknown,2025-08-07,2025-08-07 09:00:00
+113,Jon Patel,jon.patel113@example.com,"SANTA CLARA ",monthly,15.00,55,2025-08-07,2025-08-07 09:00:00
+114,Farid Lopez,farid.lopez114@example.com,san jose,monthly," ",24,2025-01-05,2025-01-05 09:00:00
+115,Ben Okafor,ben.okafor115@example.com,Santa Clara,Annual,9.50,46,2025-01-03,2025-01-03 09:00:00
+116,Ben Nguyen,ben.nguyen116@example.com,san francisco,Monthly,15.00,55,2025-02-26,2025-02-26 09:00:00
+117,Rosa Kim,rosa.kim117@example.com,santa clara,N/A,,38,2025-11-16,2025-11-16 09:00:00
+118,Dev Smith,dev.smith118@example.com,san francisco,monthly,15.00,42,2025-07-14,2025-07-14 09:00:00
+119,Tara Rossi,tara.rossi119@example.com,San Jose,Monthly,15.00," ",2025-01-29,2025-01-29 09:00:00
+120,Jon Patel,jon.patel120@example.com,"SANTA CLARA ",Annual,9.50,19,2025-03-07,2025-03-07 09:00:00
+121,Rosa Smith," ",SAN JOSE,Monthly,15.00,22,2025-06-04,2025-06-04 09:00:00
+122,Yara Rossi,yara.rossi122@example.com,San Jose,Monthly,$15.00,58,2025-05-10,2025-05-10 09:00:00
+123,Uma Nguyen,uma.nguyen123@example.com,Santa Clara,monthly,15.00,62,2025-05-06,2025-05-06 09:00:00
+124,Rosa Haddad,rosa.haddad124@example.com,San Francisco," ANNUAL ",9.50,55,2025-02-30,2025-02-28 09:00:00
+125,Wen Patel,wen.patel125@example.com,SF,Annual,9.50,20,2025-04-18,2025-04-18 09:00:00
+126,Dev Haddad,dev.haddad126@example.com,SJ,,,68,2025-04-19,2025-04-19 09:00:00
+127,Ben Kim,ben.kim127@example.com,Santa Clara,Monthly,15.00,21,2025-06-03,2025-06-03 09:00:00
+128,Yara Patel,yara.patel128@example.com," San Jose",Monthly,15.00,55,2025-04-16,2025-04-16 09:00:00
+129,Maya Novak,maya.novak129@example.com,San Jose,annual,free,26,2025-03-13,2025-03-13 09:00:00
+130,Rosa Chen,rosa.chen130@example.com,Santa Clara,Annual,9.50,54,2025-08-20,2025-08-20 09:00:00
+131,Priya Nguyen,priya.nguyen131@example.com,Santa Clara,annual,9.50,230,2025-01-26,2025-01-26 09:00:00
+132,Nico Lopez,nico.lopez132@example.com,"SANTA CLARA "," ANNUAL ",9.50,37,2025-05-15,2025-05-15 09:00:00
+133,Rosa Kim,ROSA.KIM133@EXAMPLE.COM,santa clara,Annual,9.50,22,2025-07-17,2025-07-17 09:00:00
+134,Jon Patel,jon.patel134@example.com,"San Francisco ",monthly,15.00,56,2025-07-20,2025-07-20 09:00:00
+135,Tara Okafor,tara.okafor135@example.com,san francisco," ANNUAL ",9.50,49,2025-11-27,2025-11-27 09:00:00
+136,Nico Haddad,nico.haddad136@example.com,"San Francisco ",monthly,15.00,51,2025-02-09,2025-02-09 09:00:00
+137,Isla Kim,isla.kim137@example.com,"San Francisco "," ANNUAL ",9.50,,2025-10-18,2025-10-18 09:00:00
+138,Uma Kim,uma.kim138@example.com,san jose,Monthly,15.00,34,2025-10-01,2025-10-01 09:00:00
+139,Luis Smith,luis.smith139@example.com,San Jose,Monthly,15.00,43,2025-08-25,2025-08-25 09:00:00
+140,Hiro Garcia,hiro.garcia140@example.com,SAN JOSE,Monthly,15.00,68,2025-02-03,2025-02-03 09:00:00
+103,Wen Garcia,wen.garcia103@example.com,San Francisco,Annual,9.50,36,2025-10-21,2026-01-20 18:30:00
+115,Ben Okafor,ben.okafor115@example.com,Santa Clara,Monthly,15.00,46,2025-01-03,2026-01-20 18:30:00
+128,Yara Patel,yara.patel128@example.com,San Jose,Annual,9.50,55,2025-04-16,2026-01-20 18:30:00

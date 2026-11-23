@@ -45,6 +45,8 @@ class: lead
 
 - Building SQL intuition  
 
+- SQL toolkit for the medallion architecture, Part 1: NULL defaults (`COALESCE`), cleaning text, `TRY_CAST`  
+
 ---
 
 # 📊 Week 1 — Example
@@ -85,6 +87,8 @@ GROUP BY region;
 - Exploratory data analysis (EDA) with SQL  
 
 - Business-driven SQL  
+
+- SQL toolkit, Part 2: many files, dates, duplicates (`QUALIFY`), orphans, reconciliation  
 
 ---
 

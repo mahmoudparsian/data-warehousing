@@ -91,6 +91,27 @@ orders["tax"] = orders["amount"] * 0.07
 
 ---
 
+## Slide 7b — Transform in SQL: Your Toolkit (Weeks 1–2)
+
+The same Transform steps in SQL, with the functions from the SQL toolkit
+([Part 1](../../week01-Foundations-SQL-for-Analytics/sql_toolkit_for_medallion/week01_slides_3_sql_toolkit_part1.md) ·
+[Part 2](../../week02-SQL-Analytical-Thinking-and-EDA/sql_toolkit_for_medallion/week02_slides_3_sql_toolkit_part2.md)):
+
+| Step | SQL |
+|---|---|
+| Extract as text | `read_csv('…', all_varchar = true)` · many files: `'*.csv'`, `union_by_name = true`, `filename = true` |
+| Profile | `COUNT(*) - COUNT(col)` · `COUNT(*) FILTER (WHERE …)` · `GROUP BY col` · `LIKE '__/__/____'` |
+| Clean | `TRIM`, `UPPER`/`LOWER`, `REPLACE` · `COALESCE(NULLIF(TRIM(col), ''), 'Unknown')` · `CASE … ELSE 'Unknown'` |
+| Type | `TRY_CAST(col AS DECIMAL(10, 2))` · `try_strptime(col, ['%Y-%m-%d', '%m/%d/%Y'])::DATE` |
+| Validate | `ABS(a - b) > 0.01` · `CASE WHEN x BETWEEN lo AND hi THEN x END` · a `dq_issue` column |
+| Deduplicate | `QUALIFY ROW_NUMBER() OVER (PARTITION BY key ORDER BY newest DESC) = 1` |
+| Check references | `LEFT JOIN … WHERE right.key IS NULL` · `NOT EXISTS` |
+| Load + reconcile | `CREATE OR REPLACE TABLE … AS` · rows in = loaded + rejected + duplicates · `EXCEPT` |
+
+👉 Lab 3.2 uses these steps on messy book-seller sales.
+
+---
+
 ## Slide 8 — Dimensions
 
 Dimensions provide context:

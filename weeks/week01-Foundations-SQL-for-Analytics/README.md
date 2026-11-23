@@ -15,13 +15,15 @@ By the end of the week you can:
 3. Explain the difference between `WHERE` (filters rows) and `HAVING` (filters groups).
 4. Build segments with `CASE` and compare them.
 5. Turn a query result into a one-sentence business insight.
+6. Clean one messy table in a `SELECT`: NULL defaults (`COALESCE`, `NULLIF`), text (`TRIM`, `UPPER`, `REPLACE`), types (`TRY_CAST`),
+   and save it with `CREATE SCHEMA` / `CREATE TABLE AS` / `CREATE VIEW`: the first tools of the medallion architecture (weeks 5–9).
 
 ## 📅 Sessions
 
 | Session | Topic | Material | Lab (30 min) |
 |---|---|---|---|
 | 1 | Question → SQL → insight; filtering and aggregation on insurance data | [slides](lectures_and_notebooks/week01_slides.md) · [`lectures_and_notebooks/week01_notebook_2.py`](lectures_and_notebooks/week01_notebook_2.py) (exercises, matches the slides) · [`week01_notebook_1.py`](lectures_and_notebooks/week01_notebook_1.py) (EDA storytelling) | [Lab 1.1](labs/week_01_lab_01_student.md): insurance · notebook [`week_01_lab_01_student.py`](labs/week_01_lab_01_student.py) |
-| 2 | GROUP BY in depth: multi-column groups, `HAVING`, `CASE`, top-N, percent of total | [slides: HAVING & CASE](lectures_and_notebooks/week01_slides_2_having_case.md) · [Understanding GROUP BY](understanding_GROUP_BY/Understanding_GROUP_BY.md) · [`understanding_GROUP_BY/group_by_notebook.py`](understanding_GROUP_BY/group_by_notebook.py) · [Example 2](example_2_group_by/) (tiny table) | [Lab 1.2](labs/week_01_lab_02_student.md): 400k sales rows · notebook [`week_01_lab_02_student.py`](labs/week_01_lab_02_student.py) |
+| 2 | GROUP BY in depth: multi-column groups, `HAVING`, `CASE`, top-N, percent of total | [slides: HAVING & CASE](lectures_and_notebooks/week01_slides_2_having_case.md) · [Understanding GROUP BY](understanding_GROUP_BY/Understanding_GROUP_BY.md) · [`understanding_GROUP_BY/group_by_notebook.py`](understanding_GROUP_BY/group_by_notebook.py) · [Example 2](example_2_group_by/) (tiny table) · **SQL toolkit, Part 1** (~25 min): [slides](sql_toolkit_for_medallion/week01_slides_3_sql_toolkit_part1.md) · [`week01_slides_3_sql_toolkit_part1.py`](sql_toolkit_for_medallion/week01_slides_3_sql_toolkit_part1.py) (same, as a notebook) · [exercises](sql_toolkit_for_medallion/sql_toolkit_part1_exercises.md) · [`sql_toolkit_part1_exercises.py`](sql_toolkit_for_medallion/sql_toolkit_part1_exercises.py) | [Lab 1.2](labs/week_01_lab_02_student.md): 400k sales rows · notebook [`week_01_lab_02_student.py`](labs/week_01_lab_02_student.py) |
 
 ## 📂 What's in this folder
 
@@ -35,6 +37,7 @@ By the end of the week you can:
 | [`example_4_group_by/`](example_4_group_by/) | 4 yearly sales files (1M rows total), used in Lab 1.2 |
 | [`example_5_ranking/`](example_5_ranking/) | [Ranking functions](example_5_ranking/ranking_functions.md): preview for week 2 |
 | [`understanding_GROUP_BY/`](understanding_GROUP_BY/) | GROUP BY explained step by step |
+| [`sql_toolkit_for_medallion/`](sql_toolkit_for_medallion/) | **SQL toolkit for the medallion architecture, Part 1: clean one table** (NULLs and defaults, text cleanup, `TRY_CAST`, flag and keep, schemas/tables/views): slides + notebook, 6 exercises + notebook, on a small messy bike-share file (`data/members.csv`). Part 2 is in week 2 |
 
 ## ⚙️ Setup
 
