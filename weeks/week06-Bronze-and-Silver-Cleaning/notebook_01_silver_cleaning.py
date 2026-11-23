@@ -14,7 +14,7 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # Week 6 — Silver Layer Deep Dive (Elite Notebook)
+    # Week 6 — Silver Layer Deep Dive
 
     This notebook demonstrates a **Silver transformation pipeline** using the insurance dataset.
 

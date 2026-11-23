@@ -14,7 +14,7 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # Week 3 — Classic Data Warehousing with Bike Store
+    # Week 4 — Classic Data Warehousing with Bike Store
     ## Star Schema + OLAP Queries
 
     ### Notebook Overview

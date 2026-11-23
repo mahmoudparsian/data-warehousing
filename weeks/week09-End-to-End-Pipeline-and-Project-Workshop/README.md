@@ -22,8 +22,8 @@ By the end of the week you can:
 
 | Session | Topic | Material | Lab (30 min) |
 |---|---|---|---|
-| 1 | Pipelines over time: state, watermarks, idempotency, incremental Silver and Gold | [slides 1: pipelines + incremental](week09_slides_1_pipelines_incremental.md) (Parts 0–9) · [slides 2: DuckDB patterns](week09_slides_2_incremental_in_duckdb.md) (Patterns 1–5) | [Lab 9.1](labs/week_09_lab_01_student.md): monthly files, one run at a time · notebook [`week_09_lab_01_student.py`](labs/week_09_lab_01_student.py) |
-| 2 | Late data, partition rebuilds, corrections, validation · **project workshop** | [slides 1](week09_slides_1_pipelines_incremental.md) (Parts 10–20) · [slides 2](week09_slides_2_incremental_in_duckdb.md) (Patterns 6–8) · [project checklist](project_workshop_checklist.md) | [Lab 9.2](labs/week_09_lab_02_student.md): late data, a corrected re-send, the proof · notebook [`week_09_lab_02_student.py`](labs/week_09_lab_02_student.py) |
+| 1 | Pipelines over time: state, watermarks, idempotency, incremental Silver and Gold | [slides 1: pipelines + incremental](lecture_notes_01_incremental_pipelines.md) (Parts 0–9) · [slides 2: DuckDB patterns](lecture_notes_02_incremental_in_duckdb.md) (Patterns 1–5) | [Lab 9.1](labs/week_09_lab_01_student.md): monthly files, one run at a time · notebook [`week_09_lab_01_student.py`](labs/week_09_lab_01_student.py) |
+| 2 | Late data, partition rebuilds, corrections, validation · **project workshop** | [slides 1](lecture_notes_01_incremental_pipelines.md) (Parts 10–20) · [slides 2](lecture_notes_02_incremental_in_duckdb.md) (Patterns 6–8) · [project checklist](project_workshop_checklist.md) | [Lab 9.2](labs/week_09_lab_02_student.md): late data, a corrected re-send, the proof · notebook [`week_09_lab_02_student.py`](labs/week_09_lab_02_student.py) |
 
 ## 📂 What's in this folder
 
@@ -31,7 +31,7 @@ By the end of the week you can:
 |---|---|
 | [`labs/`](labs/) | Labs 9.1 and 9.2 (sheet `.md` + Marimo notebook, released in class) · `week_09_lab_setup.sql` (the week 6–8 pizza warehouse for POS sales + empty delivery pipeline + `silver.delivery_conform(run_id)` macro), [extended practice](labs/week_09_lab_extended_practice_insurance_incremental_student.md): updates/upserts on insurance data (optional) |
 | [`pizza_incremental/landing/`](pizza_incremental/landing/) | The delivery app's export, one file per **UTC** month (`delivery_app_2016_01.csv` … `_12.csv`, `delivery_app_2017_01.csv`), plus a corrected re-send `delivery_app_2016_06_v2.csv` |
-| `week09_notebook.py` | Day 1 / Day 2 incremental pipeline demo with updates and late rows (insurance data) |
+| `notebook_01_incremental_pipeline.py` | Day 1 / Day 2 incremental pipeline demo with updates and late rows (insurance data) |
 | [`project_workshop_checklist.md`](project_workshop_checklist.md) | 15-step checklist for your team project, mapped to the weeks where each step was taught |
 
 ## ⚙️ Setup

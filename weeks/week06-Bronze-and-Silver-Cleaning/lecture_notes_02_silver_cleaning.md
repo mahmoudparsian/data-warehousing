@@ -6,7 +6,7 @@ size: 16:9
 ---
 
 # Week 6  
-## Silver Layer Deep Dive — Transformations (Elite v3 — Full Story)
+## Silver Layer Deep Dive — Transformations
 
 ---
 

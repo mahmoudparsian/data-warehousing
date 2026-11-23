@@ -685,8 +685,8 @@ SELECT * FROM silver.members_by_city_plan ORDER BY city, plan;
 
 # ✍️ Your Turn
 
-- Every query above, live: the notebook **`week01_slides_3_sql_toolkit_part1.py`** (`marimo edit week01_slides_3_sql_toolkit_part1.py`, in this folder).
-- Then practice: **`sql_toolkit_part1_exercises.py`**: **6 short exercises** (solutions at the end).
+- Every query above, live: the notebook **`lecture_notes_03_cleaning_one_table.py`** (`marimo edit lecture_notes_03_cleaning_one_table.py`, in this folder).
+- Then practice: **`exercises_03_cleaning_one_table.py`**: **6 short exercises** (solutions at the end).
 
 **Next week (Part 2):** read **many** files at once, parse dates in different formats,
 remove duplicates (`QUALIFY`), find orphans (`LEFT JOIN … IS NULL`) and reconcile (`EXCEPT`).

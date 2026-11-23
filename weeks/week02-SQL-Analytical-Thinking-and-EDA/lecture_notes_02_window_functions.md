@@ -1,6 +1,6 @@
 ---
 marp: true
-title: Week 2 — Window Functions (Elite Deep Dive)
+title: Week 2 — Window Functions (Deep Dive)
 paginate: true
 theme: default
 class: lead

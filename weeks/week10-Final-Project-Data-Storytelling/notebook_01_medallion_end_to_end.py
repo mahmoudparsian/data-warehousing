@@ -14,7 +14,7 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # Week 10 — Medallion Architecture (Elite v2 Notebook)
+    # Week 10 — Medallion Architecture End to End
 
     ## Goal
     Demonstrate **Bronze → Silver → Gold** with:

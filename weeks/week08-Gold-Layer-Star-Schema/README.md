@@ -22,15 +22,15 @@ By the end of the week you can:
 
 | Session | Topic | Material | Lab (30 min) |
 |---|---|---|---|
-| 1 | Gold modeling: business-first design, grain, dimensions, surrogate keys, validation | [slides 1: Gold modeling](week08_slides_1_gold_modeling.md) (Parts 0–8) · [`week08_notebook.py`](week08_notebook.py) | [Lab 8.1](labs/week_08_lab_01_student.md): pizza star schema · notebook [`week_08_lab_01_student.py`](labs/week_08_lab_01_student.py) |
-| 2 | KPIs that add up, data marts, Gold → Tableau | [slides 2: KPIs & marts](week08_slides_2_kpis_and_marts.md) · [slides 1](week08_slides_1_gold_modeling.md) (Parts 9–18) · demo: [`insurance_medallion_example/`](insurance_medallion_example/) ([`medallion_executive_dashboard.py`](insurance_medallion_example/medallion_executive_dashboard.py)) | [Lab 8.2](labs/week_08_lab_02_student.md): KPIs, 2 marts, dashboard · notebook [`week_08_lab_02_student.py`](labs/week_08_lab_02_student.py) |
+| 1 | Gold modeling: business-first design, grain, dimensions, surrogate keys, validation | [slides 1: Gold modeling](lecture_notes_01_gold_modeling.md) (Parts 0–8) · [`notebook_01_gold_star_schema.py`](notebook_01_gold_star_schema.py) | [Lab 8.1](labs/week_08_lab_01_student.md): pizza star schema · notebook [`week_08_lab_01_student.py`](labs/week_08_lab_01_student.py) |
+| 2 | KPIs that add up, data marts, Gold → Tableau | [slides 2: KPIs & marts](lecture_notes_02_kpis_and_marts.md) · [slides 1](lecture_notes_01_gold_modeling.md) (Parts 9–18) · demo: [`insurance_medallion_example/`](insurance_medallion_example/) ([`medallion_executive_dashboard.py`](insurance_medallion_example/medallion_executive_dashboard.py)) | [Lab 8.2](labs/week_08_lab_02_student.md): KPIs, 2 marts, dashboard · notebook [`week_08_lab_02_student.py`](labs/week_08_lab_02_student.py) |
 
 ## 📂 What's in this folder
 
 | Folder / file | Contents |
 |---|---|
 | [`labs/`](labs/) | Labs 8.1 and 8.2 (sheet `.md` + Marimo notebook, released in class) · `week_08_lab_setup.sql` (rebuilds weeks 6–7 up to `silver.sales_lines` in about 2 s), [extended practice](labs/week_08_lab_extended_practice_insurance_gold_student.md): Gold on insurance data (optional) |
-| `week08_notebook.py` | Gold modeling walkthrough on the insurance data: business questions → grain → dimensions → fact → marts |
+| `notebook_01_gold_star_schema.py` | Gold modeling walkthrough on the insurance data: business questions → grain → dimensions → fact → marts |
 | [`insurance_medallion_example/`](insurance_medallion_example/) | A complete second case: 4 years of messy insurance files → Bronze → Silver ([business rules](insurance_medallion_example/business_rules.md)) → Gold star schema → executive dashboard (3 notebooks, run in order: EDA, build, dashboard) |
 
 ## ⚙️ Setup

@@ -2,7 +2,7 @@
 ## Silver Transformations on the Insurance Data
 
 > Practice the Session 2 Silver ideas on the insurance data the slides use: week 1's [`insurance.csv`](../../week01-Foundations-SQL-for-Analytics/example_1_insurance/insurance.csv)
-> or week 2's yearly files in [`EDA/data/`](../../week02-SQL-Analytical-Thinking-and-EDA/EDA/data/). The demo notebook is [`../week06_notebook.py`](../week06_notebook.py).
+> or week 2's yearly files in [`EDA/data/`](../../week02-SQL-Analytical-Thinking-and-EDA/EDA/data/). The demo notebook is [`../notebook_01_silver_cleaning.py`](../notebook_01_silver_cleaning.py).
 
 ## 🎯 Objective
 Build a **robust Silver pipeline** from messy Bronze data.

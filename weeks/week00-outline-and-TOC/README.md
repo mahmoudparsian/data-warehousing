@@ -65,15 +65,15 @@ can't open database files made by DuckDB 2.0 ("version number 999"). Install it 
    Keep the existing entries.
 5. **Close Command Prompt, open a new one**, and run `duckdb --version`: it must start with **v2.**
 
-Check your setup by running [`week00_3_demo_notebook.py`](week00_3_demo_notebook.py) with `marimo edit week00_3_demo_notebook.py` (from this folder): it needs no data files.
+Check your setup by running [`notebook_01_messy_data_demo.py`](notebook_01_messy_data_demo.py) with `marimo edit notebook_01_messy_data_demo.py` (from this folder): it needs no data files.
 
 ## 📂 In this folder
 
 | File | What it is |
 |---|---|
-| [`week00_1_table_of_contents.md`](week00_1_table_of_contents.md) | Course structure: why SQL → warehousing → Medallion (slides) |
-| [`week00_2_outline_slides.md`](week00_2_outline_slides.md) | Week-by-week outline with one example per week (slides) |
-| [`week00_5_dw_vs_medallion_slides.md`](week00_5_dw_vs_medallion_slides.md) | Classic DW vs Medallion architecture (slides) |
+| [`lecture_notes_01_table_of_contents.md`](lecture_notes_01_table_of_contents.md) | Course structure: why SQL → warehousing → Medallion (slides) |
+| [`lecture_notes_02_course_roadmap.md`](lecture_notes_02_course_roadmap.md) | Week-by-week outline with one example per week (slides) |
+| [`lecture_notes_03_dw_vs_medallion.md`](lecture_notes_03_dw_vs_medallion.md) | Classic DW vs Medallion architecture (slides) |
 | [`KPI_examples.md`](KPI_examples.md) | What a KPI is, with practical examples |
-| `week00_3_demo_notebook.py` | Live demo: messy data → wrong answer → cleaned → right answer |
-| `week00_4_duckdb_sqlplot_pattern.py` | The **SQL → DataFrame → plot** pattern used all quarter |
+| `notebook_01_messy_data_demo.py` | Live demo: messy data → wrong answer → cleaned → right answer |
+| `notebook_02_sql_to_plot.py` | The **SQL → DataFrame → plot** pattern used all quarter |

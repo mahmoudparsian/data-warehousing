@@ -22,15 +22,15 @@ By the end of the week you can:
 
 | Session | Topic | Material | Lab (30 min) |
 |---|---|---|---|
-| 1 | Conformance: schema alignment, canonical codes, mapping tables, time zones | [slides 1: conformance & integration](week07_slides_1_conformance_and_integration.md) · [slides 2: DuckDB patterns](week07_slides_2_conforming_in_practice.md) (Steps 1–4) | [Lab 7.1](labs/week_07_lab_01_student.md): conform the delivery app · notebook [`week_07_lab_01_student.py`](labs/week_07_lab_01_student.py) |
-| 2 | Integration: quarantine, source conflicts, `UNION ALL`, reconciliation, cross-source KPIs | [slides 2](week07_slides_2_conforming_in_practice.md) (Steps 5–7) · [Silver transformations deep dive](Medallion_Architecture_Silver_Transformations.md) · [`week07_notebook.py`](week07_notebook.py) | [Lab 7.2](labs/week_07_lab_02_student.md): one Silver table, two channels · notebook [`week_07_lab_02_student.py`](labs/week_07_lab_02_student.py) |
+| 1 | Conformance: schema alignment, canonical codes, mapping tables, time zones | [slides 1: conformance & integration](lecture_notes_01_conformance_and_integration.md) · [slides 2: DuckDB patterns](lecture_notes_02_conforming_in_duckdb.md) (Steps 1–4) | [Lab 7.1](labs/week_07_lab_01_student.md): conform the delivery app · notebook [`week_07_lab_01_student.py`](labs/week_07_lab_01_student.py) |
+| 2 | Integration: quarantine, source conflicts, `UNION ALL`, reconciliation, cross-source KPIs | [slides 2](lecture_notes_02_conforming_in_duckdb.md) (Steps 5–7) · [Silver transformations deep dive](Medallion_Architecture_Silver_Transformations.md) · [`notebook_01_multi_source_conformance.py`](notebook_01_multi_source_conformance.py) | [Lab 7.2](labs/week_07_lab_02_student.md): one Silver table, two channels · notebook [`week_07_lab_02_student.py`](labs/week_07_lab_02_student.py) |
 
 ## 📂 What's in this folder
 
 | Folder / file | Contents |
 |---|---|
 | [`labs/`](labs/) | Labs 7.1 and 7.2 (sheet `.md` + Marimo notebook, released in class) · `week_07_lab_setup.sql` (rebuilds the week 6 pizza Silver tables into `labs/pizza.duckdb`), [extended practice](labs/week_07_lab_extended_practice_insurance_conformance_student.md): conform 4 messy insurance files (optional) |
-| `week07_notebook.py` | Multi-source conformance demo on the 4 messy insurance files: profile per source, align, conform, integrate, validate |
+| `notebook_01_multi_source_conformance.py` | Multi-source conformance demo on the 4 messy insurance files: profile per source, align, conform, integrate, validate |
 | [`data/`](data/) · [`data_messy/`](data_messy/) | Insurance 2021–2024: clean and messy versions (used by the slides, notebook and extended practice) |
 | [`Medallion_Architecture_Silver_Transformations.md`](Medallion_Architecture_Silver_Transformations.md) | Silver deep dive: casting, dedup with window functions, nulls, enrichment, time zones, … |
 

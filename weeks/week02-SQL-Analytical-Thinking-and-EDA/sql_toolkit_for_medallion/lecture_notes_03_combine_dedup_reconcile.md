@@ -620,7 +620,7 @@ SELECT rental_id FROM silver.rentals;
 
 # ✍️ Your Turn
 
-- Every query above, live: the notebook **`week02_slides_3_sql_toolkit_part2.py`** (`marimo edit week02_slides_3_sql_toolkit_part2.py`, in this folder).
-- Then practice: **`sql_toolkit_part2_exercises.py`**: **6 short exercises** (solutions at the end).
+- Every query above, live: the notebook **`lecture_notes_03_combine_dedup_reconcile.py`** (`marimo edit lecture_notes_03_combine_dedup_reconcile.py`, in this folder).
+- Then practice: **`exercises_03_combine_dedup_reconcile.py`**: **6 short exercises** (solutions at the end).
 
 **Next week (ETL):** you will use Parts 1 and 2 on a messy book-seller file: profile → clean → deduplicate → load → reconcile.

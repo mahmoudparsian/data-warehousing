@@ -26,8 +26,8 @@ By the end of the week you can:
 
 | Session | Topic | Material | Lab (30 min) |
 |---|---|---|---|
-| 1 | Bronze in depth | [slides: Bronze in depth](week06_slides_1_bronze_in_depth.md) · [pizza shop data](pizza_sales_medallion/README.md) · [story](pizza_sales_medallion/pizza_dw_story.md) | [Lab 6.1](labs/week_06_lab_01_student.md): land 2 batches + the menu · notebook [`week_06_lab_01_student.py`](labs/week_06_lab_01_student.py) |
-| 2 | Silver cleaning: data-quality dimensions, profiling, nulls, standardization, outliers, dedup, enrichment, validation | [slides: Silver cleaning](week06_slides_2_silver_cleaning.md) · [`week06_notebook.py`](week06_notebook.py) (the same ideas on insurance data) | [Lab 6.2](labs/week_06_lab_02_student.md): Bronze → trusted Silver order lines · notebook [`week_06_lab_02_student.py`](labs/week_06_lab_02_student.py) |
+| 1 | Bronze in depth | [slides: Bronze in depth](lecture_notes_01_bronze_layer.md) · [pizza shop data](pizza_sales_medallion/README.md) · [story](pizza_sales_medallion/pizza_dw_story.md) | [Lab 6.1](labs/week_06_lab_01_student.md): land 2 batches + the menu · notebook [`week_06_lab_01_student.py`](labs/week_06_lab_01_student.py) |
+| 2 | Silver cleaning: data-quality dimensions, profiling, nulls, standardization, outliers, dedup, enrichment, validation | [slides: Silver cleaning](lecture_notes_02_silver_cleaning.md) · [`notebook_01_silver_cleaning.py`](notebook_01_silver_cleaning.py) (the same ideas on insurance data) | [Lab 6.2](labs/week_06_lab_02_student.md): Bronze → trusted Silver order lines · notebook [`week_06_lab_02_student.py`](labs/week_06_lab_02_student.py) |
 
 ## 📂 What's in this folder
 
@@ -35,7 +35,7 @@ By the end of the week you can:
 |---|---|
 | [`labs/`](labs/) | Labs 6.1 and 6.2 (sheet `.md` + Marimo notebook, released in class) (they share `labs/pizza.duckdb`, which is git-ignored); [extended practice](labs/week_06_lab_extended_practice_silver_insurance_student.md): Silver on insurance data (optional) |
 | [`pizza_sales_medallion/`](pizza_sales_medallion/) | Pizza shop data (2015 + 2016 + menu), business rules, and `pizza_shop_dw.py`: the full pipeline to a Gold star schema with analysis |
-| `week06_notebook.py` | Silver deep-dive notebook: profiling, cleaning, validation, before/after KPIs (insurance data) |
+| `notebook_01_silver_cleaning.py` | Silver deep-dive notebook: profiling, cleaning, validation, before/after KPIs (insurance data) |
 
 ## ⚙️ Setup
 

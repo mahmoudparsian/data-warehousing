@@ -1,7 +1,7 @@
 # Week 7 — Extended Practice (optional)
 ## Silver Integration & Conformance on 4 Messy Insurance Files
 
-> Files: [`../data_messy/`](../data_messy/) (messy) and [`../data/`](../data/) (clean). Demo notebook: [`../week07_notebook.py`](../week07_notebook.py).
+> Files: [`../data_messy/`](../data_messy/) (messy) and [`../data/`](../data/) (clean). Demo notebook: [`../notebook_01_multi_source_conformance.py`](../notebook_01_multi_source_conformance.py).
 
 ## 🎯 Objective
 Build a **multi-source Silver dataset** from 4 yearly insurance files.

@@ -7,7 +7,7 @@ paginate: true
 # Week 9 — Extended Practice (optional): Incremental Processing with Updates (Insurance)
 
 > Adds what the pizza labs don't cover: **updated** records (upserts) and a sliding window for late updates.
-> Demo notebook: [`../week09_notebook.py`](../week09_notebook.py) (uses week 1's `insurance.csv`).
+> Demo notebook: [`../notebook_01_incremental_pipeline.py`](../notebook_01_incremental_pipeline.py) (uses week 1's `insurance.csv`).
 
 ---
 

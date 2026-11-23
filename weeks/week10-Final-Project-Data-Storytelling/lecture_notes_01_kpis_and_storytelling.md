@@ -6,7 +6,7 @@ size: 16:9
 ---
 
 # Week 10  
-## Final Project + Data Storytelling (Elite v5 — KPI-Centered, Deep + Case-Driven)
+## Final Project + Data Storytelling (KPI-Centered)
 
 ---
 

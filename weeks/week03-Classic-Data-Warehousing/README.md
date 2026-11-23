@@ -21,8 +21,8 @@ By the end of the week you can:
 
 | Session | Topic | Material | Lab (30 min) |
 |---|---|---|---|
-| 1 | What a data warehouse is; OLTP vs OLAP; fact, dimension, grain | [slides: Classic DW](week03_slides_1_intro_to_DW.md) · [intro-to-DW deck](slides_intro_to_DW/) (pptx/pdf, *optional reading*) · [OLTP vs OLAP table](resources/1-OLTP_vs_OLAP_comparison_table.md) · demo: [`book_seller_basic_dw_clean_data/`](book_seller_basic_dw_clean_data/) | [Lab 3.1](labs/week_03_lab_01_student.md): operational tables → star schema · notebook [`week_03_lab_01_student.py`](labs/week_03_lab_01_student.py) |
-| 2 | ETL / ELT for data warehousing | [slides: ETL for DW](ETL/week03_slides_2_ETL_for_DW.md) · [ETL & ELT in pictures](ETL/resources/README.md) · demo: [`book_seller_basic_dw_messy_data/`](book_seller_basic_dw_messy_data/) | [Lab 3.2](labs/week_03_lab_02_student.md): ETL on messy sales data · notebook [`week_03_lab_02_student.py`](labs/week_03_lab_02_student.py) |
+| 1 | What a data warehouse is; OLTP vs OLAP; fact, dimension, grain | [slides: Classic DW](lecture_notes_01_intro_to_dw.md) · [intro-to-DW deck](slides_intro_to_DW/) (pptx/pdf, *optional reading*) · [OLTP vs OLAP table](resources/1-OLTP_vs_OLAP_comparison_table.md) · demo: [`book_seller_basic_dw_clean_data/`](book_seller_basic_dw_clean_data/) | [Lab 3.1](labs/week_03_lab_01_student.md): operational tables → star schema · notebook [`week_03_lab_01_student.py`](labs/week_03_lab_01_student.py) |
+| 2 | ETL / ELT for data warehousing | [slides: ETL for DW](ETL/lecture_notes_02_etl_for_dw.md) · [ETL & ELT in pictures](ETL/resources/README.md) · demo: [`book_seller_basic_dw_messy_data/`](book_seller_basic_dw_messy_data/) | [Lab 3.2](labs/week_03_lab_02_student.md): ETL on messy sales data · notebook [`week_03_lab_02_student.py`](labs/week_03_lab_02_student.py) |
 
 ## 📂 What's in this folder
 
@@ -44,7 +44,7 @@ By the end of the week you can:
   - [`ETL_using_DuckDB/`](ETL/resources/ETL_using_DuckDB/etl_using_duckdb.md) · [`ETL_with_Python_and_DuckDB/`](ETL/resources/ETL_with_Python_and_DuckDB/)
 - **MySQL (reference, optional):** call center, insurance, electric vehicles, financial, Excel/CSV/Parquet loaders, PETL.
   The ETL ideas are the same; only the database connection differs.
-- **Preview of weeks 5–8:** [`ETL/etl_medallion_olap_overview_slides.md`](ETL/etl_medallion_olap_overview_slides.md) and `ETL/etl_medallion_pipeline_notebook.py` (ETL as Bronze → Silver → Gold).
+- **Preview of weeks 5–8:** [`ETL/lecture_notes_03_etl_olap_medallion.md`](ETL/lecture_notes_03_etl_olap_medallion.md) and `ETL/notebook_01_etl_medallion_pipeline.py` (ETL as Bronze → Silver → Gold).
 
 ## ⚙️ Setup
 

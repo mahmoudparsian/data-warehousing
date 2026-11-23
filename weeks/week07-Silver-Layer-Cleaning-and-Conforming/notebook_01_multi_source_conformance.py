@@ -14,7 +14,7 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # Week 7 — Silver Integration & Conformance (Elite Notebook)
+    # Week 7 — Silver Integration & Conformance
 
     This notebook demonstrates a **multi-source Silver pipeline** using a four-year insurance dataset.
 

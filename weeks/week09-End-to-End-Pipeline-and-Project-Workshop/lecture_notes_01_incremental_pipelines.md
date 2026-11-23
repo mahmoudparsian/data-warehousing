@@ -6,7 +6,7 @@ size: 16:9
 ---
 
 # Week 9  
-## Pipelines + Incremental Processing (Elite v7 — SYSTEM + FAILURE + DESIGN MASTER)
+## Pipelines + Incremental Processing
 
 ---
 

@@ -147,7 +147,7 @@ Full policy: [Grading and class conduct](course_information/grading_and_class_co
 2. Clone this repository, then check your setup with the week 0 demo notebook:
    ```bash
    cd weeks/week00-outline-and-TOC
-   marimo edit week00_3_demo_notebook.py
+   marimo edit notebook_01_messy_data_demo.py
    ```
 3. Each week, open the week's folder (`weeks/weekNN-…/`): its `README.md` lists the slides, notebooks and labs.
 

@@ -14,7 +14,7 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # Week 5 — Medallion Architecture Notebook (Elite)
+    # Week 5 — Medallion Architecture Notebook
 
     Simulate Bronze → Silver → Gold pipeline using insurance data.
 

@@ -94,8 +94,8 @@ orders["tax"] = orders["amount"] * 0.07
 ## Slide 7b — Transform in SQL: Your Toolkit (Weeks 1–2)
 
 The same Transform steps in SQL, with the functions from the SQL toolkit
-([Part 1](../../week01-Foundations-SQL-for-Analytics/sql_toolkit_for_medallion/week01_slides_3_sql_toolkit_part1.md) ·
-[Part 2](../../week02-SQL-Analytical-Thinking-and-EDA/sql_toolkit_for_medallion/week02_slides_3_sql_toolkit_part2.md)):
+([Part 1](../../week01-Foundations-SQL-for-Analytics/sql_toolkit_for_medallion/lecture_notes_03_cleaning_one_table.md) ·
+[Part 2](../../week02-SQL-Analytical-Thinking-and-EDA/sql_toolkit_for_medallion/lecture_notes_03_combine_dedup_reconcile.md)):
 
 | Step | SQL |
 |---|---|

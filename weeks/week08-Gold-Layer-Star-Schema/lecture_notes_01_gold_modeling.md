@@ -6,7 +6,7 @@ size: 16:9
 ---
 
 # Week 8  
-## Gold Layer — Analytical Modeling (Elite v7 — FINAL COMPLETE MASTER)
+## Gold Layer — Analytical Modeling
 
 ---
 
@@ -569,7 +569,7 @@ Silver dataset
 
 ---
 
-# PART 18 — FINAL MASTER VISUAL
+# PART 18 — THE WHOLE PICTURE
 
 ---
 

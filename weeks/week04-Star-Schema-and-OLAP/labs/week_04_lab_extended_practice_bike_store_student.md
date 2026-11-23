@@ -2,7 +2,7 @@
 ## Bike Store Data Warehouse + OLAP Queries
 
 > 16 more tasks on a small star schema. **Setup:** run
-> [`../week04_notebook_bike_store_star_schema_OLAP.py`](../week04_notebook_bike_store_star_schema_OLAP.py)
+> [`../notebook_01_bike_store_olap.py`](../notebook_01_bike_store_olap.py)
 > up to step 5. It creates `week04_bikestore_dw.duckdb` with the Bike Store star schema. Then try the tasks below
 > before reading the rest of the notebook.
 

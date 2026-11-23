@@ -22,14 +22,14 @@ By the end of the week you can:
 
 | Session | Topic | Material | Lab (30 min) |
 |---|---|---|---|
-| 1 | Question → SQL → insight; filtering and aggregation on insurance data | [slides](lectures_and_notebooks/week01_slides.md) · [`lectures_and_notebooks/week01_notebook_2.py`](lectures_and_notebooks/week01_notebook_2.py) (exercises, matches the slides) · [`week01_notebook_1.py`](lectures_and_notebooks/week01_notebook_1.py) (EDA storytelling) | [Lab 1.1](labs/week_01_lab_01_student.md): insurance · notebook [`week_01_lab_01_student.py`](labs/week_01_lab_01_student.py) |
-| 2 | GROUP BY in depth: multi-column groups, `HAVING`, `CASE`, top-N, percent of total | [slides: HAVING & CASE](lectures_and_notebooks/week01_slides_2_having_case.md) · [Understanding GROUP BY](understanding_GROUP_BY/Understanding_GROUP_BY.md) · [`understanding_GROUP_BY/group_by_notebook.py`](understanding_GROUP_BY/group_by_notebook.py) · [Example 2](example_2_group_by/) (tiny table) · **SQL toolkit, Part 1** (~25 min): [slides](sql_toolkit_for_medallion/week01_slides_3_sql_toolkit_part1.md) · [`week01_slides_3_sql_toolkit_part1.py`](sql_toolkit_for_medallion/week01_slides_3_sql_toolkit_part1.py) (same, as a notebook) · [exercises](sql_toolkit_for_medallion/sql_toolkit_part1_exercises.md) · [`sql_toolkit_part1_exercises.py`](sql_toolkit_for_medallion/sql_toolkit_part1_exercises.py) | [Lab 1.2](labs/week_01_lab_02_student.md): 400k sales rows · notebook [`week_01_lab_02_student.py`](labs/week_01_lab_02_student.py) |
+| 1 | Question → SQL → insight; filtering and aggregation on insurance data | [slides](lectures_and_notebooks/lecture_notes_01_sql_for_analytics.md) · [`lectures_and_notebooks/notebook_02_sql_exercises.py`](lectures_and_notebooks/notebook_02_sql_exercises.py) (exercises, matches the slides) · [`notebook_01_insurance_first_look.py`](lectures_and_notebooks/notebook_01_insurance_first_look.py) (EDA storytelling) | [Lab 1.1](labs/week_01_lab_01_student.md): insurance · notebook [`week_01_lab_01_student.py`](labs/week_01_lab_01_student.py) |
+| 2 | GROUP BY in depth: multi-column groups, `HAVING`, `CASE`, top-N, percent of total | [slides: HAVING & CASE](lectures_and_notebooks/lecture_notes_02_having_and_case.md) · [Understanding GROUP BY](understanding_GROUP_BY/Understanding_GROUP_BY.md) · [`understanding_GROUP_BY/group_by_notebook.py`](understanding_GROUP_BY/group_by_notebook.py) · [Example 2](example_2_group_by/) (tiny table) · **SQL toolkit, Part 1** (~25 min): [slides](sql_toolkit_for_medallion/lecture_notes_03_cleaning_one_table.md) · [`lecture_notes_03_cleaning_one_table.py`](sql_toolkit_for_medallion/lecture_notes_03_cleaning_one_table.py) (same, as a notebook) · [exercises](sql_toolkit_for_medallion/exercises_03_cleaning_one_table.md) · [`exercises_03_cleaning_one_table.py`](sql_toolkit_for_medallion/exercises_03_cleaning_one_table.py) | [Lab 1.2](labs/week_01_lab_02_student.md): 400k sales rows · notebook [`week_01_lab_02_student.py`](labs/week_01_lab_02_student.py) |
 
 ## 📂 What's in this folder
 
 | Folder | Contents |
 |---|---|
-| [`lectures_and_notebooks/`](lectures_and_notebooks/) | Week 1 slides and notebooks. Main: `week01_notebook_2.py` (with the slides) and `week01_notebook_1.py`. **Optional extras** for more practice: [`week01_notebook_3.py`](lectures_and_notebooks/week01_notebook_3.py) (the full "master" notebook) and [`week01_insurance_EDA.py`](lectures_and_notebooks/week01_insurance_EDA.py) (a pandas EDA) |
+| [`lectures_and_notebooks/`](lectures_and_notebooks/) | Week 1 slides and notebooks. Main: `notebook_02_sql_exercises.py` (with the slides) and `notebook_01_insurance_first_look.py`. **Optional extras** for more practice: [`notebook_04_full_analysis.py`](lectures_and_notebooks/notebook_04_full_analysis.py) (the full "master" notebook) and [`notebook_03_insurance_eda.py`](lectures_and_notebooks/notebook_03_insurance_eda.py) (a pandas EDA) |
 | [`labs/`](labs/) | The two in-class labs: each as a sheet (`.md`) and a Marimo notebook (`marimo edit week_01_lab_01_student.py` from `labs/`) |
 | [`example_1_insurance/`](example_1_insurance/) | Insurance dataset + 25 graded-difficulty queries |
 | [`example_2_group_by/`](example_2_group_by/) | 14 GROUP BY questions on a 16-row table |
@@ -43,7 +43,7 @@ By the end of the week you can:
 
 You need DuckDB and Python with `duckdb pandas matplotlib marimo` (see [Required software](../../course_information/required_software.md)).
 
-- Every notebook is a **Marimo** notebook (`.py`): open it from its own folder, e.g. `marimo edit week01_notebook_2.py`.
+- Every notebook is a **Marimo** notebook (`.py`): open it from its own folder, e.g. `marimo edit notebook_02_sql_exercises.py`.
 - Notebooks read data with **relative paths**; the lecture notebooks read `../example_1_insurance/insurance.csv`.
 
 ## ✅ Before week 2

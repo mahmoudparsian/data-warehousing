@@ -14,7 +14,7 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # Week 8 — Gold Layer (Elite v2 Notebook)
+    # Week 8 — Gold Layer
 
     This notebook is a **case-driven, end-to-end Gold modeling tutorial**.
 

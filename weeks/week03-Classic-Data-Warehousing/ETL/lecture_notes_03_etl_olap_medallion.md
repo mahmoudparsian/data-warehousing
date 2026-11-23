@@ -1,12 +1,12 @@
 ---
 marp: true
-title: Week 4 — ETL, OLAP, and Medallion Architecture (Ultimate)
+title: Week 3 — ETL, OLAP, and Medallion Architecture (Preview)
 paginate: true
 theme: default
 class: lead
 ---
 
-# Week 4
+# Week 3 (Preview)
 ## ETL, OLAP, and Medallion Architecture
 
 ---
@@ -20,7 +20,7 @@ class: lead
 
 ---
 
-# 🧠 Why Week 4 Matters
+# 🧠 Why This Matters
 
 - SQL analysis is only as good as the data underneath it
 - Real businesses need repeatable pipelines, not one-off queries

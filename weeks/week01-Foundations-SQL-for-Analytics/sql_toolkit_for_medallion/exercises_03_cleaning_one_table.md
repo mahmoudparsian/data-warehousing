@@ -1,7 +1,7 @@
 # SQL Toolkit, Part 1 — Exercises (with solutions)
 
-Practice for [the Part 1 slides](week01_slides_3_sql_toolkit_part1.md), on the same `data/members.csv`.
-The notebook [`sql_toolkit_part1_exercises.py`](sql_toolkit_part1_exercises.py) (`marimo edit sql_toolkit_part1_exercises.py`) has these exercises
+Practice for [the Part 1 slides](lecture_notes_03_cleaning_one_table.md), on the same `data/members.csv`.
+The notebook [`exercises_03_cleaning_one_table.py`](exercises_03_cleaning_one_table.py) (`marimo edit exercises_03_cleaning_one_table.py`) has these exercises
 with an empty cell after each one and the solutions at the end: try each one before you look.
 
 Setup (the Bronze table and the `silver` schema from the slides; the exercises notebook runs them first):

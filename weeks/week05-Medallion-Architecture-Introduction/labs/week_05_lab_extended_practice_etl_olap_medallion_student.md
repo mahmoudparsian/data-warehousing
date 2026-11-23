@@ -2,7 +2,7 @@
 ## ETL, OLAP, and Medallion Architecture
 
 > A longer practice lab that connects week 3 (ETL), week 4 (OLAP) and the Medallion layers.
-> The demo notebook for it is [`../../week03-Classic-Data-Warehousing/ETL/etl_medallion_pipeline_notebook.py`](../../week03-Classic-Data-Warehousing/ETL/etl_medallion_pipeline_notebook.py).
+> The demo notebook for it is [`../../week03-Classic-Data-Warehousing/ETL/notebook_01_etl_medallion_pipeline.py`](../../week03-Classic-Data-Warehousing/ETL/notebook_01_etl_medallion_pipeline.py).
 
 ## 1) Lab Overview
 

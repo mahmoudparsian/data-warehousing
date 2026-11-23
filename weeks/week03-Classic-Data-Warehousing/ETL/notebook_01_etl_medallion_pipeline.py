@@ -14,7 +14,7 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # Week 4 — ETL, OLAP, Medallion (Advanced Notebook)
+    # Week 3 — ETL, OLAP, Medallion (Preview, Advanced Notebook)
 
     ## 🔥 What You Will Learn
     This notebook is a **complete end-to-end data pipeline**:

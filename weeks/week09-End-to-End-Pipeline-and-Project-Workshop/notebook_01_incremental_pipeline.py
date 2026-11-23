@@ -14,7 +14,7 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # Week 9 — Pipelines + Incremental Processing (Elite Notebook)
+    # Week 9 — Pipelines + Incremental Processing
 
     This notebook demonstrates a **production-like incremental pipeline** using a simple insurance example.
 
