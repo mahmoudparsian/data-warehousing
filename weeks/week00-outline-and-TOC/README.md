@@ -73,7 +73,6 @@ Check your setup by running [`notebook_01_messy_data_demo.py`](notebook_01_messy
 |---|---|
 | [`lecture_notes_01_table_of_contents.md`](lecture_notes_01_table_of_contents.md) | Course structure: why SQL → warehousing → Medallion (slides) |
 | [`lecture_notes_02_course_roadmap.md`](lecture_notes_02_course_roadmap.md) | Week-by-week outline with one example per week (slides) |
-| [`lecture_notes_03_dw_vs_medallion.md`](lecture_notes_03_dw_vs_medallion.md) | Classic DW vs Medallion architecture (slides) |
-| [`KPI_examples.md`](KPI_examples.md) | What a KPI is, with practical examples |
+| [`lecture_notes_03_dw_vs_medallion.md`](lecture_notes_03_dw_vs_medallion.md) | Classic DW vs Medallion architecture, and what a KPI is, with 11 KPI examples (slides) |
 | `notebook_01_messy_data_demo.py` | Live demo: messy data → wrong answer → cleaned → right answer |
 | `notebook_02_sql_to_plot.py` | The **SQL → DataFrame → plot** pattern used all quarter |
