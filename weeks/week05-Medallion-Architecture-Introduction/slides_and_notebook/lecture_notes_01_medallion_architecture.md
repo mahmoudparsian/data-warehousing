@@ -23,9 +23,9 @@ size: 16:9
 
 - SQL (Week 1–2)
 
-- Star Schema (Week 3)
+- Classic Data Warehousing + ETL (Week 3)
 
-- ETL Pipeline (Week 4)
+- Star Schema + OLAP (Week 4)
 
 ---
 
