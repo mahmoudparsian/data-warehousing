@@ -4,6 +4,15 @@ Practice for [the Part 1 slides](lecture_notes_03_cleaning_one_table.md), on the
 The notebook [`exercises_03_cleaning_one_table.py`](exercises_03_cleaning_one_table.py) (`marimo edit exercises_03_cleaning_one_table.py`) has these exercises
 with an empty cell after each one and the solutions at the end: try each one before you look.
 
+| Exercise | Problem in `members.csv` | You practise |
+|---|---|---|
+| 1 | an email is NULL (108) or blank `' '` (121) | `NULLIF(TRIM(…), '')` + `IS NULL` |
+| 2 | city values with spaces at the ends (`' San Jose'`) | `LENGTH`, `'[' \|\| … \|\| ']'`, `<> TRIM(…)` |
+| 3 | fees that `TRY_CAST` silently turns into NULL (blank, `'free'`) | finding what `TRY_CAST` hid |
+| 4 | `'free'` needs a business rule | a rule first in `CASE`, then `TRY_CAST` |
+| 5 | 🐞 a default of `0` for unknown ages, plus the age 230 | defaults for labels, NULL for measures |
+| 6 | NULL / blank / upper-case emails | your first Silver table with CTAS |
+
 Setup (the Bronze table and the `silver` schema from the slides; the exercises notebook runs them first):
 
 ```sql
@@ -155,7 +164,7 @@ FROM raw_members;
 
 <!-- /RESULT -->
 
-`COALESCE(…, 0)` turns the 3 unknown ages into 0-year-olds, and nothing removes the 230-year-old. Here the two errors
+`COALESCE(…, 0)` turns the 3 missing ages (`'unknown'`, blank, NULL) into 0-year-olds, and nothing removes the 230-year-old. Here the two errors
 almost cancel out (43.4 vs 42.0), which is exactly why this bug is hard to spot. Defaults are for **labels** (`'Unknown'`),
 not for **measures**: leave an unknown number NULL, so `AVG` skips it, and report how many were unknown (4: 3 missing + 1 impossible).
 

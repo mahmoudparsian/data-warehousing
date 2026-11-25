@@ -60,7 +60,23 @@ LIMIT 6;
 
 <!-- /RESULT -->
 
-👉 Spaces, upper/lower case, a blank plan, a blank fee… Let's count the problems first.
+👉 Spaces, upper/lower case, a blank plan, a blank fee… The next slide lists **every** problem in this file.
+
+---
+
+# 🔍 The Problems in This File (and Where We Fix Them)
+
+| Column | Problem in Bronze (member ids) | Silver goal | Slide |
+|---|---|---|---|
+| `email` | NULL (108), blank `' '` (121), upper case (133) | lower case, `'unknown'` if missing | `COALESCE`, `NULLIF` |
+| `city` | 12 spellings of 3 cities: case, spaces at the ends, `SF`, `SJ` | `San Jose` / `San Francisco` / `Santa Clara` | Text cleanup, `CASE` |
+| `plan` | case, `' ANNUAL '`, blank (104), NULL (126), `'N/A'` (117) | `Annual` / `Monthly` / `Unknown` | `CASE` |
+| `monthly_fee` | `'$15.00'` (110, 122), blank (114), `'free'` (129), NULL (104, 117, 126) | `DECIMAL(6, 2)`, NULL if unknown | `REPLACE` + `TRY_CAST` |
+| `age` | `'unknown'` (112), blank (119), NULL (137), `230` (131), `' 51'` (106) | `INTEGER` 16–100, else NULL | `TRY_CAST`, flag |
+| `signup_date` | `2025-02-30` (124): a day that does not exist | `DATE`, NULL if impossible | Dates |
+| `member_id` | 103, 115, 128 appear **twice** (an update on 2026-01-20) | one row per member | **Part 2** (`QUALIFY`) |
+
+Rule for the whole session: **never lose a row, never hide a problem**: 43 rows in Bronze → 43 rows in Silver, every NULL and default counted.
 
 ---
 
@@ -418,6 +434,7 @@ WHERE TRY_CAST(age AS INTEGER) IS NULL OR TRY_CAST(age AS INTEGER) > 100;
 <!-- /RESULT -->
 
 ⚠️ `TRY_CAST` **hides** problems. Always **count** the rows it turned into NULL. And a value that casts fine can still be **impossible** (age 230).
+(`' 51'`, member 106, is not in the list: a cast to a number ignores spaces at the ends.)
 
 ---
 
@@ -473,7 +490,7 @@ WHERE TRY_CAST(signup_date AS DATE) IS NULL;
 
 <!-- /RESULT -->
 
-- `CAST(text AS DATE)` reads `YYYY-MM-DD` only. February 30 does not exist → NULL.
+- `CAST(text AS DATE)` reads the ISO format `YYYY-MM-DD` only. February 30 does not exist → NULL.
 - Other formats (`03/15/2026`, `15.03.2026`) need `strptime`: **Part 2**, week 2.
 
 ---
@@ -512,6 +529,7 @@ ORDER BY member_id;
 <!-- /RESULT -->
 
 `concat_ws(sep, …)` joins the non-NULL parts: each `CASE` without `ELSE` adds a message or nothing.
+Here we only **look** at the flags; in Part 2 the Silver table `silver.rentals` keeps a `dq_issue` column.
 
 ---
 
@@ -621,7 +639,8 @@ FROM silver.members;
 
 <!-- /RESULT -->
 
-**Reconcile:** rows in = rows out, and every default / NULL is **counted**, so nothing is hidden.
+**Reconcile:** rows in = rows out, and every default / NULL is **counted**, so nothing is hidden:
+5 fees = 3 missing + 1 blank + `'free'` · 4 ages = 3 missing + the impossible 230 · 1 date = February 30.
 (`COUNT(*) FILTER (WHERE …)` counts only the rows that pass the condition.)
 
 ---
@@ -632,7 +651,7 @@ A **view** stores the **query**, not the data: it is recomputed every time you r
 
 ```sql
 CREATE OR REPLACE VIEW silver.members_by_city_plan AS
-SELECT city, plan, COUNT(*) AS members, ROUND(AVG(age), 1) AS avg_age
+SELECT city, plan, COUNT(*) AS member_rows, ROUND(AVG(age), 1) AS avg_age
 FROM silver.members
 GROUP BY city, plan;
 
@@ -641,21 +660,23 @@ SELECT * FROM silver.members_by_city_plan ORDER BY city, plan;
 
 <!-- RESULT -->
 
-| city          | plan    | members | avg_age |
-|---------------|---------|--------:|--------:|
-| San Francisco | Annual  |       5 |    40.0 |
-| San Francisco | Monthly |       6 |    45.3 |
-| San Francisco | Unknown |       1 |    60.0 |
-| San Jose      | Annual  |       6 |    43.4 |
-| San Jose      | Monthly |       9 |    41.9 |
-| San Jose      | Unknown |       1 |    68.0 |
-| Santa Clara   | Annual  |       7 |    35.0 |
-| Santa Clara   | Monthly |       7 |    39.6 |
-| Santa Clara   | Unknown |       1 |    38.0 |
+| city          | plan    | member_rows | avg_age |
+|---------------|---------|------------:|--------:|
+| San Francisco | Annual  |           5 |    40.0 |
+| San Francisco | Monthly |           6 |    45.3 |
+| San Francisco | Unknown |           1 |    60.0 |
+| San Jose      | Annual  |           6 |    43.4 |
+| San Jose      | Monthly |           9 |    41.9 |
+| San Jose      | Unknown |           1 |    68.0 |
+| Santa Clara   | Annual  |           7 |    35.0 |
+| Santa Clara   | Monthly |           7 |    39.6 |
+| Santa Clara   | Unknown |           1 |    38.0 |
 
 *(9 rows)*
 
 <!-- /RESULT -->
+
+⚠️ The counts add up to **43 rows, not 40 members**: 103, 115 and 128 are still counted twice (103 even in two cities). Part 2 fixes it.
 
 | | Table (`CREATE TABLE AS`) | View (`CREATE VIEW`) |
 |---|---|---|

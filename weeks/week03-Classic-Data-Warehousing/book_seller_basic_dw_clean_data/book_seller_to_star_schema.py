@@ -631,10 +631,10 @@ def _(mo):
 
     ## 7. Validate the star schema
 
-    A quick sanity check:
-    - `fact_sales` should have the same number of rows as the transactional `sales` table
-    - location dimension should contain 15 rows
-    - book dimension should contain 100 rows
+    Three checks, every time:
+    - **rows:** `fact_sales` has as many rows as `sales` (10,000); `dim_book` 100, `dim_location` 15 (5 countries × 3 cities), `dim_date` 731 (every day of 2024–2025)
+    - **totals:** `SUM(final_price)` is the same in `sales` and `fact_sales` (255,735.44)
+    - **keys:** no fact row without its dimension keys (0)
     """)
     return
 
@@ -655,6 +655,18 @@ def _(con):
     SELECT 'dim_book_format' AS table_name, COUNT(*) AS row_count FROM dim_book_format
     '''
     con.execute(validation_sql).df()
+    return
+
+
+@app.cell
+def _(con):
+    # Totals must match too: rows in = rows out is not enough
+    con.execute("""
+    SELECT ROUND((SELECT SUM(final_price) FROM sales), 2)      AS sales_revenue,
+           ROUND((SELECT SUM(final_price) FROM fact_sales), 2) AS fact_revenue,
+           (SELECT COUNT(*) FROM fact_sales
+            WHERE date_id IS NULL OR location_id IS NULL OR format_id IS NULL) AS missing_keys
+    """).df()
     return
 
 
@@ -696,7 +708,7 @@ def _(mo):
 
     ## 9. Business Intelligence questions
 
-    Here are three example BI questions:
+    Ten BI questions follow (Cells 1–10), each with its SQL, a chart and the result in numbers. The three classic ones:
 
     1. Which book genres generate the highest revenue?
     2. Which countries and cities generate the most sales?
@@ -713,17 +725,15 @@ def _(mo):
     ---
     # ✅ Cell 1 — Revenue by Book Genre
 
-    ## Objective
+    ## Question
 
-    Understand which genres generate the most revenue.
+    Which genres earn the most?
 
-    Business Analysis
+    **Result:** Fantasy is first (**46,454**), then Data Science (39,129); Biography is last (12,846).
 
-    ```
-    	•	Identifies top-performing genres
-    	•	Helps optimize inventory and marketing focus
-    	•	Likely insight: Data Science / Technology genres dominate
-    ```
+    **Why?** Look at *count* and *price* separately (Cell 11 below): Fantasy has **20 of the 100 books** and 2,080 sales, but a low average sale (22.33).
+    Data Science has only 9 books, but the highest average sale (**41.72**). (Counts per genre: the extra tables at the end.) Revenue = volume × price: always check which one drives it.
+
     """)
     return
 
@@ -770,17 +780,13 @@ def _(mo):
     mo.md(r"""
     # ✅ Cell 2 — Top 10 Books by Revenue
 
-    ## Objective
+    ## Question
 
-    Find the most profitable books.
+    Which books earn the most?
 
-    ## Business Analysis
+    **Result:** the top book ("Practical Machine Learning 84") earns 4,808, the 10th 3,919: no single book dominates.
+    For promotions, compare this list with the **count** of sales per book: a top-revenue book may simply be expensive.
 
-    ```
-    	•	Reveals best-selling products
-    	•	Useful for promotion & bundling strategies
-    	•	Can drive recommendation systems
-    ```
     """)
     return
 
@@ -821,16 +827,13 @@ def _(mo):
     ---
     # ✅ Cell 3 — Revenue by Country
 
-    ## Objective
+    ## Question
 
-    Identify strongest geographic markets.
+    Which countries earn the most?
 
-    ## Business Analysis
-    ```
-    	•	Shows top-performing countries
-    	•	Supports regional expansion decisions
-    	•	Helps optimize logistics and supply chains
-    ```
+    **Result:** all 5 countries are within 4%: Germany 52,090 · USA 51,436 · Canada 51,287 · UK 50,990 · Australia 49,933.
+    No country stands out, so a country-specific strategy is not supported by this data.
+
     """)
     return
 
@@ -870,16 +873,13 @@ def _(mo):
     ---
     # ✅ Cell 4 — Top Cities by Sales Volume
 
-    ## Objective
+    ## Question
 
-    Find high-demand cities.
+    Which cities have the most transactions?
 
-    ## Business Analysis
-    ```
-    	•	Identifies urban demand centers
-    	•	Supports store placement decisions
-    	•	Useful for targeted advertising
-    ```
+    **Result:** Munich (706), San Francisco (697), London and Vancouver (686): the 15 cities range only from 627 to 706 transactions.
+    `COUNT(*)` measures **volume**; `SUM(final_price)` would measure **revenue**: name which one you report.
+
     """)
     return
 
@@ -919,16 +919,13 @@ def _(mo):
     ---
     # ✅ Cell 5 — Monthly Revenue Trend
 
-    ## Objective
+    ## Question
 
-    Understand seasonality.
+    Is there seasonality?
 
-    ## Business Analysis
-    ```
-    	•	Detects seasonal spikes
-    	•	Helps forecast future demand
-    	•	Important for inventory planning
-    ```
+    **Result:** months range from 9,169 (June 2024, the lowest) to about 11,250; 2025 (129,838) is **3.1%** above 2024 (125,898).
+    The line is flat with noise: no clear season. One `dim_date` join gives year and month without any date functions in the query.
+
     """)
     return
 
@@ -969,16 +966,12 @@ def _(mo):
     ---
     # ✅ Cell 6 — ONLINE vs INSTORE Revenue
 
-    ## Objective
+    ## Question
 
-    Compare sales channels.
+    Which channel earns more?
 
-    ## Business Analysis
-    ```
-    	•	Measures digital vs physical performance
-    	•	Supports e-commerce strategy
-    	•	Helps resource allocation
-    ```
+    **Result:** INSTORE **131,214**, ONLINE 124,521 (51% vs 49%): the two channels are almost equal.
+
     """)
     return
 
@@ -1013,16 +1006,14 @@ def _(mo):
     ---
     # ✅ Cell 7 — Book Format Performance
 
-    ## Objective
+    ## Question
 
-    Compare format preferences.
+    Which format earns the most?
 
-    ## Business Analysis
-    ```
-    	•	Reveals customer format preference
-    	•	Likely insight: soft copies growing
-    	•	Impacts publishing strategy
-    ```
+    **Result:** hard copy **112,397** (44%), paperback 78,126, soft copy 65,213.
+    But the formats sell almost the **same number** of copies (3,417 / 3,299 / 3,284): hard copy earns more only because its average sale is higher
+    (32.89 vs 23.68 vs 19.86). Soft copies are **not** growing here; a pie chart of revenue hides that.
+
     """)
     return
 
@@ -1060,16 +1051,14 @@ def _(mo):
     ---
     # ✅ Cell 8 — Discount Impact Analysis
 
-    ## Objective
+    ## Question
 
-    Measure how discounts affect revenue.
+    What do discounts do?
 
-    ## Business Analysis
-    ```
-    	•	Shows if discounts increase/decrease value
-    	•	Helps optimize pricing strategy
-    	•	Detects margin erosion risk
-    ```
+    **Result:** 57.2% of sales have a discount (average 3.44). Average revenue: 27.62 without, 24.04 with a discount.
+    The list prices are the same in both groups (27.62 vs 27.48), so the 3.58 gap **is** the discount itself.
+    Whether discounts bring **more** sales cannot be answered here: we have no comparison of the same books with and without a discount.
+
     """)
     return
 
@@ -1107,16 +1096,13 @@ def _(mo):
     ---
     # ✅ Cell 9 — Revenue by Day of Week
 
-    ## Objective
+    ## Question
 
-    Find behavioral patterns.
+    Do weekdays differ?
 
-    ## Business Analysis
-    ```
-    	•	Detects weekend vs weekday patterns
-    	•	Useful for campaign timing
-    	•	Supports staff scheduling
-    ```
+    **Result:** from Monday (34,243, the lowest) to Wednesday (37,949, the highest): about 10% apart, with no weekend pattern.
+    The query orders the days Monday → Sunday with `dayofweek` (alphabetical order would put Friday first).
+
     """)
     return
 
@@ -1131,6 +1117,7 @@ def _(con):
     JOIN dim_date d
       ON f.date_id = d.date_id
     GROUP BY d.day_name
+    ORDER BY MIN(dayofweek(d.date_sold) + 6) % 7      -- Monday first
     """
 
     df_9 = con.execute(_query).df()
@@ -1154,17 +1141,13 @@ def _(mo):
     ---
     # ✅ Cell 10 — Genre vs Channel Analysis (OLAP Cube Slice)
 
-    ## Objective
+    ## Question
 
-    Analyze interaction between dimensions.
+    Do genres sell differently online and in store?
 
-    ## Business Analysis
-    ```
-    	•	True OLAP-style multi-dimensional analysis Shows:
-        	•	which genres perform better online
-        	•	which require physical presence
-        	•	Helps design channel-specific strategies
-    ```
+    **Result:** no: every genre splits about 50/50 between the channels (the largest relative gap is Mystery: 10,085 in store vs 9,075 online, 11%).
+    Two dimensions at once (genre × channel) is a **slice of the OLAP cube** (week 4).
+
     """)
     return
 
@@ -1196,6 +1179,18 @@ def _(df_10, plt):
     plt.title("Genre vs Channel Revenue")
     plt.xticks(rotation=45)
     plt.show()
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ---
+    ## Extra tables: the same questions with counts
+
+    Revenue alone hides **why** a group is big. These three tables add `COUNT(*)` (transactions) next to `SUM(final_price)`:
+    by genre, by country and city, and by month and channel. The charts in section 10 use them.
+    """)
     return
 
 

@@ -17,11 +17,14 @@ CREATE SCHEMA IF NOT EXISTS bronze;
 CREATE SCHEMA IF NOT EXISTS silver;
 CREATE SCHEMA IF NOT EXISTS gold;
 
--- create bronze.sales_raw from sales_data_10_rows.csv
+-- Bronze: the 10 rows exactly as received (all text) + lineage columns.
+-- Bronze is never fixed: every rule below works on Silver tables.
 CREATE OR REPLACE TABLE bronze.sales_raw AS
 SELECT
-    ROW_NUMBER() OVER () AS row_id,   --  add row_id
-    *
+    ROW_NUMBER() OVER () AS row_id,                -- row number in the file (for tracing rows)
+    *,
+    'sales_data_10_rows.csv' AS _source_file,      -- lineage: where from?
+    current_timestamp        AS _ingested_at       -- lineage: when?
 FROM read_csv_auto(
     'sales_data_10_rows.csv',
     header = true,
@@ -260,9 +263,9 @@ WHERE sale_date IS NULL;
 --
 -- Important: Rejected rows are **not cancelled**.
 
--- Create `silver.rejected_records`
+-- Create `silver.rejected`
 --
-CREATE OR REPLACE TABLE silver.rejected_records AS
+CREATE OR REPLACE TABLE silver.rejected AS
 SELECT
     *,
 
@@ -305,13 +308,13 @@ WHERE
     OR sale_date IS NULL;
 
 
--- View `silver.rejected_records`
+-- View `silver.rejected`
 --
 SELECT COUNT(*) 
-FROM silver.rejected_records;
+FROM silver.rejected;
 
 SELECT * 
-FROM silver.rejected_records 
+FROM silver.rejected 
 ORDER BY row_id;
 
 -- Rejected Rows
@@ -327,74 +330,18 @@ ORDER BY row_id;
 -- ### Rejected count = 5
 
 
--- Silver Step 6 — Rule 1: Capture cancelled transactions
--- Business rule
--- Missing `sale_id` means **cancelled transaction**.
--- Important: A row counts as cancelled only if it is otherwise valid.
-
--- That means row 3 is cancelled because:
---  - `sale_id` is missing
---  - product exists
---  - customer_name exists
---  - sale_date is valid
-
-
--- Create `silver.cancelled_transactions`
+-- Silver Step 6 — Rules 1 and 8: the trusted table `silver.sales`
+-- Every row that was NOT rejected goes here, including the cancelled sale:
+--   Rule 1: missing `sale_id` = a CANCELLED sale. It is a real event, so we
+--           KEEP it and FLAG it (is_cancelled = true); we do not remove it.
+--   Rule 8: final_sale_price = (quantity * unit_price) - discount
+-- The WHERE clause is exactly the opposite of the reject condition in Step 5,
+-- so every deduplicated row is either in silver.rejected or in silver.sales.
 --
-CREATE OR REPLACE TABLE silver.cancelled_transactions AS
+CREATE OR REPLACE TABLE silver.sales AS
 SELECT
-    *
-    -- Keep full schema for traceability and debugging
-
-FROM silver.step04_date_parsed
-WHERE
-    -- =========================
-    -- CANCELLED CONDITION
-    -- =========================
-    sale_id_raw IS NULL
-
-    -- =========================
-    -- MUST BE OTHERWISE VALID
-    -- =========================
-    AND product IS NOT NULL
-    AND customer_name IS NOT NULL
-
-    AND customer_email IS NOT NULL
-    AND POSITION('@' IN customer_email) > 0
-
-    AND quantity IS NOT NULL AND quantity > 0
-    AND unit_price IS NOT NULL AND unit_price > 0
-
-    AND store_location IS NOT NULL
-
-    AND sale_date IS NOT NULL;
-
-
--- View `silver.cancelled_transactions`
---
-SELECT COUNT(*) 
-FROM silver.cancelled_transactions;
-
-SELECT * 
-FROM silver.cancelled_transactions 
-ORDER BY row_id;
-                                      
--- Silver Step 7 — Rule 8: Build trusted sales and compute final price
--- ## Business rule
---   `final_sale_price = (quantity * unit_price) - discount`
---
--- Create `silver.sales_clean`
---
-CREATE OR REPLACE TABLE silver.sales_clean AS
-SELECT
-    -- =========================
-    -- CORE IDENTIFIER
-    -- =========================
-    TRY_CAST(sale_id_raw AS INTEGER) AS sale_id,
-
-    -- =========================
-    -- DIMENSIONS
-    -- =========================
+    TRY_CAST(sale_id_raw AS INTEGER)   AS sale_id,
+    sale_id_raw IS NULL                AS is_cancelled,      -- rule 1: keep and flag
     sale_type,
     product,
     customer_name,
@@ -402,93 +349,50 @@ SELECT
     customer_country,
     store_location,
     sale_date,
-
-    -- =========================
-    -- MEASURES
-    -- =========================
     quantity,
     unit_price,
     discount,
-
-    -- =========================
-    -- DERIVED METRIC
-    -- =========================
-    (quantity * unit_price) - discount AS final_sale_price
-
+    (quantity * unit_price) - discount AS final_sale_price   -- rule 8
 FROM silver.step04_date_parsed
-
-WHERE
-    -- =========================
-    -- VALID TRANSACTION (NOT CANCELLED)
-    -- =========================
-    TRY_CAST(sale_id_raw AS INTEGER) IS NOT NULL
-
-    -- =========================
-    -- DATA QUALITY RULES
-    -- =========================
-    AND product IS NOT NULL
-    AND customer_name IS NOT NULL
-
-    AND customer_email IS NOT NULL
-    AND POSITION('@' IN customer_email) > 0
-
-    AND quantity IS NOT NULL AND quantity > 0
-    AND unit_price IS NOT NULL AND unit_price > 0
-
-    AND store_location IS NOT NULL
-
-    AND sale_date IS NOT NULL;
+WHERE NOT (
+       product IS NULL
+    OR customer_name IS NULL
+    OR customer_email IS NULL
+    OR POSITION('@' IN customer_email) = 0
+    OR quantity IS NULL OR quantity <= 0
+    OR unit_price IS NULL OR unit_price <= 0
+    OR store_location IS NULL
+    OR sale_date IS NULL
+);
 
 
--- View `silver.sales_clean`
--- Trusted Silver Rows
---
-SELECT COUNT(*) 
-FROM silver.sales_clean; 
+-- View `silver.sales`: 3 valid sales + 1 cancelled sale (flagged)
+SELECT COUNT(*) AS n_rows,
+       COUNT(*) FILTER (WHERE is_cancelled) AS cancelled
+FROM silver.sales;
 
-SELECT * 
-FROM silver.sales_clean 
-ORDER BY sale_id;
+SELECT *
+FROM silver.sales
+ORDER BY sale_id NULLS LAST;
 
 
--- Funnel SQL
-SELECT 'bronze.sales_raw' AS stage, 
-       COUNT(*) AS row_count 
-FROM bronze.sales_raw
-UNION ALL
-SELECT 'after_dedup', 
-       COUNT(*) 
-FROM silver.step01_dedup
-UNION ALL
-SELECT 'rejected_records', 
-       COUNT(*) 
-FROM silver.rejected_records
-UNION ALL
-SELECT 'cancelled_transactions', 
-       COUNT(*) 
-FROM silver.cancelled_transactions
-UNION ALL
-SELECT 'trusted_sales_clean', 
-       COUNT(*) 
-FROM silver.sales_clean;
+-- Reconcile: every Bronze row has exactly one fate
+--   Bronze rows = valid + flagged (cancelled) + rejected + duplicates
+SELECT (SELECT COUNT(*) FROM bronze.sales_raw)                      AS bronze_rows,
+       (SELECT COUNT(*) FROM silver.sales WHERE NOT is_cancelled)   AS valid,
+       (SELECT COUNT(*) FROM silver.sales WHERE is_cancelled)       AS flagged_cancelled,
+       (SELECT COUNT(*) FROM silver.rejected)                       AS rejected,
+       (SELECT COUNT(*) FROM bronze.sales_raw)
+         - (SELECT COUNT(*) FROM silver.step01_dedup)               AS duplicates;
 
--- This funnel is one of the best teaching visuals 
--- in a medallion pipeline.
---
--- # End-to-End Funnel
--- | `stage`                 | `row_count` |
--- |-------------------------|------------:|
--- | `bronze.sales_raw`      | 10          |
--- | `after_dedup`           |  9          |
--- | `rejected_records`      |  5          |
--- | `cancelled_transactions`|  1          |
--- | `trusted_sales_clean`   |  3          |
+-- Expected: 10 = 3 valid + 1 flagged + 5 rejected + 1 duplicate
 
 
 ---
 
 -- # Gold Layer — Why only trusted rows?
--- Gold is for:
+-- Gold is built ONLY from silver.sales, and uses the flag:
+-- revenue = WHERE NOT is_cancelled. Gold is for:
 --
 --   - analytics
 --   - BI dashboards
@@ -525,7 +429,8 @@ FROM (
         customer_name,
         customer_email,
         customer_country
-    FROM silver.sales_clean
+    FROM silver.sales
+    WHERE NOT is_cancelled
 );
 
 
@@ -555,7 +460,8 @@ SELECT
 
 FROM (
     SELECT DISTINCT product
-    FROM silver.sales_clean
+    FROM silver.sales
+    WHERE NOT is_cancelled
 );
 
 
@@ -605,7 +511,8 @@ SELECT
 
 FROM (
     SELECT DISTINCT sale_date
-    FROM silver.sales_clean
+    FROM silver.sales
+    WHERE NOT is_cancelled
 );
 
 -- Verify Date Dimension
@@ -641,7 +548,7 @@ SELECT
     s.discount,
     s.final_sale_price
 
-FROM silver.sales_clean s
+FROM silver.sales s
 
 -- =========================
 -- DIMENSION JOINS
@@ -653,7 +560,9 @@ JOIN gold.dim_product p
     ON s.product = p.product
 
 JOIN gold.dim_date d
-    ON s.sale_date = d.full_date;
+    ON s.sale_date = d.full_date
+
+WHERE NOT s.is_cancelled;   -- Gold uses the flag explicitly
 
 
 -- View `gold.fact_sales`

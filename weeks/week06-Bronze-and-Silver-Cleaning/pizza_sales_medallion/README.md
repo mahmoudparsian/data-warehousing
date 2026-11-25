@@ -27,10 +27,18 @@ pizza_types ──< pizzas ──< order_details >── orders
 
 ## 📋 The shop's business rules (for Silver)
 
-1. `orders.date` comes in two formats, `2015-01-01` (YYYY-MM-DD) and `12/25/2015` (MM/DD/YYYY); convert both to one valid date.
-2. An order with a missing (NULL) `order_id` is dropped: it can't match any order line.
-3. Exact duplicate orders (all fields identical) are dropped.
-4. In `order_details`: every record must have exactly 4 fields, and a record with **any** NULL field is dropped.
+Every row ends up **valid**, **rejected** (kept in a reject table with a reason) or a **duplicate** (removed, counted):
+the words of [Medallion in a nutshell](../../week05-Medallion-Architecture-Introduction/Medallion_Architecture_in_a_Nutshell.md).
+
+| # | Table | Rule | Fate |
+|---|---|---|---|
+| 1 | orders | `date` comes as `2015-01-01` (YYYY-MM-DD) or `12/25/2015` (MM/DD/YYYY) → one valid `DATE` | fixed |
+| 2 | orders | a missing (NULL) `order_id`: it can't match any order line | **rejected** → `silver.rejected_orders` |
+| 3 | orders | exact duplicate orders (all fields identical) | **duplicate** |
+| 4 | order_details | every record has the 4 fields; a record with **any** NULL field | **rejected** → `silver.rejected_order_details` |
+
+Checks before Gold: ids are unique **within a batch** (they restart every year), and there are 0 orphans between orders, order lines and the menu.
+Control total: 2015 revenue = **$817,860.05** (published with the original dataset).
 
 ## 💡 Business questions (Gold)
 

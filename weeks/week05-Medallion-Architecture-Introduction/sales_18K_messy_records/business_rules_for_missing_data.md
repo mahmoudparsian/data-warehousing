@@ -18,7 +18,7 @@ All rules are categorized into:
 | Category | Meaning |
 |----------|--------|
 | 🟫 Deduplication | Remove duplicate records |
-| ❌ Rejection | Drop invalid records |
+| ❌ Rejection | Quarantine invalid records (`silver.rejected_records` + reason) |
 | ⚠️ Cancellation | Keep but classify separately |
 | 🔧 Imputation | Fix missing or invalid values |
 | 🔄 Validation | Enforce consistency |
@@ -28,7 +28,7 @@ All rules are categorized into:
 
 # 🟫 1. Deduplication Rules
 
-- Exact duplicate records (all fields identical) → **DROP**
+- Exact duplicate records (all fields identical) → **duplicate**: keep one copy, remove the others and **count** them
 
 - Same `sale_id` but different values →  
   → **Flag for inconsistency OR keep latest record (based on timestamp)**
@@ -37,7 +37,7 @@ All rules are categorized into:
 
 # ❌ 2. Rejection Rules (Invalid Records)
 
-Drop record if ANY of the following is true:
+**Reject** the record (quarantine it in `silver.rejected_records`, with a `reject_reason`; never delete it silently) if ANY of the following is true:
 
 - `product_name` is NULL or missing  
 - `customer_email` is NULL or does not contain '@'  
@@ -55,9 +55,10 @@ Drop record if ANY of the following is true:
 - If `sale_id` is NULL / missing / not an integer  
   → classify as **CANCELLED transaction**
 
-- Cancelled records:
-  - are NOT included in analytical tables
-  - are stored separately for business insights
+- Cancelled records are **kept** (a cancellation is a real business event):
+  - they are NOT included in revenue tables
+  - this pipeline stores them in their own table (`silver.cancelled_transactions`); Lab 5.1 keeps them in `silver.sales`
+    with an `is_cancelled` flag. Same fate (**flagged**: kept and marked), different storage.
 
 ---
 
@@ -75,8 +76,8 @@ Drop record if ANY of the following is true:
 - Allowed formats:
   - `MM/DD/YYYY`
   - `YYYY-MM-DD`
-- Invalid formats → **DROP**
-- Invalid calendar dates (e.g., Feb 30) → **DROP**
+- Invalid formats → **REJECT** (quarantine with a reason)
+- Invalid calendar dates (e.g., Feb 30) → **REJECT** (quarantine with a reason)
 
 ---
 
@@ -88,7 +89,7 @@ Drop record if ANY of the following is true:
 
 ## 📧 Email Rule
 - Must contain `'@'`
-- Otherwise → **DROP**
+- Otherwise → **REJECT** (quarantine with a reason)
 
 ---
 
@@ -104,13 +105,13 @@ Drop record if ANY of the following is true:
 - If `sales_channel IN (WEB, MOBILE_APP)` → `sale_type = ON-LINE`
 
 - Violations:
-  → **Flag OR DROP (based on strictness level)**
+  → **Flag OR REJECT (based on strictness level)**
 
 ---
 
 ## 🚚 Delivery Logic (if applicable)
 - `delivery_date` ≥ `sale_date`
-- Otherwise → **DROP**
+- Otherwise → **REJECT** (quarantine with a reason)
 
 ---
 

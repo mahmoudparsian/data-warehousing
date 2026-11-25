@@ -4,7 +4,7 @@ paginate: true
 theme: default
 ---
 
-# Classic Data Warehousing vs Medallion Architecture
+# Classic Data Warehousing <br> vs <br> Medallion Architecture
 
 ---
 

@@ -74,62 +74,21 @@ A quick sanity check from the generated data:
 
 # Added/Modified Data:
 
-## Rules of Business for a Data Warehousing:
+## Business rules
 
-### RULE-1:
-if a `sale_id` is null/missing, 
+The full rules, each with the **fate** of the row (valid, flagged, rejected, duplicate), are in
+[`business_rules.md`](business_rules.md). In short:
 
-* then it means that the transaction is cancelled.
-* This is important to know how many transactions 
-are cancelled, and for which products?
+| # | Rule | Fate |
+|---|---|---|
+| 1 | missing `sale_id` = cancelled sale | **flagged** (kept in `silver.sales`, `is_cancelled = true`) |
+| 2, 3 | missing `product` / `customer_name` | **rejected** (`silver.rejected`, with a reason) |
+| 4 | missing or negative `discount` → 0.00 | fixed |
+| 5, 6 | `sale_date` not `MM/DD/YYYY` / `YYYY-MM-DD`, missing, or impossible | **rejected** |
+| 7 | exact duplicate rows | **duplicate** (removed, counted) |
+| 8 | `final_sale_price = (quantity * unit_price) - discount` | computed |
 
-
-### RULE-2:
-if a product is missing, then 
-
-* the entire record must be dropped 
-* it is not a valid record
-* it is not a cancelled transaction
-
-### RULE-3:
-if a customer_name is null/missing/empty,
-
-* then entire record must be dropped 
-* it is not a valid record
-* it is not a cancelled transaction
-
-### RULE-4: 
-if discount filed/column is null/missing/negative,
-
-* then discount is set to 0.00 (zero)
-
-### RULE-5:
-The `sale_dat`e might have the 
-following sale formats:
-
-
-    		12/31/2025
-    		
-    		2025-12-31
-
-* If the sale_date format is not one of the 
-two formats, the entire record must be dropped 
-
-### RULE-6:
-If a `sale_date` is null/missing/malformed/invalid,
-
-* then entire record must be dropped 
-* it is not a cancelled transaction
-
-### RULE-7:
-deduplication, drop duplicate records:
-
-* drop a record if all record fields are identical
-
-### RULE-8:
-The final sale price of a transaction is computed by
-
-		(quantity * unit_price) - discount
+Reconcile: **1,400 = 31 duplicates + 78 rejected + 33 flagged (cancelled) + 1,258 valid**; Gold revenue 1,985,249.50.
 
 
 

@@ -42,18 +42,22 @@ def _(mo):
     mo.md(r"""
     ## Business Rules
 
-    | Rule | Business rule | Pipeline action |
-    |-----:|---|---|
-    | 1   | Missing `sale_id` | Treat as a **cancelled transaction** if the row is otherwise valid |
-    | 2   | Missing `product` | Reject the record |
-    | 3   | Missing or empty `customer_name` | Reject the record |
-    | 4   | Missing, null, or negative `discount` | Convert to `0.00` |
-    | 5   | Valid date formats only | Accept `MM/DD/YYYY` and `YYYY-MM-DD` |
-    | 6   | Missing, malformed, or invalid date | Reject the record |
-    | 7   | Exact duplicate rows | Keep first occurrence only |
-    | 8   | `quantity` is NULL OR `quantity < 1` | Reject the record |
-    | 9   | `unit_price` is NULL OR `unit_price <= 0` | Reject the record |
-    | 10  | Final sale price | `final_sale_price = (quantity * unit_price) - discount` |
+    Words as in *Medallion in a nutshell*: every row ends up **valid**, **flagged**, **rejected** (quarantined in `silver.rejected`
+    with a reason) or a **duplicate** (removed and counted).
+
+    | # | Rule | Fate of the row |
+    |---|---|---|
+    | 1 | missing `sale_id` → the sale was **cancelled** | **flagged**: kept in `silver.sales`, `is_cancelled = true` |
+    | 2 | missing `product` | **rejected** |
+    | 3 | missing / empty `customer_name` | **rejected** |
+    | 4 | missing or negative `discount` → 0.00 | fixed; the row stays valid |
+    | 5 | valid `sale_date` formats only: `MM/DD/YYYY`, `YYYY-MM-DD` | other formats → **rejected** |
+    | 6 | missing, malformed or impossible `sale_date` | **rejected** |
+    | 7 | exact duplicate rows | **duplicate**: keep one, count the others |
+    | 8 | `final_sale_price = (quantity * unit_price) - discount` | computed |
+    | 9 | basic validity: email contains `@`, `quantity > 0`, `unit_price > 0`, `store_location` present | **rejected** (no row here breaks it) |
+
+    **Reconcile:** Bronze rows = valid + flagged + rejected + duplicates (here **10 = 3 + 1 + 5 + 1**).
 
     ### Teaching point: the **order** of rules matters.
     > 1. We deduplicate before analytics,                <br>
@@ -203,9 +207,12 @@ def _(mo):
     * In Bronze, we **do not clean the data yet**.
     * We preserve the source as-is so every Silver and Gold decision can be traced back to the original record.
 
-    We add one technical column:
+    We add three technical columns (never business data):
 
-    - `row_id`: a stable row number for lineage, debugging, and classroom discussion.
+    - `row_id`: the row number in the file, for tracing rows in class
+    - `_source_file`, `_ingested_at`: **lineage**, where and when the row arrived
+
+    Bronze is **never fixed**: every rule below works on Silver tables.
     """)
     return
 
@@ -222,7 +229,9 @@ def _(csv_path, exec_sql, run_sql):
     CREATE OR REPLACE TABLE bronze.sales_raw AS
     SELECT
         ROW_NUMBER() OVER () AS row_id,
-        *
+        *,
+        'sales_data_10_rows.csv' AS _source_file,
+        current_timestamp        AS _ingested_at
     FROM read_csv_auto(
         '{csv_path.as_posix()}',
         header = true,
@@ -532,7 +541,7 @@ def _(exec_sql, run_sql):
     # =========================================================
 
     exec_sql("""
-    CREATE OR REPLACE TABLE silver.rejected_records AS
+    CREATE OR REPLACE TABLE silver.rejected AS
     SELECT
         *,
         CASE
@@ -556,11 +565,11 @@ def _(exec_sql, run_sql):
         OR unit_price IS NULL OR unit_price <= 0
         OR store_location IS NULL
         OR sale_date IS NULL;
-    """, "Created silver.rejected_records")
+    """, "Created silver.rejected")
 
     run_sql("""
     SELECT row_id, sale_id_raw, product, customer_name, sale_date_raw, sale_date, reject_reason
-    FROM silver.rejected_records
+    FROM silver.rejected
     ORDER BY row_id;
     """, "Rejected records")
     return
@@ -569,14 +578,15 @@ def _(exec_sql, run_sql):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Silver Step 6 — Capture Cancelled Transactions
+    ## Silver Step 6 — Rules 1 and 8: the Trusted Table `silver.sales`
 
-    Business rule: missing `sale_id` means a cancelled transaction **only if the row is otherwise valid**.
+    Every row that was **not** rejected goes here, **including the cancelled sale**:
 
-    This distinction is important:
+    - **Rule 1:** a missing `sale_id` means the sale was cancelled. That is a real business event, so we **keep** the row and **flag** it (`is_cancelled = true`).
+    - **Rule 8:** `final_sale_price = (quantity * unit_price) - discount`.
 
-    - row 3 is cancelled because it has no `sale_id`, but all other important fields are valid
-    - rows with missing product, missing customer name, or invalid dates are rejected, not cancelled
+    The `WHERE` clause is exactly the opposite of Step 5's reject condition: each deduplicated row lands in **exactly one** of
+    `silver.rejected` and `silver.sales`. Row 3 (no `sale_id`) is **flagged**; row 4 (no product) is **rejected**: different fates.
     """)
     return
 
@@ -584,59 +594,14 @@ def _(mo):
 @app.cell
 def _(exec_sql, run_sql):
     # =========================================================
-    # Cell 13: Silver Step 6 - Build Cancelled Transactions Table
+    # Cell 13: Silver Step 6 - silver.sales (valid + flagged)
     # =========================================================
 
     exec_sql("""
-    CREATE OR REPLACE TABLE silver.cancelled_transactions AS
-    SELECT *
-    FROM silver.step04_date_parsed
-    WHERE
-        sale_id_raw IS NULL
-        AND product IS NOT NULL
-        AND customer_name IS NOT NULL
-        AND customer_email IS NOT NULL
-        AND POSITION('@' IN customer_email) > 0
-        AND quantity IS NOT NULL AND quantity > 0
-        AND unit_price IS NOT NULL AND unit_price > 0
-        AND store_location IS NOT NULL
-        AND sale_date IS NOT NULL;
-    """, "Created silver.cancelled_transactions")
-
-    run_sql("""
-    SELECT row_id, sale_id_raw, product, customer_name, quantity, unit_price, discount, sale_date
-    FROM silver.cancelled_transactions
-    ORDER BY row_id;
-    """, "Cancelled transactions")
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## Silver Step 7 — Build Trusted Clean Sales
-
-    Now we create the trusted sales table.
-
-    This table includes only rows that are not duplicates, not rejected, not cancelled, and have all required fields valid.
-
-    ```text
-    final_sale_price = (quantity * unit_price) - discount
-    ```
-    """)
-    return
-
-
-@app.cell
-def _(exec_sql, run_sql):
-    # =========================================================
-    # Cell 14: Silver Step 7 - Build Trusted Clean Sales
-    # =========================================================
-
-    exec_sql("""
-    CREATE OR REPLACE TABLE silver.sales_clean AS
+    CREATE OR REPLACE TABLE silver.sales AS
     SELECT
-        TRY_CAST(sale_id_raw AS INTEGER) AS sale_id,
+        TRY_CAST(sale_id_raw AS INTEGER)   AS sale_id,
+        sale_id_raw IS NULL                AS is_cancelled,      -- rule 1: keep and flag
         sale_type,
         product,
         customer_name,
@@ -647,25 +612,25 @@ def _(exec_sql, run_sql):
         quantity,
         unit_price,
         discount,
-        (quantity * unit_price) - discount AS final_sale_price
+        (quantity * unit_price) - discount AS final_sale_price   -- rule 8
     FROM silver.step04_date_parsed
-    WHERE
-        TRY_CAST(sale_id_raw AS INTEGER) IS NOT NULL
-        AND product IS NOT NULL
-        AND customer_name IS NOT NULL
-        AND customer_email IS NOT NULL
-        AND POSITION('@' IN customer_email) > 0
-        AND quantity IS NOT NULL AND quantity > 0
-        AND unit_price IS NOT NULL AND unit_price > 0
-        AND store_location IS NOT NULL
-        AND sale_date IS NOT NULL;
-    """, "Created silver.sales_clean")
+    WHERE NOT (
+           product IS NULL
+        OR customer_name IS NULL
+        OR customer_email IS NULL
+        OR POSITION('@' IN customer_email) = 0
+        OR quantity IS NULL OR quantity <= 0
+        OR unit_price IS NULL OR unit_price <= 0
+        OR store_location IS NULL
+        OR sale_date IS NULL
+    );
+    """, "Created silver.sales")
 
     run_sql("""
     SELECT *
-    FROM silver.sales_clean
-    ORDER BY sale_id;
-    """, "Trusted Silver sales")
+    FROM silver.sales
+    ORDER BY sale_id NULLS LAST;
+    """, "silver.sales: 3 valid + 1 flagged (cancelled)")
     return
 
 
@@ -690,11 +655,11 @@ def _(run_sql):
     UNION ALL
     SELECT '02 After deduplication', COUNT(*) FROM silver.step01_dedup
     UNION ALL
-    SELECT '03 Rejected records', COUNT(*) FROM silver.rejected_records
+    SELECT '03 Rejected (silver.rejected)', COUNT(*) FROM silver.rejected
     UNION ALL
-    SELECT '04 Cancelled transactions', COUNT(*) FROM silver.cancelled_transactions
+    SELECT '04 Flagged: cancelled (silver.sales)', COUNT(*) FROM silver.sales WHERE is_cancelled
     UNION ALL
-    SELECT '05 Trusted clean sales', COUNT(*) FROM silver.sales_clean;
+    SELECT '05 Valid (silver.sales)', COUNT(*) FROM silver.sales WHERE NOT is_cancelled;
     """, "End-to-end funnel")
     return (funnel_df,)
 
@@ -706,7 +671,7 @@ def _(funnel_df, plt):
     # =========================================================
 
     _ax = funnel_df.plot(kind="bar", x="stage", y="row_count", legend=False, figsize=(10, 5))
-    _ax.set_title("Medallion Pipeline Funnel: 10 Raw Rows to 3 Trusted Sales")
+    _ax.set_title("Medallion Funnel: 10 Raw Rows = 3 Valid + 1 Flagged + 5 Rejected + 1 Duplicate")
     _ax.set_xlabel("")
     _ax.set_ylabel("Row Count")
     _ax.bar_label(_ax.containers[0])
@@ -749,17 +714,15 @@ def _(run_sql):
         WHERE duplicate_rank > 1
     ),
     rejected AS (
-        SELECT row_id, reject_reason FROM silver.rejected_records
+        SELECT row_id, reject_reason FROM silver.rejected
     ),
-    cancelled AS (
-        SELECT row_id FROM silver.cancelled_transactions
+    kept AS (   -- rows that reached silver.sales (not rejected)
+        SELECT row_id, sale_id_raw IS NULL AS is_cancelled
+        FROM silver.step04_date_parsed
+        WHERE row_id NOT IN (SELECT row_id FROM silver.rejected)
     ),
-    trusted AS (
-        SELECT s4.row_id
-        FROM silver.step04_date_parsed s4
-        JOIN silver.sales_clean sc
-          ON TRY_CAST(s4.sale_id_raw AS INTEGER) = sc.sale_id
-    )
+    cancelled AS (SELECT row_id FROM kept WHERE is_cancelled),
+    trusted   AS (SELECT row_id FROM kept WHERE NOT is_cancelled)
     SELECT
         b.row_id,
         b.sale_id,
@@ -767,10 +730,10 @@ def _(run_sql):
         b.customer_name,
         b.sale_date,
         CASE
-            WHEN d.row_id IS NOT NULL THEN 'REMOVED_DUPLICATE'
+            WHEN d.row_id IS NOT NULL THEN 'DUPLICATE (removed, counted)'
             WHEN r.row_id IS NOT NULL THEN r.reject_reason
-            WHEN c.row_id IS NOT NULL THEN 'CANCELLED_TRANSACTION'
-            WHEN t.row_id IS NOT NULL THEN 'TRUSTED_SALE'
+            WHEN c.row_id IS NOT NULL THEN 'FLAGGED: CANCELLED'
+            WHEN t.row_id IS NOT NULL THEN 'VALID'
             ELSE 'CHECK_NEEDED'
         END AS final_outcome
     FROM bronze.sales_raw b
@@ -871,7 +834,8 @@ def _(exec_sql, run_sql):
         customer_country
     FROM (
         SELECT DISTINCT customer_name, customer_email, customer_country
-        FROM silver.sales_clean
+        FROM silver.sales
+        WHERE NOT is_cancelled
     );
     """, "TABLE gold.dim_customer is created.")
 
@@ -892,7 +856,8 @@ def _(exec_sql, run_sql):
         product
     FROM (
         SELECT DISTINCT product
-        FROM silver.sales_clean
+        FROM silver.sales
+        WHERE NOT is_cancelled
     );
     """, "TABLE gold.dim_product is created.")
 
@@ -923,7 +888,8 @@ def _(exec_sql, run_sql):
         END AS day_type
     FROM (
         SELECT DISTINCT sale_date
-        FROM silver.sales_clean
+        FROM silver.sales
+        WHERE NOT is_cancelled
     );
     """, "TABLE gold.dim_date is created.")
 
@@ -969,13 +935,14 @@ def _(exec_sql, run_sql):
         s.unit_price,
         s.discount,
         s.final_sale_price
-    FROM silver.sales_clean s
+    FROM silver.sales s
     JOIN gold.dim_customer c
         ON s.customer_email = c.customer_email
     JOIN gold.dim_product p
         ON s.product = p.product
     JOIN gold.dim_date d
-        ON s.sale_date = d.full_date;
+        ON s.sale_date = d.full_date
+    WHERE NOT s.is_cancelled;   -- Gold uses the flag explicitly (not a JOIN side effect)
     """, "Created gold.fact_sales")
 
     run_sql("""
@@ -1150,9 +1117,9 @@ def _(con, display, pd):
     checks = {
         "Bronze has 10 raw rows": ("SELECT COUNT(*) FROM bronze.sales_raw", 10),
         "After dedup has 9 rows": ("SELECT COUNT(*) FROM silver.step01_dedup", 9),
-        "Rejected records count is 5": ("SELECT COUNT(*) FROM silver.rejected_records", 5),
-        "Cancelled transactions count is 1": ("SELECT COUNT(*) FROM silver.cancelled_transactions", 1),
-        "Trusted clean sales count is 3": ("SELECT COUNT(*) FROM silver.sales_clean", 3),
+        "Rejected records count is 5": ("SELECT COUNT(*) FROM silver.rejected", 5),
+        "Flagged (cancelled) count is 1": ("SELECT COUNT(*) FROM silver.sales WHERE is_cancelled", 1),
+        "Valid sales count is 3": ("SELECT COUNT(*) FROM silver.sales WHERE NOT is_cancelled", 3),
         "Gold fact sales count is 3": ("SELECT COUNT(*) FROM gold.fact_sales", 3),
     }
 

@@ -44,7 +44,7 @@ def _(mo):
 
     ## Core Business Rules Applied
 
-    1. exact duplicates are dropped
+    1. exact duplicates are removed (and counted)
     2. invalid or missing `sale_id` → cancelled
     3. missing `sale_type` → reject
     4. missing `sales_channel` → impute `UNKNOWN`

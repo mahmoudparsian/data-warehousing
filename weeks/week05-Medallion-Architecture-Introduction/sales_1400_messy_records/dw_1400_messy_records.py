@@ -19,24 +19,21 @@ def _(mo):
 
     This revised notebook teaches the pipeline **one business rule at a time**.
 
-    ## Business Rules
-    1. Missing `sale_id` → **cancelled transaction**
+    ## Business Rules (from `business_rules.md`)
 
-    2. Missing `product` → **drop record**
+    Every row ends up **valid**, **flagged**, **rejected** (quarantined in `silver.rejected` with a reason) or a **duplicate** (removed, counted).
 
-    3. Missing/empty `customer_name` → **drop record**
+    | # | Rule | Fate |
+    |---|---|---|
+    | 1 | missing `sale_id` → the sale was **cancelled** | **flagged**: kept in `silver.sales`, `is_cancelled = true` |
+    | 2 | missing `product` | **rejected** |
+    | 3 | missing / empty `customer_name` | **rejected** |
+    | 4 | missing or negative `discount` → 0.00 | fixed; the row stays valid |
+    | 5–6 | `sale_date` must be `MM/DD/YYYY` or `YYYY-MM-DD` and a real date | otherwise **rejected** |
+    | 7 | exact duplicate rows | **duplicate**: keep one, count the others |
+    | 8 | `final_sale_price = (quantity * unit_price) - discount` | computed |
 
-    4. Null/missing/negative `discount` → **0.00**
-
-    5. Valid `sale_date` formats only:
-       - `MM/DD/YYYY`
-       - `YYYY-MM-DD`
-
-    6. Missing/malformed/invalid `sale_date` → **drop record**
-
-    7. Drop exact duplicate rows
-
-    8. `final_sale_price = (quantity * unit_price) - discount`
+    **Reconcile:** Bronze rows = valid + flagged + rejected + duplicates.
 
     We will show for each rule:
     - **why**
@@ -147,7 +144,6 @@ def _(mo):
 
 @app.cell
 def _(con):
-    con.execute("CREATE SCHEMA IF NOT EXISTS raw;").fetchall()
     con.execute("CREATE SCHEMA IF NOT EXISTS bronze;").fetchall()
     con.execute("CREATE SCHEMA IF NOT EXISTS silver;").fetchall()
     con.execute("CREATE SCHEMA IF NOT EXISTS gold;").fetchall()
@@ -175,13 +171,14 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Cell 05 — Load the CSV into `raw.sales_file`
+    ## Cell 05 — Load the CSV into `bronze.sales_raw`
 
     ### Why
-    We want a warehouse copy of the exact input.
+    Bronze keeps the file **exactly as received**, so every Silver and Gold number can be traced back and replayed.
 
     ### What
-    Load the CSV as text using `all_varchar=true`.
+    Load every column **as text** (`all_varchar = true`) and add the lineage columns `_source_file` and `_ingested_at`.
+    `raw_row_num` is the row number in the file, for tracing rows in class. Nothing is fixed or removed here.
     """)
     return
 
@@ -189,16 +186,18 @@ def _(mo):
 @app.cell
 def _(con, csv_file):
     con.execute(f"""
-    CREATE OR REPLACE TABLE raw.sales_file AS
+    CREATE OR REPLACE TABLE bronze.sales_raw AS
     SELECT
         ROW_NUMBER() OVER () AS raw_row_num,
-        *
-    FROM read_csv_auto('{csv_file}', header=true, all_varchar=true);
+        *,
+        '{csv_file}'        AS _source_file,      -- lineage: where from?
+        current_timestamp   AS _ingested_at       -- lineage: when?
+    FROM read_csv('{csv_file}', header = true, all_varchar = true);
     """).fetchall()
 
     con.execute("""
-    SELECT COUNT(*) AS raw_rows 
-    FROM raw.sales_file
+    SELECT COUNT(*) AS bronze_rows
+    FROM bronze.sales_raw
     """).df()
     return
 
@@ -206,29 +205,12 @@ def _(con, csv_file):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Cell 06 — Create `bronze.sales_raw`
+    ## Cell 06 — The Bronze rules
 
-    ### Why
-    Bronze is the warehouse landing layer.
-
-    ### What
-    Copy raw data into Bronze.
+    - **Never fixed:** the errors you see in Bronze stay in Bronze; Silver fixes them, as written rules.
+    - **Append only:** next month's file is added with its own `_source_file`.
+    - **No business rules** here: no deduplication, no filters. We may **profile** Bronze (next cells), not change it.
     """)
-    return
-
-
-@app.cell
-def _(con):
-    con.execute("""
-    CREATE OR REPLACE TABLE bronze.sales_raw AS
-    SELECT *
-    FROM raw.sales_file;
-    """).fetchall()
-
-    con.execute("""
-    SELECT COUNT(*) AS bronze_rows 
-    FROM bronze.sales_raw
-    """).df()
     return
 
 
@@ -571,7 +553,7 @@ def _(mo):
     - `MM/DD/YYYY`
     - `YYYY-MM-DD`
 
-    Missing or invalid dates must be dropped later.
+    Missing or invalid dates become NULL here; Cell 12 rejects those rows (with a reason).
 
     ### How
     Use `TRY_STRPTIME` for both formats and `COALESCE`.
@@ -588,10 +570,10 @@ def _(con):
     CREATE OR REPLACE TABLE silver.step04_date_parsed AS
     SELECT
         *,
-        COALESCE(
-            TRY_STRPTIME(sale_date_raw, '%m/%d/%Y')::DATE,
-            TRY_STRPTIME(sale_date_raw, '%Y-%m-%d')::DATE
-        ) AS sale_date
+        CASE   -- check the shape first: try_strptime('31-12-25', '%Y-%m-%d') would read year 31
+            WHEN sale_date_raw LIKE '__/__/____' THEN TRY_STRPTIME(sale_date_raw, '%m/%d/%Y')::DATE
+            WHEN sale_date_raw LIKE '____-__-__' THEN TRY_STRPTIME(sale_date_raw, '%Y-%m-%d')::DATE
+        END AS sale_date
     FROM silver.step03_discount_fixed;
     """).fetchall()
 
@@ -634,7 +616,7 @@ def _(mo):
     Rejected rows are **not** cancelled.
 
     ### Transformation
-    `silver.step04_date_parsed` → `silver.rejected_records`
+    `silver.step04_date_parsed` → `silver.rejected`
     """)
     return
 
@@ -642,7 +624,7 @@ def _(mo):
 @app.cell
 def _(con):
     con.execute("""
-    CREATE OR REPLACE TABLE silver.rejected_records AS
+    CREATE OR REPLACE TABLE silver.rejected AS
     SELECT
         *,
         CASE
@@ -657,7 +639,7 @@ def _(con):
 
     con.execute("""
     SELECT reject_reason, COUNT(*) AS row_count
-    FROM silver.rejected_records
+    FROM silver.rejected
     GROUP BY reject_reason
     ORDER BY row_count DESC;
     """).df()
@@ -668,7 +650,7 @@ def _(con):
 def _(con, plt):
     _df = con.execute("""
     SELECT reject_reason, COUNT(*) AS row_count
-    FROM silver.rejected_records
+    FROM silver.rejected
     GROUP BY reject_reason
     ORDER BY row_count DESC;
     """).df()
@@ -687,17 +669,16 @@ def _(con, plt):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Cell 13 — Rule 1: Build cancelled transactions
+    ## Cell 13 — Rules 1 and 8: the trusted table `silver.sales`
 
     ### Why
-    Business wants to know how many transactions were cancelled and for which products.
-
-    ### Important
-    A row counts as cancelled only if it is otherwise valid.
-    Rejected rows do not become cancelled rows.
+    Every row that was **not** rejected goes here, **including cancelled sales**: a cancellation is a real business event
+    ("how many sales were cancelled, and for which products?"), so we **keep** it and **flag** it (`is_cancelled`).
+    Rule 8 computes `final_sale_price`.
 
     ### Transformation
-    `silver.step04_date_parsed` → `silver.cancelled_transactions`
+    `silver.step04_date_parsed` → `silver.sales` (the `WHERE` is exactly the opposite of the reject condition in Cell 12,
+    so each deduplicated row is in exactly one of `silver.rejected` and `silver.sales`).
     """)
     return
 
@@ -705,20 +686,22 @@ def _(mo):
 @app.cell
 def _(con):
     con.execute("""
-    CREATE OR REPLACE TABLE silver.cancelled_transactions AS
+    CREATE OR REPLACE TABLE silver.sales AS
     SELECT
+        TRY_CAST(sale_id_raw AS INTEGER)   AS sale_id,
+        sale_id_raw IS NULL                AS is_cancelled,      -- rule 1: keep and flag
         sale_type, product, customer_name, customer_email, customer_country,
-        quantity, unit_price, discount, store_location, sale_date
+        quantity, unit_price, discount, store_location, sale_date,
+        (quantity * unit_price) - discount AS final_sale_price   -- rule 8
     FROM silver.step04_date_parsed
-    WHERE sale_id_raw IS NULL
-      AND product IS NOT NULL
-      AND customer_name IS NOT NULL
-      AND sale_date IS NOT NULL;
+    WHERE NOT (product IS NULL OR customer_name IS NULL OR sale_date IS NULL);
     """).fetchall()
 
     con.execute("""
-    SELECT COUNT(*) AS cancelled_transaction_rows 
-    FROM silver.cancelled_transactions
+    SELECT COUNT(*) AS silver_sales_rows,
+           COUNT(*) FILTER (WHERE is_cancelled)     AS flagged_cancelled,
+           COUNT(*) FILTER (WHERE NOT is_cancelled) AS valid
+    FROM silver.sales
     """).df()
     return
 
@@ -728,7 +711,8 @@ def _(con):
     con.execute("""
     SELECT product, 
            COUNT(*) AS cancelled_count
-    FROM silver.cancelled_transactions
+    FROM silver.sales
+    WHERE is_cancelled
     GROUP BY product
     ORDER BY cancelled_count DESC;
     """).df()
@@ -739,7 +723,8 @@ def _(con):
 def _(con, plt):
     _df = con.execute("""
     SELECT product, COUNT(*) AS cancelled_count
-    FROM silver.cancelled_transactions
+    FROM silver.sales
+    WHERE is_cancelled
     GROUP BY product
     ORDER BY cancelled_count DESC;
     """).df()
@@ -758,81 +743,10 @@ def _(con, plt):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Cell 14 — Build valid non-cancelled rows
-
-    ### Why
-    Gold should use only trusted, valid, non-cancelled rows.
-
-    ### Transformation
-    `silver.step04_date_parsed` → `silver.step05_valid_non_cancelled`
-    """)
-    return
-
-
-@app.cell
-def _(con):
-    con.execute("""
-    CREATE OR REPLACE TABLE silver.step05_valid_non_cancelled AS
-    SELECT *
-    FROM silver.step04_date_parsed
-    WHERE sale_id_raw IS NOT NULL
-      AND product IS NOT NULL
-      AND customer_name IS NOT NULL
-      AND sale_date IS NOT NULL;
-    """).fetchall()
-
-    con.execute("""
-    SELECT COUNT(*) AS valid_non_cancelled_rows 
-    FROM silver.step05_valid_non_cancelled
-    """).df()
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## Cell 15 — Rule 8: Compute final sale price
-
-    ### Why
-    This is the trusted monetary measure used in analytics.
-
-    ### Transformation
-    `silver.step05_valid_non_cancelled` → `silver.sales_clean`
-    """)
-    return
-
-
-@app.cell
-def _(con):
-    con.execute("""
-    CREATE OR REPLACE TABLE silver.sales_clean AS
-    SELECT
-        sale_id_raw AS sale_id,
-        sale_type,
-        product,
-        customer_name,
-        customer_email,
-        customer_country,
-        quantity,
-        unit_price,
-        discount,
-        store_location,
-        sale_date,
-        (quantity * unit_price) - discount AS final_sale_price
-    FROM silver.step05_valid_non_cancelled;
-    """).fetchall()
-
-    con.execute("SELECT * FROM silver.sales_clean LIMIT 10").df()
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
     ## Cell 16 — Audit all outcomes together
 
     ### Why
-    Students need one summary of the full pipeline.
+    One query proves that no row was lost: **bronze rows = duplicates + rejected + flagged + valid**.
     """)
     return
 
@@ -840,15 +754,15 @@ def _(mo):
 @app.cell
 def _(con):
     con.execute("""
-    SELECT 'bronze_raw_rows' AS category, COUNT(*) AS row_count FROM bronze.sales_raw
+    SELECT '1 bronze rows' AS category, COUNT(*) AS row_count FROM bronze.sales_raw
     UNION ALL
-    SELECT 'after_dedup', COUNT(*) FROM silver.step01_dedup
+    SELECT '2 duplicates (removed, counted)', (SELECT COUNT(*) FROM bronze.sales_raw) - COUNT(*) FROM silver.step01_dedup
     UNION ALL
-    SELECT 'rejected_rows', COUNT(*) FROM silver.rejected_records
+    SELECT '3 rejected (silver.rejected)', COUNT(*) FROM silver.rejected
     UNION ALL
-    SELECT 'cancelled_rows', COUNT(*) FROM silver.cancelled_transactions
+    SELECT '4 flagged: cancelled', COUNT(*) FROM silver.sales WHERE is_cancelled
     UNION ALL
-    SELECT 'trusted_sales_clean', COUNT(*) FROM silver.sales_clean
+    SELECT '5 valid', COUNT(*) FROM silver.sales WHERE NOT is_cancelled
     ORDER BY category;
     """).df()
     return
@@ -857,20 +771,20 @@ def _(con):
 @app.cell
 def _(con, plt):
     _df = con.execute("""
-    SELECT 'bronze_raw_rows' AS category, COUNT(*) AS row_count FROM bronze.sales_raw
+    SELECT '1 bronze rows' AS category, COUNT(*) AS row_count FROM bronze.sales_raw
     UNION ALL
-    SELECT 'after_dedup', COUNT(*) FROM silver.step01_dedup
+    SELECT '2 duplicates (removed, counted)', (SELECT COUNT(*) FROM bronze.sales_raw) - COUNT(*) FROM silver.step01_dedup
     UNION ALL
-    SELECT 'rejected_rows', COUNT(*) FROM silver.rejected_records
+    SELECT '3 rejected (silver.rejected)', COUNT(*) FROM silver.rejected
     UNION ALL
-    SELECT 'cancelled_rows', COUNT(*) FROM silver.cancelled_transactions
+    SELECT '4 flagged: cancelled', COUNT(*) FROM silver.sales WHERE is_cancelled
     UNION ALL
-    SELECT 'trusted_sales_clean', COUNT(*) FROM silver.sales_clean;
+    SELECT '5 valid', COUNT(*) FROM silver.sales WHERE NOT is_cancelled;
     """).df()
 
     plt.figure(figsize=(9,4))
     plt.bar(_df["category"], _df["row_count"])
-    plt.title("Pipeline Audit Funnel")
+    plt.title("Reconcile: bronze rows = duplicates + rejected + flagged + valid")
     plt.xlabel("Stage")
     plt.ylabel("Rows")
     plt.xticks(rotation=25, ha="right")
@@ -920,7 +834,8 @@ def _(con):
         customer_country
     FROM (
         SELECT DISTINCT customer_name, customer_email, customer_country
-        FROM silver.sales_clean
+        FROM silver.sales
+        WHERE NOT is_cancelled
     );
     """).fetchall()
     return
@@ -963,7 +878,8 @@ def _(con):
         product
     FROM (
         SELECT DISTINCT product
-        FROM silver.sales_clean
+        FROM silver.sales
+        WHERE NOT is_cancelled
     );
     """).fetchall()
     return
@@ -1005,7 +921,8 @@ def _(con):
         store_location
     FROM (
         SELECT DISTINCT store_location
-        FROM silver.sales_clean
+        FROM silver.sales
+        WHERE NOT is_cancelled
     );
     """).fetchall()
     return
@@ -1054,7 +971,8 @@ def _(con):
         STRFTIME(sale_date, '%Y-%m') AS year_month
     FROM (
         SELECT DISTINCT sale_date
-        FROM silver.sales_clean
+        FROM silver.sales
+        WHERE NOT is_cancelled
     );
     """).fetchall()
     return
@@ -1103,11 +1021,12 @@ def _(con):
         s.unit_price,
         s.discount,
         s.final_sale_price
-    FROM silver.sales_clean s
+    FROM silver.sales s
     JOIN gold.dim_customer dc ON s.customer_email = dc.customer_email
     JOIN gold.dim_product dp ON s.product = dp.product
     JOIN gold.dim_store ds ON s.store_location = ds.store_location
-    JOIN gold.dim_date dd ON s.sale_date = dd.full_date;
+    JOIN gold.dim_date dd ON s.sale_date = dd.full_date
+    WHERE NOT s.is_cancelled;   -- Gold uses the flag explicitly
     """).fetchall()
     return
 
@@ -1676,9 +1595,9 @@ def _(mo):
     - **Rule 7** in `silver.step01_dedup`
     - **Rule 4** in `silver.step03_discount_fixed`
     - **Rules 5 and 6** in `silver.step04_date_parsed`
-    - **Rules 2, 3, and 6** in `silver.rejected_records`
-    - **Rule 1** in `silver.cancelled_transactions`
-    - **Rule 8** in `silver.sales_clean`
+    - **Rules 2, 3, 5 and 6** in `silver.rejected` (with `reject_reason`)
+    - **Rules 1 and 8** in `silver.sales` (`is_cancelled` flag, `final_sale_price`)
+    - the reconciliation in Cell 16: bronze rows = duplicates + rejected + flagged + valid
 
     This makes the pipeline much easier for students to follow.
     """)

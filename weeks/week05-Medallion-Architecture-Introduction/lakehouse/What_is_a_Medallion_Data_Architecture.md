@@ -5,7 +5,9 @@ Medallion data architecture is a data design pattern, often called a "multi-hop"
 * Silver (cleansed/validated), and 
 * Gold (enriched)
 
-progressively improving its structure and quality for analytics. It ensures data reliability, auditability, and efficiency. 
+progressively improving its structure and quality for analytics. It ensures data reliability, auditability, and efficiency.
+
+> **In this course** the layers have exactly the meanings in [Medallion in a nutshell](../Medallion_Architecture_in_a_Nutshell.md): Bronze as received (never fixed), Silver with every row valid, flagged, rejected or a counted duplicate, Gold built only from Silver.
 
 ----------
 
@@ -27,17 +29,17 @@ progressively improving its structure and quality for analytics. It ensures data
 Stores raw, ingested data from sources (APIs, CRM) in its native format for historical auditing, acting as the system of record.
 
 ### Silver (Validated/Cleaned Data): 
-Consists of cleansed, filtered, and standardized data. Used for data science, ad-hoc analysis, and cross-departmental reporting.
+Consists of cleansed, validated and standardized data; rows that break a rule are quarantined with a reason, not deleted. Used for data science, ad-hoc analysis, and cross-departmental reporting.
 
 ### Gold (Enriched Data): 
-Features highly aggregated, business-level tables (e.g., star schemas) ready for BI reporting, dashboards (e.g., Power BI), and AI applications. 
+Business-level tables: star schemas (fact tables at a detailed grain + dimensions) and aggregated KPI tables, ready for BI reporting, dashboards (e.g., Power BI, Tableau), and AI applications.
 
 # Synonyms and Related Concepts:
 
 * **Multi-hop Architecture**: Refers to the flow of data through multiple stages.
 * **Lakehouse Architecture**: The underlying storage approach (Databricks, Microsoft Fabric).
 * **Three-tiered Data Structure**: Refers to the Bronze-Silver-Gold hierarchy.
-* **Data Lake Refinement/Curating**: The process of improving data quality, often in a Reddit user discussion considered a flexible framework. 
+* **Data Lake Refinement/Curating**: The process of improving data quality step by step. 
 
 Medallion architecture provides a simple, maintainable data model that allows users to re-create downstream tables from raw, immutable sources if needed. 
 

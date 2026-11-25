@@ -14,16 +14,20 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # DW Template Notebook (Step-by-Step)
+    # Book Seller → Star Schema, with Messy Data
+    ### Week 3, Session 2 demo · the same steps as Lab 3.2
 
-    ## a complete teaching module:
-    ```
-    	•	messy data → clean data ✔️
-    	•	medallion architecture ✔️
-    	•	star schema ✔️
-    	•	OLAP queries ✔️
-    	•	business storytelling ✔️
-    ```
+    The same book seller as the clean demo, but now the sales export is **messy**: 21,000 rows from 2024, with missing ids, missing values,
+    three date formats, duplicate transactions, duplicate books, and a `final_price` column that is wrong. This notebook cleans it step by step
+    and builds a star schema, then answers 10 business questions.
+
+    | Layer | Tables | Rows |
+    |---|---|---|
+    | 🟫 Bronze (raw, as received) | `bronze_books`, `bronze_sales` | 120 · 21,000 |
+    | ⚪ Silver (cleaned, one row per entity / transaction) | `silver_books`, `silver_sales_step1` → `silver_sales` → `silver_sales_clean` | 100 · 20,900 → 20,900 → 20,000 |
+    | 🟡 Gold (star schema) | `dim_book`, `dim_location`, `dim_date`, `fact_sales` | 100 · 20 · 366 · 20,000 |
+
+    Every step has the same shape: **what** we do → the **SQL** → a **check** → the **result** in numbers.
     """)
     return
 
@@ -31,128 +35,13 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ---
+    ## Why three layers?
 
-    # 🟫⚪🟡 Medallion Architecture Summary Cell
+    - **Bronze** keeps the data **exactly as received**: if a rule turns out wrong, we re-run Silver from Bronze, without asking the source again.
+    - **Silver** applies the cleaning rules, one step per table, so each rule can be checked on its own.
+    - **Gold** is the star schema that BI queries use: no cleaning logic in reports.
 
-    # 🏗️ Medallion Architecture Summary
-
-    ```
-    This notebook follows the **Medallion Architecture**,
-    which organizes data into three layers:
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ---
-    ## 🟫 Bronze Layer (Raw Data)
-
-    **Purpose:**
-    - Store raw data exactly as received
-    - No cleaning or transformation
-
-    **Tables:**
-    - `bronze_books`
-    - `bronze_sales`
-
-    **Characteristics:**
-    - messy data (NULLs, duplicates, inconsistent formats)
-    - source of truth for auditing
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ---
-    ## ⚪ Silver Layer (Cleaned Data)
-
-    **Purpose:**
-    - Clean, standardize, and validate data
-
-    **Tables:**
-    - `silver_books`
-    - `silver_sales_clean`
-
-    **Transformations Applied:**
-    - removed duplicates
-    - handled NULL values
-    - standardized date formats
-    - enforced transaction integrity
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ---
-    ## 🟡 Gold Layer (Business-Ready Data)
-
-    **Purpose:**
-    - Create a **Star Schema** for analytics
-
-    **Tables:**
-    - `dim_book`
-    - `dim_location`
-    - `dim_date`
-    - `fact_sales`
-
-    **Characteristics:**
-    - optimized for BI queries
-    - fast joins
-    - structured for OLAP
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ---
-    ## 📊 BI Layer (Analytics)
-
-    Using the Gold layer, we performed:
-
-    - revenue analysis
-    - ranking (Top-N)
-    - time-series trends
-    - geographic analysis
-    - segmentation
-    - multi-dimensional OLAP
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ---
-    ## 🧠 Key Takeaway
-
-    ```text
-
-    Raw Data → Clean Data → Star Schema → Business Insights
-
-    ⸻
-
-    🚀 Why Medallion Architecture?
-    	•	improves data quality
-    	•	enables scalability
-    	•	separates concerns
-    	•	supports reliable analytics
-
-    ⸻
-
-    This architecture is widely used in modern data platforms:
-    	•	Databricks
-    	•	Snowflake
-    	•	BigQuery
-    ```
+    Weeks 5–9 build the same three layers for the pizza shop.
     """)
     return
 
@@ -179,72 +68,9 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ---
-    # 💡 Teaching Tip (Very Powerful)
+    # 🟫 Cell 1 — Load the Raw Files (Bronze)
 
-    ```
-    After this cell, ask:
-
-    “Which layer should BI queries run on?”
-
-    👉 Expected answer:
-
-    Gold layer
-
-    Then ask:
-
-    “Why not Bronze or Silver?”
-
-    👉 This reinforces:
-    	•	separation of concerns
-    	•	performance
-    	•	data quality
-
-    ⸻
-
-    🎯 What this cell achieves
-    	•	connects all previous work
-    	•	gives big picture clarity
-    	•	prepares students for real-world systems
-
-    ⸻
-
-    ```
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    # 🟫 CELL 1 — Load Raw Data (Bronze Layer Entry Point)
-
-    ```
-    ✅ 1. What are we doing?
-
-    We are:
-    	•	Loading raw CSV files (books.csv, sales.csv)
-    	•	This is the Bronze layer ingestion
-    	•	No cleaning, no transformation — just bring data into the system
-
-    👉 This mimics real-world ingestion from:
-    	•	files
-    	•	APIs
-    	•	OLTP systems
-
-    ⸻
-
-    💼 2. Business Value
-    	•	Establishes a single source of truth
-    	•	Enables data lineage (we know where data came from)
-    	•	Critical for:
-    	•	auditing
-    	•	debugging
-    	•	reproducibility
-
-    👉 Without this step, everything downstream is unreliable
-
-    ```
+    Load `books.csv` and `sales.csv` as they are: no cleaning, no fixes. This is the copy we can always go back to.
     """)
     return
 
@@ -314,26 +140,8 @@ def _(df_counts, plt):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## 📈 5. Business Analysis
-    	•	We confirm:
-    	•	books ≈ 120 rows
-    	•	sales ≈ 21,000 rows
-
-    👉 Immediate insight:
-    	•	Sales is a fact-heavy table
-    	•	Books is a dimension-like table
-
-    This sets up:
-    	•	fact vs dimension thinking
-    	•	scaling considerations
-
-    ⸻
-
-    👉 Next Step: move to:
-
-    🟫 CELL 2 — Detect Data Quality Issues (MOST IMPORTANT STEP)
-
-    This is where the real teaching begins 🔥
+    **Result:** `bronze_books` **120** rows, `bronze_sales` **21,000** rows. The shapes already tell the roles: `sales` = many events (→ fact table),
+    `books` = a short descriptive list (→ dimension).
     """)
     return
 
@@ -341,56 +149,9 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ---
-    # 🟫 CELL 2 — Detect Data Quality Issues (MOST IMPORTANT STEP)
-    Explain the step.
-    """)
-    return
+    # 🟫 Cell 2 — Profile the Data Quality (before any cleaning)
 
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ```
-    This is where the real data engineering thinking starts.
-
-    ⸻
-
-    🟫 CELL 2 — Detect Data Quality Issues (Bronze Profiling)
-
-    ⸻
-
-    ✅ 1. What are we doing?
-
-    We are:
-    	•	profiling raw data
-    	•	identifying:
-    	•	duplicates
-    	•	NULL values
-    	•	inconsistent formats (dates)
-
-    👉 This is NOT cleaning yet
-    👉 This is understanding the mess
-
-    Think of this as:
-
-    “What’s wrong with my data before I touch it?”
-
-    ⸻
-
-    💼 2. Business Value
-    	•	Prevents wrong analytics
-    	•	Avoids bad decisions
-    	•	Builds trust in data
-
-    Real-world impact:
-    	•	Duplicate sales → inflated revenue
-    	•	NULL transaction_id → untraceable transactions
-    	•	inconsistent dates → broken time analysis
-
-    👉 If you skip this step → your BI is garbage
-
-    ```
+    We **count** the problems first, then decide a rule for each one. Nothing is changed in this cell.
     """)
     return
 
@@ -517,48 +278,19 @@ def _(dup_books, mixed_dates, null_discount, null_format, null_tx, plt):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ---
-    # 📈 5. Business Analysis
+    ### Findings and rules
 
-    ### 🔴 Key Findings
-    ```
-    	•	Duplicate books exist → dimension corruption risk
-    	•	NULL transaction_id → must DROP (non-recoverable)
-    	•	NULL discount → safe to default to 0
-    	•	NULL book_format → safe to default to ‘hard_copy’
-    	•	Mixed date formats → must standardize
-    ```
-    ⸻
+    | Problem (count) | Rule | Kind |
+    |---|---|---|
+    | 20 duplicate rows in `books` (120 rows, 100 ids, exact copies) | `SELECT DISTINCT` | fix |
+    | 100 sales with no `transaction_id` | drop, and count them in the reconciliation | **reject** |
+    | 900 `transaction_id`s that appear twice (415 exact copies, 485 copies with a NULL `discount` or `book_format`) | keep **one** row per id: the most complete copy | fix |
+    | 300 NULL `discount`, 200 NULL `book_format` (all in second copies, see above) | after deduplication: discount → 0.00, format → `hard_copy` | default |
+    | 14,046 dates not in `YYYY-MM-DD` (7,164 `YYYY/MM/DD`, 6,882 `MM/DD/YYYY`) | parse all three formats | fix |
+    | `final_price ≠ sale_price - discount` in 20,692 rows (the source value is wrong) | recompute it | fix |
 
-    ### 🧠 Critical Insight
-
-    Not all bad data is equal:
-
-    |Issue	             | Action
-    |--------------------|-----------|
-    |NULL transaction_id |	❌ DROP  |
-    |duplicate rows	     | ❌ REMOVE |
-    |NULL discount	     | ✅ IMPUTE |
-    |NULL format	     | ✅ IMPUTE |
-    |bad date format	 |🔧 FIX     |
-
-    👉 This distinction is core to data engineering
-
-    ⸻
-
-    ### 💡 Teaching Moment
-
-    Ask students:
-
-    “Should we fix or drop bad data?”
-
-    ```
-    👉 This leads to:
-    	•	data governance
-    	•	business rules
-    	•	assumptions
-    ```
-    ⸻
+    The last row is not profiled in Cell 2: check it yourself with `ABS(final_price - (sale_price - discount)) > 0.01` (Lab 3.2, Q4).
+    **Order matters:** the defaults (row 4) must come **after** the deduplication (row 3), or the guessed 0.00 can win over a real discount.
     """)
     return
 
@@ -566,85 +298,10 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ---
+    # ⚪ Cell 3 — Clean the Books (Silver)
 
-    # ⚪ CELL 3 — Clean Books (Silver Layer Step 1)
-
-    ### 👉 Deduplication logic (very important dimension concept)
-
-    ### This is where Bronze → Silver transformation begins 🚀
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## ⚪ CELL 3 — Clean Books (Deduplication)
-
-    * This is where:
-
-    ```
-    	•	dimension integrity is introduced
-    	•	students learn why duplicates are dangerous
-    ```
-
-    * This is a key DW concept 🔥 ￼
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## ⚪ CELL 3 — Clean Books (Deduplication)
-    ## Now we’re entering Silver layer thinking.
-
-    ### This is a foundational DW concept.
-
-    #### ✅ 1. What are we doing?
-
-    We are:
-
-    ```
-    	•	removing duplicate rows from bronze_books
-    	•	creating a clean dimension-ready table
-    ```
-
-    ### 👉 Output:
-
-    `silver_books`
-
-    This becomes the source for dim_book
-
-    ⸻
-
-    ### 💼 2. Business Value
-
-    Duplicate books cause:
-
-    ```
-    	•	❌ double-counting in joins
-    	•	❌ inflated revenue
-    	•	❌ incorrect BI results
-    ```
-
-    * Example problem:
-
-    If book_id = 10 appears twice:
-
-    ```
-    	•	a single sale joins twice
-    	•	revenue becomes 2x (WRONG)
-    ```
-
-    * 👉 Deduplication ensures:
-
-    ```
-    	•	1 book = 1 record
-    	•	clean dimension modeling
-    ```
-    ⸻
+    `bronze_books` has 120 rows for 100 books: 20 rows are **exact copies**. A dimension must have **one row per key**: if book 10 appeared twice,
+    every sale of book 10 would join twice and its revenue would **double**. Here `SELECT DISTINCT` is enough, because the copies are identical.
     """)
     return
 
@@ -733,62 +390,10 @@ def _(con, plt):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## 📈 5. Business Analysis
+    **Result:** 120 → **100** rows, 0 duplicate ids left.
 
-    ```
-    🔴 Before (Bronze)
-    	•	~120 rows
-    	•	includes duplicates
-    	•	unreliable for joins
-
-    🟢 After (Silver)
-    	•	~100 rows
-    	•	clean, unique books
-    	•	safe for dimension modeling
-    ```
-    ⸻
-
-    * 🧠 Key Insight (VERY IMPORTANT)
-
-    👉 Dimensions must be:
-
-    ```
-    	•	clean
-    	•	unique
-    	•	stable
-    ```
-
-    This is called:
-
-    Dimension Integrity
-
-    ⸻
-
-    ### 💡 Teaching Moment
-
-    Ask students:
-
-    “Why don’t we deduplicate the fact table the same way?”
-
-    👉 Answer:
-
-    ```
-    	•	Fact tables represent events
-    	•	Duplicates may be real transactions
-    	•	Needs different logic (not just DISTINCT)
-    ```
-    ⸻
-
-    👉 Next Step
-
-    * ⚪ CELL 4 — Clean Sales (NULL Handling + Drop Bad Records)
-
-    This is where:
-
-    ```
-    	•	we start making business decisions on bad data
-    	•	the most important ETL step begins 🔥
-    ```
+    Why not `DISTINCT` on the sales too? Two sales can legitimately have the same values (same book, same day, same price): only the
+    **transaction id** tells whether two rows are the same event. Cell 6 deduplicates sales **by id**.
     """)
     return
 
@@ -796,68 +401,11 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ---
-    # ⚪ CELL 4 — Clean Sales (NULL Handling + Drop Bad Records)
+    # ⚪ Cell 4 — Clean the Sales, Step 1: Reject Rows Without an Id
 
-    This is where:
-
-    ```
-    	•	we start making business decisions on bad data
-    	•	the most important ETL step begins 🔥
-    ```
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## ⚪ CELL 4 — Clean Sales (NULL Handling + Drop Bad Records)
-
-    * Perfect — this is the most important ETL cell in the entire pipeline. 🔥
-
-    * This is where students learn how to make decisions about bad data.
-
-    ✅ 1. What are we doing?
-
-    We are cleaning bronze_sales by:
-
-    * Rules:
-
-    ```
-    	•	❌ DROP rows where transaction_id IS NULL
-    	•	✅ FILL discount → 0.00
-    	•	✅ FILL book_format → 'hard_copy'
-    ```
-
-    #### 👉 Output: `silver_sales_step1`
-
-    * ⚠️ We are NOT fixing dates yet — that’s next cell
-
-    ⸻
-
-    ### 💼 2. Business Value
-
-    This step enforces business rules:
-
-    |Issue	              | Decision	    |Why |
-    |---------------------|-----------------|------------------------|
-    |NULL transaction_id  |  ❌ DROP	    | cannot track transaction
-    |NULL discount	      | ✅ 0.00	        | means no discount |
-    |NULL format	      | ✅ hard_copy	| business default |
-
-    ⸻
-
-    ### Real-world meaning:
-    ```
-    	•	A sale without ID = invalid transaction
-    	•	Missing discount = no promotion applied
-    	•	Missing format = assume physical product
-    ```
-
-    * 👉 This is where data engineering meets business logic
-
-    ⸻
+    - **Reject** the 100 rows with no `transaction_id`: we cannot track, deduplicate or correct a sale without its id, and inventing one would be fake data.
+    - Standardize the text columns (`UPPER(TRIM(…))`).
+    - **Keep** the NULL `discount` and `book_format` values for now: Cell 6 decides which copy of a transaction survives, and the complete copy must win.
     """)
     return
 
@@ -880,21 +428,13 @@ def _(con):
         year_sold,
         UPPER(TRIM(customer_gender)) AS customer_gender,
         sale_price,
-
-        -- FIX NULL discount
-        COALESCE(discount, 0.00) AS discount,
-
-        -- recompute final_price
-        ROUND(sale_price - COALESCE(discount, 0.00), 2) AS final_price,
-
+        discount,        -- NULLs stay for now: every NULL row is a 2nd copy of a transaction (Cell 6)
         country_sold,
         city_sold,
-
-        -- FIX NULL format
-        COALESCE(book_format, 'hard_copy') AS book_format
+        book_format      -- NULLs stay for now (same reason)
 
     FROM bronze_sales
-    WHERE transaction_id IS NOT NULL
+    WHERE transaction_id IS NOT NULL      -- rule 1: no id → reject
     """
 
     con.execute(_query).fetchall()
@@ -911,8 +451,8 @@ def _(con):
 
 @app.cell
 def _(con):
-    # 🔍 Validation Checks (VERY IMPORTANT)
-    # Check no NULLs remain in key columns
+    # Validation: no NULL id is left; the NULL discounts / formats are still here on purpose
+    # (Cell 6 keeps the complete copy of each transaction first, and only then fills the defaults)
 
     validation_checks = con.execute("""
     SELECT
@@ -924,8 +464,7 @@ def _(con):
 
     validation_checks
 
-    ### 👉 Expected:
-    ### 0, 0, 0
+    ### 👉 Expected: 0, 300, 200
     return
 
 
@@ -951,70 +490,7 @@ def _(con, plt):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## 📈 5. Business Analysis
-
-    ```
-    🔴 Before (Bronze)
-    	•	includes:
-    	•	NULL transaction_id ❌
-    	•	NULL discount ❌
-    	•	NULL format ❌
-
-    🟢 After (Silver Step 1)
-    	•	all transactions are:
-    	•	valid
-    	•	standardized
-    	•	usable
-    ```
-    ⸻
-
-    * 📉 Important Insight
-
-    Row count will decrease slightly:
-
-    👉 because we dropped invalid transactions
-
-    This is expected and correct
-
-    ⸻
-
-    * 🧠 Key Concept (VERY IMPORTANT)
-
-    👉 Not all bad data should be fixed
-
-    |Type	      |Action |
-    |---------------|--------|
-    Recoverable	    | FIX |
-    Non-recoverable	| DROP |
-
-    ⸻
-
-    * 💡 Teaching Moment
-
-    Ask:
-
-    “Why don’t we fill missing transaction_id?”
-
-    👉 Answer:
-
-    ```
-    	•	no reliable way to reconstruct it
-    	•	would create fake data
-    ```
-    ⸻
-
-    * 🚀 Next Step
-
-    * ⚪ CELL 5 — Fix Date Formats (CRITICAL ETL STEP)
-
-    This is where:
-
-    ```
-    	•	your mixed date formats finally get handled
-    	•	students learn real-world parsing logic
-    ```
-
-    * 🔥 This one is a big moment in the lecture
+    **Result:** 21,000 → **20,900** rows (100 rejected). Still NULL: 300 discounts and 200 formats, on purpose.
     """)
     return
 
@@ -1022,66 +498,11 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ---
-    # ⚪ CELL 5 — Fix Date Formats (Standardization)
+    # ⚪ Cell 5 — Parse the Dates (one DATE type)
 
-    * This is a core real-world ETL problem.
-
-    * Students usually struggle here → which makes it a great teaching moment. 🔥
-
-    * ✅ 1. What are we doing?
-
-    * We are: converting mixed date formats into a single standard DATE type
-
-    Input formats:
-
-    ```
-    	•	YYYY-MM-DD → 2025-10-25
-    	•	MM/DD/YYYY → 10/25/2025
-    	•	YYYY/MM/DD → 2025/10/25
-    ```
-
-    👉 Output:
-
-    ```
-    DATE  → 2025-10-25
-    ```
-
-    ⸻
-
-    ### 💼 2. Business Value
-
-    Without fixing dates:
-
-    ```
-    	•	❌ time-series analysis breaks
-    	•	❌ grouping by month/year fails
-    	•	❌ dashboards become inconsistent
-    ```
-
-    Example:
-
-    `GROUP BY date_sold`
-
-    👉 would treat:
-
-    ```
-    10/25/2025
-    2025-10-25
-    ```
-
-    as different days ❌
-
-    ⸻
-
-    Real-world impact:
-
-    ```
-    	•	incorrect trends
-    	•	broken forecasting
-    	•	wrong business decisions
-    ```
-    ⸻
+    `date_sold` arrives in three formats: `2024-10-25` (6,954 rows), `2024/10/25` (7,164) and `10/25/2024` (6,882).
+    As text, `GROUP BY date_sold` would treat them as three different days. `COALESCE(TRY_STRPTIME(…, fmt1), TRY_STRPTIME(…, fmt2), …)` tries each
+    format in turn and keeps the first one that works.
     """)
     return
 
@@ -1114,7 +535,6 @@ def _(con):
         customer_gender,
         sale_price,
         discount,
-        final_price,
         country_sold,
         city_sold,
         book_format
@@ -1191,74 +611,8 @@ def _(con, plt):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ⸻
-
-    ## 📈 5. Business Analysis
-
-    ```
-    🔴 Before (Bronze / Step1)
-    	•	dates are:
-    	•	inconsistent
-    	•	unreliable
-    	•	not analyzable
-
-    🟢 After (Silver)
-    	•	dates are:
-    	•	standardized
-    	•	comparable
-    	•	ready for analytics
-    ```
-    ⸻
-
-    * 🧠 Key Insight
-
-    👉 Data standardization is mandatory for analytics
-
-    This is called: **Data Normalization / Conformance**
-
-    ⸻
-
-    * 💡 Teaching Moment (Very Powerful)
-
-    Ask:  “Why don’t we just keep dates as strings?”
-
-    👉 Answer:
-
-    ```
-    	•	cannot do:
-    	•	GROUP BY month
-    	•	ORDER BY time
-    	•	DATE functions
-    	•	performance issues
-    ```
-    ⸻
-
-    * 🔥 Bonus Question
-
-    * Ask students:
-
-    * “Why do we use COALESCE + TRY_STRPTIME instead of CASE?”
-
-    👉 Answer:
-
-    ```
-    	•	cleaner
-    	•	scalable
-    	•	handles unknown formats better
-    ```
-    ⸻
-
-    🚀 Next Step
-
-    ⚪ CELL 6 — Remove Duplicate Sales (FACT Table Cleaning)
-
-    This is where:
-
-    ```
-    	•	students learn the difference between:
-    	•	dimension dedup
-    	•	fact dedup (VERY different thinking) 🔥
-    ```
+    **Result:** **0** dates failed to parse; all 20,900 rows fall in 2024 (2024-01-01 → 2024-12-31).
+    `TRY_STRPTIME` returns NULL instead of an error, so the check "0 failed" is what proves the rule covers every format.
     """)
     return
 
@@ -1266,83 +620,15 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ---
+    # ⚪ Cell 6 — One Row per Transaction, Then the Defaults
 
-    # ⚪ CELL 6 — Remove Duplicate Sales (Fact Cleaning)
+    900 `transaction_id`s appear twice. **415** are exact copies; the other **485** differ only because one copy has a NULL `discount` or `book_format`.
+    So for each id we keep the **most complete** copy (`ORDER BY (discount IS NULL)::INT + (book_format IS NULL)::INT`), and only **then**:
 
-    * Now we hit a subtle but critical concept:
+    - NULL discount → 0.00, NULL format → `hard_copy` (business defaults; after this ordering, none are needed here),
+    - `final_price` = `sale_price - discount`, recomputed (the source column is wrong in 20,692 rows).
 
-    * Deduplicating a FACT table is NOT the same as deduplicating a dimension.
-
-    * This is where many analysts get it wrong — so this cell matters a lot. 🔥
-
-    * ✅ 1. What are we doing?
-
-    We are:
-
-    ```
-    	•	removing exact duplicate sales records
-    	•	creating a trusted transactional dataset
-    ```
-
-    👉 Output:  `silver_sales_clean`
-
-    ⚠️ Important:
-
-    ```
-    	•	we remove only true duplicates
-    	•	we do NOT aggregate
-    	•	we do NOT group
-    ```
-    ⸻
-
-    💼 2. Business Value
-
-    Duplicate sales cause:
-
-    ```
-    	•	❌ inflated revenue
-    	•	❌ incorrect KPIs
-    	•	❌ wrong dashboards
-    ```
-
-    Example:
-
-    If one sale appears twice:
-
-    `$50` → becomes `$100` ❌
-
-    👉 This directly leads to:
-
-    ```
-    	•	wrong financial reporting
-    	•	bad decisions
-    ```
-    ⸻
-
-    * 🧠 Key Concept (VERY IMPORTANT)
-
-    |Table Type	| Dedup Strategy |
-    |-----------|-----------------|
-    Dimension	| always deduplicate |
-    Fact	    | ⚠️ only remove exact duplicates |
-
-    ⸻
-
-    ### Why?
-
-    Because:
-
-    👉 Two rows might look similar but represent real transactions
-
-    ```
-    Transaction A → real
-    Transaction B → real (same values)
-    ```
-
-    * 👉 You MUST NOT remove those
-
-    ⸻
+    Fill the defaults **before** deduplicating and a copy with a guessed discount of 0.00 can win over the real one: a silent revenue error.
     """)
     return
 
@@ -1352,19 +638,24 @@ def _(con):
     # 🧾 3. SQL
 
     # ----------------------------------------
-    # Remove duplicate sales (exact matches)
+    # One row per transaction_id: keep the MOST COMPLETE copy,
+    # THEN fill the defaults and recompute final_price
     #
     # silver_sales ---> silver_sales_clean
     # ----------------------------------------
 
     _query = """
     CREATE OR REPLACE TABLE silver_sales_clean AS
-    SELECT *
+    SELECT * EXCLUDE (discount, book_format, rn),
+           COALESCE(discount, 0.00)                        AS discount,      -- rule: NULL discount → 0.00
+           ROUND(sale_price - COALESCE(discount, 0.00), 2) AS final_price,   -- rule: recompute (the source value is wrong)
+           COALESCE(book_format, 'hard_copy')              AS book_format    -- rule: NULL format → 'hard_copy'
     FROM (
         SELECT *,
                ROW_NUMBER() OVER (
                    PARTITION BY transaction_id
-                   ORDER BY date_sold
+                   ORDER BY (discount IS NULL)::INT + (book_format IS NULL)::INT,   -- complete copy first
+                            date_sold
                ) AS rn
         FROM silver_sales
     )
@@ -1391,7 +682,10 @@ def _(con):
     validation_rows = con.execute("""
     SELECT
         COUNT(*) AS total_rows,
-        COUNT(DISTINCT transaction_id) AS unique_transactions
+        COUNT(DISTINCT transaction_id) AS unique_transactions,
+        COUNT(*) - COUNT(discount)     AS null_discount,
+        COUNT(*) - COUNT(book_format)  AS null_format,
+        ROUND(SUM(final_price), 2)     AS revenue
     FROM silver_sales_clean
     """).df()
 
@@ -1421,78 +715,9 @@ def _(con, plt):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ⸻
+    **Result:** **20,000** rows = 20,000 distinct ids; 0 NULL discounts, 0 NULL formats; revenue **547,552.98**.
 
-    ## 📈 5. Business Analysis
-
-    ```
-    🔴 Before
-    	•	duplicate transactions present
-    	•	revenue inflated
-    	•	unreliable metrics
-
-    🟢 After
-    	•	each transaction is unique
-    	•	revenue becomes accurate
-    	•	analytics becomes trustworthy
-    ```
-
-    ⸻
-
-    ### 🧠 Critical Insight (EXAM-LEVEL)
-
-    ```
-    👉 DISTINCT is safe ONLY IF:
-    	•	duplicates are exact copies
-    ```
-    ⸻
-
-    ### 💡 Teaching Moment
-
-    Ask:
-
-    “What if two different transactions have the same values?”
-
-    ```
-    👉 Answer:
-    	•	DISTINCT will collapse them ❌
-    	•	but they are real events
-    ```
-
-    👉 This leads to:
-
-    “What is the TRUE primary key of a fact table?”
-
-    Answer:
-
-    transaction_id
-
-    ⸻
-
-    ### ⚠️ Advanced Note (for you)
-
-    ```
-    In real systems, better approach:
-
-    PARTITION BY transaction_id
-
-    instead of full DISTINCT
-
-    But for teaching:
-    👉 DISTINCT is perfect
-    ```
-    ⸻
-
-    🚀 Next Step
-
-    🟡 CELL 7 — Create dim_book
-
-    ```
-    This is where:
-    	•	we transition from Silver → Gold
-    	•	dimensional modeling officially begins 🔥
-    Explain the step.
-    ```
+    **Reconciliation:** 21,000 raw = 20,000 loaded + 100 rejected (no id) + 900 duplicates removed.
     """)
     return
 
@@ -1500,56 +725,10 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ---
-    # 🟡 CELL 7 — Create dim_book (First Dimension Table)
+    # 🟡 Cell 7 — `dim_book` (Gold)
 
-    * Excellent — now we enter the Gold Layer 🔥
-
-    * This is where everything you’ve done finally turns into a Star Schema.
-
-    ### ✅ 1. What are we doing?
-
-    ```
-    We are:
-    	•	transforming silver_books into a dimension table
-    	•	creating: dim_book
-    ```
-
-    👉 This will be used by the fact table via:
-
-    `book_id` (foreign key)
-
-    ⸻
-
-    💼 2. Business Value
-
-    ```
-    This table answers:
-    	•	What books are we selling?
-    	•	What genres perform best?
-    	•	Who are the authors?
-    	•	Which publishers drive revenue?
-    ```
-    ⸻
-
-    Why dimension tables matter:
-
-    ```
-    Without dim_book:
-    	•	❌ data is duplicated in fact table
-    	•	❌ queries are messy
-    	•	❌ analytics is slow
-
-    With dim_book:
-    	•	✅ clean joins
-    	•	✅ reusable attributes
-    	•	✅ scalable analytics
-    ```
-    ⸻
-
-    ### 🧠 Key Concept
-
-    * Dimension tables describe facts
+    One row per book, keyed by `book_id` (the source's id: unique and stable, so we keep it as the key). Title, genre, author and publisher
+    live **here**, once, instead of on 20,000 fact rows.
     """)
     return
 
@@ -1670,81 +849,8 @@ def _(con, plt):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## 📈 5. Business Analysis
-
-    ```
-    Insights you can extract:
-    	•	Which genres dominate catalog
-    	•	Balance of content (technical vs fiction)
-    	•	Diversity of offerings
-    ```
-
-    ⸻
-
-    ```
-    Example interpretation:
-    	•	If Data Science dominates → strong technical focus
-    	•	If Fiction dominates → mass-market strategy
-    ```
-    ⸻
-
-    * 🧠 Key Insight
-
-    ```
-    👉 dim_book is:
-    	•	small
-    	•	clean
-    	•	stable
-    ```
-
-    This is exactly what a dimension should be.
-
-    ⸻
-
-    ### 💡 Teaching Moment
-
-    Ask students:
-
-    “Why don’t we store book_title inside the fact table?”
-
-    ```
-    👉 Answer:
-    	•	duplication
-    	•	storage waste
-    	•	update anomalies
-    ```
-    ⸻
-
-    ### 🔥 Bonus Insight
-
-    ```
-    If author name changes:
-    	•	in dimension → update once ✅
-    	•	in fact table → update thousands ❌
-    ```
-    ⸻
-
-    ### 🚀 Where you are now
-
-    ```
-    You have:
-    	•	✅ Clean fact data
-    	•	✅ First dimension table
-
-    👉 You are officially in Star Schema territory
-    ```
-    ⸻
-
-    ### 👉 Next Step: Next we build:
-
-    🟡 `dim_location`
-
-    ```
-    This introduces:
-    	•	geographic analytics
-    	•	grouping logic
-    	•	surrogate keys (VERY IMPORTANT 🔥)
-    ```
+    **Result:** **100** books, 0 duplicate ids. The catalog: Data Science 24 books, Fiction 21, Technology 21, History 20, Business 14.
+    Keep these counts in mind: the revenue rankings later follow them closely.
     """)
     return
 
@@ -1752,64 +858,10 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ---
-    # 🟡 CELL 8 — Create dim_location (Geographic Dimension)
+    # 🟡 Cell 8 — `dim_location` with a Surrogate Key
 
-    * This is a big modeling step. 🔥
-
-    * You’re introducing surrogate keys and true dimensional design.
-
-    ⸻
-
-    ### ✅ 1. What are we doing?
-
-    We are:
-
-    ```
-        1. extracting unique (country, city) combinations
-        2. creating a dimension table
-        3. assigning a surrogate key: `location_id`
-        4. 👉 Output: `dim_location` table
-    ```
-    ⸻
-
-    ### 💼 2. Business Value
-
-    ```
-    This table enables:
-    	•	revenue by country 🌍
-    	•	sales by city 🏙️
-    	•	regional comparisons
-    	•	geographic dashboards
-
-    Why not keep country/city in fact table?
-    	•	❌ repeated thousands of times
-    	•	❌ inefficient
-    	•	❌ harder to maintain
-
-    👉 Instead:
-
-    store once in dimension, reference via key
-
-    ```
-    ⸻
-
-    ### 🧠 Key Concept (VERY IMPORTANT)
-
-    ```
-        Surrogate Key: location_id (generated)
-
-        Instead of: (country, city)
-    ```
-
-    ⸻
-
-    ### Why?
-    ```
-    	•	faster joins
-    	•	smaller storage
-    	•	stable identifiers
-    ```
+    Each distinct (`country`, `city`) pair gets a **surrogate key** `location_id` (1, 2, 3, …) made by the warehouse.
+    The fact table then stores one small integer instead of two text columns, and a renamed city is changed in one row.
     """)
     return
 
@@ -1898,80 +950,8 @@ def _(con, plt):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## 📈 5. Business Analysis
-
-    ```
-    Insights:
-    	•	Which countries generate most sales
-    	•	Market distribution
-    	•	Regional demand
-
-    ⸻
-
-    Example interpretation:
-    	•	USA dominates → strong core market
-    	•	Emerging countries → growth opportunities
-
-    ⸻
-
-    🧠 Key Insight
-
-    👉 dim_location is:
-    	•	small
-    	•	unique
-    	•	reusable
-
-    ⸻
-
-    💡 Teaching Moment (VERY IMPORTANT)
-
-    Ask:
-
-    “Why do we create location_id instead of using (country, city)?”
-
-    Expected answers:
-    	•	performance
-    	•	simplicity
-    	•	scalability
-
-    ⸻
-
-    🔥 Advanced Insight (Nice to mention)
-
-    This step is:
-
-    Denormalization → Controlled Normalization
-
-    We:
-    	•	extract repeating attributes
-    	•	centralize them
-
-    ⸻
-
-    🚀 Where you are now
-
-    You have:
-    	•	✅ dim_book
-    	•	✅ dim_location
-
-    👉 You now have multiple dimensions
-
-    ⸻
-
-    👉 Next Step: “Cell 9”
-
-    Next we build:
-
-    🟡 dim_date
-
-    This is one of the most important dimensions in DW 🔥
-    	•	time-series analysis
-    	•	grouping by month/year
-    	•	OLAP capabilities
-
-    This is a big concept cell 🚀
-
-    ```
+    **Result:** **20** locations in 5 countries: USA **5** cities, UK, Germany and Canada 4 each, Australia **3**.
+    The number of cities per country explains the country ranking in Cell 13.
     """)
     return
 
@@ -2012,62 +992,10 @@ def _(con, plt):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ---
-    ## 🟡 CELL 9 — Create dim_date (Time Dimension)
+    # 🟡 Cell 9 — `dim_date`
 
-    ```
-    This is one of the most important cells in all of Data Warehousing. 🔥
-
-    ⸻
-
-    🟡 CELL 9 — Create dim_date (Time Dimension)
-
-    ⸻
-
-    ✅ 1. What are we doing?
-
-    We are:
-    	•	extracting unique dates from transactions
-    	•	creating a time dimension table
-    	•	enriching it with attributes:
-
-    year, month, day, day_name, quarter
-
-    👉 Output:
-
-    dim_date
-
-    ⸻
-
-    💼 2. Business Value
-
-    This table enables:
-    	•	📈 time-series analysis
-    	•	📅 monthly trends
-    	•	📊 seasonal insights
-    	•	🧠 forecasting
-
-    ⸻
-
-    Without dim_date:
-    	•	❌ repeated date calculations
-    	•	❌ messy queries
-    	•	❌ slow analytics
-
-    ⸻
-
-    With dim_date:
-    	•	✅ clean joins
-    	•	✅ reusable time attributes
-    	•	✅ OLAP-ready
-
-    ⸻
-
-    🧠 Key Concept (VERY IMPORTANT)
-
-    Time is the most important dimension in analytics
-
-    ```
+    One row per day, with the parts that reports group by: year, month, day, weekday, quarter. Computed **once** here, so every report uses
+    the same definition of "month" or "quarter".
     """)
     return
 
@@ -2172,80 +1100,8 @@ def _(con, plt):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # 📈 5. Business Analysis
-
-    ```
-    Insights:
-    	•	detect seasonality
-    	•	identify growth trends
-    	•	find peak periods
-
-    ⸻
-
-    Example interpretation:
-    	•	spikes → promotions / holidays
-    	•	dips → low demand periods
-    	•	steady growth → healthy business
-
-    ⸻
-
-    🧠 Key Insight
-
-    👉 dim_date turns raw timestamps into:
-
-    analyzable business time
-
-    ⸻
-
-    💡 Teaching Moment (VERY STRONG)
-
-    Ask:
-
-    “Why don’t we compute YEAR() and MONTH() on the fly?”
-
-    👉 Answer:
-    	•	repeated computation ❌
-    	•	inconsistent logic ❌
-    	•	slower queries ❌
-
-    👉 Precomputing = faster + cleaner
-
-    ⸻
-
-    🔥 Advanced Insight
-
-    This is called:
-
-    Conformed Time Dimension
-
-    Used across:
-    	•	sales
-    	•	marketing
-    	•	finance
-
-    ⸻
-
-    🚀 Where you are now
-
-    You have:
-    	•	✅ dim_book
-    	•	✅ dim_location
-    	•	✅ dim_date
-
-    👉 You now have full dimensional coverage
-
-    ⸻
-
-    👉 Next Step
-
-    Say: “Cell 10”
-
-    Now we build:
-
-    🟡 fact_sales (FINAL STAR SCHEMA TABLE)
-
-    This is where everything comes together 🔥
-    ```
+    **Result:** **366** days (all of 2024, a leap year), 0 duplicates. A production `dim_date` would hold every day of the whole period,
+    including days without sales.
     """)
     return
 
@@ -2253,52 +1109,11 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ---
-    # 🟡 CELL 10 — Create fact_sales <br> (Final Star Schema Table)
+    # 🟡 Cell 10 — `fact_sales`: the Center of the Star
 
-    ```
-    This is the moment everything comes together. 🔥
-
-    You’re now building the FACT table, the center of the Star Schema.
-
-    ⸻
-
-    ✅ 1. What are we doing?
-
-    We are:
-    	•	joining cleaned sales (Silver) with dimension tables (Gold)
-    	•	replacing descriptive fields with foreign keys
-
-    👉 Output:
-
-    fact_sales
-
-    ⸻
-
-    🧠 Fact Table Grain (VERY IMPORTANT)
-
-    1 row = 1 transaction
-
-    ⸻
-
-    💼 2. Business Value
-
-    This table enables:
-    	•	revenue analysis 💰
-    	•	customer behavior insights 👥
-    	•	geographic trends 🌍
-    	•	time-based analytics 📅
-
-    ⸻
-
-    Why this matters
-
-    Before:
-    	•	messy raw tables ❌
-
-    After:
-    	•	clean, joinable, scalable model ✅
-    ```
+    **Grain: one row = one transaction.** Each row keeps the dimension keys (`date_id`, `book_id`, `location_id`), the attributes with only a few values
+    (`sale_type`, `customer_gender`, `book_format`: kept in the fact as **degenerate dimensions**), and the measures (`quantity_sold`,
+    `sale_price`, `discount`, `final_price`).
     """)
     return
 
@@ -2408,83 +1223,8 @@ def _(con, plt):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## 📈 5. Business Analysis
-
-    * Insights:
-    ```
-    	•	ONLINE vs INSTORE performance
-    	•	channel effectiveness
-    	•	customer preferences
-    ```
-    ⸻
-
-    * Example interpretation:
-    ```
-    	•	ONLINE dominates → strong e-commerce
-    	•	INSTORE strong → retail still relevant
-    ```
-    ⸻
-
-    ### 🧠 Key Insight (VERY IMPORTANT)
-
-    * 👉 Fact table contains:
-    ```
-       Measures:  sale_price, discount, final_price
-
-       Foreign Keys: date_id, book_id, location_id
-    ```
-
-    ⸻
-
-    ### 💡 Teaching Moment (VERY STRONG)
-
-    Ask:
-
-    “Why don’t we keep country and book_title in fact_sales?”
-
-    👉 Answer:
-    ```
-    	•	duplication ❌
-    	•	larger table ❌
-    	•	slower joins ❌
-    ```
-    ⸻
-
-    ### 🔥 Star Schema Achieved
-
-    You now have:
-
-    ```
-
-                 dim_book
-                    |
-                    |
-                 fact_sales
-                /         \
-               /           \
-             dim_date      dim_location
-    ```
-
-    ⸻
-
-    ### 🚀 Where you are now
-
-    ```
-    You have successfully built:
-    	•	✅ Bronze layer
-    	•	✅ Silver layer
-    	•	✅ Gold layer
-    	•	✅ Star Schema
-    ```
-    ⸻
-
-    * 🎯 Next Step
-
-    Now we start:
-
-    * 📊 BI / OLAP Queries
-
-    * This is where students see the real power of everything you built 🔥
+    **Result:** **20,000** fact rows = 20,000 transactions, every one with its keys. Revenue by channel: ONLINE **290,288** (10,584 sales),
+    INSTORE 257,265 (9,416 sales): ONLINE leads because it has more sales, not bigger ones.
     """)
     return
 
@@ -2492,43 +1232,9 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ---
-    # 📊 CELL 11 — BI Query 1: Revenue by Book Genre
+    # 📊 Cell 11 — BI Query 1: Revenue by Genre
 
-    ```
-    Perfect — now we enter the fun part: BI / OLAP 🔥
-
-    This is where students finally see why we built the star schema.
-
-    ⸻
-
-    📊 CELL 11 — BI Query 1: Revenue by Book Genre
-
-    ⸻
-
-    ✅ 1. What are we doing?
-
-    We are:
-    	•	aggregating revenue
-    	•	grouping by book genre
-
-    👉 This is a classic OLAP aggregation
-
-    ⸻
-
-    💼 2. Business Value
-
-    This answers:
-
-    “Which genres generate the most revenue?”
-
-    ⸻
-
-    Why this matters:
-    	•	inventory planning 📦
-    	•	marketing focus 🎯
-    	•	publisher strategy 📚
-    ```
+    Fact (measure) + dimension (grouping): the basic star-schema query.
     """)
     return
 
@@ -2574,69 +1280,10 @@ def _(df_genre, plt):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## 📈 5. Business Analysis
+    **Result:** Data Science **130,087**, Fiction 116,391, Technology 112,373, History 112,042, Business 76,659.
 
-    ```
-    Insights:
-    	•	Top genre = main revenue driver
-    	•	Low genres = growth opportunity or weak category
-
-    ⸻
-
-    Example interpretation:
-    	•	Data Science dominates → strong technical demand
-    	•	Fiction low → may need promotion
-
-    ⸻
-
-    🧠 Key Insight
-
-    👉 This query uses:
-    	•	Fact table → measures
-    	•	Dimension table → grouping
-
-    ⸻
-
-    💡 Teaching Moment (VERY STRONG)
-
-    Ask:
-
-    “Why don’t we store genre in fact_sales?”
-
-    👉 Answer:
-    	•	duplication ❌
-    	•	normalization violation ❌
-    	•	harder to maintain ❌
-
-    ⸻
-
-    🔥 OLAP Concept Introduced
-
-    This is:
-
-    ROLL-UP (aggregation)
-
-    ⸻
-
-    🚀 Where you are now
-
-    You just demonstrated:
-    	•	first real BI query
-    	•	power of joins + dimensions
-
-    ⸻
-
-    👉 Next Step: “Cell 12”
-
-    Next we do:
-
-    📊 BI Query 2 — "Top 10 Books by Revenue"
-
-    This introduces:
-    	•	ranking
-    	•	top-N queries
-    	•	business prioritization 🔥
-    ```
+    **Why?** Divide by the number of books: every genre earns about **5,350–5,600 per book**. Data Science is first because it has the most books (24),
+    Business last because it has the fewest (14). The ranking reflects the **catalog**, not demand per book. This is a **roll-up** (week 4).
     """)
     return
 
@@ -2644,44 +1291,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ---
-    # 📊 CELL 12 — BI Query 2: <br> Top 10 Books by Revenue
-
-    ```
-    Great — now we move into ranking + prioritization,
-    which is where BI becomes actionable. 🔥
-
-    ⸻
-
-    📊 CELL 12 — BI Query 2: Top 10 Books by Revenue
-
-    ⸻
-
-    ✅ 1. What are we doing?
-
-    We are:
-    	•	calculating total revenue per book
-    	•	ranking books
-    	•	selecting Top 10
-
-    👉 This is a Top-N OLAP query
-
-    ⸻
-
-    💼 2. Business Value
-
-    This answers:
-
-    “Which books are our best sellers?”
-
-    ⸻
-
-    Why this matters:
-    	•	promotions & featured listings 🎯
-    	•	inventory decisions 📦
-    	•	publisher negotiations 🤝
-
-    ```
+    # 📊 Cell 12 — BI Query 2: Top 10 Books
     """)
     return
 
@@ -2728,48 +1338,9 @@ def _(df_top_books, plt):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## 📈 5. Business Analysis
-
-    ```
-    Insights:
-    	•	identifies revenue-driving products
-    	•	highlights top performers
-    	•	reveals long-tail vs winners
-
-    ⸻
-
-    Example interpretation:
-    	•	Top 3 books dominate → concentration risk
-    	•	Even distribution → healthy portfolio
-
-    ⸻
-
-    🧠 Key Insight
-
-    👉 This query combines:
-    	•	aggregation (SUM)
-    	•	sorting (ORDER BY)
-    	•	filtering (LIMIT)
-
-    ⸻
-
-    💡 Teaching Moment
-
-    Ask:
-
-    “Why don’t we just use COUNT(*) instead of SUM(final_price)?”
-
-    👉 Answer:
-    	•	COUNT = popularity
-    	•	SUM = revenue
-
-    👉 These answer different business questions
-
-    ⸻
-
-    ## 🔥 Optional Upgrade (Advanced — nice touch)
-    ## Add ranking:
-    ```
+    **Result:** Book 98 (6,607) to Book 52 (5,989): the top 10 are within about 10% of each other, so no "bestseller" stands out.
+    `SUM(final_price)` ranks by **revenue**; `COUNT(*)` would rank by **copies sold**: say which one you report.
+    The cell below adds `RANK()` (week 2) to show ties.
     """)
     return
 
@@ -2796,81 +1367,7 @@ def _(con):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    --
-    # 🧠 OLAP Concept
-
-    ```
-    This is:
-
-    Top-N / Ranking Analysis
-
-    ⸻
-
-    🚀 Where you are now
-
-    You’ve shown:
-    	•	aggregation ✔️
-    	•	grouping ✔️
-    	•	ranking ✔️
-
-    ⸻
-
-    👉 Next Step:  “Cell 13”
-
-    Next we do:
-
-    📊 BI Query 3 — Revenue by Country
-
-    This introduces:
-    	•	geographic analysis 🌍
-    	•	dimension-driven grouping
-    	•	business expansion insights 🔥
-    ```
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ---
-    # 📊 CELL 13 — BI Query 3: <br> Revenue by Country
-
-    ```
-    Perfect — now we move into geographic analytics,
-    which is one of the most common BI use cases. 🌍🔥
-
-    ⸻
-
-    📊 CELL 13 — BI Query 3: Revenue by Country
-
-    ⸻
-
-    ✅ 1. What are we doing?
-
-    We are:
-    	•	aggregating revenue
-    	•	grouping by country
-
-    👉 This is a classic dimension-based aggregation
-
-    ⸻
-
-    💼 2. Business Value
-
-    This answers:
-
-    “Which countries generate the most revenue?”
-
-    ⸻
-
-    Why this matters:
-    	•	market prioritization 🌍
-    	•	expansion strategy 🚀
-    	•	regional performance tracking 📊
-
-    ⸻
-    ```
+    # 📊 Cell 13 — BI Query 3: Revenue by Country
     """)
     return
 
@@ -2916,8 +1413,7 @@ def _(df_country_rev, plt):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## 🔥 Optional Upgrade (Very Nice for Slides)
-    ## Pie Chart
+    ### The same result as a pie chart
     """)
     return
 
@@ -2937,71 +1433,10 @@ def _(df_country_rev, plt):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## 📈 5. Business Analysis
+    **Result:** USA **138,442**, UK 110,923, Germany 108,114, Canada 108,073, Australia 82,001.
 
-    ```
-    Insights:
-    	•	top countries = core markets
-    	•	low countries = growth opportunities
-
-    ⸻
-
-    Example interpretation:
-    	•	USA dominates → mature market
-    	•	UK/Canada strong → stable expansion
-    	•	smaller countries → emerging potential
-
-    ⸻
-
-    🧠 Key Insight
-
-    👉 This query shows:
-
-    How dimensions enable slicing the business
-
-    ⸻
-
-    💡 Teaching Moment
-
-    Ask:
-
-    “Why do we join dim_location instead of using country directly?”
-
-    👉 Answer:
-    	•	normalization
-    	•	flexibility
-    	•	reusable dimensions
-
-    ⸻
-
-    🔥 OLAP Concept
-
-    This is:
-
-    Slice (by geography)
-
-    ⸻
-
-    🚀 Where you are now
-
-    You’ve now shown:
-    	•	product analytics ✔️
-    	•	ranking ✔️
-    	•	geographic analytics ✔️
-
-    ⸻
-
-    👉 Next Step: “Cell 14”
-
-    Next we do:
-
-    📊 BI Query 4 — Monthly Revenue Trend
-
-    This introduces:
-    	•	time-series analysis 📅
-    	•	trend detection 📈
-    	•	real business storytelling 🔥
-    ```
+    **Why?** Per city, every country earns about **27,000–27,700**. The USA is first because it has 5 cities, Australia last because it has 3.
+    Before calling the USA "the strongest market", compare **per city** (or per customer).
     """)
     return
 
@@ -3009,37 +1444,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ---
-    # 📊 CELL 14 — BI Query 4: <br> Monthly Revenue Trend
-
-    ```
-    This is where analytics becomes storytelling over time. 📈🔥
-
-    ✅ 1. What are we doing?
-
-    We are:
-    	•	aggregating revenue over time
-    	•	grouping by year + month
-
-    👉 This is time-series analysis
-
-    ⸻
-
-    💼 2. Business Value
-
-    This answers:
-
-    “How is our business evolving over time?”
-
-    ⸻
-
-    Why this matters:
-    	•	detect growth 📈
-    	•	identify seasonality 📅
-    	•	evaluate promotions 🎯
-    	•	forecast demand 🔮
-
-    ```
+    # 📊 Cell 14 — BI Query 4: Monthly Revenue
     """)
     return
 
@@ -3095,54 +1500,8 @@ def _(df_month_rev, plt):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## 📈 5. Business Analysis
-
-    ```
-    Insights:
-    	•	identify growth trend
-    	•	detect seasonality
-    	•	find peaks and dips
-
-    ⸻
-
-    Example interpretation:
-    	•	steady growth → healthy business
-    	•	spikes → promotions / holidays
-    	•	dips → low demand periods
-
-    ⸻
-
-    🧠 Key Insight
-
-    👉 This query uses:
-    	•	dim_date → time intelligence
-    	•	fact_sales → revenue
-
-    ⸻
-
-    💡 Teaching Moment (VERY STRONG)
-
-    Ask:
-
-    “Why didn’t we group by date_sold directly?”
-
-    👉 Answer:
-    	•	no structure ❌
-    	•	no hierarchy ❌
-    	•	messy grouping ❌
-
-    👉 dim_date provides:
-
-    year → month → day
-
-    ⸻
-
-    🔥 OLAP Concept
-
-    This is:
-
-    Time-series / Trend Analysis
-    ```
+    **Result:** from 42,868 (February) to 49,951 (August); most months 44,000–47,000. February is the shortest month, so part of its dip is simply fewer days.
+    The 3-month rolling average (next cell) stays between 44,000 and 47,200: no strong season in this one year.
     """)
     return
 
@@ -3169,80 +1528,9 @@ def _(df_month_rev, plt):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## 🧠 Advanced Insight
+    # 📊 Cell 15 — BI Query 5: Revenue by Format
 
-    ```
-    This is the foundation for:
-    	•	forecasting models
-    	•	anomaly detection
-    	•	business planning
-
-    ⸻
-
-    🚀 Where you are now
-
-    You’ve now covered:
-    	•	product analytics ✔️
-    	•	ranking ✔️
-    	•	geography ✔️
-    	•	time-series ✔️
-
-    👉 You’ve hit the 4 pillars of analytics
-
-    ⸻
-
-    👉 Next Step: “Cell 15”
-
-    Next we do:
-
-    📊 BI Query 5 — Revenue by Book Format
-
-    This introduces:
-    	•	categorical comparison
-    	•	customer behavior insights
-    	•	pie chart storytelling 🔥
-    ```
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    --
-    # 📊 CELL 15 — BI Query 5: <br> Revenue by Book Format
-
-    ```
-    This one is great for customer behavior + storytelling visuals. 🔥
-
-    Also introduces categorical comparison cleanly.
-
-    ⸻
-
-    ✅ 1. What are we doing?
-
-    We are:
-    	•	aggregating revenue
-    	•	grouping by book format
-
-    hard_copy, paperback, soft_copy
-
-    👉 This is categorical analysis
-
-    ⸻
-
-    💼 2. Business Value
-
-    This answers:
-
-    “What format do customers prefer?”
-
-    ⸻
-
-    Why this matters:
-    	•	production planning 🏭
-    	•	inventory strategy 📦
-    	•	digital vs physical shift 💻📚
+    `book_format` lives in the fact table (a degenerate dimension): no join needed.
     """)
     return
 
@@ -3298,86 +1586,7 @@ def _(df_format, plt):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## 📈 5. Business Analysis
-
-    ```
-    Insights:
-    	•	which format dominates
-    	•	relative share across formats
-    	•	customer preference trends
-
-    ⸻
-
-    Example interpretation:
-    	•	hard_copy dominates → strong physical demand
-    	•	soft_copy growing → digital adoption
-    	•	paperback middle → balanced option
-
-    ⸻
-
-    🧠 Key Insight
-
-    👉 This query uses only the fact table
-
-    Why?
-    	•	book_format is already a fact attribute (degenerate dimension)
-
-    ⸻
-
-    💡 Teaching Moment (VERY IMPORTANT)
-
-    Ask:
-
-    “Why is book_format NOT in a dimension table?”
-
-    👉 Answer:
-    	•	low cardinality (few values)
-    	•	no additional attributes
-    	•	simpler to keep in fact table
-
-    ⸻
-
-    🔥 OLAP Concept
-
-    This is:
-
-    Slice (by category)
-
-    ⸻
-
-    # 🧠 Advanced Insight
-
-    You just showed:
-    	•	fact-only query ✔️
-    	•	no join needed ✔️
-    	•	efficient aggregation ✔️
-
-    ⸻
-
-    🚀 Where you are now
-
-    You’ve now covered:
-    	•	product ✔️
-    	•	ranking ✔️
-    	•	geography ✔️
-    	•	time ✔️
-    	•	category ✔️
-
-    👉 This is a complete BI foundation
-
-    ⸻
-
-    👉 Next Step: “Cell 16”
-
-    Next we do:
-
-    📊 BI Query 6 — Revenue by Customer Gender
-
-    This introduces:
-    	•	segmentation
-    	•	customer behavior
-    	•	comparison analysis 🔥
-    ```
+    **Result:** soft copy **199,099**, paperback 183,117, hard copy 165,338 (36% / 33% / 30%).
     """)
     return
 
@@ -3391,48 +1600,7 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ---
-    # 📊 CELL 16 — BI Query 6: <br> Revenue by Customer Gender
-
-    ```
-    Now we move into customer segmentation,
-    which is a core analytics concept. 🔥
-
-    ⸻
-
-    📊 CELL 16 — BI Query 6: Revenue by Customer Gender
-
-    ⸻
-
-    ✅ 1. What are we doing?
-
-    We are:
-    	•	aggregating revenue
-    	•	grouping by customer gender
-
-    MALE, FEMALE
-
-    👉 This is segmentation analysis
-
-    ⸻
-
-    💼 2. Business Value
-
-    This answers:
-
-    “How does revenue differ across customer segments?”
-
-    ⸻
-
-    Why this matters:
-    	•	targeted marketing 🎯
-    	•	personalization strategies 🧠
-    	•	understanding customer base 👥
-
-    ⸻
-    ```
-
-    #
+    # 📊 Cell 16 — BI Query 6: Revenue by Customer Gender
     """)
     return
 
@@ -3488,90 +1656,8 @@ def _(df_gender, plt):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # 📈 5. Business Analysis
-
-    ```
-    Insights:
-    	•	compare purchasing behavior
-    	•	identify dominant segment
-    	•	support targeted campaigns
-
-    ⸻
-
-    Example interpretation:
-    	•	balanced split → broad appeal
-    	•	one segment dominates → opportunity for targeting
-
-    ⸻
-
-    🧠 Key Insight
-
-    👉 This is another fact-only query
-
-    No joins needed because:
-
-    customer_gender is stored in fact_sales
-
-    ⸻
-
-    💡 Teaching Moment (VERY IMPORTANT)
-
-    Ask:
-
-    “Should customer_gender be a dimension table?”
-
-    👉 Answer:
-    	•	No (for this case):
-    	•	very low cardinality
-    	•	no additional attributes
-    	•	not worth a dimension table
-
-    ⸻
-
-    🔥 OLAP Concept
-
-    This is:
-
-    Slice (by customer segment)
-
-    ⸻
-
-    ⚠️ Important Note (Nice to mention)
-
-    👉 In real systems:
-    	•	gender alone is too simplistic
-    	•	we use richer dimensions:
-    	•	age group
-    	•	income
-    	•	region
-
-    ⸻
-
-    🚀 Where you are now
-
-    You’ve now demonstrated:
-    	•	product analytics ✔️
-    	•	ranking ✔️
-    	•	geography ✔️
-    	•	time-series ✔️
-    	•	category ✔️
-    	•	segmentation ✔️
-
-    👉 This is very strong BI coverage
-
-    ⸻
-
-    👉 Next Step: “Cell 17”
-
-    Next we do:
-
-    📊 BI Query 7 — Publisher Performance
-
-    This introduces:
-    	•	supplier/vendor analysis
-    	•	join with dimension
-    	•	business partnerships insight 🔥
-    ```
+    **Result:** FEMALE **292,885** (10,732 sales), MALE 254,668 (9,268 sales). The average sale is almost the same (27.29 vs 27.48):
+    the difference is the **number** of sales, not what each customer spends.
     """)
     return
 
@@ -3579,44 +1665,9 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ---
-    # 📊 CELL 17 — BI Query 7: <br> Revenue by Publisher
+    # 📊 Cell 17 — BI Query 7: Revenue by Publisher
 
-    ```
-    Now we move into publisher/vendor analytics,
-    which is very realistic in business settings. 🔥
-
-    ⸻
-
-    📊 CELL 17 — BI Query 7: Revenue by Publisher
-
-    ⸻
-
-    ✅ 1. What are we doing?
-
-    We are:
-    	•	aggregating revenue
-    	•	grouping by publisher
-
-    👉 This requires a join with dim_book
-
-    ⸻
-
-    💼 2. Business Value
-
-    This answers:
-
-    “Which publishers generate the most revenue?”
-
-    ⸻
-
-    Why this matters:
-    	•	vendor partnerships 🤝
-    	•	negotiation leverage 💰
-    	•	catalog strategy 📚
-
-    ⸻
-    ```
+    `publisher` is in `dim_book`, so this query joins the fact to that dimension.
     """)
     return
 
@@ -3676,87 +1727,8 @@ def _(df_publisher, plt):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## 📈 5. Business Analysis
-
-    ```
-    Insights:
-    	•	identify top-performing publishers
-    	•	measure vendor contribution
-    	•	evaluate portfolio balance
-
-    ⸻
-
-    Example interpretation:
-    	•	Penguin dominates → strong partnership
-    	•	O’Reilly strong → technical market success
-    	•	smaller publishers → niche opportunities
-
-    ⸻
-
-    🧠 Key Insight
-
-    👉 This query demonstrates:
-    	•	fact table → measures
-    	•	dimension table → grouping attribute
-
-    ⸻
-
-    💡 Teaching Moment (VERY STRONG)
-
-    Ask:
-
-    “Why do we need to JOIN dim_book here?”
-
-    👉 Answer:
-    	•	publisher is NOT in fact table
-    	•	stored in dimension
-    	•	avoids duplication
-
-    ⸻
-
-    🔥 OLAP Concept
-
-    This is:
-
-    Slice (by supplier dimension)
-
-    ⸻
-
-    🧠 Advanced Insight
-
-    This type of analysis supports:
-    	•	supplier optimization
-    	•	procurement strategy
-    	•	contract negotiation
-
-    ⸻
-
-    🚀 Where you are now
-
-    You’ve now covered:
-    	•	product ✔️
-    	•	ranking ✔️
-    	•	geography ✔️
-    	•	time ✔️
-    	•	category ✔️
-    	•	segmentation ✔️
-    	•	vendor analysis ✔️
-
-    👉 This is a very complete BI pipeline
-
-    ⸻
-
-    👉 Next Step: “Cell 18”
-
-    Next we do:
-
-    📊 BI Query 8 — Genre × Sale Type (Multi-Dimensional Analysis)
-
-    This introduces:
-    	•	true OLAP cube thinking 🔥
-    	•	multiple dimensions together
-    	•	pivot-style analysis
-    ```
+    **Result:** Prentice Hall **233,115**, O'Reilly 158,207, Penguin 156,232. Prentice Hall publishes **42** of the 100 books (the others 29 each):
+    per book, all three earn about 5,400–5,550. Same lesson as genres and countries: divide by the size of the group before you compare.
     """)
     return
 
@@ -3764,47 +1736,9 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ---
-    # 📊 CELL 18 — BI Query 8: <br> Genre × Sale Type (Multi-Dimensional Analysis)
+    # 📊 Cell 18 — BI Query 8: Genre × Channel
 
-    ```
-    This is where we introduce true OLAP thinking 🔥
-
-    Multiple dimensions at once = real analytical power.
-
-    ⸻
-
-    📊 CELL 18 — BI Query 8: Genre × Sale Type (Multi-Dimensional Analysis)
-
-    ⸻
-
-    ✅ 1. What are we doing?
-
-    We are:
-    	•	aggregating revenue
-    	•	grouping by two dimensions:
-
-    book_genre  ×  sale_type
-
-    👉 This is multi-dimensional analysis
-
-    ⸻
-
-    💼 2. Business Value
-
-    This answers:
-
-    “How do different genres perform across sales channels?”
-
-    ⸻
-
-    Why this matters:
-    	•	channel strategy (ONLINE vs INSTORE)
-    	•	genre-specific marketing 🎯
-    	•	product-channel alignment
-
-    ⸻
-    ```
+    Two dimensions at once: a **slice** of the OLAP cube (week 4).
     """)
     return
 
@@ -3873,91 +1807,8 @@ def _(pivot_df, plt):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## 📈 5. Business Analysis
-
-    ```
-    Insights:
-    	•	which genres perform better online
-    	•	which genres perform better in-store
-    	•	channel preference by category
-
-    ⸻
-
-    Example interpretation:
-    	•	Data Science → strong ONLINE
-    	•	Fiction → strong INSTORE
-    	•	Business → balanced
-
-    ⸻
-
-    🧠 Key Insight
-
-    👉 You are analyzing:
-
-    Dimension 1: Genre
-    Dimension 2: Channel
-    Measure: Revenue
-
-    ⸻
-
-    💡 Teaching Moment (VERY STRONG)
-
-    Ask:
-
-    “Why is this more powerful than single-dimension analysis?”
-
-    👉 Answer:
-    	•	reveals relationships between dimensions
-    	•	uncovers hidden patterns
-    	•	supports better decisions
-
-    ⸻
-
-    🔥 OLAP Concept
-
-    This is:
-
-    Cube / Multi-Dimensional Analysis
-
-    ⸻
-
-    🧠 Advanced Insight
-
-    This is equivalent to:
-
-    GROUP BY (Genre, Sale_Type)
-
-    👉 foundation of:
-    	•	pivot tables
-    	•	dashboards
-    	•	BI tools
-
-    ⸻
-
-    🚀 Where you are now
-
-    You’ve now demonstrated:
-    	•	single-dimension analysis ✔️
-    	•	ranking ✔️
-    	•	time-series ✔️
-    	•	segmentation ✔️
-    	•	multi-dimensional analysis ✔️
-
-    👉 This is advanced BI thinking
-
-    ⸻
-
-    👉 Next Step: “Cell 19”
-
-    Next we do:
-
-    📊 BI Query 9 — Top Country per Genre (Advanced Ranking)
-
-    This introduces:
-    	•	window functions
-    	•	partitioning
-    	•	advanced SQL 🔥
-    ```
+    **Result:** **every** genre earns more ONLINE than INSTORE (for example Fiction 62,804 vs 53,586, Data Science 67,647 vs 62,441):
+    the 53% / 47% channel split of Cell 10 holds in every genre. No genre needs a different channel strategy.
     """)
     return
 
@@ -3965,46 +1816,9 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ---
-    # 📊 CELL 19 — BI Query 9: <br> Top Country per Genre (Advanced Ranking)
+    # 📊 Cell 19 — BI Query 9: Top Country per Genre
 
-    ```
-    Now we step into advanced SQL / OLAP —
-    this is where students level up. 🔥
-
-    ⸻
-
-    📊 CELL 19 — BI Query 9: Top Country per Genre (Advanced Ranking)
-
-    ⸻
-
-    ✅ 1. What are we doing?
-
-    We are:
-    	•	finding the best-performing country for each genre
-    	•	using:
-    	•	aggregation
-    	•	window functions (RANK)
-
-    👉 This is partitioned ranking
-
-    ⸻
-
-    💼 2. Business Value
-
-    This answers:
-
-    “For each genre, which country performs best?”
-
-    ⸻
-
-    Why this matters:
-    	•	localized marketing 🌍
-    	•	regional strategy 📊
-    	•	targeted expansion 🚀
-
-    ⸻
-    ```
+    `RANK() OVER (PARTITION BY genre ORDER BY revenue DESC)` = 1: top-N **per group** (week 2).
     """)
     return
 
@@ -4073,87 +1887,8 @@ def _(df_top_country_genre, plt):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## 📈 5. Business Analysis
-
-    ```
-    Insights:
-    	•	each genre has a strongest market
-    	•	reveals regional preferences
-    	•	supports geo-targeted strategy
-
-    ⸻
-
-    Example interpretation:
-    	•	Data Science → USA dominates
-    	•	Fiction → UK strongest
-    	•	History → Germany strong
-
-    👉 Different markets behave differently
-
-    ⸻
-
-    🧠 Key Insight
-
-    👉 This query combines:
-    	•	aggregation
-    	•	grouping
-    	•	window function (RANK)
-    	•	filtering
-
-    ⸻
-
-    💡 Teaching Moment (VERY STRONG)
-
-    Ask:
-
-    “Why can’t we just use GROUP BY and MAX?”
-
-    👉 Answer:
-    	•	GROUP BY gives totals
-    	•	but NOT which row produced the max
-
-    👉 Window functions solve this
-
-    ⸻
-
-    🔥 OLAP Concept
-
-    This is:
-
-    Top-N per group (partitioned ranking)
-
-    ⸻
-
-    🧠 Advanced Insight
-
-    This pattern is used in:
-    	•	recommendation systems
-    	•	segmentation
-    	•	performance analysis
-
-    ⸻
-
-    🚀 Where you are now
-
-    You’ve demonstrated:
-    	•	basic aggregation ✔️
-    	•	joins ✔️
-    	•	time-series ✔️
-    	•	multi-dimensional ✔️
-    	•	advanced SQL ✔️
-
-    ⸻
-
-    👉 Final Step: “Cell 20”
-
-    We’ll finish with:
-
-    📊 BI Query 10 — Executive Summary KPI Dashboard
-
-    This ties everything together into:
-    	•	a dashboard-style output
-    	•	real business reporting 🔥
-    ```
+    **Result:** the USA is first in **all 5** genres (Data Science 33,329 … Business 19,461). Expected: the USA has the most cities (Cell 8).
+    A "top per group" result is only interesting when the groups are comparable.
     """)
     return
 
@@ -4161,46 +1896,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ---
-    # 📊 CELL 20 — BI Query 10: <br> Executive KPI Dashboard
-
-    ```
-    Perfect — this is the final cell and the most business-facing one. 🔥
-
-    This is where everything becomes an executive dashboard.
-
-    ⸻
-
-    📊 CELL 20 — BI Query 10: Executive KPI Dashboard
-
-    ⸻
-
-    ✅ 1. What are we doing?
-
-    We are:
-    	•	computing key business KPIs
-    	•	summarizing the entire business in one query
-
-    👉 This is a dashboard-style aggregation
-
-    ⸻
-
-    💼 2. Business Value
-
-    This answers:
-
-    “How is the business performing overall?”
-
-    ⸻
-
-    KPIs included:
-    	•	total revenue 💰
-    	•	total transactions 📦
-    	•	average order value 📊
-    	•	total discount given 🎯
-
-    ⸻
-    ```
+    # 📊 Cell 20 — BI Query 10: KPI Summary
     """)
     return
 
@@ -4255,116 +1951,20 @@ def _(df_kpi):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ---
-    ## 📈 5. Business Analysis
+    **Result:** **20,000** transactions, revenue **547,552.98**, average sale **27.38**, total discounts **50,105.65** (8.4% of the list price).
+    One row from the fact table alone: no join, no grouping.
 
-    #### Insights:
-    ```
-    	•	total revenue → overall performance
-    	•	avg order value → pricing effectiveness
-    	•	total discount → promotion impact
-    ```
+    ## What this notebook did
 
-    ⸻
-
-    #### Example interpretation:
-    ```
-    	•	high revenue + low discount → strong pricing
-    	•	high discount → aggressive promotions
-    	•	low avg order → upsell opportunity
-    ```
-
-    ⸻
-
-    #### 🧠 Key Insight
-
-    ```
-    👉 This query uses:
-    	•	pure fact table
-    	•	no joins needed
-    	•	maximum efficiency
-    ```
-    ⸻
-
-    #### 💡 Teaching Moment (VERY STRONG)
-
-    ```
-    Ask:
-
-    “Why don’t we join dimension tables here?”
-
-    👉 Answer:
-    	•	KPIs don’t need grouping
-    	•	fact table already has measures
-    	•	joins would add unnecessary cost
-    ```
-    ⸻
-
-    #### 🔥 OLAP Concept
-
-    ```
-    This is:
-
-    Aggregation / KPI Reporting
-    ```
-    ⸻
-
-
-    #### 🎯 FINAL RESULT — What You Built
-
-    ```
-    You now have:
-
-    🟫 Bronze
-    	•	raw messy data
-
-    ⚪ Silver
-    	•	cleaned, validated data
-
-    🟡 Gold (Star Schema)
-    	•	fact_sales
-    	•	dim_book
-    	•	dim_location
-    	•	dim_date
-
-    📊 BI Layer
-    	•	10 analytical queries
-    	•	full OLAP coverage
-    ```
-    ⸻
-
-    #### 🧠 Big Picture (Very Important)
-
-    ```
-    You just demonstrated:
-
-    Raw Data → Clean Data → Star Schema → Business Insights
-    ```
-
-    ⸻
-
-    #### 💡 Final Teaching Moment
-
-    ```
-    Ask students:
-
-    “Why didn’t we run BI queries directly on CSV files?”
-
-    👉 Answer:
-    	•	messy data ❌
-    	•	no structure ❌
-    	•	slow ❌
-
-    👉 Data warehouse enables:
-    	•	speed ⚡
-    	•	consistency ✅
-    	•	scalability 🚀
-    ```
-    ⸻
-
-    #### 🚀 You’re Done
-
-    This is a complete DW pipeline + BI system 👏
+    | Step | Rows |
+    |---|---|
+    | Bronze: load as received | 21,000 sales · 120 books |
+    | Silver: reject no-id rows | −100 |
+    | Silver: parse 3 date formats | 0 failures |
+    | Silver: one row per transaction (most complete copy), then defaults + recompute `final_price` | −900 → 20,000 |
+    | Silver: deduplicate books | 120 → 100 |
+    | Gold: star schema | `fact_sales` 20,000 · `dim_book` 100 · `dim_location` 20 · `dim_date` 366 |
+    | BI | 10 questions: in this data, almost every difference comes from **group size** (books, cities, customers) |
     """)
     return
 

@@ -4,6 +4,15 @@ Practice for [the Part 2 slides](lecture_notes_03_combine_dedup_reconcile.md), o
 The notebook [`exercises_03_combine_dedup_reconcile.py`](exercises_03_combine_dedup_reconcile.py) (`marimo edit exercises_03_combine_dedup_reconcile.py`) has these exercises
 with an empty cell after each one and the solutions at the end: try each one before you look.
 
+| Exercise | Problem in the files | You practise |
+|---|---|---|
+| 1 | does each file hold the month its name says? | lineage (`_source_file`) + parsed dates |
+| 2 | dates now parsed: which weekday is busiest? | `dayname(start_ts)` |
+| 3 | members 103, 115, 128 sent twice | compare the old and the new row |
+| 4 | 🐞 rentals 5004, 5028, 5045 re-sent with a new price | `ORDER BY … DESC` inside `ROW_NUMBER()` |
+| 5 | rentals with an unknown member (998, 999) | `NOT EXISTS` |
+| 6 | revenue per month and plan, guests included, flagged rows left out | `LEFT JOIN` + `COALESCE(plan, 'Guest')`: a first Gold-style result |
+
 Setup (the tables from the slides; the exercises notebook runs them first):
 
 ```sql

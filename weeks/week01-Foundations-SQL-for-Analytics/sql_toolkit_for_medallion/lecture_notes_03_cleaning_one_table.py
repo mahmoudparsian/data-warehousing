@@ -74,7 +74,27 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    👉 Spaces, upper/lower case, a blank plan, a blank fee… Let's count the problems first.
+    👉 Spaces, upper/lower case, a blank plan, a blank fee… The next slide lists **every** problem in this file.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## 🔍 The Problems in This File (and Where We Fix Them)
+
+    | Column | Problem in Bronze (member ids) | Silver goal | Slide |
+    |---|---|---|---|
+    | `email` | NULL (108), blank `' '` (121), upper case (133) | lower case, `'unknown'` if missing | `COALESCE`, `NULLIF` |
+    | `city` | 12 spellings of 3 cities: case, spaces at the ends, `SF`, `SJ` | `San Jose` / `San Francisco` / `Santa Clara` | Text cleanup, `CASE` |
+    | `plan` | case, `' ANNUAL '`, blank (104), NULL (126), `'N/A'` (117) | `Annual` / `Monthly` / `Unknown` | `CASE` |
+    | `monthly_fee` | `'$15.00'` (110, 122), blank (114), `'free'` (129), NULL (104, 117, 126) | `DECIMAL(6, 2)`, NULL if unknown | `REPLACE` + `TRY_CAST` |
+    | `age` | `'unknown'` (112), blank (119), NULL (137), `230` (131), `' 51'` (106) | `INTEGER` 16–100, else NULL | `TRY_CAST`, flag |
+    | `signup_date` | `2025-02-30` (124): a day that does not exist | `DATE`, NULL if impossible | Dates |
+    | `member_id` | 103, 115, 128 appear **twice** (an update on 2026-01-20) | one row per member | **Part 2** (`QUALIFY`) |
+
+    Rule for the whole session: **never lose a row, never hide a problem**: 43 rows in Bronze → 43 rows in Silver, every NULL and default counted.
     """)
     return
 
@@ -487,6 +507,7 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     ⚠️ `TRY_CAST` **hides** problems. Always **count** the rows it turned into NULL. And a value that casts fine can still be **impossible** (age 230).
+    (`' 51'`, member 106, is not in the list: a cast to a number ignores spaces at the ends.)
     """)
     return
 
@@ -549,7 +570,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    - `CAST(text AS DATE)` reads `YYYY-MM-DD` only. February 30 does not exist → NULL.
+    - `CAST(text AS DATE)` reads the ISO format `YYYY-MM-DD` only. February 30 does not exist → NULL.
     - Other formats (`03/15/2026`, `15.03.2026`) need `strptime`: **Part 2**, week 2.
     """)
     return
@@ -590,6 +611,7 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     `concat_ws(sep, …)` joins the non-NULL parts: each `CASE` without `ELSE` adds a message or nothing.
+    Here we only **look** at the flags; in Part 2 the Silver table `silver.rentals` keeps a `dq_issue` column.
     """)
     return
 
@@ -729,7 +751,8 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    **Reconcile:** rows in = rows out, and every default / NULL is **counted**, so nothing is hidden.
+    **Reconcile:** rows in = rows out, and every default / NULL is **counted**, so nothing is hidden:
+    5 fees = 3 missing + 1 blank + `'free'` · 4 ages = 3 missing + the impossible 230 · 1 date = February 30.
     (`COUNT(*) FILTER (WHERE …)` counts only the rows that pass the condition.)
     """)
     return
@@ -750,7 +773,7 @@ def _(mo):
     _df = mo.sql(
         """
         CREATE OR REPLACE VIEW silver.members_by_city_plan AS
-        SELECT city, plan, COUNT(*) AS members, ROUND(AVG(age), 1) AS avg_age
+        SELECT city, plan, COUNT(*) AS member_rows, ROUND(AVG(age), 1) AS avg_age
         FROM silver.members
         GROUP BY city, plan;
 
@@ -763,6 +786,8 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    ⚠️ The counts add up to **43 rows, not 40 members**: 103, 115 and 128 are still counted twice (103 even in two cities). Part 2 fixes it.
+
     | | Table (`CREATE TABLE AS`) | View (`CREATE VIEW`) |
     |---|---|---|
     | Stores | the rows | the query |

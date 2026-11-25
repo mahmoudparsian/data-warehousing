@@ -22,6 +22,17 @@ class: lead
 
 ---
 
+# 🔧 Setup: the Same Table as Session 1
+
+```sql
+CREATE OR REPLACE TABLE insurance AS
+SELECT * FROM read_csv('../example_1_insurance/insurance.csv');
+```
+
+Reminder: `smoker` is **BOOLEAN** (`true` / `false`), so `WHERE smoker` means "smokers only".
+
+---
+
 # 🧠 Full Execution Order
 
 1. `FROM`: pick the table
@@ -48,11 +59,19 @@ HAVING COUNT(*) > 60         -- groups
 ORDER BY n DESC;
 ```
 
-| region | n |
-|---|---|
+<!-- RESULT -->
+
+| region    |  n |
+|-----------|---:|
 | southeast | 88 |
 | northeast | 68 |
 | northwest | 61 |
+
+*(3 rows)*
+
+<!-- /RESULT -->
+
+👉 The southwest's 56 such customers passed `WHERE`, but its group was removed by `HAVING` (56 is not > 60).
 
 ---
 
@@ -65,9 +84,18 @@ WHERE AVG(charges) > 13000     -- ❌ error
 GROUP BY region;
 ```
 
-DuckDB: *WHERE clause cannot contain aggregates!*
+<!-- ERROR -->
 
-✅ Move the condition to `HAVING AVG(charges) > 13000`.
+```text
+Binder Error: WHERE clause cannot contain aggregates!
+
+LINE 3: WHERE AVG(charges) > 13000     -- ❌ error
+              ^^^^^^^^^^^^
+```
+
+<!-- /ERROR -->
+
+✅ Move the condition to `HAVING AVG(charges) > 13000`: `WHERE` runs **before** the groups exist.
 
 ---
 
@@ -92,12 +120,18 @@ ORDER BY bmi_class;
 
 # 💡 CASE: Result
 
-| bmi_class | n | avg_charges |
-|---|---|---|
-| 1 underweight | 20 | 8,852 |
-| 2 normal | 225 | 10,409 |
-| 3 overweight | 386 | 10,988 |
-| 4 obese | 707 | 15,552 |
+<!-- RESULT -->
+
+| bmi_class     |   n | avg_charges |
+|---------------|----:|------------:|
+| 1 underweight |  20 |      8852.0 |
+| 2 normal      | 225 |     10409.0 |
+| 3 overweight  | 386 |     10988.0 |
+| 4 obese       | 707 |     15552.0 |
+
+*(4 rows)*
+
+<!-- /RESULT -->
 
 - `CASE` conditions are checked **top to bottom**; the first match wins
 - Number prefixes (`1 …`, `2 …`) make `ORDER BY` sort in a sensible order
@@ -116,11 +150,17 @@ ORDER BY charges DESC
 LIMIT 3;
 ```
 
+<!-- RESULT -->
+
 | age | gender | charges |
-|---|---|---|
-| 54 | female | 63,770 |
-| 45 | male | 62,593 |
-| 52 | male | 60,021 |
+|----:|--------|--------:|
+|  54 | female | 63770.0 |
+|  45 | male   | 62593.0 |
+|  52 | male   | 60021.0 |
+
+*(3 rows)*
+
+<!-- /RESULT -->
 
 👉 Top-N **per group** ("top product per country") needs window functions: **week 2**.
 
@@ -139,10 +179,21 @@ GROUP BY region
 ORDER BY pct_of_total DESC;
 ```
 
-southeast **30.2%** · northeast 24.5 · northwest 22.7 · southwest 22.6
+<!-- RESULT -->
+
+| region    | pct_of_total |
+|-----------|-------------:|
+| southeast |         30.2 |
+| northeast |         24.5 |
+| northwest |         22.7 |
+| southwest |         22.6 |
+
+*(4 rows)*
+
+<!-- /RESULT -->
 
 - The inner `SELECT` (a *subquery*) computes the grand total once
-- Use `100.0` (not `100`) so the result is a decimal
+- Write `100.0`, not `100`: in PostgreSQL or SQL Server, an integer divided by an integer drops the decimals (DuckDB's `/` always keeps them)
 
 ---
 
@@ -155,7 +206,15 @@ SELECT COUNT(*) FILTER (WHERE smoker)  AS smokers,
 FROM insurance;
 ```
 
-→ 274 smokers of 1,338 = **20.5%**
+<!-- RESULT -->
+
+| smokers | total |  pct |
+|--------:|------:|-----:|
+|     274 |  1338 | 20.5 |
+
+*(1 row)*
+
+<!-- /RESULT -->
 
 👉 Same as `SUM(CASE WHEN smoker THEN 1 ELSE 0 END)`, but shorter.
 

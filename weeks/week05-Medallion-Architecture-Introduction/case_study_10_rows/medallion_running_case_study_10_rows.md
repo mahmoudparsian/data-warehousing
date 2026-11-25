@@ -41,16 +41,22 @@ It is designed for teaching:
 
 # Business Rules
 
-1. Missing `sale_id` → **cancelled transaction**
-2. Missing `product` → **drop record**
-3. Missing/empty `customer_name` → **drop record**
-4. Null/missing/negative `discount` → **0.00**
-5. Valid `sale_date` formats only:
-   - `MM/DD/YYYY`
-   - `YYYY-MM-DD`
-6. Missing/malformed/invalid `sale_date` → **drop record**
-7. Drop exact duplicate rows
-8. `final_sale_price = (quantity * unit_price) - discount`
+The words follow [Medallion in a nutshell](../Medallion_Architecture_in_a_Nutshell.md): every row ends up **valid**, **flagged**,
+**rejected** (quarantined in `silver.rejected` with a reason) or a **duplicate** (removed and counted).
+
+| # | Rule | Fate of the row |
+|---|---|---|
+| 1 | missing `sale_id` → the sale was **cancelled** | **flagged**: kept in `silver.sales`, `is_cancelled = true` |
+| 2 | missing `product` | **rejected** |
+| 3 | missing / empty `customer_name` | **rejected** |
+| 4 | missing or negative `discount` → 0.00 | fixed; the row stays valid |
+| 5 | valid `sale_date` formats only: `MM/DD/YYYY`, `YYYY-MM-DD` | other formats → **rejected** |
+| 6 | missing, malformed or impossible `sale_date` | **rejected** |
+| 7 | exact duplicate rows | **duplicate**: keep one, count the others |
+| 8 | `final_sale_price = (quantity * unit_price) - discount` | computed |
+| 9 | basic validity: email contains `@`, `quantity > 0`, `unit_price > 0`, `store_location` present | **rejected** (no row in this file breaks it) |
+
+**Reconcile:** Bronze rows = valid + flagged + rejected + duplicates. Here: **10 = 3 + 1 + 5 + 1**.
 
 ---
 
@@ -98,7 +104,8 @@ This gives students one compact but realistic end-to-end case.
 
 * In Bronze, we do **not** apply business rules yet.
 
-* In Bronze, we keep the raw values for traceability and auditability.
+* In Bronze, we keep the raw values for traceability and auditability, plus two **lineage** columns:
+  `_source_file` (where from) and `_ingested_at` (when). Bronze is **never fixed**: every rule below works on Silver tables.
 
 ---
 # 10 Rows Dataset
@@ -126,8 +133,10 @@ CREATE SCHEMA IF NOT EXISTS bronze;
 CREATE OR REPLACE TABLE bronze.sales_raw AS
 
 SELECT
-    ROW_NUMBER() OVER () AS row_id,   -- 👈 add row_id
-    *
+    ROW_NUMBER() OVER () AS row_id,                -- row number in the file (for tracing rows)
+    *,
+    'sales_data_10_rows.csv' AS _source_file,      -- lineage: where from?
+    current_timestamp        AS _ingested_at       -- lineage: when?
 FROM read_csv_auto(
     'sales_data_10_rows.csv',
     header = true,
@@ -165,7 +174,7 @@ FROM bronze.sales_raw;
 
 # Bronze Snapshot
 
-The Bronze table still contains all 10 rows exactly as landed.
+The Bronze table still contains all 10 rows exactly as landed (the table above omits the two lineage columns).
 
 | stage              | `row_count` |
 |--------------------|------------:|
@@ -566,10 +575,10 @@ Rejected rows are **not cancelled**.
 
 ---
 
-## Create `silver.rejected_records`
+## Create `silver.rejected`
 
 ```sql
-CREATE OR REPLACE TABLE silver.rejected_records AS
+CREATE OR REPLACE TABLE silver.rejected AS
 SELECT
     *,
 
@@ -612,11 +621,11 @@ WHERE
     OR sale_date IS NULL;
 ```
 
-## View `silver.rejected_records`
+## View `silver.rejected`
 
 ```sql
 SELECT * 
-FROM silver.rejected_records 
+FROM silver.rejected 
 ORDER BY row_id;
 ```
 
@@ -650,102 +659,31 @@ sales_10_
 
 ---
 
-# Silver Step 6 — Rule 1: Capture cancelled transactions
+# Silver Step 6 — Rules 1 and 8: the trusted table `silver.sales`
 
-## Business rule
+## Business rules
 
-* Missing `sale_id` means **cancelled transaction**.
+- **Rule 1:** a missing `sale_id` means the sale was **cancelled**. A cancellation is a real business event
+  ("how many sales are cancelled, and for which products?"), so we **keep** the row and **flag** it: `is_cancelled = true`.
+- **Rule 8:** `final_sale_price = (quantity * unit_price) - discount`.
 
 ## Important
-A row counts as cancelled only if it is otherwise valid.
 
-That means row 3 is cancelled because:
+Rejected and cancelled are different fates:
 
-- `sale_id` is missing
-- product exists
-- customer_name exists
-- sale_date is valid
+- row 4 (no product) breaks a rule → **rejected**, in `silver.rejected`
+- row 3 (no `sale_id`) breaks no rule → **flagged**, in `silver.sales`
 
-## Create `silver.cancelled_transactions`
+## Create `silver.sales`
+
+Every row that was **not** rejected: the `WHERE` clause is exactly the opposite of Step 5's reject condition, so each deduplicated row
+lands in **exactly one** of `silver.rejected` and `silver.sales`.
 
 ```sql
-CREATE OR REPLACE TABLE silver.cancelled_transactions AS
+CREATE OR REPLACE TABLE silver.sales AS
 SELECT
-    *
-    -- Keep full schema for traceability and debugging
-
-FROM silver.step04_date_parsed
-
-WHERE
-    -- =========================
-    -- CANCELLED CONDITION
-    -- =========================
-    sale_id_raw IS NULL
-
-    -- =========================
-    -- MUST BE OTHERWISE VALID
-    -- =========================
-    AND product IS NOT NULL
-    AND customer_name IS NOT NULL
-
-    AND customer_email IS NOT NULL
-    AND POSITION('@' IN customer_email) > 0
-
-    AND quantity IS NOT NULL AND quantity > 0
-    AND unit_price IS NOT NULL AND unit_price > 0
-
-    AND store_location IS NOT NULL
-
-    AND sale_date IS NOT NULL;
-```
-
-## View `silver.cancelled_transactions`
-
-```sql
-SELECT * 
-FROM silver.cancelled_transactions 
-ORDER BY row_id;
-```
-
-```
-┌────────┬─────────────┬───────────┬─────────┬───────────────┬───┬────────────────┬───────────────┬──────────────┬──────────┬────────────┐
-│ row_id │ sale_id_raw │ sale_type │ product │ customer_name │ … │ store_location │ sale_date_raw │ discount_num │ discount │ sale_date  │
-│ int64  │   varchar   │  varchar  │ varchar │    varchar    │ … │    varchar     │    varchar    │    double    │  double  │    date    │
-├────────┼─────────────┼───────────┼─────────┼───────────────┼───┼────────────────┼───────────────┼──────────────┼──────────┼────────────┤
-│      3 │ NULL        │ ON-LINE   │ WATCH   │ Bob Lee       │ … │ USA            │ 12/29/2025    │         10.0 │     10.0 │ 2025-12-29 │
-└────────┴─────────────┴───────────┴─────────┴───────────────┴───┴────────────────┴───────────────┴──────────────┴──────────┴────────────┘
-  1 rows                                      use .last to show entire result                                      15 columns (10 shown)
-```
-
-# Cancelled Rows
-
-| `row_id` | `product` | `quantity` | `unit_price` | `discount` | `sale_date` |
-|---------:|-----------|-----------:|-------------:|-----------:|-------------|
-| `3`      | `WATCH`   | `3`        | `200`        | `10`       | `2025-12-29`|
-
-### Cancelled count = 1
-
----
-
-# Silver Step 7 — Rule 8: Build trusted sales and compute final price
-
-## Business rule
-
-`final_sale_price = (quantity * unit_price) - discount`
-
-## Create `silver.sales_clean`
-
-```sql
-CREATE OR REPLACE TABLE silver.sales_clean AS
-SELECT
-    -- =========================
-    -- CORE IDENTIFIER
-    -- =========================
-    TRY_CAST(sale_id_raw AS INTEGER) AS sale_id,
-
-    -- =========================
-    -- DIMENSIONS
-    -- =========================
+    TRY_CAST(sale_id_raw AS INTEGER)   AS sale_id,
+    sale_id_raw IS NULL                AS is_cancelled,      -- rule 1: keep and flag
     sale_type,
     product,
     customer_name,
@@ -753,115 +691,73 @@ SELECT
     customer_country,
     store_location,
     sale_date,
-
-    -- =========================
-    -- MEASURES
-    -- =========================
     quantity,
     unit_price,
     discount,
-
-    -- =========================
-    -- DERIVED METRIC
-    -- =========================
-    (quantity * unit_price) - discount AS final_sale_price
-
+    (quantity * unit_price) - discount AS final_sale_price   -- rule 8
 FROM silver.step04_date_parsed
-
-WHERE
-    -- =========================
-    -- VALID TRANSACTION (NOT CANCELLED)
-    -- =========================
-    TRY_CAST(sale_id_raw AS INTEGER) IS NOT NULL
-
-    -- =========================
-    -- DATA QUALITY RULES
-    -- =========================
-    AND product IS NOT NULL
-    AND customer_name IS NOT NULL
-
-    AND customer_email IS NOT NULL
-    AND POSITION('@' IN customer_email) > 0
-
-    AND quantity IS NOT NULL AND quantity > 0
-    AND unit_price IS NOT NULL AND unit_price > 0
-
-    AND store_location IS NOT NULL
-
-    AND sale_date IS NOT NULL;
+WHERE NOT (
+       product IS NULL
+    OR customer_name IS NULL
+    OR customer_email IS NULL
+    OR POSITION('@' IN customer_email) = 0
+    OR quantity IS NULL OR quantity <= 0
+    OR unit_price IS NULL OR unit_price <= 0
+    OR store_location IS NULL
+    OR sale_date IS NULL
+);
 ```
 
-## View `silver.sales_clean`
+## View `silver.sales`
 
 ```sql
-SELECT * 
-FROM silver.sales_clean 
-ORDER BY sale_id;
+SELECT *
+FROM silver.sales
+ORDER BY sale_id NULLS LAST;
 ```
 
+```text
+┌─────────┬──────────────┬───────────┬─────────┬───────────────┬────────────────┬──────────────────┬────────────────┬────────────┬──────────┬────────────┬──────────┬──────────────────┐
+│ sale_id │ is_cancelled │ sale_type │ product │ customer_name │ customer_email │ customer_country │ store_location │ sale_date  │ quantity │ unit_price │ discount │ final_sale_price │
+│  int32  │   boolean    │  varchar  │ varchar │    varchar    │    varchar     │     varchar      │    varchar     │    date    │  int32   │   double   │  double  │      double      │
+├─────────┼──────────────┼───────────┼─────────┼───────────────┼────────────────┼──────────────────┼────────────────┼────────────┼──────────┼────────────┼──────────┼──────────────────┤
+│    1001 │ false        │ ON-LINE   │ TV      │ John Smith    │ john@a.com     │ USA              │ USA            │ 2025-12-31 │        1 │      900.0 │     50.0 │            850.0 │
+│    1002 │ false        │ IN-STORE  │ IPHONE  │ Mary Jones    │ mary@a.com     │ CANADA           │ CANADA         │ 2025-12-30 │        2 │     1100.0 │      0.0 │           2200.0 │
+│    1009 │ false        │ ON-LINE   │ WATCH   │ Rita Patel    │ rita@a.com     │ GERMANY          │ ENGLAND        │ 2025-12-26 │        4 │      250.0 │     30.0 │            970.0 │
+│    NULL │ true         │ ON-LINE   │ WATCH   │ Bob Lee       │ bob@a.com      │ USA              │ USA            │ 2025-12-29 │        3 │      200.0 │     10.0 │            590.0 │
+└─────────┴──────────────┴───────────┴─────────┴───────────────┴────────────────┴──────────────────┴────────────────┴────────────┴──────────┴────────────┴──────────┴──────────────────┘
+┌─────────────┬───────┬───────────────────┬──────────┬────────────┐
 ```
-┌─────────┬───────────┬─────────┬───────────────┬────────────────┬───┬────────────┬──────────┬────────────┬──────────┬──────────────────┐
-│ sale_id │ sale_type │ product │ customer_name │ customer_email │ … │ sale_date  │ quantity │ unit_price │ discount │ final_sale_price │
-│  int32  │  varchar  │ varchar │    varchar    │    varchar     │ … │    date    │  int32   │   double   │  double  │      double      │
-├─────────┼───────────┼─────────┼───────────────┼────────────────┼───┼────────────┼──────────┼────────────┼──────────┼──────────────────┤
-│    1001 │ ON-LINE   │ TV      │ John Smith    │ john@a.com     │ … │ 2025-12-31 │        1 │      900.0 │     50.0 │            850.0 │
-│    1002 │ IN-STORE  │ IPHONE  │ Mary Jones    │ mary@a.com     │ … │ 2025-12-30 │        2 │     1100.0 │      0.0 │           2200.0 │
-│    1009 │ ON-LINE   │ WATCH   │ Rita Patel    │ rita@a.com     │ … │ 2025-12-26 │        4 │      250.0 │     30.0 │            970.0 │
-└─────────┴───────────┴─────────┴───────────────┴────────────────┴───┴────────────┴──────────┴────────────┴──────────┴──────────────────┘
-  3 rows                                    
-```
 
-
-# Trusted Silver Rows
-
-These rows survive all rules and are not cancelled:
-
-| `sale_id` | `product`  | `quantity` | `unit_price` | `discount` | `final_sale_price` |
-|-----------|------------|------------|--------------|------------|--------------------|
-| 1001      | TV         | 1          | 900          | 50         | 850                |
-| 1002      | IPHONE     | 2          | 1100         | 0          | 2200               |
-| 1009      | WATCH      | 4          | 250          | 30         | 970                |
-
-### Trusted count = 3
+### 3 valid sales + 1 flagged (cancelled) sale = 4 rows
 
 ---
 
-# Funnel SQL
+# Reconcile: Every Row Has Exactly One Fate
 
 ```sql
-SELECT 'bronze.sales_raw' AS stage, 
-       COUNT(*) AS row_count 
-FROM bronze.sales_raw
-UNION ALL
-SELECT 'after_dedup', 
-       COUNT(*) 
-FROM silver.step01_dedup
-UNION ALL
-SELECT 'rejected_records', 
-       COUNT(*) 
-FROM silver.rejected_records
-UNION ALL
-SELECT 'cancelled_transactions', 
-       COUNT(*) 
-FROM silver.cancelled_transactions
-UNION ALL
-SELECT 'trusted_sales_clean', 
-       COUNT(*) FROM 
-silver.sales_clean;
+SELECT (SELECT COUNT(*) FROM bronze.sales_raw)                      AS bronze_rows,
+       (SELECT COUNT(*) FROM silver.sales WHERE NOT is_cancelled)   AS valid,
+       (SELECT COUNT(*) FROM silver.sales WHERE is_cancelled)       AS flagged_cancelled,
+       (SELECT COUNT(*) FROM silver.rejected)                       AS rejected,
+       (SELECT COUNT(*) FROM bronze.sales_raw)
+         - (SELECT COUNT(*) FROM silver.step01_dedup)               AS duplicates;
 ```
 
+| `bronze_rows` | `valid` | `flagged_cancelled` | `rejected` | `duplicates` |
+|---:|---:|---:|---:|---:|
+| 10 | 3 | 1 | 5 | 1 |
 
-# End-to-End Funnel
+### 10 = 3 valid + 1 flagged + 5 rejected + 1 duplicate ✅
 
-| `stage` | `row_count` |
-|-------|----------:|
-| `bronze.sales_raw` | 10 |
-| `after_dedup` | 9 |
-| `rejected_records` | 5 |
-| `cancelled_transactions` | 1 |
-| `trusted_sales_clean` | 3 |
+| row | fate | where |
+|---:|---|---|
+| 1, 2, 9 | valid | `silver.sales` |
+| 3 | flagged (cancelled) | `silver.sales`, `is_cancelled = true` |
+| 4, 5, 6, 7, 10 | rejected | `silver.rejected`, with `reject_reason` |
+| 8 | duplicate of row 1 | removed in Step 1, counted |
 
-This funnel is one of the best teaching visuals in a medallion pipeline.
+Run this after **every** load: if the equation fails, a rule lost rows silently.
 
 ---
 
@@ -877,7 +773,7 @@ NOTES:
 
 * If Gold included rejected or cancelled rows, reports would be misleading.
 
-* So Gold is built only from `silver.sales_clean`.
+* So Gold is built only from `silver.sales`, and uses the flag explicitly: `WHERE NOT is_cancelled`.
 
 * Next, we build a "Star Schema"
 
@@ -918,7 +814,8 @@ FROM (
         customer_name,
         customer_email,
         customer_country
-    FROM silver.sales_clean
+    FROM silver.sales
+    WHERE NOT is_cancelled
 );
 ```
 
@@ -957,7 +854,8 @@ SELECT
 
 FROM (
     SELECT DISTINCT product
-    FROM silver.sales_clean
+    FROM silver.sales
+    WHERE NOT is_cancelled
 );
 ```
 
@@ -1020,7 +918,8 @@ SELECT
 
 FROM (
     SELECT DISTINCT sale_date
-    FROM silver.sales_clean
+    FROM silver.sales
+    WHERE NOT is_cancelled
 );
 ```
 
@@ -1067,7 +966,7 @@ SELECT
     s.discount,
     s.final_sale_price
 
-FROM silver.sales_clean s
+FROM silver.sales s
 
 -- =========================
 -- DIMENSION JOINS
@@ -1079,7 +978,9 @@ JOIN gold.dim_product p
     ON s.product = p.product
 
 JOIN gold.dim_date d
-    ON s.sale_date = d.full_date;
+    ON s.sale_date = d.full_date
+
+WHERE NOT s.is_cancelled;   -- Gold uses the flag explicitly
 ```
 
 ## View `gold.fact_sales`
@@ -1104,11 +1005,12 @@ FROM gold.fact_sales;
 
 # What students should notice
 
-1. Deduplication happens before analytics.
-2. Rejected rows and cancelled rows are different categories.
+1. Every row has exactly one fate: valid, flagged, rejected or duplicate, and the reconciliation proves it (10 = 3 + 1 + 5 + 1).
+2. Rejected rows (`silver.rejected`, with a reason) and cancelled rows (kept in `silver.sales`, flagged) are different fates.
 3. Discount cleanup happens before final price calculation.
 4. Date parsing must happen before rejecting bad dates.
-5. Only trusted Silver rows become Gold rows.
+5. Gold reads only Silver, and only the valid rows: `WHERE NOT is_cancelled`.
+6. Bronze was never changed: change a rule, and Silver and Gold can be rebuilt from it.
 
 This is the logic of a real data warehouse.
 
@@ -1133,5 +1035,6 @@ This 10-row case study shows the full medallion story:
 - Bronze preserves the source
 - Silver applies business rules step-by-step
 - Gold contains only trusted analytics-ready data
+- and the reconciliation shows that no row was lost on the way
 
 This is exactly how messy business data becomes reliable business insight.

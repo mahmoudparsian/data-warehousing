@@ -19,23 +19,24 @@ By the end of the week you can:
 2. Handle a load failure correctly: `store_rejects` and `reject_errors` (and why never `ignore_errors`), including encoding problems.
 3. Append a new batch idempotently, and detect keys that collide across batches.
 4. Profile Bronze into a Silver to-do list.
-5. Apply Silver rules: parse mixed formats, drop invalid rows, deduplicate, cast types.
-6. Check referential integrity before joining; reconcile Bronze → Silver; validate against a known control total.
+5. Apply Silver rules in the right order: parse mixed formats, cast types, deduplicate, and **reject** invalid rows into a reject table with a reason
+   (the week 5 fates: valid, flagged, rejected, duplicate).
+6. Check referential integrity before joining; reconcile Bronze → Silver (Bronze rows = valid + rejected + duplicates); validate against a known control total.
 
 ## 📅 Sessions
 
 | Session | Topic | Material | Lab (30 min) |
 |---|---|---|---|
 | 1 | Bronze in depth | [slides: Bronze in depth](lecture_notes_01_bronze_layer.md) · [pizza shop data](pizza_sales_medallion/README.md) · [story](pizza_sales_medallion/pizza_dw_story.md) | [Lab 6.1](labs/week_06_lab_01_student.md): land 2 batches + the menu · notebook [`week_06_lab_01_student.py`](labs/week_06_lab_01_student.py) |
-| 2 | Silver cleaning: data-quality dimensions, profiling, nulls, standardization, outliers, dedup, enrichment, validation | [slides: Silver cleaning](lecture_notes_02_silver_cleaning.md) · [`notebook_01_silver_cleaning.py`](notebook_01_silver_cleaning.py) (the same ideas on insurance data) | [Lab 6.2](labs/week_06_lab_02_student.md): Bronze → trusted Silver order lines · notebook [`week_06_lab_02_student.py`](labs/week_06_lab_02_student.py) |
+| 2 | Silver cleaning: data-quality dimensions, profiling, standardization, dedup, NULLs and outliers (reject / fix / flag), enrichment, validation | [slides: Silver cleaning](lecture_notes_02_silver_cleaning.md) · [`notebook_01_silver_cleaning.py`](notebook_01_silver_cleaning.py) (the same steps on 1,338 insurance customers) | [Lab 6.2](labs/week_06_lab_02_student.md): Bronze → trusted Silver order lines · notebook [`week_06_lab_02_student.py`](labs/week_06_lab_02_student.py) |
 
 ## 📂 What's in this folder
 
 | Folder / file | Contents |
 |---|---|
 | [`labs/`](labs/) | Labs 6.1 and 6.2 (sheet `.md` + Marimo notebook, released in class) (they share `labs/pizza.duckdb`, which is git-ignored); [extended practice](labs/week_06_lab_extended_practice_silver_insurance_student.md): Silver on insurance data (optional) |
-| [`pizza_sales_medallion/`](pizza_sales_medallion/) | Pizza shop data (2015 + 2016 + menu), business rules, and `pizza_shop_dw.py`: the full pipeline to a Gold star schema with analysis |
-| `notebook_01_silver_cleaning.py` | Silver deep-dive notebook: profiling, cleaning, validation, before/after KPIs (insurance data) |
+| [`pizza_sales_medallion/`](pizza_sales_medallion/) | Pizza shop data (2015 + 2016 + menu), business rules with fates, and `pizza_shop_dw.py`: the full pipeline (Bronze → Silver with reject tables and reconciliation → Gold star schema → six business answers) |
+| `notebook_01_silver_cleaning.py` | Silver step by step on insurance data: profile, standardize, deduplicate, quarantine, enrich, reconcile (1,373 = 1,318 + 0 + 21 + 34), before/after KPIs |
 
 ## ⚙️ Setup
 

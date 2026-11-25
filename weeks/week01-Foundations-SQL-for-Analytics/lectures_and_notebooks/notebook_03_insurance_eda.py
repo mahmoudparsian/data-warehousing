@@ -14,8 +14,10 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # Full EDA — Insurance Dataset
-    Comprehensive analysis with proper plotting
+    # Full EDA — Insurance Dataset (pandas + matplotlib)
+    Optional extra: every column, one chart per question. The SQL versions of these questions are in the slides and `notebook_02_sql_exercises.py`.
+
+    Order: structure and missing values → numeric distributions → outliers → categories → charges by smoker, age, BMI, region → correlations.
     """)
     return
 
@@ -151,11 +153,15 @@ def _(df, plt):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Key Insights
-    - Smoking has a major impact on charges
-    - Charges increase with age
-    - BMI shows moderate relationship
-    - Region differences are smaller compared to smoking effect
+    ## Key Insights (numbers from this data)
+    - **Smoking** has the biggest impact: smokers average **32,050**, non-smokers **8,434** (3.8×).
+    - **Age:** charges rise with age (correlation **0.30**, the strongest of the numeric columns).
+    - **BMI:** a weaker link (correlation **0.20**); the scatter plot shows separate bands: of the 139 customers above about 34,500, **136 are smokers** (132 of them with BMI 30+).
+    - **Children:** almost no link (correlation **0.07**).
+    - **Region:** averages range only from 12,347 (southwest) to 14,735 (southeast), small next to the smoker gap.
+    - No missing values in any column (1,338 rows).
+
+    A correlation measures only a **straight-line** relationship, from −1 to 1: 0.30 is weak to moderate.
     """)
     return
 

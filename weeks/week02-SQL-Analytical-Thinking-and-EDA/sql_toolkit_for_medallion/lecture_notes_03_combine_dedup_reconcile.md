@@ -71,6 +71,26 @@ SELECT * FROM read_csv('data/rentals_2026_02.csv', all_varchar = true) LIMIT 3;
 
 ---
 
+# 🔍 The Problems in These Files (and Where We Fix Them)
+
+133 rows (64 + 69), but only **126 real rentals**:
+
+| Problem (rental ids) | Fixed in |
+|---|---|
+| February has another column order + a new column `bike_type` | Part A (`union_by_name`) |
+| January dates `2026-01-01 07:20:00`, February dates `02/01/2026 10:17` | Part B (`try_strptime`) |
+| Impossible times: `2026-01-32 08:10:00` (5048), `13/02/2026 25:00` (5162) | Part B → flagged `bad start time` |
+| 4 rows sent **twice** in January (5010, 5011, 5012, 5053) | Part C (exact duplicates) |
+| 3 January rentals sent **again** in February with a new price (5004, 5028, 5045) | Part C (`QUALIFY`, newest wins) |
+| Members 103, 115, 128 appear twice in `members.csv` (Part 1) | Part C (same pattern) |
+| Member ids not in `members.csv`: 999 (5019, 5151), 998 (5108) | Part D (orphans) |
+| No member at all (guests): 5006, 5034, 5113, 5141 | Part D (not orphans!) |
+| Price blank (5023), missing (5126), negative (5145); duration 0 (5041) | Part E → flagged |
+
+Same rule as Part 1: **never lose a row, never hide a problem**. At the end we prove it: rows in = rows out + duplicates removed.
+
+---
+
 # Part A — Read Many Files at Once
 
 A `*` in the file name reads every matching file. Two options matter:

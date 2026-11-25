@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.25.2"
+__generated_with = "0.23.10"
 app = marimo.App(width="medium")
 
 
@@ -31,18 +31,39 @@ def _(mo):
 
 @app.cell
 def _(mo):
-    _df = mo.sql("""
-    CREATE OR REPLACE TABLE sales AS
-    SELECT * FROM (
-        SELECT 'West' AS region, 1000 AS amount
-        UNION ALL
-        SELECT 'west', 2000
-        UNION ALL
-        SELECT 'East', 1500
-        UNION ALL
-        SELECT 'East', NULL
-    );
+    _df = mo.sql(
+        f"""
+        CREATE OR REPLACE TABLE sales AS
+        SELECT * FROM (
+            SELECT 'West' AS region, 1000 AS amount
+            UNION ALL
+            SELECT 'west', 2000
+            UNION ALL
+            SELECT 'East', 1500
+            UNION ALL
+            SELECT 'East', NULL
+        );
+        """
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## View Data
     """)
+    return
+
+
+@app.cell
+def _(mo, sales):
+    _df = mo.sql(
+        f"""
+        SELECT *
+        FROM sales;
+        """
+    )
     return
 
 
@@ -56,9 +77,14 @@ def _(mo):
 
 @app.cell
 def _(mo, sales):
-    _df = mo.sql("""
-    SELECT region, SUM(amount) FROM sales GROUP BY region;
-    """)
+    _df = mo.sql(
+        f"""
+        SELECT region, 
+               SUM(amount) 
+        FROM sales 
+        GROUP BY region;
+        """
+    )
     return
 
 
@@ -72,12 +98,15 @@ def _(mo):
 
 @app.cell
 def _(mo, sales):
-    _df = mo.sql("""
-    SELECT LOWER(region) AS region, SUM(amount)
-    FROM sales
-    WHERE amount IS NOT NULL
-    GROUP BY LOWER(region);
-    """)
+    _df = mo.sql(
+        f"""
+        SELECT LOWER(region) AS region, 
+               SUM(amount)
+        FROM sales
+        WHERE amount IS NOT NULL
+        GROUP BY LOWER(region);
+        """
+    )
     return
 
 

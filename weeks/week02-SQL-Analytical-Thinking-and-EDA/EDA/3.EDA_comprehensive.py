@@ -67,7 +67,7 @@ def _():
     import pandas as pd
     import matplotlib.pyplot as plt
 
-    con = duckdb.connect("insurance_dw_eda.duckdb")
+    con = duckdb.connect()   # in memory: nothing is written to disk
     print("DuckDB version:", duckdb.__version__)
     return con, plt
 
@@ -233,7 +233,8 @@ def _(mo):
     mo.md(r"""
     ### Plot interpretation
 
-    A large year-to-year difference may be normal business growth, but it may also indicate missing or duplicated source data.
+    2021: 1,540 · 2022: **1,300** · 2023: 1,549 · 2024: 1,732 rows. 2022 is about 250 rows short of its neighbours, and it is also the only
+    year with **no** conflicting duplicates (Cell 11b): ask the source whether 2022 is complete before reporting any trend.
     """)
     return
 
@@ -364,7 +365,7 @@ def _(mo):
     mo.md(r"""
     ### Plot interpretation
 
-    High missingness suggests a Silver-layer rule is needed: reject, impute, or flag.
+    Every column has **0** missing values: no Silver rule is needed for NULLs today. Keep the check: the next file may not be so clean.
     """)
     return
 
@@ -374,7 +375,7 @@ def _(mo):
     mo.md(r"""
     ## Cell 11 — Duplicate profile
 
-    Duplicates can inflate counts, averages, and KPIs.
+    Duplicates inflate counts, averages and KPIs. The files have no customer id, so a duplicate = the same values in **every** column, in the **same year**.
     """)
     return
 
@@ -384,10 +385,10 @@ def _(con):
     con.execute("""
     WITH grouped AS (
         SELECT
-            age, gender, bmi, children, smoker, region, charges,
+            source_year, age, gender, bmi, children, smoker, region, charges,
             COUNT(*) AS cnt
         FROM bronze.insurance_raw
-        GROUP BY age, gender, bmi, children, smoker, region, charges
+        GROUP BY source_year, age, gender, bmi, children, smoker, region, charges
         HAVING COUNT(*) > 1
     )
     SELECT
@@ -395,6 +396,46 @@ def _(con):
         COALESCE(SUM(cnt - 1), 0) AS extra_duplicate_rows
     FROM grouped;
     """).df()
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Cell 11b — Conflicting duplicates: same row, different region
+
+    `DISTINCT` removes rows that are equal in **every** column. Rows that agree on everything **except one column** need their own check.
+    """)
+    return
+
+
+@app.cell
+def _(con):
+    con.execute("""
+    SELECT regions, COUNT(*) AS pairs
+    FROM (
+        SELECT source_year, age, gender, bmi, children, smoker, charges,
+               list(region ORDER BY region) AS regions
+        FROM (SELECT DISTINCT source_year, age, gender, bmi, children, smoker, region, charges
+              FROM bronze.insurance_raw)
+        GROUP BY ALL
+        HAVING COUNT(DISTINCT region) > 1
+    )
+    GROUP BY regions
+    ORDER BY pairs DESC;
+    """).df()
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Interpretation
+
+    **675 pairs (1,350 rows)**: the same year, age, gender, BMI, children, smoker and charges, in two regions, and **every** pair has one copy
+    in the **northeast**. A customer cannot live in two regions in the same year, so one copy is wrong. Only the **source system** can say which:
+    ask, and until then **flag both** copies in Silver. This inflates the northeast's row count, smoker count and average (Cells 22 and 28).
+    """)
     return
 
 
@@ -608,7 +649,8 @@ def _(mo):
     mo.md(r"""
     ### Plot interpretation
 
-    If the clean row count is much lower than Bronze, inspect which rule removed the most records.
+    6,121 → 6,121 → **5,899**: only `DISTINCT` removed rows (the 222 exact duplicates); no validity rule removed anything.
+    Still **in** Silver: the 1,350 conflicting rows (Cell 11b) and the 74 rows at exactly $200.00 (Cell 19b). Passing every rule is not the same as being correct.
     """)
     return
 
@@ -682,7 +724,40 @@ def _(mo):
     mo.md(r"""
     ### Plot interpretation
 
-    A long right tail means a small number of high-charge records can strongly affect the average.
+    Right-skewed: the mean (18,075) is far above the median (14,507, Cell 29); 1% of the rows cost more than 50,491.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Cell 19b — A spike at one exact value
+    """)
+    return
+
+
+@app.cell
+def _(con):
+    con.execute("""
+    SELECT ROUND(charges, 2) AS charges, COUNT(*) AS row_count,
+           COUNT(*) FILTER (WHERE smoker = 'yes') AS smokers
+    FROM silver.insurance_clean
+    GROUP BY ALL
+    ORDER BY row_count DESC, charges
+    LIMIT 3;
+    """).df()
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Interpretation
+
+    Charges have cents, so almost every value is unique, except **exactly 200.00: 74 rows** here (76 in Bronze; 2 were exact duplicates), all non-smokers.
+    (The other values that appear twice are conflicting pairs from Cell 11b.) A spike at a round number is
+    usually a **default, a minimum fee or a placeholder**. It passes every validity rule (Cell 15): ask the data owner what it means, then keep, flag or set it to NULL.
     """)
     return
 
@@ -728,7 +803,8 @@ def _(mo):
     mo.md(r"""
     ### Plot interpretation
 
-    A sharp jump or drop in a year may indicate a true business trend or a source data issue.
+    17,764 → 16,781 → **20,045** → 17,563: a zig-zag, not a trend. Before explaining it, check **who** is in each year: the smoker share
+    per year, and the northeast copies (Cell 11b) that exist in 2021, 2023 and 2024 only. **Lab 2.2** works this out.
     """)
     return
 
@@ -772,7 +848,7 @@ def _(mo):
     mo.md(r"""
     ### Plot interpretation
 
-    If smokers have much higher charges, `smoker` should be a key dimension or segmentation field in Gold.
+    Smokers average **37,015**, non-smokers **12,259** (3.0×): `smoker` must be a dimension in every Gold table.
     """)
     return
 
@@ -817,7 +893,8 @@ def _(mo):
     mo.md(r"""
     ### Plot interpretation
 
-    Regional differences can guide geography-based risk analysis or operational review.
+    The northeast looks most expensive (20,910 vs 16,499–17,034), but it holds the 675 copied rows (Cell 11b), 58% of them smokers.
+    Cell 28 shows what is left of the "regional" difference once smokers are compared with smokers.
     """)
     return
 
@@ -861,7 +938,7 @@ def _(mo):
     mo.md(r"""
     ### Plot interpretation
 
-    Differences by gender should be interpreted alongside other factors such as age, BMI, smoking status, and region.
+    Female 18,115 vs male 18,038: a 0.4% difference. Gender does not drive charges here.
     """)
     return
 
@@ -956,7 +1033,7 @@ def _(mo):
     mo.md(r"""
     ### Plot interpretation
 
-    If charges rise with age, age group is an important reporting dimension.
+    A steady rise with every age group, from 11,551 (under 20) to 24,846 (60s): 2.2×. Keep `age_group` as a Gold dimension.
     """)
     return
 
@@ -1006,7 +1083,7 @@ def _(mo):
     mo.md(r"""
     ### Plot interpretation
 
-    If charge levels vary by BMI group, BMI group should be retained in Gold summaries.
+    From 14,765 (underweight) to 18,905 (obese): a mild rise. Cell 27 shows whether BMI matters once smoking is taken out.
     """)
     return
 
@@ -1053,7 +1130,8 @@ def _(mo):
     mo.md(r"""
     ### Plot interpretation
 
-    Large gaps between smokers and non-smokers within BMI groups suggest smoker status is a dominant cost driver.
+    In **every** BMI group, smokers cost about 25,000 more (non-smokers 9,900–13,425; smokers 35,265–38,291). The smoker gap is far
+    bigger than any BMI gap: smoking is the dominant driver.
     """)
     return
 
@@ -1100,7 +1178,8 @@ def _(mo):
     mo.md(r"""
     ### Plot interpretation
 
-    If smokers are consistently more expensive in every region, smoker status is more important than region alone.
+    Compare like with like: non-smokers cost 11,984–12,751 in every region, smokers 36,691–37,499. The regions are within ~800 of each
+    other; the northeast's high average in Cell 22 comes from its **smoker mix** (inflated by the copies), not from the region.
     """)
     return
 
@@ -1135,7 +1214,8 @@ def _(mo):
     mo.md(r"""
     ## Cell 30 — Top high-charge records
 
-    Outlier review helps determine whether values are valid high-cost cases or data quality issues.
+    Outlier review: are these valid high-cost cases or data problems? All 15 are smokers (valid, expensive), but look at the pairs:
+    the same person and charges in the northeast **and** another region (Cell 11b).
     """)
     return
 
@@ -1240,6 +1320,17 @@ def _(con):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    ### Interpretation
+
+    The top segments by average are groups of **1 to 6 policies**: an average of so few rows is noise (analytical-thinking deck, habit 2).
+    A dashboard on this table should show `policy_count` next to every average, or hide segments below a minimum size (e.g. `HAVING COUNT(*) >= 30`).
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     ## Cell 33 — Recommended Gold model
 
     | Table | Purpose |
@@ -1283,6 +1374,16 @@ def _(mo):
     5. Are numeric values business-valid?
     6. Which dimensions are analytically useful?
     7. Which Gold summaries should be created?
+
+    ## What this EDA found in these files
+
+    | Finding | Silver rule |
+    |---|---|
+    | 222 exact duplicate rows | `DISTINCT` (done in Cell 16) |
+    | 675 pairs that differ only in `region`, one copy always in the northeast | flag both; ask the source which region is right |
+    | 74 rows (76 in Bronze) with charges of exactly 200.00, all non-smokers | ask what 200.00 means; flag until then |
+    | 2022 has ~250 fewer rows than its neighbours | confirm with the source that the file is complete |
+    | No NULLs, every value in its allowed range | keep the checks as tests on every load |
 
     ## Final message
 

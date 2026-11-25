@@ -1,6 +1,10 @@
-# Data and Business Rules
+# Business Rules: 1,400 Messy Sales
 
-# Sample Data
+These are the rules the **business** agreed on for `sale_records_1400_messy.csv`. Silver turns each rule into SQL.
+Words as in [Medallion in a nutshell](../Medallion_Architecture_in_a_Nutshell.md): every row is **valid**, **flagged**, **rejected**
+(quarantined in `silver.rejected` with a reason) or a **duplicate** (removed and counted). No row is lost without a count and a reason.
+
+## Sample data
 
 ```text
 % head sale_records_1400_messy.csv
@@ -10,91 +14,34 @@ sale_id,sale_type,product,customer_name,customer_email,customer_country,quantity
 3,ON-LINE,COMPUTER,Rebecca White,rebecca.white18@proton.me,USA,1,1400,0.00,USA,11/23/2025
 4,IN-STORE,WATCH,Jack Gonzalez,jack.gonzalez6@yahoo.com,GERMANY,2,250,60.00,USA,11/13/2025
 5,ON-LINE,IPHONE,Ryan Jackson,ryan.jackson94@proton.me,CANADA,3,1100,396.00,CANADA,08/01/2025
-6,IN-STORE,COMPUTER,Megan Wilson,megan.wilson17@outlook.com,CANADA,3,1400,210.00,ENGLAND,10/24/2025
-7,IN-STORE,IPHONE,Jason Perez,jason.perez28@outlook.com,USA,1,1100,88.00,USA,01/11/2025
-8,ON-LINE,IPAD,Jeffrey Parker,jeffrey.parker39@proton.me,MEXICO,2,700,0.00,ENGLAND,12/18/2025
-9,ON-LINE,WATCH,George Stewart,george.stewart40@yahoo.com,ENGLAND,1,250,0.00,CANADA,04/15/2025
-```
----
-
-# Business Rule
-
-## 1. Business Rule: `sale_id`
-
-```
-> # 1. if a sale_id is null/missing,
-> then it means that the transaction is cancelled.
-> This is important to know how many transactions
-> are cancelled, and for which products?
 ```
 
-## 2. Business Rule: `product`
+## The rules
 
-```
-> # 2. if a product is missing, then
-> the entire record must be dropped
-> (not a valid record)
-> (it is not a cancelled transaction)
-```
+| # | Column | Rule | Fate of the row |
+|---|---|---|---|
+| 1 | `sale_id` | missing → the sale was **cancelled**. We must know how many sales were cancelled, and for which products. | **flagged**: kept in `silver.sales` with `is_cancelled = true` |
+| 2 | `product` | missing → not a valid record (and **not** a cancellation) | **rejected**: `silver.rejected`, reason "R2 missing product" |
+| 3 | `customer_name` | missing or empty → not a valid record (not a cancellation) | **rejected**: reason "R3 missing customer name" |
+| 4 | `discount` | missing or negative → set to 0.00 | fixed; the row stays valid |
+| 5 | `sale_date` | only two formats are valid: `12/31/2025` (`MM/DD/YYYY`) and `2025-12-31` (`YYYY-MM-DD`) | any other format → **rejected** |
+| 6 | `sale_date` | missing, malformed, or not a real date (`2025-02-30`) | **rejected**: reason "R5-6 missing or invalid date" |
+| 7 | all columns | exact duplicate rows (every field identical) | **duplicate**: keep one copy, count the others |
+| 8 | `final_sale_price` | `quantity * unit_price - discount` (after rule 4) | computed |
+| 9 | `customer_email` | lower case | standardized |
+| 10 | `customer_country` | upper case | standardized |
+| 11 | `sale_type` | upper case | standardized |
+| 12 | `product` | trimmed, upper case | standardized |
 
-## 3. Business Rule: `customer_name`
+Rules 9–12 only change how a value is **written**; they never change a row's fate.
 
-```
-> 3. if a customer_name is null/missing/empty,
-> the entire record must be dropped
-> (not a valid record)
-> (it is not a cancelled transaction)
-```
+## Reconcile
 
-## 4. Business Rule: `discount`
+After Silver, this must hold:
 
-```
-> 4. if discount is null/missing/negative,
-> then discount is set to 0.00 (zero)
-```
+> **Bronze rows = valid + flagged (cancelled) + rejected + duplicates**
 
-## 5. Business Rule: `sale_date`
+Gold uses only `silver.sales`, and uses the flag explicitly: revenue = `WHERE NOT is_cancelled`; cancellations = `WHERE is_cancelled`.
 
-```
-> 5. The sale_date might have the
-> following sale formats:
->
->     12/31/2025
->     2025-12-31
->
-> If the sale_date format is not one of the
-> two formats, the entire record must be dropped
-> (it is not a cancelled transaction)
-```
-
-## 6. Business Rule: `sale_date: NULL/missing`
-
-```
-> 6. If a sale_date is null/missing/malformed/invalid,
-> the entire record must be dropped
-> 
-```
-
-## 7. Business Rule: `deduplication`
-
-> 7. deduplication, drop duplicate records:
-> all record fields must be identical:
-> drop exact duplicate rows
-```
-```
-
-## 8. Business Rule: calculate final sale price as:
-
-```
-final_sale_price = (quantity * unit_price) - discount
-```
-
-
-## 9. Business Rule: email: convert to lowercase
-
-## 10. Business Rule: `customer_country`: convert to uppercase
-
-## 11: Business Rule: `sale_type`: convert to uppercase
-
-## 12: Business Rule:  clean product names and standardize them to uppercase
-
+**Tip for rules 5–6:** check the shape before parsing (`sale_date LIKE '__/__/____'`): on its own, `try_strptime('31-12-25', '%Y-%m-%d')`
+reads year 31 instead of failing.

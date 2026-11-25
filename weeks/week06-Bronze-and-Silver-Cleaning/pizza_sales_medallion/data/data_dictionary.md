@@ -1,9 +1,9 @@
 | Table          | Field            | Description |
 |----------------|------------------|-------------|
-| `orders`       | `order_id`       | Unique identifier for each order placed by a table |
+| `orders`       | `order_id`       | Identifier for each order placed by a table (2015: from 1; 2016: from 100001, so no collision across years) |
 | `orders`       | `date`             | Date the order was placed (entered into the system prior to cooking & serving) |
 | `orders`       | `time`             | Time the order was placed (entered into the system prior to cooking & serving) |
-| `order_details`| `order_details_id` | Unique identifier for each pizza placed within each order (pizzas of the same type and size are kept in the same row, and the quantity increases) |
+| `order_details`| `order_details_id` | Identifier for each pizza line within each order (pizzas of the same type and size are kept in the same row, and the quantity increases). ⚠️ Unique **within one yearly file only**: the 2016 file restarts at 1, so the key is (`_batch_id`, `order_details_id`) |
 | `order_details`  | `order_id`         | Foreign key that ties the details in each order to the order itself |
 | `order_details`  | `pizza_id`         | Foreign key that ties the pizza ordered to its details, like size and price |
 | `order_details`  | `quantity`         | Quantity ordered for each pizza of the same type and size |

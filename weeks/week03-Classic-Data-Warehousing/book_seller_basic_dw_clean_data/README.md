@@ -1,136 +1,54 @@
-# Book Seller to Star Schema
-# First DEMO of Data Warehousing
+# Book Seller → Star Schema (Clean Data)
+### First data-warehousing demo · Week 3, Session 1 · used in [Lab 3.1](../labs/week_03_lab_01_student.md)
 
-## Purpose of This Example
+A book seller sells books in 5 countries, online and in store. Its operational (OLTP) system has **2 tables**.
+This demo turns them into a **star schema** and answers **10 business questions** on it.
+The data is **clean on purpose**, so we can focus on modeling; the [messy-data demo](../book_seller_basic_dw_messy_data/) adds the cleaning.
 
-The purpose of this example is to 
+## What you learn
 
-```
-1. To understand the given operational/
-   transactional database tables
+1. read an operational schema and find its **grain** (one row of `sales` = **one transaction** = one book sold)
+2. split it into **dimensions** (who / what / where / when / how) and a **fact table** (the measures)
+3. give dimensions **surrogate keys** (`location_id`, `date_id`, `format_id`)
+4. **validate** the star against the source: rows, totals, keys
+5. answer business questions with `SUM(measure)` + `GROUP BY` dimension columns
 
-2. Design a Star Schema based on operational/
-   transactional database tables
+## The operational tables (`data/`)
 
-3. Understand the ETL process to convert 
-   transactional database tables into a Star Schema 
+| File | Rows | One row = | Columns |
+|---|---:|---|---|
+| `sales.csv` | 10,000 | one transaction (2024-01-01 → 2025-12-31) | `transaction_id`, `book_id`, `sale_type` (ONLINE / INSTORE), `date_sold`, `year_sold`, `month_sold`, `day_sold`, `sale_price`, `discount`, `final_price` (= `sale_price - discount`), `country_sold` (5), `city_sold` (15), `hard_copy`, `paperback`, `soft_copy` (BOOLEAN, exactly one is true) |
+| `books.csv` | 100 | one book | `book_id`, `book_title`, `book_genre` (10 genres), `author_id`, `author_name`, `author_web_site`, `published_date` |
 
-4. Understand the FACT table and its associated 
-   Dimensional Tables
+## The star schema
 
-5. Define 10 Business Intelligence questions 
-   in English language 
-
-6. Express 10 Business Intelligence questions 
-   in SQL using the Star Schema
-```   
-   
-## Book Seller Story: 
-
-A new book seller sells books everywhere in the world.
-
-Given the following 2 operational/transactional database tables
-
-```
-    1. Sales table
-    
-    2. Books table
+```text
+                 dim_location (15)
+                        |
+   dim_book (100) — fact_sales (10,000) — dim_date (731)
+                        |
+                 dim_book_format (3)
 ```
 
-## We answer the following Questions:
+| Table | Key | Built from | Contents |
+|---|---|---|---|
+| `fact_sales` | `transaction_id` | `sales` | keys `book_id`, `location_id`, `date_id`, `format_id`; `sale_type`; measures `quantity_sold` (always 1), `sale_price`, `discount`, `final_price` |
+| `dim_book` | `book_id` (natural key) | `books` | title, genre, author |
+| `dim_location` | `location_id` (surrogate) | distinct (`country_sold`, `city_sold`) | country, city |
+| `dim_date` | `date_id` (surrogate) | distinct `date_sold` | date, year, month, day, weekday, quarter |
+| `dim_book_format` | `format_id` (surrogate) | the 3 BOOLEAN columns | HARDCOPY / PAPERBACK / SOFTCOPY |
 
-1. What is a Star Schema
+**Validation:** 10,000 rows in `sales` = 10,000 in `fact_sales`; revenue 255,735.44 in both; 0 fact rows without dimension keys.
 
-2. How would you design a Star Schema for these given tables
+## Highlights of the 10 business questions
 
-3. What are your ETL programs to create 
-   Star Schema from these 2 operational tables
+- **Genre:** Fantasy earns the most (46,454) because it has 20 of the 100 books; Data Science has the highest average sale (41.72).
+- **Format:** hard copy earns 44% of revenue, but the 3 formats sell almost the same number of copies; hard copies are simply more expensive.
+- **Countries, channels, weekdays, months:** all close to equal (countries within 4%, ONLINE 49% / INSTORE 51%). In this data, *what* is sold matters more than *where* or *when*.
 
-4. What are the 3 Business Intelligence SQL 
-   queries to give an insight to book sales
-
-
-## Book Seller Operational/Transactional Tables
-
-### Sales table:
-~~~
-  COLUMN NAME      DATA TYPE
-  --------------   ----------
-  transaction_id   INTEGER
-  book_id          INTEGER, 
-  sale_type        TEXT, -- { ONLINE, INSTORE}
-  date_sold        DATE
-  year_sold        INTEGER
-  month_sold       INTEGER
-  day_sold         INTEGER
-  sale_price       DOUBLE
-  discount         DOUBLE
-  final_price      DOUBLE -- final_price = sale_price - discount
-  country_sold     TEXT   -- 5 countries (total)
-  city_sold        TEXT   -- 15 cities (total)
-  hard_copy        BOOLEAN
-  paperback        BOOLEAN
-  soft_copy        BOOLEAN
-~~~
-
-### Books table:
-
-~~~
-  COLUMN NAME      DATA TYPE
-  --------------   ----------
-  book_id           INTEGER
-  book_title        TEXT 
-  book_genre        TEXT
-  author_id         INTEGER
-  author_name       TEXT
-  author_web_site   TEXT
-  published_date    DATE
-~~~
-
-# Star Schema BOOK SELLER
-
-## 1. Book table (as DIMENSION)
-
-```
-	The book dimension stores the 
-	name and genre of each book sold
-```
-
-## 2. Location table  (as DIMENSION)
-
-```
-	The location dimension stores the 
-	city and region of the stores
-```
-
-~~~sql
-location_id INTEGER 
-country     TEXT
-city        TEXT 
-~~~
-
-## 3. `dates` table (as DIMENSION)
-
-```
-	table stores the date of each sale.
-```
-
-## 4. Type of Book sold DIMENSION
-
-
-## 5. FACT TABLE sale
-
-```
-	The fact table stores facts about 
-	how many of each book is sold each day.
-```
-
-# Files
+## Files
 
 | File | What it is |
 |---|---|
-| `data/books.csv` | 100 books (operational table) |
-| `data/sales.csv` | 10,000 sales transactions, 2024–2025 (operational table) |
-| `book_seller_to_star_schema.py` | Demo: full ETL into `dim_book`, `dim_location`, `dim_date`, `dim_book_format`, `fact_sales`, plus validation and BI queries |
-
-Used in [Lab 3.1](../labs/week_03_lab_01_student.md).
+| `data/books.csv`, `data/sales.csv` | the 2 operational tables |
+| `book_seller_to_star_schema.py` | the demo (Marimo): load → star schema → validation → 10 BI questions with charts. Run `marimo edit book_seller_to_star_schema.py` from this folder |

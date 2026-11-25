@@ -23,24 +23,23 @@ title: Week 5 — Session 2 — Medallion as a Lakehouse (files + DuckDB)
 
 ---
 
-# 🟫 Bronze = the files that arrived
+# 🟫 Bronze = the Files That Arrived
 
-DuckDB queries files **in place**, with no load step:
+In a lakehouse, Bronze **is** the folder of raw files: nothing is copied or changed. DuckDB reads them **in place**:
 
 ```sql
--- what is there?
+-- what is there? (metadata only, no parsing)
 SELECT COUNT(*) AS files, SUM(size) AS bytes
-FROM read_blob('sales_1400_messy_records/*.csv');      -- 1 file, 132,025 bytes
+FROM read_blob('sales_1400_messy_records/*.csv');                -- 1 file, 132,025 bytes
 
--- a view = "how to read the files", not a copy
+-- a view = "how to read the raw files as text", not a copy
 CREATE VIEW bronze_sales AS
-SELECT *, filename AS _source_file                       -- lineage for free
-FROM read_csv('sales_1400_messy_records/sale_records_1400_messy.csv',
-              all_varchar = true, filename = true);
+SELECT *, filename AS _source_file                                -- lineage for free
+FROM read_csv('sales_1400_messy_records/*.csv', all_varchar = true, filename = true);
 ```
 
-- `filename = true` adds the source file path to every row
-- A glob (`*.csv`) picks up **new files automatically**
+- Same Bronze rules as in Session 1: **as received**, all text, never fixed. New files are **added** to the folder.
+- A glob (`*.csv`) picks up next month's file automatically; `filename = true` says which file each row came from.
 
 ---
 
@@ -57,28 +56,29 @@ FROM read_csv('sales_1400_messy_records/sale_records_1400_messy.csv',
 
 ---
 
-# ⚪ Writing Silver as Partitioned Parquet
+# ⚪ Silver = the Rules' Output, Written as Parquet
+
+Silver applies **the same business rules** as Session 1 and Lab 5.1 (dedup → quarantine → flag cancelled → fix discount → price).
+Only the **storage** changes: the result goes to files.
 
 ```sql
-COPY (
-  SELECT upper(trim(product))              AS product,
-         CAST(quantity AS INT)             AS quantity,
-         CAST(unit_price AS DECIMAL(10,2)) AS unit_price
-  FROM bronze_sales
-  WHERE product IS NOT NULL
-) TO 'silver_sales' (FORMAT parquet, PARTITION_BY (product));
+-- silver.sales and silver.rejected built exactly as in Lab 5.1, then:
+COPY (SELECT * FROM silver.sales)                         -- valid + flagged (is_cancelled)
+TO 'silver_sales' (FORMAT parquet, PARTITION_BY (product));
+
+COPY (SELECT * FROM silver.rejected)                      -- quarantine, with reject_reason
+TO 'silver_rejected.parquet' (FORMAT parquet);
 ```
 
 ```
-silver_sales/product=COMPUTER/data_0.parquet
-silver_sales/product=EBIKE/data_0.parquet
-silver_sales/product=IPAD/data_0.parquet
-silver_sales/product=IPHONE/data_0.parquet
-silver_sales/product=TV/data_0.parquet
-silver_sales/product=WATCH/data_0.parquet
+silver_sales/product=COMPUTER/data_0.parquet      silver_sales/product=IPHONE/data_0.parquet
+silver_sales/product=EBIKE/data_0.parquet         silver_sales/product=TV/data_0.parquet
+silver_sales/product=IPAD/data_0.parquet          silver_sales/product=WATCH/data_0.parquet
 ```
 
-👉 The partition column lives in the **folder name** (`product=TV`), not inside the file (Hive-style)
+- The partition column lives in the **folder name** (`product=TV`), not inside the file (Hive-style).
+- The rejected rows are written too: a lakehouse keeps every fate, exactly like the schemas did. **1,400 = 31 + 78 + 33 + 1,258** still holds.
+- `COPY` creates only the **last** folder: `'lake/silver/sales'` fails unless `lake/silver/` exists.
 
 ---
 
@@ -87,38 +87,42 @@ silver_sales/product=WATCH/data_0.parquet
 ```sql
 SELECT COUNT(*)
 FROM read_parquet('silver_sales/*/*.parquet', hive_partitioning = true)
-WHERE product = 'TV';                                    -- 233
+WHERE product = 'TV';                                    -- 214 (212 valid + 2 cancelled)
 ```
 
 `EXPLAIN ANALYZE` shows:
 
 ```
 READ_PARQUET
-File Filters: (product = 'TV')
+File Filters: product = 'TV'
 Scanning Files: 1/6
 ```
 
-- DuckDB **skips 5 of 6 files** without opening them
-- Partition by what you **filter on most**: usually date (year, month)
-- Don't over-partition: thousands of tiny files are slow
+- DuckDB **skips 5 of 6 files** without opening them.
+- Partition by what you **filter on most**: usually a date (year, month).
+- Don't over-partition: thousands of tiny files are slow.
 
 ---
 
 # 🟡 Gold as Files
 
 ```sql
-COPY (SELECT product, SUM(quantity * unit_price) AS gross_revenue
+COPY (SELECT product,
+             COUNT(*)              AS sales,
+             SUM(final_sale_price) AS revenue           -- after discounts (rule 8)
       FROM read_parquet('silver_sales/*/*.parquet', hive_partitioning = true)
-      GROUP BY product)
+      WHERE NOT is_cancelled                            -- Gold uses the flag explicitly
+      GROUP BY product
+      ORDER BY revenue DESC)
 TO 'gold_revenue_by_product.parquet' (FORMAT parquet);
 
-SELECT * FROM 'gold_revenue_by_product.parquet';          -- query a file like a table
+SELECT * FROM 'gold_revenue_by_product.parquet';         -- IPHONE 352 sales, 562,276.00 … WATCH 143, 92,142.50
 SELECT name, type FROM parquet_schema('gold_revenue_by_product.parquet');
 ```
 
-- One Gold file per business question / dashboard
-- Tableau, Python (pandas/polars), Spark, DuckDB all read the **same** file
-- Parquet is **self-describing**: names and types travel with the data
+- The same numbers as Lab 5.1's `gold.revenue_by_product`: only the storage changed.
+- One Gold file per business question / dashboard; Tableau, pandas, Spark and DuckDB all read the **same** file.
+- Parquet is **self-describing**: column names and types travel with the data.
 
 ---
 
@@ -126,18 +130,18 @@ SELECT name, type FROM parquet_schema('gold_revenue_by_product.parquet');
 
 | | Lab 5.1: schemas in one DuckDB | Lab 5.2: folders of files |
 |---|---|---|
-| Bronze | `bronze.sales` table | view over raw CSVs |
-| Silver | `silver.sales` table | `silver_…/year=…/*.parquet` |
+| Bronze | `bronze.sales_raw` table (all text + lineage) | the raw CSV folder + a view (`filename` = lineage) |
+| Silver | `silver.sales`, `silver.rejected` tables | `silver_sales/product=…/*.parquet`, `silver_rejected.parquet` |
 | Gold | `gold.*` tables | `gold_*.parquet` |
 | Good at | transactions, constraints, one file | open formats, any engine, scale, cheap storage |
 
-👉 The **layer idea** is the same; only where the data lives changes
+👉 The **layers, rules, fates and reconciliation** are the same; only where the data lives changes.
 
 ---
 
 # ✅ Summary
 
-- Lakehouse = lake storage + warehouse discipline (Medallion layers, schemas, quality)
+- Lakehouse = lake storage (open files) + warehouse discipline (Medallion layers, rules, reconciliation)
 - DuckDB reads CSV/Parquet **in place**: `read_csv`, `read_parquet`, `read_blob`, `glob`
 - `COPY … (FORMAT parquet, PARTITION_BY (…))` writes a partitioned layer
 - `hive_partitioning = true` + a filter → **partition pruning**

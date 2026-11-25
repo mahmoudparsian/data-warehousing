@@ -14,12 +14,12 @@ Notes for the Marimo notebook: dw_1400_messy_records.py  (open it with: marimo e
 
 The rule mapping is explicit in the notebook:
 
-* Rule 7 → silver.step01_dedup
+* Rule 7 → silver.step01_dedup (duplicates removed, counted)
 * Rule 4 → silver.step03_discount_fixed
 * Rules 5 and 6 → silver.step04_date_parsed
-* Rules 2 and 3 → silver.rejected_records
-* Rule 1 → silver.cancelled_transactions
-* Rule 8 → silver.sales_clean
+* Rules 2, 3, 5, 6 → silver.rejected (quarantine, with reject_reason)
+* Rules 1 and 8 → silver.sales (is_cancelled flag, final_sale_price)
+* Reconcile: 1,400 = 31 duplicates + 78 rejected + 33 flagged + 1,258 valid
 
 One note:
 
