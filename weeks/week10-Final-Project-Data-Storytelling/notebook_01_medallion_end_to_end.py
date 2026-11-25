@@ -14,223 +14,71 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # Week 10 — Medallion Architecture End to End
+    # Week 10 — The Whole Course in One Notebook: Bronze → Silver → Gold → KPI → Story
 
-    ## Goal
-    Demonstrate **Bronze → Silver → Gold** with:
-    - messy data
-    - failures (duplicates, inconsistent values)
-    - incremental updates (Day 2)
-    - sliding window vs naive incremental
-    - KPI drift and fixes
+    A small messy source ([`insurance_bronze_raw.csv`](insurance_bronze_raw.csv), [metadata](insurance_bronze_raw.metadata.md)): 90 **versions**
+    of 25 customers (`customer_id`, `region`, `smoker`, `charges`, `updated_at`). Every step in SQL, every number from a run.
 
-    ## Core Message
-    👉 Medallion = progressive trust
-    👉 Pipelines must handle **change over time**
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## Load Bronze Data (CSV)
+    | Week | Step here |
+    |---|---|
+    | 5–6 | Bronze as received + profile |
+    | 6–7 | Silver: conform with a mapping table, keep the latest version per customer, reconcile |
+    | 8 | Gold: dimensions, fact, a mart of additive parts, KPIs as ratios of sums |
+    | 9 | Day 2: new, updated and late versions; naive filter vs look-back; drift |
+    | 10 | KPI card and a Situation → Complication → Resolution story |
     """)
     return
 
 
 @app.cell
 def _():
-    import pandas as pd
-    import numpy as np
+    import duckdb
     import matplotlib.pyplot as plt
 
-    raw = pd.read_csv("insurance_bronze_raw.csv")
-    raw["updated_at"] = pd.to_datetime(raw["updated_at"])
+    con = duckdb.connect()   # in memory
+    con.execute("SET TimeZone = 'UTC'")
 
-    raw.head()
-    return pd, plt, raw
+    def q(sql):
+        return con.execute(sql).df()
+
+    return con, plt, q
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Bronze Characteristics
-    - messy regions (NE, north-east, etc.)
-    - inconsistent smoker values
-    - duplicates
-    - no guarantees
-
-    👉 **No trust yet**
+    ## Bronze: As Received, Then Profiled
     """)
     return
 
 
 @app.cell
-def _(raw):
-    print("Rows:", len(raw))
-    print("\nRegion distribution (raw):")
-    print(raw["region"].value_counts().head(10))
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## Step 1 — Silver (Cleaning + Dedup)
-    We:
-    - standardize region + smoker
-    - deduplicate by latest updated_at per customer_id
+def _(con, q):
+    con.execute("""
+    CREATE SCHEMA IF NOT EXISTS bronze; CREATE SCHEMA IF NOT EXISTS silver; CREATE SCHEMA IF NOT EXISTS gold;
+    CREATE OR REPLACE TABLE bronze.insurance AS
+    SELECT *, 'insurance_bronze_raw.csv' AS _source_file, 1 AS _batch_id
+    FROM read_csv('insurance_bronze_raw.csv', all_varchar = true);
+    """)
+    q("""
+    SELECT COUNT(*) AS versions, COUNT(DISTINCT customer_id) AS customers, COUNT(DISTINCT region) AS region_spellings,
+           COUNT(DISTINCT smoker) AS smoker_spellings, MIN(updated_at) AS first_update, MAX(updated_at) AS last_update
+    FROM bronze.insurance
     """)
     return
 
 
 @app.cell
-def _(raw):
-    def build_silver(df):
-        x = df.copy()
-
-        region_map = {
-            "NE": "northeast",
-            "north-east": "northeast",
-            "Northeast": "northeast",
-            "NW": "northwest",
-            "north-west": "northwest",
-            "Northwest": "northwest",
-            "SE": "southeast",
-            "south-east": "southeast",
-            "Southeast": "southeast",
-            "SW": "southwest",
-            "southwest": "southwest"
-        }
-
-        x["region"] = x["region"].replace(region_map).str.lower()
-        x["smoker"] = x["smoker"].str.lower()
-
-        # dedup latest per customer_id
-        x = x.sort_values(["customer_id", "updated_at"], ascending=[True, False])
-        x["rn"] = x.groupby("customer_id").cumcount() + 1
-        x = x[x["rn"] == 1].drop(columns="rn")
-
-        return x
-
-    silver_day1 = build_silver(raw)
-    silver_day1.head()
-    return build_silver, silver_day1
-
-
-@app.cell
-def _(silver_day1):
-    print("Rows (Silver):", len(silver_day1))
-    print("\nRegion distribution (silver):")
-    print(silver_day1["region"].value_counts())
+def _(q):
+    q("SELECT region, COUNT(*) AS versions FROM bronze.insurance GROUP BY 1 ORDER BY 2 DESC, 1")
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Step 2 — Gold (Model + KPI)
-    """)
-    return
-
-
-@app.cell
-def _(silver_day1):
-    # dimensions
-    dim_region = silver_day1[["region"]].drop_duplicates().reset_index(drop=True)
-    dim_region["region_id"] = range(1, len(dim_region)+1)
-
-    dim_smoker = silver_day1[["smoker"]].drop_duplicates().reset_index(drop=True)
-    dim_smoker["smoker_id"] = range(1, len(dim_smoker)+1)
-
-    # fact
-    fact = (
-        silver_day1
-        .merge(dim_region, on="region")
-        .merge(dim_smoker, on="smoker")
-    )
-
-    fact = fact[["customer_id", "region_id", "smoker_id", "charges", "updated_at"]]
-
-    # mart
-    mart_day1 = (
-        fact.merge(dim_region, on="region_id")
-            .groupby("region")["charges"]
-            .mean()
-            .reset_index(name="avg_charges")
-    )
-
-    mart_day1
-    return (mart_day1,)
-
-
-@app.cell
-def _(mart_day1, plt):
-    plt.figure()
-    plt.bar(mart_day1["region"], mart_day1["avg_charges"])
-    plt.title("Day 1 KPI (Gold)")
-    plt.show()
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    # 🔁 Day 2 — Incremental Scenario
-
-    We simulate:
-    - new rows
-    - updates
-    - late-arriving rows
-    """)
-    return
-
-
-@app.cell
-def _(pd, raw):
-    # new rows
-    new_rows = raw.sample(8, random_state=1).copy()
-    new_rows["customer_id"] = range(raw["customer_id"].max()+1, raw["customer_id"].max()+1+len(new_rows))
-    new_rows["updated_at"] = pd.Timestamp("2024-01-04")
-
-    # updates
-    updates = raw.sample(6, random_state=2).copy()
-    updates["charges"] = updates["charges"] * 1.2
-    updates["updated_at"] = pd.Timestamp("2024-01-04 01:00")
-
-    # late data (older timestamp)
-    late = raw.sample(4, random_state=3).copy()
-    late["customer_id"] = range(new_rows["customer_id"].max()+1, new_rows["customer_id"].max()+1+len(late))
-    late["updated_at"] = pd.Timestamp("2024-01-02")
-
-    day2 = pd.concat([new_rows, updates, late], ignore_index=True)
-    day2.head()
-    return (day2,)
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## Naive Incremental (FAILURE)
-    """)
-    return
-
-
-@app.cell
-def _(day2, pd):
-    last_run = pd.Timestamp("2024-01-03")
-
-    naive = day2[day2["updated_at"] > last_run]
-
-    print("Naive rows:", len(naive))
-    return (last_run,)
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    👉 Late data is missed → KPI becomes wrong
+    **To-do list from the profile:** 11 spellings of 4 regions, smoker in several spellings, and 90 versions for 25 customers
+    (each customer was updated several times: the business wants the **latest** version).
     """)
     return
 
@@ -238,108 +86,143 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Sliding Window (FIX)
+    ## Silver: Conform, Keep the Latest Version, Reconcile
     """)
     return
 
 
 @app.cell
-def _(day2, last_run, pd):
-    safe = day2[day2["updated_at"] > last_run - pd.Timedelta(days=2)]
-    print("Sliding window rows:", len(safe))
-    return (safe,)
+def _(con, q):
+    con.execute("""
+    CREATE OR REPLACE MACRO norm_region(r) AS regexp_replace(lower(trim(r)), '[ -]', '', 'g');
+    CREATE OR REPLACE TABLE silver.map_region AS SELECT * FROM (VALUES
+        ('ne', 'northeast'), ('northeast', 'northeast'), ('nw', 'northwest'), ('northwest', 'northwest'),
+        ('se', 'southeast'), ('southeast', 'southeast'), ('sw', 'southwest'), ('southwest', 'southwest')) t(region_key, region);
+    CREATE OR REPLACE TABLE silver.map_smoker AS SELECT * FROM (VALUES ('yes', 'yes'), ('true', 'yes'), ('no', 'no'), ('false', 'no')) t(smoker_key, smoker);
+
+    CREATE OR REPLACE TABLE silver.step1_standardized AS
+    SELECT CAST(b.customer_id AS INT) AS customer_id, COALESCE(r.region, 'unknown') AS region, COALESCE(s.smoker, 'unknown') AS smoker,
+           CAST(b.charges AS DECIMAL(10, 2)) AS charges, CAST(b.updated_at AS TIMESTAMP) AS updated_at, b.region AS region_raw
+    FROM bronze.insurance b
+    LEFT JOIN silver.map_region r ON r.region_key = norm_region(b.region)
+    LEFT JOIN silver.map_smoker s ON s.smoker_key = lower(trim(b.smoker));
+
+    CREATE OR REPLACE TABLE silver.customers AS                 -- one row per customer: the latest version
+    SELECT * FROM silver.step1_standardized
+    QUALIFY ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY updated_at DESC) = 1;
+    """)
+    q("""
+    SELECT (SELECT COUNT(*) FROM bronze.insurance) AS bronze_versions,
+           (SELECT COUNT(*) FROM silver.customers) AS silver_customers,
+           (SELECT COUNT(*) FROM silver.step1_standardized) - (SELECT COUNT(*) FROM silver.customers) AS older_versions_superseded,
+           (SELECT COUNT(*) FROM silver.customers WHERE region = 'unknown' OR smoker = 'unknown') AS flagged_unknown
+    """)
+    return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Dedup BEFORE Merge
+    Every version has a fate: **90 = 25 current + 65 superseded** (older versions of the same customer, counted; Bronze keeps them).
+    Every spelling maps (0 `unknown`).
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Gold: Star Schema and a Mart of Additive Parts
     """)
     return
 
 
 @app.cell
-def _(pd, raw, safe):
-    combined = pd.concat([raw, safe], ignore_index=True)
-
-    dedup = combined.sort_values(["customer_id", "updated_at"], ascending=[True, False])
-    dedup["rn"] = dedup.groupby("customer_id").cumcount() + 1
-    dedup = dedup[dedup["rn"] == 1].drop(columns="rn")
-
-    dedup.head()
-    return (dedup,)
+def _(con, q):
+    con.execute("""
+    CREATE OR REPLACE TABLE gold.dim_region AS
+    SELECT ROW_NUMBER() OVER (ORDER BY region) AS region_key, region FROM (SELECT DISTINCT region FROM silver.customers);
+    CREATE OR REPLACE TABLE gold.dim_smoker AS
+    SELECT ROW_NUMBER() OVER (ORDER BY smoker) AS smoker_key, smoker FROM (SELECT DISTINCT smoker FROM silver.customers);
+    CREATE OR REPLACE TABLE gold.fact_customer AS
+    SELECT c.customer_id, r.region_key, s.smoker_key, c.charges, c.updated_at
+    FROM silver.customers c JOIN gold.dim_region r USING (region) JOIN gold.dim_smoker s USING (smoker);
+    CREATE OR REPLACE TABLE gold.mart_region_smoker AS
+    SELECT r.region, s.smoker, COUNT(*) AS customers, SUM(f.charges) AS total_charges
+    FROM gold.fact_customer f JOIN gold.dim_region r USING (region_key) JOIN gold.dim_smoker s USING (smoker_key)
+    GROUP BY ALL;
+    """)
+    q("""
+    SELECT 'fact rows = silver' AS test, (SELECT COUNT(*) FROM gold.fact_customer) = (SELECT COUNT(*) FROM silver.customers) AS passed
+    UNION ALL SELECT 'mart charges = fact', (SELECT SUM(total_charges) FROM gold.mart_region_smoker) = (SELECT SUM(charges) FROM gold.fact_customer)
+    """)
+    return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Rebuild Silver + Gold (Day 2)
+    ## KPI: Average Charges per Customer, Three Ways
     """)
     return
 
 
 @app.cell
-def _(build_silver, dedup):
-    silver_day2 = build_silver(dedup)
-
-    dim_region2 = silver_day2[["region"]].drop_duplicates().reset_index(drop=True)
-    dim_region2["region_id"] = range(1, len(dim_region2)+1)
-
-    fact2 = silver_day2.merge(dim_region2, on="region")
-    fact2 = fact2[["customer_id", "region_id", "charges", "updated_at"]]   # keep keys + measures only (as on Day 1)
-
-    mart_day2 = (
-        fact2.merge(dim_region2, on="region_id")
-            .groupby("region")["charges"]
-            .mean()
-            .reset_index(name="avg_charges")
-    )
-
-    mart_day2
-    return (mart_day2,)
+def _(q):
+    q("""
+    SELECT 'Bronze, every version' AS computed_from, COUNT(*) AS n_rows, ROUND(AVG(CAST(charges AS DOUBLE)), 2) AS avg_charges
+    FROM bronze.insurance
+    UNION ALL
+    SELECT 'Gold mart, average of the cell averages', COUNT(*), ROUND(AVG(total_charges / customers), 2)
+    FROM gold.mart_region_smoker
+    UNION ALL
+    SELECT 'Gold mart, ratio of sums (correct)', SUM(customers)::BIGINT, ROUND(SUM(total_charges) / SUM(customers), 2)
+    FROM gold.mart_region_smoker
+    """)
+    return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## KPI Drift Comparison
+    | KPI card | |
+    |---|---|
+    | Name | average charges per customer |
+    | Formula | `SUM(charges) / COUNT(*)` over current customers (from the mart: `SUM(total_charges) / SUM(customers)`) |
+    | Grain | customer (latest version) |
+    | Additive? | no: recompute from the parts, never average averages |
     """)
     return
 
 
 @app.cell
-def _(mart_day1, mart_day2):
-    compare = mart_day1.merge(mart_day2, on="region", how="outer", suffixes=("_day1","_day2"))
-    compare
+def _(plt, q):
+    _df = q("""
+    SELECT region, smoker, ROUND(SUM(total_charges) / SUM(customers), 2) AS avg_charges, SUM(customers)::BIGINT AS customers
+    FROM gold.mart_region_smoker GROUP BY ALL ORDER BY region, smoker
+    """)
+    _p = _df.pivot(index="region", columns="smoker", values="avg_charges")
+    _ax = _p.plot.bar(figsize=(8, 4), rot=0)
+    _ax.set_title("Average charges per customer, by region and smoker status (n is small: 25 customers)")
+    plt.tight_layout()
+    _ax.figure
     return
 
 
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## FINAL MESSAGE
+@app.cell
+def _(q):
+    q("""
+    SELECT smoker, SUM(customers)::BIGINT AS customers, ROUND(SUM(total_charges) / SUM(customers), 2) AS avg_charges
+    FROM gold.mart_region_smoker GROUP BY 1 ORDER BY 1
+    """)
+    return
 
-    ### Bronze
-    data exists
 
-    ### Silver
-    data is trusted
-
-    ### Gold
-    data is usable
-
-    ---
-
-    ### WITH INCREMENTAL
-
-    👉 correctness must be maintained over time
-
-    ---
-
-    ## FINAL TRUTH
-
-    👉 Medallion = trust
-    👉 Pipeline = preserves trust over time
+@app.cell
+def _(q):
+    q("""
+    SELECT region, SUM(customers)::BIGINT AS customers, ROUND(SUM(total_charges) / SUM(customers), 2) AS avg_charges
+    FROM gold.mart_region_smoker GROUP BY 1 ORDER BY 1
     """)
     return
 
@@ -347,116 +230,65 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # 🧠 Executive Storytelling Section (Capstone)
+    ## Day 2: New, Updated and Late Versions (Week 9)
 
-    ## Business Question
-    👉 How do data quality and pipeline design affect business decisions?
+    Run 1 ran on Jan 5, 00:00. Day 2's feed (deterministic): 3 new customers, 4 updates (+20% charges), and 3 **late** versions (the 3 lowest-numbered non-smokers above 7 became
+    smokers on Jan 4 at 23:00, but the change arrived after run 1). Run 2 (Jan 6, 00:00): naive (`updated_at > last run`) vs a 1-day look-back.
+    """)
+    return
 
-    ---
 
-    ## What We Did
+@app.cell
+def _(con, q):
+    con.execute("""
+    CREATE OR REPLACE TABLE day2 AS
+    SELECT 100 + customer_id AS customer_id, region, smoker, charges, TIMESTAMP '2024-01-05 10:00' AS updated_at FROM silver.customers WHERE customer_id IN (1, 2, 3)
+    UNION ALL SELECT customer_id, region, smoker, ROUND(charges * 1.20, 2), TIMESTAMP '2024-01-05 11:00' FROM silver.customers WHERE customer_id IN (4, 5, 6, 7)
+    UNION ALL SELECT customer_id, region, 'yes', ROUND(charges * 1.50, 2), TIMESTAMP '2024-01-04 23:00' FROM silver.customers
+    WHERE customer_id IN (SELECT customer_id FROM silver.customers WHERE smoker = 'no' AND customer_id > 7 ORDER BY customer_id LIMIT 3);
 
-    We built a full system:
+    CREATE OR REPLACE MACRO run2(since) AS TABLE
+    SELECT * FROM (SELECT customer_id, region, smoker, charges, updated_at FROM silver.customers
+                   UNION ALL
+                   SELECT * FROM day2 WHERE updated_at > since)
+    QUALIFY ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY updated_at DESC) = 1;
+    """)
+    drift = q("""
+    SELECT 'day 1' AS state, COUNT(*) AS customers, COUNT(*) FILTER (WHERE smoker = 'yes') AS smokers,
+           ROUND(SUM(charges) / COUNT(*), 2) AS avg_charges FROM silver.customers
+    UNION ALL
+    SELECT 'day 2, naive (updated_at > Jan 5)', COUNT(*), COUNT(*) FILTER (WHERE smoker = 'yes'), ROUND(SUM(charges) / COUNT(*), 2)
+    FROM run2(TIMESTAMP '2024-01-05 00:00')
+    UNION ALL
+    SELECT 'day 2, look-back (updated_at > Jan 4)', COUNT(*), COUNT(*) FILTER (WHERE smoker = 'yes'), ROUND(SUM(charges) / COUNT(*), 2)
+    FROM run2(TIMESTAMP '2024-01-04 00:00')
+    """)
+    drift
+    return (drift,)
 
-    - Bronze → raw, messy data
-    - Silver → cleaned, deduplicated, standardized
-    - Gold → modeled, KPI-ready
 
-    Then we simulated:
-    - new data
-    - updates
-    - late-arriving data
+@app.cell
+def _(mo):
+    mo.md(r"""
+    The naive run misses the 3 late versions: both day-2 runs have **28 customers**, but the naive one has 16 smokers instead of 19 and an average of
+    $8,612.63 instead of $8,941.00. Same row count, different KPI: a count check would not catch it; a comparison with a full rebuild would (week 9).
+    """)
+    return
 
-    ---
 
-    ## Key Findings
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## The One-Slide Story (Situation → Complication → Resolution)
 
-    ### 1. Raw Data Is Misleading
-    - inconsistent regions
-    - duplicates
-    - unreliable KPIs
+    Every number below comes from a query above (≤ 60 words in the real slide):
 
-    👉 Raw data should NEVER be used for decisions
+    > **Situation:** our 25 customers cost **$8,100.46** each on average (ratio of sums; the raw versions would say $8,307.62).
+    > **Complication:** at this size nothing clearly drives cost: smokers average **$7,987.29**, non-smokers **$8,270.20**; regions range from
+    > $6,848.89 (southeast, 9 customers) to $10,151.00 (northeast, **2** customers). And a naive daily load would silently miss late changes.
+    > **Resolution:** don't change prices on 25 customers; collect a year of data, load it with a look-back window, and prove every run against a full rebuild.
+    > *Caveat: 25 customers, synthetic data. "No clear driver yet" is a finding too.*
 
-    ---
-
-    ### 2. Silver Creates Trust
-    - standardized values
-    - deduplication
-    - consistent records
-
-    👉 Silver = trusted foundation
-
-    ---
-
-    ### 3. Gold Produces Business Truth
-    - structured schema
-    - clear aggregations
-    - stable KPIs
-
-    👉 Gold = decision-ready data
-
-    ---
-
-    ### 4. Pipelines Must Handle Change
-
-    We showed:
-
-    - naive incremental → misses late data
-    - no dedup → duplicates inflate KPI
-
-    👉 pipelines must handle:
-    - time
-    - updates
-    - late data
-
-    ---
-
-    ## KPI Impact
-
-    Bad pipeline:
-    - inflated or missing values
-
-    Correct pipeline:
-    - consistent KPI
-    - reliable insights
-
-    ---
-
-    ## Business Insight Example
-
-    KPI:
-    👉 average charges by region
-
-    Insight:
-    👉 some regions have significantly higher costs
-
-    Decision:
-    👉 adjust pricing, policy, or resource allocation
-
-    ---
-
-    ## Final Executive Message
-
-    👉 Data systems are NOT about storage
-
-    👉 They are about:
-
-    - trust
-    - consistency
-    - decision-making
-
-    ---
-
-    ## Final Truth
-
-    Bronze → data exists
-    Silver → data is trusted
-    Gold → data drives decisions
-
-    ---
-
-    👉 If KPI is wrong, the decision is wrong
     """)
     return
 

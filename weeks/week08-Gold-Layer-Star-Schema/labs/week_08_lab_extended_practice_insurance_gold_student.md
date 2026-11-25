@@ -1,213 +1,53 @@
----
-marp: true
-theme: default
-paginate: true
----
-
 # Week 8 — Extended Practice (optional): Gold Modeling on Insurance Data
 
-> Uses the **insurance** Silver table from the optional week 7 practice (`silver_insurance`). For a complete worked example,
-> see [`../insurance_medallion_example/`](../insurance_medallion_example/) (`medallion_build_star_schema.py`).
+> Input: week 7's insurance Silver table `silver.insurance` (5,197 policy-years, 2021–2024, flags for unknown region / smoker / gender).
+> Build it from the **week 8 folder** (one level up from `labs/`): `duckdb insurance.duckdb < insurance_silver_week07.sql`, then work in `insurance.duckdb`.
+> Worked example of the same steps (try first, then compare): [slides 1](../lecture_notes_01_gold_modeling.md) and
+> [`../notebook_01_gold_star_schema.py`](../notebook_01_gold_star_schema.py). A second, larger case: [`../insurance_medallion_example/`](../insurance_medallion_example/).
+
+## 🎯 Objective
+
+Build a star schema and two data marts from `silver.insurance`, prove that they agree with Silver, and answer three business questions with KPIs
+that add up.
 
 ---
 
-# 🎯 Objective
+## Part A — Questions first
 
-Build a **Gold Layer (Star Schema + Data Marts)** from a Silver dataset.
+**A1.** Write 3 business questions the insurer would ask (e.g. "Does a high BMI cost more for smokers than for non-smokers?").
+For each: the **measure** and the **dimensions** it needs.
 
-You will:
-- define grain
-- design fact + dimensions
-- build Gold tables
-- create data marts
-- validate KPIs
-- justify decisions
+## Part B — Grain
 
----
+**B1.** Write the grain as a sentence ("One row = …"). **B2.** Test it: number of rows vs number of distinct grain values.
+✍️ What would one undetected copy per smoker do to your totals?
 
-# 📊 Dataset
+## Part C — Dimensions
 
-Use your **Silver dataset from Week 7**:
-`silver_insurance`
+**C1.** Build `gold.dim_region`, `gold.dim_smoker` (each with an `unknown` member) and `gold.dim_bmi_class`
+(`underweight` < 18.5 ≤ `normal` < 25 ≤ `overweight` < 30 ≤ `obese`), each with a surrogate key numbered by an **ordered** `ROW_NUMBER()`
+over the **distinct** values (or a `VALUES` list). Row counts?
 
-Columns:
-- age
-- region
-- smoker
-- charges
-- year
-- (optional) age_group, bmi_group
+🐞 **C2.** Run `SELECT COUNT(*) FROM (SELECT DISTINCT ROW_NUMBER() OVER () AS k, region FROM silver.insurance);`. Why isn't it 5?
 
----
+## Part D — Fact and validation
 
-# 🧠 PART A — BUSINESS THINKING FIRST
+**D1.** Build `gold.fact_policy_year` (surrogate key, `year`, the 3 dimension keys, `age`, `charges`, `is_flagged`).
+**D2.** Four tests that must pass: rows = Silver, `SUM(charges)` = Silver, no NULL keys, unique surrogate key.
 
-## A1 — Define Business Questions
+## Part E — Marts
 
-Write at least 3:
+**E1.** `gold.mart_region_year` (grain: region × year) and `gold.mart_bmi_smoker` (grain: BMI class × smoker), with **additive parts only**
+(`policy_years`, `total_charges`, …). **E2.** Check each mart against the fact (rows and charges).
 
-Example:
-- avg charges by region
-- smoker vs non-smoker cost
-- trend over time
+## Part F — KPIs
+
+**F1.** Average charges per BMI class × smoker (from `mart_bmi_smoker`, as a ratio of sums). ✍️ Answer your BMI question from A1.
+**F2.** 🐞 Compute "average charges" as the average of the 5 region averages, and as `SUM / COUNT`. Which is the company's number? Why do they differ?
+**F3.** Average charges per year: overall, then per smoker status. ✍️ Is there a trend? What does the overall line hide?
 
 ---
 
-## 🎯 Expectation
+## ✅ Deliverables
 
-For each:
-- question
-- required dimensions
-- required measure
-
----
-
-# 🧱 PART B — DEFINE GRAIN (CRITICAL)
-
-## B1 — Define Grain
-
-Write clearly:
-
-👉 “One row represents ______”
-
----
-
-## B2 — Justify
-
-Explain:
-- why this grain
-- what happens if wrong
-
----
-
-# 🧩 PART C — DESIGN DIMENSIONS
-
-## C1 — Choose Dimensions (at least 3)
-
-Example:
-- region
-- smoker
-- time
-
----
-
-## C2 — Create Dimension Tables
-
-Each must:
-- remove duplicates
-- include surrogate key
-
----
-
-## 🎯 Deliverable
-
-Table schema + SQL
-
----
-
-# 📦 PART D — BUILD FACT TABLE
-
-## D1 — Create Fact Table
-
-Include:
-- foreign keys
-- measures (charges)
-
----
-
-## D2 — Join with Dimensions
-
-Ensure:
-- no NULL foreign keys
-
----
-
-## 🎯 Deliverable
-
-SQL + explanation
-
----
-
-# 📊 PART E — BUILD DATA MARTS
-
-## E1 — Create 2 Data Marts
-
-Examples:
-- avg charges by region
-- avg charges by year
-- smoker analysis
-
----
-
-## E2 — Write SQL
-
----
-
-## 🎯 Deliverable
-
-- SQL
-- output
-- interpretation
-
----
-
-# ✅ PART F — VALIDATION
-
-## F1 — Check Fact Table
-
-- row count
-- NULL keys
-
----
-
-## F2 — Check KPI Consistency
-
-Compare:
-
-- SUM(charges) in Silver  
-- SUM(charges) in Fact  
-
----
-
-## F3 — Check Dimensions
-
-- uniqueness
-- completeness
-
----
-
-# 📊 PART G — KPI ANALYSIS
-
-Compare:
-
-- KPI from Silver  
-- KPI from Gold  
-
-Explain differences
-
----
-
-# 🧠 PART H — REASONING
-
-For EACH step:
-
-- what you did  
-- why you did it  
-- what breaks if skipped  
-
----
-
-# 📦 DELIVERABLES
-
-- SQL
-- outputs
-- explanations
-
----
-
-# 🔥 FINAL MESSAGE
-
-Gold is not about tables.
-
-It is about:
-👉 defining business truth
+SQL and results for every part, your grain sentence, and 4–6 sentences: the most surprising answer, and the one test you would never skip.

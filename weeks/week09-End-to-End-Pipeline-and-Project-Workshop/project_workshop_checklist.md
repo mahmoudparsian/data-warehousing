@@ -12,8 +12,8 @@ steps: [`../PROJECT/Project-Step-by-Step-Medallion_Architecture.md`](../PROJECT/
 | 2 | **EDA** on the raw data: NULLs, duplicates, formats, outliers, suspicious values | ☐ | week 2 (Lab 2.2), [EDA guidelines](../PROJECT/DW_EDA_Guidelines.md) |
 | 3 | **Bronze**: raw files landed as text, with `_source_file` / `_batch_id` / `_ingested_at`; load errors recorded (`store_rejects`) | ☐ | week 6 (Lab 6.1) |
 | 4 | **Business rules** written down (fix / reject / flag), one line each | ☐ | weeks 3, 5, 6 |
-| 5 | **Silver**: rules applied; rejected rows kept with a reason; types cast; duplicates removed (raw first) | ☐ | weeks 5–7 |
-| 6 | **Reconciliation**: Bronze rows = valid + rejected + duplicates (+ flagged) | ☐ | weeks 3, 5, 6, 7 |
+| 5 | **Silver**: rules applied; rejected rows kept with a reason; types cast; duplicates removed and **counted** (a duplicate = the same real thing twice: week 7, slides 2 Step 4) | ☐ | weeks 5–7 |
+| 6 | **Reconciliation**: Bronze rows = valid + flagged + rejected + duplicates | ☐ | weeks 3, 5, 6, 7 |
 | 7 | Second source? **Conformed** with mapping tables (codes, names, time zones) | ☐ | week 7 |
 | 8 | **Grain** of the fact table in one sentence, tested on the data | ☐ | weeks 3, 8 |
 | 9 | **Star schema**: date dimension as a full calendar (+ Unknown), other dimensions with surrogate keys, fact with additive measures | ☐ | weeks 3, 4, 8 |

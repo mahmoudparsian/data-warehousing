@@ -30,7 +30,8 @@ By the end of the week you can:
 | Folder / file | Contents |
 |---|---|
 | [`labs/`](labs/) | Labs 8.1 and 8.2 (sheet `.md` + Marimo notebook, released in class) · `week_08_lab_setup.sql` (rebuilds weeks 6–7 up to `silver.sales_lines` in about 2 s), [extended practice](labs/week_08_lab_extended_practice_insurance_gold_student.md): Gold on insurance data (optional) |
-| `notebook_01_gold_star_schema.py` | Gold modeling walkthrough on the insurance data: business questions → grain → dimensions → fact → marts |
+| [`notebook_01_gold_star_schema.py`](notebook_01_gold_star_schema.py) | Slides 1's star schema on week 7's insurance Silver (5,197 policy-years), with charts: grain test, dimensions with an `unknown` member, fact + validation, 2 marts, 3 answers (incl. a trend that is only a smoker-mix effect) |
+| [`insurance_silver_week07.sql`](insurance_silver_week07.sql) | Rebuilds week 7's `silver.insurance` (input for slides 1, the notebook and the extended practice): `duckdb insurance.duckdb < insurance_silver_week07.sql` |
 | [`insurance_medallion_example/`](insurance_medallion_example/) | A complete second case: 4 years of messy insurance files → Bronze → Silver ([business rules](insurance_medallion_example/business_rules.md)) → Gold star schema → executive dashboard (3 notebooks, run in order: EDA, build, dashboard) |
 
 ## ⚙️ Setup

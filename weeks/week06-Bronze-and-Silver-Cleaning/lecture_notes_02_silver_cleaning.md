@@ -173,6 +173,8 @@ SELECT (SELECT COUNT(*) FROM (SELECT DISTINCT * FROM bronze.insurance))         
 
 The third copy of the 19-year-old smoker says `northeast` instead of `NE`: identical **only after** standardizing.
 **Deduplicate after standardizing**, or copies that differ only in spelling survive and double-count.
+(The rule behind it: a duplicate = the **same real thing** sent twice. Two customers can't share age, bmi and charges to the cent, so compare standardized values.
+[Week 7](../week07-Silver-Layer-Cleaning-and-Conforming/lecture_notes_02_conforming_in_duckdb.md) shows the other case: order lines with no line id, where two real pizzas can look identical.)
 
 ```sql
 CREATE OR REPLACE TABLE silver.step2_dedup AS

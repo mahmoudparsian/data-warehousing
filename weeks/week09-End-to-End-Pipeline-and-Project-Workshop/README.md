@@ -29,9 +29,9 @@ By the end of the week you can:
 
 | Folder / file | Contents |
 |---|---|
-| [`labs/`](labs/) | Labs 9.1 and 9.2 (sheet `.md` + Marimo notebook, released in class) · `week_09_lab_setup.sql` (the week 6–8 pizza warehouse for POS sales + empty delivery pipeline + `silver.delivery_conform(run_id)` macro), [extended practice](labs/week_09_lab_extended_practice_insurance_incremental_student.md): updates/upserts on insurance data (optional) |
+| [`labs/`](labs/) | Labs 9.1 and 9.2 (sheet `.md` + Marimo notebook, released in class) · `week_09_lab_setup.sql` (the week 6–8 pizza warehouse for POS sales + empty delivery pipeline + `silver.delivery_conform(run_id)` macro), [extended practice](labs/week_09_lab_extended_practice_insurance_incremental_student.md): updates/upserts on an insurance change feed, choosing the look-back window (optional) |
 | [`pizza_incremental/landing/`](pizza_incremental/landing/) | The delivery app's export, one file per **UTC** month (`delivery_app_2016_01.csv` … `_12.csv`, `delivery_app_2017_01.csv`), plus a corrected re-send `delivery_app_2016_06_v2.csv` |
-| `notebook_01_incremental_pipeline.py` | Day 1 / Day 2 incremental pipeline demo with updates and late rows (insurance data) |
+| [`notebook_01_incremental_pipeline.py`](notebook_01_incremental_pipeline.py) | Slides 1's change feed run by run, two pipelines side by side (naive `updated_at > last run` vs a 1-day look-back), idempotent `MERGE`, the proof against a full rebuild (naive: 12 customers wrong), touched partitions, charts |
 | [`project_workshop_checklist.md`](project_workshop_checklist.md) | 15-step checklist for your team project, mapped to the weeks where each step was taught |
 
 ## ⚙️ Setup

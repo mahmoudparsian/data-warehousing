@@ -1,6 +1,11 @@
 # Business Rules for Insurance Data (Data Warehousing Context)
 
 ## Overview
+
+> Week 5 vocabulary: every Bronze row ends **valid**, **flagged** (kept + a flag column), **rejected** (kept in a reject table with a reason) or a
+> **duplicate** (removed and counted). "Reject" below never means a silent `WHERE`.
+> These rules are a **different business's** rules than week 7's (e.g. `central`, `east`, `west` are valid regions here, and a `maybe` smoker
+> is rejected, not flagged): different business, different rules; the fates and the reconciliation stay the same.
 These business rules define the expected quality, 
 validity, and semantics of the insurance dataset.  
 They are used to guide the transformation from 
@@ -32,7 +37,7 @@ They are used to guide the transformation from
 - 'abc'
 
 **Action:**
-- Cast to numeric, filter invalid values
+- Cast to numeric (`TRY_CAST`); reject invalid records in Silver (reject table + reason)
 
 ---
 
@@ -46,7 +51,7 @@ They are used to guide the transformation from
 - 'N/A'
 
 **Action:**
-- Remove or filter invalid records
+- Reject invalid records in Silver (reject table + reason)
 
 ---
 
@@ -59,7 +64,7 @@ They are used to guide the transformation from
 - 25
 
 **Action:**
-- Filter invalid values
+- Reject invalid records in Silver (reject table + reason)
 
 ---
 
@@ -113,7 +118,7 @@ They are used to guide the transformation from
 - Duplicate rows should not exist
 
 **Action:**
-- Deduplicate using DISTINCT or ROW_NUMBER()
+- Deduplicate after standardizing (`ROW_NUMBER()` per copy group); remove the copies and **count** them
 
 ---
 

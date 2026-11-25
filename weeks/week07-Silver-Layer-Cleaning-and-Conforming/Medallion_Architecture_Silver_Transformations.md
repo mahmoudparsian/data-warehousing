@@ -1,11 +1,13 @@
 # Common Design Patterns <br> in the Medallion Architecture
 
-* SQL Examples are in [DuckDB](https://duckdb.org)
+> **Optional reference** for weeks 6–7. SQL in [DuckDB](https://duckdb.org) 2.0.
+> **Sections 1–4 run as written** on the small `sales_raw` table created just before them (results filled in). From section 5 on, the examples are
+> **patterns**: table names such as `sales_raw`, `customers` or `exchange_rates` are examples; adapt them to your data.
+> **Vocabulary** (week 5, [Medallion Architecture in a Nutshell](../week05-Medallion-Architecture-Introduction/Medallion_Architecture_in_a_Nutshell.md)):
+> every Bronze row is **valid**, **flagged** (kept + a flag column), **rejected** (kept in a reject table with a reason) or a **duplicate**
+> (removed and counted). Where this page says "filter", read: **split** the rows into Silver and a reject table, never a silent `WHERE`.
 
-* `% duckdb --version` <br> 
-`v2.0.0 (Cyanoptera)` (written with v1.5.2; the complete working example in section 7 re-checked on 2.0.0, 2026-11-13)
-
-* Last Updated at: `2026-05-15`
+* Last updated: 2026-11-25 (cleaned for the week 7 polish; first written 2026-05-15)
 
 ```
           🟫 Bronze  →  ⚪  Silver  →  🟡  Gold
@@ -76,7 +78,7 @@ Star Schemas (Fact and Dimension tables)
 optimized for BI tools.
 
 * **Business Aggregates:** <br>
-Contains pre-calculated KPIs and summaries 
+Often contains pre-calculated KPIs and summaries 
 (e.g., "daily sales per region") to improve 
 query performance for end-users.
 
@@ -90,10 +92,10 @@ like HR, Finance, or Marketing.
 Modern implementations often include additional 
 patterns to handle advanced needs: 
 
-### Optional Layers:
+### Other Names You May Meet:
 
-* Pre-Bronze/Staging: A temporary landing zone for high-velocity IoT or clickstream data before it is normalized into the formal Bronze layer.
-   * Platinum Layer: A specialized layer used for real-time analytics and serving AI/ML models.
+* Some vendors add more names: a "staging" landing zone before Bronze, or a "Platinum" serving layer for real-time analytics and ML.
+* In this course there are **3 layers**; BI, ML and audit are **consumers** of Gold (and of Silver), not extra layers (week 5).
 
 ### Hybrid Architectures:
 * Federated Medallion (Data Mesh): Each business domain (e.g., Marketing, Sales) manages its own internal Bronze-Silver-Gold layers, while central governance connects them as part of a [Data Mesh](https://www.databricks.com/blog/what-is-medallion-architecture).
@@ -105,11 +107,35 @@ patterns to handle advanced needs:
 
 ## Silver Layer Transformations
 
-Let's say that we have ingested raw data 
-(Bronze layer) as a `sales_raw` table: to 
-move into a sliver layer, what are the 
-concrete common examples of SQL operations 
-to move to silver layer?
+Suppose we have ingested raw data (Bronze layer)
+as a `sales_raw` table. Which SQL operations move
+it to the Silver layer? The examples below run on
+this small Bronze table (all columns as text, as received):
+
+```sql
+CREATE OR REPLACE TABLE sales_raw AS SELECT * FROM (VALUES
+    ('101', '2026-01-05', 'usd ', '120.50', TIMESTAMP '2026-01-06 08:00', '7',  'east', 'SKU-1'),
+    ('101', '2026-01-05', 'USD',  '125.00', TIMESTAMP '2026-01-07 08:00', '7',  'east', 'SKU-1'),  -- corrected, sent again
+    ('102', '2026-01-06', ' eur', '80.00',  TIMESTAMP '2026-01-06 08:00', NULL, '  ',   'SKU-2'),
+    ('103', '2026-01-07', 'USD',  '42.10',  TIMESTAMP '2026-01-07 09:00', '9',  NULL,   'SKU-9'),  -- SKU not in the reference
+    (NULL,  '2026-01-08', 'USD',  '10.00',  TIMESTAMP '2026-01-08 09:00', '5',  'west', 'SKU-1')   -- no order_id
+) t(order_id, order_date, currency_code, total_amount, _ingested_at, customer_id, region, sku);
+
+CREATE OR REPLACE TABLE product_reference AS SELECT * FROM (VALUES
+    ('SKU-1', 'Margherita', 'Classic'), ('SKU-2', 'Hawaiian', 'Classic')) t(sku, product_name, category);
+
+SELECT COUNT(*) AS bronze_rows FROM sales_raw;
+```
+
+<!-- RESULT -->
+
+| bronze_rows |
+|------------:|
+|           5 |
+
+*(1 row)*
+
+<!-- /RESULT -->
 
 * Moving from the Bronze to the Silver layer is 
 where you transition from **"data as it is"** 
@@ -156,6 +182,20 @@ SELECT
 FROM sales_raw;
 ```
 
+<!-- RESULT -->
+
+| order_id | order_date | currency_code | total_amount |
+|---------:|------------|---------------|-------------:|
+|      101 | 2026-01-05 | USD           |       120.50 |
+|      101 | 2026-01-05 | USD           |       125.00 |
+|      102 | 2026-01-06 | EUR           |        80.00 |
+|      103 | 2026-01-07 | USD           |        42.10 |
+|     NULL | 2026-01-08 | USD           |        10.00 |
+
+*(5 rows)*
+
+<!-- /RESULT -->
+
 
 ## 2. Deduplication (Window Functions)
 Raw sales data often contains duplicates due 
@@ -176,9 +216,22 @@ QUALIFY ROW_NUMBER() OVER(
 ) = 1;
 ```
 
+<!-- RESULT -->
+
+| order_id | order_date | currency_code | total_amount | _ingested_at        | customer_id | region | sku   |
+|----------|------------|---------------|--------------|---------------------|-------------|--------|-------|
+| 101      | 2026-01-05 | USD           | 125.00       | 2026-01-07 08:00:00 | 7           | east   | SKU-1 |
+| 102      | 2026-01-06 |  eur          | 80.00        | 2026-01-06 08:00:00 | NULL        |        | SKU-2 |
+| 103      | 2026-01-07 | USD           | 42.10        | 2026-01-07 09:00:00 | 9           | NULL   | SKU-9 |
+| NULL     | 2026-01-08 | USD           | 10.00        | 2026-01-08 09:00:00 | 5           | west   | SKU-1 |
+
+*(4 rows)*
+
+<!-- /RESULT -->
+
 OR
 
-```
+```sql
 WITH deduped_sales AS (
     SELECT 
         *, 
@@ -196,14 +249,28 @@ FROM deduped_sales
 WHERE rn = 1;
 ```
 
+<!-- RESULT -->
+
+| order_id | order_date | currency_code | total_amount | _ingested_at        | customer_id | region | sku   |
+|----------|------------|---------------|--------------|---------------------|-------------|--------|-------|
+| 101      | 2026-01-05 | USD           | 125.00       | 2026-01-07 08:00:00 | 7           | east   | SKU-1 |
+| 102      | 2026-01-06 |  eur          | 80.00        | 2026-01-06 08:00:00 | NULL        |        | SKU-2 |
+| 103      | 2026-01-07 | USD           | 42.10        | 2026-01-07 09:00:00 | 9           | NULL   | SKU-9 |
+| NULL     | 2026-01-08 | USD           | 10.00        | 2026-01-08 09:00:00 | 5           | west   | SKU-1 |
+
+*(4 rows)*
+
+<!-- /RESULT -->
+
 ## 3. Handling Nulls and Missing Values
 
-Decide how to handle missing data—either 
-by dropping invalid records or filling 
-them with defaults. 
+Decide, per column, what a missing value means:
+a **default** (a business rule, e.g. unknown customer = `-1`)
+or a **rejected** row (it can't be used without the value).
 
-* Operations: `COALESCE` for default values 
-or `WHERE` clauses to filter out "trash" data.
+* Operations: `COALESCE` for defaults; a `WHERE` condition
+that **splits** the rows: valid ones into Silver, the others
+into a reject table with a reason (never a silent filter).
 
 * Example:
 
@@ -223,6 +290,36 @@ FROM sales_raw
 WHERE order_id IS NOT NULL;
 ```
 
+<!-- RESULT -->
+
+| order_id | customer_id | region  |
+|----------|------------:|---------|
+| 101      |           7 | east    |
+| 101      |           7 | east    |
+| 102      |          -1 | UNKNOWN |
+| 103      |           9 | UNKNOWN |
+
+*(4 rows)*
+
+<!-- /RESULT -->
+
+
+The row without an `order_id` is not silently lost: it goes to the reject table with a reason, and the reconciliation counts it
+(with sections 1–3 together: **5 Bronze rows = 3 valid + 1 rejected + 1 duplicate**, the older copy of order 101 removed in section 2 and counted):
+
+```sql
+SELECT *, 'missing order_id' AS reject_reason FROM sales_raw WHERE order_id IS NULL;
+```
+
+<!-- RESULT -->
+
+| order_id | order_date | currency_code | total_amount | _ingested_at        | customer_id | region | sku   | reject_reason    |
+|----------|------------|---------------|--------------|---------------------|-------------|--------|-------|------------------|
+| NULL     | 2026-01-08 | USD           | 10.00        | 2026-01-08 09:00:00 | 5           | west   | SKU-1 | missing order_id |
+
+*(1 row)*
+
+<!-- /RESULT -->
 
 ## 4. Enrichment with Reference Tables
 While Gold handles complex business logic, 
@@ -243,6 +340,20 @@ FROM sales_raw s
 LEFT JOIN product_reference p ON s.sku = p.sku;
 ```
 
+<!-- RESULT -->
+
+| order_id | order_date | currency_code | total_amount | _ingested_at        | customer_id | region | sku   | product_name | category |
+|----------|------------|---------------|--------------|---------------------|-------------|--------|-------|--------------|----------|
+| 101      | 2026-01-05 | usd           | 120.50       | 2026-01-06 08:00:00 | 7           | east   | SKU-1 | Margherita   | Classic  |
+| 101      | 2026-01-05 | USD           | 125.00       | 2026-01-07 08:00:00 | 7           | east   | SKU-1 | Margherita   | Classic  |
+| 102      | 2026-01-06 |  eur          | 80.00        | 2026-01-06 08:00:00 | NULL        |        | SKU-2 | Hawaiian     | Classic  |
+| 103      | 2026-01-07 | USD           | 42.10        | 2026-01-07 09:00:00 | 9           | NULL   | SKU-9 | NULL         | NULL     |
+| NULL     | 2026-01-08 | USD           | 10.00        | 2026-01-08 09:00:00 | 5           | west   | SKU-1 | Margherita   | Classic  |
+
+*(5 rows)*
+
+<!-- /RESULT -->
+
 ## 5. Incremental Upserts (MERGE)
 To keep the Silver layer updated without 
 re-processing the entire dataset, a MERGE 
@@ -254,7 +365,7 @@ table using a unique identifier.
 
 * Example:
 
-```sql
+```sql no-run
 MERGE INTO sales_silver AS target
 USING cleaned_sales_stream AS source
     ON target.order_id = source.order_id
@@ -319,7 +430,7 @@ track when a record was last modified by the
 pipeline. You can add this directly to your 
 `MERGE` statement:
 
-```sql
+```sql no-run
 MERGE INTO sales_silver AS target
 USING cleaned_sales_stream AS source
     ON target.order_id = source.order_id
@@ -349,7 +460,7 @@ raw sales "dump" data into a reliable source of truth:
 * Raw data often arrives as strings. 
 * Silver must enforce the correct types for calculation.
 
-```sql
+```sql no-run
 SELECT 
     
     -- Convert sale_id into INTEGER type
@@ -378,7 +489,7 @@ the specific `FROM_UTC_TIMESTAMP` function names
 found in Spark or Hive, but achieves the same 
 result more flexibly.
 
-```sql
+```sql no-run
 SELECT 
     sale_id,
     -- Convert UTC to a specific local timezone
@@ -394,7 +505,7 @@ FROM sales_raw;
 Raw input from manual entry or legacy systems 
 often has messy spacing or inconsistent casing.
 
-```sql
+```sql no-run
 SELECT 
     -- ' blackfriday ' -> 'BLACKFRIDAY'
     UPPER(TRIM(promo_code)) AS promo_code,   
@@ -433,7 +544,7 @@ If a sale is updated (e.g., status change from
 `'pending'` to `'shipped'`), you only want the 
 latest version in Silver.
 
-```sql
+```sql no-run
 SELECT *
 FROM sales_raw
 QUALIFY ROW_NUMBER() OVER(
@@ -451,7 +562,7 @@ move. This keeps your final table clean by
 automatically dropping the rank helper column.
 
 
-```sql
+```sql no-run
 WITH ranked_sales AS (
     SELECT *, 
            ROW_NUMBER() OVER(
@@ -479,7 +590,7 @@ and BigQuery.
 
 * The DuckDB Shorthand
 
-```sql
+```sql no-run
 SELECT DISTINCT ON (sale_id) *
 FROM sales_raw
 ORDER BY sale_id, source_updated_at DESC;
@@ -522,12 +633,11 @@ stream.
 Standardizing "shorthand" source codes into 
 readable, business-friendly categories.
 
-In DuckDB, your CASE statement works perfectly 
-as written. DuckDB follows standard SQL for 
-conditional logic, making it highly compatible 
-with this pattern. 
+A `CASE` works for a handful of codes. When the list
+grows, or business users must review it, prefer a
+**mapping table** (week 7): new codes = new rows, not new code.
 
-```sql
+```sql no-run
 SELECT 
     CASE 
         WHEN channel_id IN ('WEB', 'APP') THEN 'Digital'
@@ -542,7 +652,7 @@ If you are doing simple "A to B" mapping without
 complex inequalities, DuckDB provides a decode 
 function which is even more concise: 
 
-```sql
+```sql no-run
 SELECT 
     decode(channel_id, 
         'WEB', 'Digital', 
@@ -585,7 +695,7 @@ channel grouping using Enums:
 1. Create the Enum Type <br>
 First, define the allowed "Gold-standard" categories.
 
-```sql
+```sql no-run
 CREATE TYPE channel_group 
    AS ENUM ('Digital', 'Physical', 'Other');
 ```
@@ -594,7 +704,7 @@ CREATE TYPE channel_group
 You can now cast the result of your `CASE` 
 statement directly to this type.
 
-```sql
+```sql no-run
 SELECT 
     CASE 
         WHEN channel_id IN ('WEB', 'APP') THEN 'Digital'
@@ -630,14 +740,13 @@ If you define `'Digital'`, you must output
 Replacing NULL values with meaningful defaults 
 so downstream calculations don't break.
 
-In DuckDB, your query works perfectly as written. 
-To make it "Silver-standard," it is recommended 
-to add explicit type casting. This ensures that 
+To make a default "Silver-standard," add
+explicit type casting. This ensures that 
 if the raw data is mixed (e.g., a string in a 
 numeric column), the pipeline doesn't crash.
 
 
-```sql
+```sql no-run
 SELECT 
   sale_id,
     
@@ -665,7 +774,7 @@ sometimes a field isn't `NULL`, but is an empty
 string (''). To treat those as `NULL` so the 
 default kicks in, use NULLIF:
 
-```sql
+```sql no-run
 COALESCE(NULLIF(TRIM(store_id), '')::INTEGER, -1)
 ```
 
@@ -687,7 +796,7 @@ native lists, making this much more concise.
 
 The DuckDB Version
 
-```sql
+```sql no-run
 SELECT 
     sale_id,
     -- Extract the 'items' array, then 
@@ -707,7 +816,7 @@ table with a JSON blob and transforms it
 into a relational  "Silver" format.
 
 #### Step-1. Create a Bronze Layer with semi-structured JSON
-```sql
+```sql no-run
 CREATE TABLE sales_raw (
     sale_id INT,
     raw_payload JSON
@@ -729,7 +838,7 @@ memory D
 ```
 
 #### Step-2. Transform to Silver Layer by flattening (unnesting)
-```sql
+```sql no-run
 CREATE OR REPLACE TABLE sales_silver AS
 SELECT 
     sale_id,
@@ -750,7 +859,7 @@ memory D
 ```
 
 #### Step-3. Final Select to extract specific fields from the unnested nodes
-```sql
+```sql no-run
 SELECT 
     sale_id,
     item_node->>'$.product_id' AS product_id,
@@ -786,38 +895,45 @@ the attribute extraction in a single
 
 
 
-## 8. Basic Validation Filtering (Quarantine)
-Removing "impossible" data, like negative prices 
-or future sale dates, to keep the Silver layer clean.
-
-In DuckDB, your query works exactly as written, as 
-DuckDB supports both the CURRENT_DATE keyword and 
-standard comparison operators. 
+## 8. Basic Validation (Quarantine)
+Keeping "impossible" data, like negative prices
+or future sale dates, **out of Silver but not lost**:
+the rows go to a reject table with a reason.
 
 The DuckDB Version
 
-```sql
--- Filters for valid, non-future sales 
--- records in the Silver layer
-SELECT * 
+```sql no-run
+-- 1. the rejected rows, each with its reason (quarantine)
+CREATE OR REPLACE TABLE silver.sales_rejected AS
+SELECT *, CASE WHEN unit_price <= 0 THEN 'price <= 0'
+               ELSE 'future sale_date' END AS reject_reason
 FROM sales_raw
-WHERE unit_price > 0 
+WHERE unit_price <= 0 OR sale_date > CURRENT_DATE;
+
+-- 2. the valid rows: the same conditions, negated
+CREATE OR REPLACE TABLE silver.sales AS
+SELECT *
+FROM sales_raw
+WHERE unit_price > 0
   AND sale_date <= CURRENT_DATE;
+
+-- 3. reconcile: bronze rows = silver rows + rejected rows (+ NULL prices or dates: give them a reason too!)
 ```
 
 Business Insight: Data Quality & Integrity
 
-Filtering your Bronze data during the move 
-to Silver provides critical business value 
-by acting as a "quality gate": 
+Validating Bronze data during the move
+to Silver provides critical business value
+by acting as a "quality gate":
 
-Financial Accuracy: Removing records where 
-`unit_price <= 0` eliminates "garbage" entries, 
+Financial Accuracy: Quarantining records where
+`unit_price <= 0` keeps "garbage" entries, 
 test transactions, or corrupted data that would 
-otherwise skew revenue metrics and average 
-order value (AOV) calculations.
+otherwise skew revenue metrics and average
+order value (AOV) calculations, out of the KPIs, while the
+reject table still shows how many there were and why.
 
-Temporal Reliability: Filtering out future 
+Temporal Reliability: Quarantining future
 `sale_date` values ensures your reporting 
 doesn't include "phantom" sales or anomalous 
 forward-dated entries that undermine 
@@ -837,12 +953,10 @@ concise alias for `CURRENT_DATE`.
 Creating a unique "Surrogate Key" by hashing 
 multiple columns to track records across systems.
 
-In DuckDB, the `MD5` and `CONCAT` functions work 
-perfectly, but for data engineering, we usually 
-prefer the `md5_number` or the `hash()` function 
-for performance, or `concat_ws` to handle nulls 
-safely.  Here is the robust DuckDB version and a 
-detailed breakdown of the logic.
+`MD5` and `CONCAT` work, but for data engineering
+we usually prefer `md5_number` or `hash()` for
+performance, and `concat_ws` to handle NULLs safely.
+The robust DuckDB version, then the logic step by step:
 
 ## The DuckDB SQL
 
@@ -928,12 +1042,10 @@ datasets (billions of rows).
 Adding "helper flags" that aren't complex metrics 
 but help analysts filter the data quickly.
 
-In DuckDB, your query works exactly as written using 
-standard SQL syntax. However, to make it even more 
-"DuckDB-idiomatic" and efficient for a Silver layer, 
-you can use Boolean types instead of integers (1/0). 
+A flag is a **flagged** fate in the week 5 vocabulary: the row stays,
+a column marks it. With integers (1/0):
 
-```sql
+```sql no-run
 SELECT 
     *,
     CASE WHEN total_amount > 10000 
@@ -948,14 +1060,12 @@ SELECT
 FROM sales_raw;
 ```
 
-Here is the clean DuckDB version:
-
 The "DuckDB Way" (Using Booleans): In DuckDB, 
 the result of a comparison is a BOOLEAN (True/False). 
 This is more memory-efficient and clearer for 
 downstream analytics. 
 
-```sql
+```sql no-run
 SELECT 
     *,
     (total_amount > 10000) AS is_bulk_order,
@@ -965,11 +1075,10 @@ FROM sales_raw;
 
 The Standard Version (Using 1/0):
 
-If your downstream tool (like an older BI dashboard) 
-specifically requires a `1` or `0`, your original CASE 
-statement is perfectly valid:
+If a downstream tool (like an older BI dashboard)
+specifically requires a `1` or `0`, keep the `CASE` version:
 
-```sql
+```sql no-run
 SELECT 
     *,
     CASE WHEN total_amount > 10000 
@@ -1010,7 +1119,7 @@ Regex Alternative:
 
 ---
 
-# 10  SQL patterns that transition <br> data from a raw dump to a < br> production-ready Silver layer.
+# 10 More SQL Patterns <br> from a Raw Dump to a Production-Ready Silver Layer
 
 ## 11. Currency Standardization (Normalizing FX)
 In global sales, the raw table often has mixed 
@@ -1029,7 +1138,7 @@ up sales data.
 In your specific Silver Transformation script, 
 this part of the code was doing exactly that:
 
-```sql
+```sql no-run
 CAST(TRY_CAST(price AS DECIMAL(12,2)) * 
     CASE 
         WHEN currency = 'EUR' 
@@ -1053,7 +1162,7 @@ to prevent precision loss during the multiplication.
 
 The DuckDB Version
 
-```sql
+```sql no-run
 SELECT 
     s.sale_id,
     -- Ensure decimal precision during currency conversion
@@ -1094,7 +1203,7 @@ for every single day, but you want to use the most
 recent available rate, DuckDB has a "killer feature" 
 called the ASOF JOIN:
 
-```sql
+```sql no-run
 SELECT 
     s.sale_id,
     s.amount * r.exchange_rate AS amount_usd
@@ -1125,7 +1234,7 @@ trade occurs.
 
 1. Create Tables
 
-```sql
+```sql no-run
 CREATE TABLE trades 
 (ticker VARCHAR, time TIMESTAMP, quantity INT);
 
@@ -1146,7 +1255,7 @@ trade happened, use `ASOF JOIN`. It will ignore
 the future `10:05:00` price and grab the `10:00:00` 
 price. 
 
-```sql
+```sql no-run
 SELECT 
     t.ticker, t.time, t.quantity, p.price
 FROM trades t
@@ -1192,7 +1301,7 @@ very straightforward.
 
 The DuckDB SQL
 
-```sql
+```sql no-run
 SELECT 
     sale_id,
     -- Part 1: Everything before the first comma
@@ -1248,7 +1357,7 @@ If your raw data is extra messy (e.g., some have
 2 commas, some have 3), you can use DuckDB's 
 list-based splitting for more control:
 
-```sql
+```sql no-run
 -- Split the whole string into a list first
 WITH address_list AS (
     SELECT sale_id, 
@@ -1278,7 +1387,7 @@ the hash-join is as fast as possible.
 
 The DuckDB Version
 
-```sql
+```sql no-run
 SELECT 
     s.*,
     -- Default 'Pending Sync' for late-arriving dimension records
@@ -1316,7 +1425,7 @@ Pro-Tip: The `USING` Keyword
 If both tables have the exact same column name 
 for the ID, you can make the SQL even cleaner: 
 
-```sql
+```sql no-run
 SELECT 
     s.*,
     COALESCE(c.customer_name, 'Pending Sync') AS customer_name
@@ -1339,7 +1448,7 @@ chance of calculation errors.
 
 The DuckDB Version (Cleanest)
 
-```sql
+```sql no-run
 SELECT 
     total_paid,
     net_revenue,
@@ -1379,7 +1488,7 @@ rule to every numeric column in your Silver layer,
 DuckDB has a "power user" feature called `COLUMNS` 
 expressions:
 
-```sql
+```sql no-run
 -- Rounds every column that contains 
 -- 'amount' or 'paid' in its name
 SELECT 
@@ -1392,7 +1501,7 @@ To comply with GDPR/CCPA, Silver often hashes or
 masks sensitive data (like emails or credit cards) 
 before it reaches the Gold layer.
 
-```sql
+```sql no-run
 SELECT 
     sale_id,
     
@@ -1422,7 +1531,7 @@ on your source data.
 
 The DuckDB Version (Stable & Clean)
 
-```sql
+```sql no-run
 SELECT 
     -- Deterministic Hash: 
     -- Always produces the same ID for the same record
@@ -1460,7 +1569,7 @@ ingestion, use the `gen_random_uuid()`
 function."
 
 
-```sql
+```sql no-run
 SELECT 
     gen_random_uuid() AS silver_universal_id,
     'SHOPIFY' AS source_system,
@@ -1480,7 +1589,7 @@ direct expression.
 
 #### The DuckDB Version (Cleanest)
 
-```sql
+```sql no-run
 SELECT 
     *,
     -- Comparison expressions naturally 
@@ -1498,7 +1607,7 @@ If you prefer the explicit CASE syntax for
 clarity or cross-engine compatibility, here 
 is the formatted version:
 
-```sql
+```sql no-run
 SELECT 
     *,
     CASE 
@@ -1533,7 +1642,7 @@ Pro-Tip: If your `email_domain` column is messy
 (mixed casing), use `lower()` to ensure you don't 
 miss `Company.com`:
 
-```sql
+```sql no-run
 (
   lower(email_domain) = 'company.com' 
   OR 
@@ -1556,7 +1665,7 @@ as providing clean aliases.
 
 ## The DuckDB Version
 
-```sql
+```sql no-run
 SELECT 
     sale_id,
     -- Extract utm_source: looks for 'utm_source=' 
@@ -1598,7 +1707,7 @@ Oftentimes, UTM parameters in the URL are "encoded"
 your Silver layer truly clean, wrap the extraction in 
 `url_decode`:
 
-```sql
+```sql no-run
 SELECT 
     sale_id,
     url_decode(regexp_extract(referral_url, 'utm_source=([^&]+)', 1)) 
@@ -1621,7 +1730,7 @@ changes.
 
 #### The DuckDB Version
 
-```sql
+```sql no-run
 SELECT 
     -- If 'quantity' contains "10", 
     -- it becomes 10 (INT)
@@ -1656,7 +1765,7 @@ FROM sales_raw;
 
 * Find "corrupted" rows that failed the cast
    
-```sql
+```sql no-run
 SELECT * 
 FROM sales_silver 
 WHERE quantity IS NULL AND 
@@ -1669,7 +1778,7 @@ If you have `50` columns and want to safely cast
 all of them that have `"qty"` in the name, DuckDB 
 allows you to do this in one line:
 
-```sql
+```sql no-run
 SELECT 
     TRY_CAST(COLUMNS('(?i).*qty.*') AS INTEGER)
 FROM sales_raw;
@@ -1694,16 +1803,15 @@ Silver identifies if a record is a
 
 from the source system.
 
-In DuckDB, your CASE statement is perfectly valid, 
-but we can make it more efficient and "clean" for 
-a Silver layer. In a real-world CDC (Change Data 
+A `CASE` on the operation code works; we can make it
+more efficient and "clean" for a Silver layer. In a real-world CDC (Change Data 
 Capture) pipeline, you often want to simplify these 
 codes into a unified status that downstream Gold-layer 
 models can easily filter.
 
 #### The DuckDB Version
 
-```sql
+```sql no-run
 SELECT 
     *,
     -- Mapping raw CDC codes to business-friendly statuses
@@ -1746,7 +1854,7 @@ Here is how you use a Window Function to pick the
 most recent operation for each ID, effectively 
 "collapsing" the CDC history:
 
-```sql
+```sql no-run
 SELECT * EXCLUDE (row_num)
 FROM (
     SELECT 
@@ -1797,7 +1905,7 @@ way to **deduplicate**. It allows you to
 filter the results of a window function 
 without a subquery.
 
-```sql
+```sql no-run
 -- Picks the most recent version of every order
 SELECT *
 FROM sales_raw
@@ -1812,7 +1920,7 @@ In sales reporting, missing dates are common.
 DuckDB can generate a date range and "backfill" 
 missing sales dates with zeros.
 
-```sql
+```sql no-run
 -- Create a continuous timeline and 
 -- join raw sales to find gaps
 SELECT 
@@ -1830,7 +1938,7 @@ GROUP BY 1;
 Raw data often lands as a JSON blob. 
 DuckDB uses a shorthand `->>` operator to extract values.
 
-```sql
+```sql no-run
 -- Extracting nested metadata from a raw JSON column
 SELECT 
     order_id,
@@ -1844,7 +1952,7 @@ FROM sales_raw;
 Calculating the lifetime value (LTV) of a customer 
 as each sale "enters" the Silver layer.
 
-```sql
+```sql no-run
 SELECT 
     customer_id,
     order_date,
@@ -1861,7 +1969,7 @@ Calculating the difference in price between
 the current sale and the previous sale for 
 that specific customer.
 
-```sql
+```sql no-run
 SELECT 
     customer_id,
     order_date,
@@ -1878,7 +1986,7 @@ If a customer places multiple orders within
 30 minutes, you might want to flag them as 
 part of the same "buying session."
 
-```sql
+```sql no-run
 SELECT 
     *,
     CASE 
@@ -1906,7 +2014,7 @@ DuckDB's `strptime` is excellent for
 Silver layers that receive inconsistent 
 date formats from different sources.
 
-```sql
+```sql no-run
 SELECT 
     raw_date_string,
     strptime(raw_date_string, '%d/%m/%Y %H:%M:%S') AS
@@ -1919,7 +2027,7 @@ Flagging transactions that are 3 standard
 deviations away from the mean price—useful 
 for the "quarantine" pattern.
 
-```sql
+```sql no-run
 SELECT *,
     (amount - AVG(amount) OVER ()) / STDDEV(amount) OVER () as z_score
 FROM sales_raw
@@ -1931,7 +2039,7 @@ Sometimes you want to move a clean `10%`
 sample of raw data into a "Silver Sandbox" 
 for testing.
 
-```sql
+```sql no-run
 -- DuckDB native sampling
 SELECT * 
 FROM sales_raw 
@@ -1954,7 +2062,7 @@ a single pipeline.
 -- This query transforms raw 'dump' data into a 
 structured Silver record:
 
-```sql
+```sql no-run
 CREATE OR REPLACE TABLE sales_silver AS
 WITH base_cleansing AS (
     SELECT
@@ -2078,7 +2186,7 @@ This is known as Zero-Copy Ingestion.
 Here is how you execute the combined logic directly 
 against a folder of Parquet or CSV files.
 
-```sql
+```sql no-run
 -- 1. Create a View or Table directly from files
 -- Use 'data/sales/*.parquet' to scan an entire directory
 CREATE OR REPLACE TABLE sales_silver AS
@@ -2153,7 +2261,7 @@ By installing the httpfs extension,
 you can replace the local path with 
 an S3 bucket:
 
-```sql
+```sql no-run
 INSTALL httpfs; 
 LOAD httpfs;
 SELECT * FROM read_parquet('s3://my-bucket/raw-sales/*.parquet');
@@ -2183,7 +2291,7 @@ files into a high-performance, queryable table.
 * Before: price is a string `"19.99"`.
 * After: price is a numeric `19.99`.
 
-```sql
+```sql no-run
 SELECT CAST(price AS DECIMAL(10,2)) AS price 
 FROM bronze_sales;
 ```
@@ -2193,7 +2301,7 @@ FROM bronze_sales;
 * Before: `" john DOE "`.
 * After: `"JOHN DOE"`.
 
-```sql
+```sql no-run
 SELECT UPPER(TRIM(cust_name)) AS cust_name 
 FROM bronze_sales;
 ```
@@ -2203,7 +2311,7 @@ FROM bronze_sales;
 * Before: `2023-01-01 10:00 (Local)`.
 * After: `2023-01-01 15:00 (UTC)`.
 
-```sql
+```sql no-run
 SELECT raw_ts::TIMESTAMP AT TIME ZONE 'EST' AS utc_ts 
 FROM bronze_sales;
 ```
@@ -2213,7 +2321,7 @@ FROM bronze_sales;
 * Before: Two rows for `order_1 (Pending, Shipped)`.
 * After: One row for `order_1 (Shipped)`.
 
-```sql
+```sql no-run
 SELECT * FROM bronze_sales 
 QUALIFY ROW_NUMBER() OVER(
             PARTITION BY order_id 
@@ -2226,7 +2334,7 @@ QUALIFY ROW_NUMBER() OVER(
 * Before: `status_code = 1`.
 * After: `status_name = 'Active'`.
 
-```sql
+```sql no-run
 SELECT CASE status_code 
             WHEN 1 THEN 'Active' 
                    ELSE 'Inactive' 
@@ -2239,7 +2347,7 @@ FROM bronze_sales;
 * Before: `discount = NULL`.
 * After: `discount = 0.0`.
 
-```sql
+```sql no-run
 SELECT COALESCE(discount, 0.0) AS discount 
 FROM bronze_sales;
 ```
@@ -2249,7 +2357,7 @@ FROM bronze_sales;
 * Before: `{"sku": "A1", "qty": 2}` (JSON string).
 * After: `A1 (Column)`, `2 (Column)`.
 
-```sql
+```sql no-run
 SELECT payload->>'$.sku' AS sku, 
        (payload->>'$.qty')::INT AS qty 
 FROM bronze_sales;
@@ -2260,7 +2368,7 @@ FROM bronze_sales;
 * Before: A row with `price = -50.00`.
 * After: Row is removed from the Silver table.
 
-```sql
+```sql no-run
 SELECT * 
 FROM bronze_sales 
 WHERE price > 0;
@@ -2271,7 +2379,7 @@ WHERE price > 0;
 * Before: `system_a, id_101`.
 * After: `d41d8cd98f...` (Unique MD5 Hash).
 
-```sql
+```sql no-run
 SELECT md5(concat(source_sys, id)) AS silver_id 
 FROM bronze_sales;
 ```
@@ -2281,7 +2389,7 @@ FROM bronze_sales;
 * Before: `is_test_user = 'Y'`.
 * After: `is_test_user = TRUE`.
 
-```sql
+```sql no-run
 SELECT (test_ind = 'Y') AS is_test_user 
 FROM bronze_sales;
 ```
@@ -2291,7 +2399,7 @@ FROM bronze_sales;
 * Before: `100 (EUR)`.
 * After: `108.50 (USD)`.
 
-```sql
+```sql no-run
 SELECT amount * 1.085 AS amount_usd 
 FROM bronze_sales 
 WHERE currency = 'EUR';
@@ -2304,7 +2412,7 @@ WHERE currency = 'EUR';
 	* `"New York" (City), 
 	* "NY" (State)`.
 
-```sql
+```sql no-run
 SELECT split_part(loc, ',', 1) AS city, 
        trim(split_part(loc, ',', 2)) AS state 
 FROM bronze_sales;
@@ -2315,7 +2423,7 @@ FROM bronze_sales;
 * Before: `cust_id = 99` (Not in master list yet).
 * After: `cust_name = 'Unknown'`.
 
-```sql
+```sql no-run
 SELECT s.*, 
        COALESCE(c.name, 'Unknown') 
        FROM bronze s 
@@ -2327,7 +2435,7 @@ LEFT JOIN customers c ON s.cust_id = c.cust_id;
 * Before: `Total: 110`, `TaxRate: 0.1`.
 * After: `Net: 100`.
 
-```sql
+```sql no-run
 SELECT total / (1 + tax_rate) AS net_amount 
 FROM bronze_sales;
 ```
@@ -2337,7 +2445,7 @@ FROM bronze_sales;
 * Before: `user@email.com`.
 * After: `u***@email.com` or HASH.
 
-```sql
+```sql no-run
 SELECT md5(email) AS masked_email 
 FROM bronze_users;
 ```
@@ -2347,7 +2455,7 @@ FROM bronze_users;
 * Before: `Shopify_123` and `POS_456`.
 * After: Both assigned `global_order_id = 789`.
 
-```sql
+```sql no-run
 -- Using a mapping table logic
 SELECT COALESCE(map.global_id, bronze.id) 
 FROM bronze 
@@ -2359,7 +2467,7 @@ LEFT JOIN id_map map ON bronze.id = map.src_id;
 * Before: `email = boss@ourcompany.com`.
 * After: `is_internal = TRUE`.
 
-```sql
+```sql no-run
 SELECT email, 
        (email LIKE '%@ourcompany.com') AS is_internal 
 FROM bronze_sales;
@@ -2369,7 +2477,7 @@ FROM bronze_sales;
 Before: `?utm_source=google`.
 After: `google`.
 
-```sql
+```sql no-run
 SELECT regexp_extract(url, 'utm_source=([^&]+)', 1) AS source 
 FROM bronze_traffic;
 ```
@@ -2379,7 +2487,7 @@ FROM bronze_traffic;
 * Before: `"ABC"` in a numeric column.
 * After: `NULL` (Instead of crashing the pipeline).
 
-```sql
+```sql no-run
 SELECT try_cast(qty AS INT) AS qty 
 FROM bronze_sales;
 ```
@@ -2389,7 +2497,7 @@ FROM bronze_sales;
 * Before: Op code 'U'.
 * After: `is_updated = TRUE`, `is_deleted = FALSE`.
 
-```sql
+```sql no-run
 SELECT *, 
        (op_code = 'U') AS is_updated 
 FROM bronze_cdc;
@@ -2407,7 +2515,7 @@ patterns simultaneously.
 This script assumes your raw data is in a table 
 called `bronze_sales`.
 
-```sql
+```sql no-run
 CREATE OR REPLACE TABLE sales_silver AS
 WITH base_transformation AS (
     SELECT

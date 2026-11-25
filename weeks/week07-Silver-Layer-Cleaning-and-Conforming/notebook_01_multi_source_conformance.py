@@ -14,235 +14,151 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # Week 7 — Silver Integration & Conformance
+    # Week 7 — Conforming 4 Sources into One Silver Table (Insurance Data)
 
-    This notebook demonstrates a **multi-source Silver pipeline** using a four-year insurance dataset.
+    The pipeline of [slides 1](lecture_notes_01_conformance_and_integration.md), run on the 4 messy yearly files in `data_messy/`,
+    with every number **per source** and charts. Each file is a separate source: it arrives on its own, and it must reconcile on its own.
 
-    ## Week 7 goals
-    1. Profile multiple source files independently.
-    2. Align schemas across years.
-    3. Conform inconsistent values into canonical domains.
-    4. Integrate datasets with `UNION ALL`.
-    5. Clean, deduplicate, and enrich the result.
-    6. Validate the integrated Silver dataset.
-    7. Connect pipeline decisions to KPI impact.
+    | # | Rule | Fate |
+    |---|---|---|
+    | C1 | region: macro `norm_region` + mapping table | fixed |
+    | C2 | smoker, gender: mapping tables (`m` → `male`) | fixed |
+    | C3 | a value that doesn't map → `'unknown'` + a flag column | **flagged** (kept) |
+    | D1 | rows identical after C1–C2, in the same yearly file | **duplicate** (removed, counted) |
+    | R1–R5 | a missing value · age outside 18–100 · bmi outside 12–70 · children outside 0–10 · charges ≤ 0 | **rejected** (with a reason) |
 
-    ## Core message
-    You are not just combining files.
-
-    You are building **one trusted dataset from many inconsistent sources**.
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## Expected files
-
-    This notebook expects the following CSV files in the working directory:
-
-    - `insurance.2021.csv`
-    - `insurance.2022.csv`
-    - `insurance.2023.csv`
-    - `insurance.2024.csv`
-
-    Expected columns are broadly similar to:
-    - `age`
-    - `gender`
-    - `bmi`
-    - `children`
-    - `smoker`
-    - `region`
-    - `charges`
-
-    If your files differ slightly, update the alignment logic below.
+    Order: standardize → deduplicate → reject / flag → reconcile → test.
     """)
     return
 
 
 @app.cell
 def _():
-    import pandas as pd
-    import matplotlib.pyplot as plt
     import duckdb
+    import matplotlib.pyplot as plt
 
-    # Update paths if needed
-    f2021 = "./data_messy/insurance.2021.messy.csv"
-    f2022 = "./data_messy/insurance.2022.messy.csv"
-    f2023 = "./data_messy/insurance.2023.messy.csv"
-    f2024 = "./data_messy/insurance.2024.messy.csv"
+    con = duckdb.connect()   # in memory: nothing is written to disk
 
-    y2021 = pd.read_csv(f2021)
-    y2022 = pd.read_csv(f2022)
-    y2023 = pd.read_csv(f2023)
-    y2024 = pd.read_csv(f2024)
+    def q(sql):
+        return con.execute(sql).df()
 
-    print("Shapes:")
-    print("2021:", y2021.shape)
-    print("2022:", y2022.shape)
-    print("2023:", y2023.shape)
-    print("2024:", y2024.shape)
-    return duckdb, pd, plt, y2021, y2022, y2023, y2024
+    return con, plt, q
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Part 1 — Simulate realistic multi-source inconsistencies
+    ## Bronze: Every Source As Received
 
-    To make the integration lesson visible, we intentionally inject a few realistic cross-source problems:
-    - different region labels
-    - different smoker encodings
-    - one text-formatted `charges` column
-    - a missing charge
-    - a duplicate row
+    All columns as text, plus lineage: `_source_file`, `_batch_id` (the year), `_ingested_at`.
     """)
     return
 
 
 @app.cell
-def _(pd, y2021, y2022, y2023, y2024):
-    # Work on copies so original files remain untouched in memory
-    b2021 = y2021.copy()
-    b2022 = y2022.copy()
-    b2023 = y2023.copy()
-    b2024 = y2024.copy()
+def _(con, q):
+    con.execute("""
+    CREATE SCHEMA IF NOT EXISTS bronze;
+    CREATE SCHEMA IF NOT EXISTS silver;
 
-    # Region inconsistencies
-    if len(b2021) > 0:
-        b2021.loc[b2021.index[:3], "region"] = ["NE", "north-east", "Northeast"]
-
-    # Smoker inconsistencies
-    if len(b2022) > 1:
-        b2022.loc[b2022.index[:2], "smoker"] = ["Y", "N"]
-
-    # Charges as text in one year
-    b2023["charges"] = b2023["charges"].astype(str)
-    if len(b2023) > 0:
-        b2023.loc[b2023.index[0], "charges"] = "1,234.56"
-
-    # Missing charge in one year
-    if len(b2024) > 0:
-        b2024.loc[b2024.index[0], "charges"] = None
-
-    # Duplicate row in one year
-    if len(b2024) > 5:
-        b2024 = pd.concat([b2024, b2024.iloc[[5]]], ignore_index=True)
-
-    bronze_sources = {
-        2021: b2021,
-        2022: b2022,
-        2023: b2023,
-        2024: b2024
-    }
-
-    for _yr, _df in bronze_sources.items():
-        print(_yr, _df.shape)
-    return b2021, b2022, b2023, b2024, bronze_sources
+    CREATE OR REPLACE TABLE bronze.insurance AS
+    SELECT * EXCLUDE (filename),
+           regexp_extract(filename, '[^/]+$')                  AS _source_file,
+           CAST(regexp_extract(filename, '(\\d{4})', 1) AS INT) AS _batch_id,
+           current_timestamp                                   AS _ingested_at
+    FROM read_csv('data_messy/insurance.*.messy.csv', all_varchar = true, filename = true);
+    """)
+    q("SELECT _source_file, COUNT(*) AS bronze_rows FROM bronze.insurance GROUP BY 1 ORDER BY 1")
+    return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Part 2 — Profile each Bronze source independently
-
-    Before integrating anything, we should profile each source separately.
-
-    ### Why?
-    Because integration can hide source-specific problems.
-    We need to understand:
-    - row counts
-    - NULL rates
-    - category inconsistencies
-    - type/format problems
+    ## Step 0 — Profile Each Source
     """)
     return
 
 
 @app.cell
-def _(bronze_sources, pd):
-    profile_rows = []
-    for _yr, _df in bronze_sources.items():
-        profile_rows.append({
-            "year": _yr,
-            "rows": len(_df),
-            "null_charges": _df["charges"].isna().sum(),
-            "distinct_region_values": _df["region"].astype(str).nunique(dropna=True),
-            "distinct_smoker_values": _df["smoker"].astype(str).nunique(dropna=True)
-        })
+def _(q):
+    q("""
+    SELECT _batch_id AS year,
+           COUNT(*)                                                          AS n_rows,
+           COUNT(DISTINCT region)                                            AS region_spellings,
+           COUNT(*) FILTER (WHERE smoker IS NULL OR smoker NOT IN ('yes', 'no'))  AS odd_smoker,
+           COUNT(*) FILTER (WHERE gender IS NULL OR gender NOT IN ('female', 'male')) AS odd_gender,
+           COUNT(*) FILTER (WHERE age IS NULL OR bmi IS NULL OR children IS NULL OR charges IS NULL) AS missing_value,
+           COUNT(*) FILTER (WHERE TRY_CAST(age AS DOUBLE) NOT BETWEEN 18 AND 100)  AS odd_age,
+           COUNT(*) FILTER (WHERE TRY_CAST(charges AS DOUBLE) <= 0)               AS charges_le_0
+    FROM bronze.insurance
+    GROUP BY 1 ORDER BY 1
+    """)
+    return
 
-    profile_df = pd.DataFrame(profile_rows).sort_values("year")
-    profile_df
-    return (profile_df,)
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    The point of the profile: **the 4 sources have the same kinds of problems in similar amounts**, so one set of rules can serve all of them.
+    """)
+    return
 
 
 @app.cell
-def _(plt, profile_df):
-    plt.figure(figsize=(8, 5))
-    plt.bar(profile_df["year"].astype(str), profile_df["rows"])
-    plt.title("Row Count by Source File")
-    plt.xlabel("Year")
-    plt.ylabel("Rows")
+def _(plt, q):
+    _df = q("""
+    SELECT _batch_id AS year, '[' || COALESCE(region, 'NULL') || ']' AS region_as_received, COUNT(*) AS n_rows
+    FROM bronze.insurance GROUP BY ALL ORDER BY region_as_received, year
+    """)
+    _pivot = _df.pivot(index="region_as_received", columns="year", values="n_rows").fillna(0)
+    _pivot = _pivot.loc[_pivot.sum(axis=1).sort_values().index]
+    _ax = _pivot.plot.barh(stacked=True, figsize=(9, 5))
+    _ax.set_title("Bronze: 16 region values, in every source")
+    _ax.set_xlabel("rows")
     plt.tight_layout()
-    plt.show()
-    return
-
-
-@app.cell
-def _(plt, profile_df):
-    plt.figure(figsize=(8, 5))
-    plt.bar(profile_df["year"].astype(str), profile_df["null_charges"])
-    plt.title("NULL Charges by Source File")
-    plt.xlabel("Year")
-    plt.ylabel("NULL count")
-    plt.tight_layout()
-    plt.show()
+    _ax.figure
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Business insight
-    A multi-source pipeline is only as good as its weakest source.
-    Profiling by source helps identify:
-    - incomplete files
-    - source-specific data quality problems
-    - differences that must be handled before integration
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## Inspect categorical inconsistencies by source
-
-    We now inspect region and smoker values by year.
+    ## Step 1 — Conform: a Macro + Mapping Tables
     """)
     return
 
 
 @app.cell
-def _(bronze_sources):
-    for _yr, _df in bronze_sources.items():
-        print(f"\nYear {_yr} — region values")
-        print(_df["region"].astype(str).value_counts(dropna=False).head(10))
-        print(f"\nYear {_yr} — smoker values")
-        print(_df["smoker"].astype(str).value_counts(dropna=False).head(10))
-    return
+def _(con, q):
+    con.execute("""
+    CREATE OR REPLACE MACRO norm_region(r) AS regexp_replace(lower(trim(r)), '[ -]', '', 'g');
 
+    CREATE OR REPLACE TABLE silver.map_region AS SELECT * FROM (VALUES
+        ('northeast', 'northeast'), ('northwest', 'northwest'),
+        ('southeast', 'southeast'), ('southwest', 'southwest')) t(region_key, region);
+    CREATE OR REPLACE TABLE silver.map_smoker AS SELECT * FROM (VALUES ('yes', 'yes'), ('no', 'no')) t(smoker_key, smoker);
+    CREATE OR REPLACE TABLE silver.map_gender AS SELECT * FROM (VALUES ('female', 'female'), ('male', 'male'), ('m', 'male')) t(gender_key, gender);
 
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ### Business insight
-    This is where conformance begins.
-    If equivalent business concepts have different labels across years, then:
-    - grouping is wrong
-    - comparisons are wrong
-    - trend analysis is wrong
+    CREATE OR REPLACE TABLE silver.step1_standardized AS
+    SELECT b._batch_id,
+           TRY_CAST(TRY_CAST(b.age AS DOUBLE) AS INTEGER)      AS age,
+           COALESCE(g.gender, 'unknown')                       AS gender,
+           TRY_CAST(b.bmi AS DECIMAL(5, 2))                    AS bmi,
+           TRY_CAST(TRY_CAST(b.children AS DOUBLE) AS INTEGER) AS children,
+           COALESCE(s.smoker, 'unknown')                       AS smoker,
+           COALESCE(r.region, 'unknown')                       AS region,
+           TRY_CAST(b.charges AS DECIMAL(10, 2))               AS charges,
+           b.region                                            AS region_raw
+    FROM bronze.insurance b
+    LEFT JOIN silver.map_region r ON r.region_key = norm_region(b.region)
+    LEFT JOIN silver.map_smoker s ON s.smoker_key = lower(trim(b.smoker))
+    LEFT JOIN silver.map_gender g ON g.gender_key = lower(trim(b.gender));
+    """)
+    q("""
+    SELECT region, COUNT(*) AS n_rows, COUNT(DISTINCT region_raw) AS spellings_mapped_here
+    FROM silver.step1_standardized
+    GROUP BY 1 ORDER BY 1
     """)
     return
 
@@ -250,219 +166,151 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Part 3 — Schema alignment
-
-    Before we integrate, all sources must share:
-    - the same column names
-    - the same data types
-    - the same broad semantics
-
-    ### Teaching note
-    Schema alignment happens **before** union.
+    16 region spellings → **4 regions + `unknown`** (1,046 rows). The `region_raw` column keeps what the source said (lineage).
     """)
     return
-
-
-@app.cell
-def _(b2021, b2022, b2023, b2024, pd):
-    def align_schema(df, year):
-        x = df.copy()
-
-        # Rename if an alternate column name exists
-        if "region_name" in x.columns and "region" not in x.columns:
-            x = x.rename(columns={"region_name": "region"})
-
-        # Ensure expected columns exist
-        expected = ["age", "gender", "bmi", "children", "smoker", "region", "charges"]
-        for col in expected:
-            if col not in x.columns:
-                x[col] = pd.NA
-
-        # Align data types carefully
-        x["age"] = pd.to_numeric(x["age"], errors="coerce")
-        x["bmi"] = pd.to_numeric(x["bmi"], errors="coerce")
-        x["children"] = pd.to_numeric(x["children"], errors="coerce")
-
-        # charges may be text like "1,234.56"
-        x["charges"] = (
-            x["charges"]
-            .astype(str)
-            .str.replace(",", "", regex=False)
-            .replace({"None": pd.NA, "nan": pd.NA, "<NA>": pd.NA})
-        )
-        x["charges"] = pd.to_numeric(x["charges"], errors="coerce")
-
-        x["gender"] = x["gender"].astype(str).str.strip()
-        x["smoker"] = x["smoker"].astype(str).str.strip()
-        x["region"] = x["region"].astype(str).str.strip()
-
-        x["year"] = year
-
-        return x[expected + ["year"]]
-
-    a2021 = align_schema(b2021, 2021)
-    a2022 = align_schema(b2022, 2022)
-    a2023 = align_schema(b2023, 2023)
-    a2024 = align_schema(b2024, 2024)
-
-    a2023.head()
-    return a2021, a2022, a2023, a2024
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Confirm aligned schemas
-
-    All aligned source tables should now have the same structure.
+    ## Step 2 — Deduplicate (After Standardizing, Within Each Source)
     """)
     return
 
 
 @app.cell
-def _(a2021, a2022, a2023, a2024):
-    for _yr, _df in {2021:a2021, 2022:a2022, 2023:a2023, 2024:a2024}.items():
-        print(f"\nYear {_yr}")
-        print(_df.dtypes)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ### Business insight
-    Alignment is the foundation of integration.
-    If one source still has incompatible types, the union may succeed technically but fail semantically.
+def _(con, q):
+    con.execute("""
+    CREATE OR REPLACE TABLE silver.step2_dedup AS
+    SELECT * FROM silver.step1_standardized
+    QUALIFY ROW_NUMBER() OVER (PARTITION BY _batch_id, age, gender, bmi, children, smoker, region, charges
+                               ORDER BY region_raw) = 1;
     """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## Part 4 — Conformance: canonical domains
-
-    Now we standardize values into one agreed representation.
-
-    ### Examples
-    - `NE`, `north-east`, `Northeast` → `northeast`
-    - `Y`, `1` → `yes`
-    - `N`, `0` → `no`
-    """)
-    return
-
-
-@app.cell
-def _(a2021, a2022, a2023, a2024):
-    def conform_values(df):
-        x = df.copy()
-
-        region_map = {
-            "NE": "northeast",
-            "north-east": "northeast",
-            "Northeast": "northeast",
-            "northeast": "northeast",
-            "NW": "northwest",
-            "north-west": "northwest",
-            "Northwest": "northwest",
-            "northwest": "northwest",
-            "SE": "southeast",
-            "south-east": "southeast",
-            "Southeast": "southeast",
-            "southeast": "southeast",
-            "SW": "southwest",
-            "south-west": "southwest",
-            "Southwest": "southwest",
-            "southwest": "southwest",
-        }
-
-        smoker_map = {
-            "Y": "yes", "y": "yes", "1": "yes", "yes": "yes",
-            "N": "no", "n": "no", "0": "no", "no": "no"
-        }
-
-        x["region"] = x["region"].replace(region_map).str.lower()
-        x["smoker"] = x["smoker"].replace(smoker_map).str.lower()
-
-        return x
-
-    c2021 = conform_values(a2021)
-    c2022 = conform_values(a2022)
-    c2023 = conform_values(a2023)
-    c2024 = conform_values(a2024)
-    return c2021, c2022, c2023, c2024
-
-
-@app.cell
-def _(c2021, c2022, c2023, c2024):
-    for _yr, _df in {2021:c2021, 2022:c2022, 2023:c2023, 2024:c2024}.items():
-        print(f"\nYear {_yr} — conformed regions")
-        print(_df["region"].value_counts(dropna=False))
-        print(f"\nYear {_yr} — conformed smoker values")
-        print(_df["smoker"].value_counts(dropna=False))
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ### Business insight
-    Conformance gives us canonical business categories.
-    Without this step, trends across years would compare labels, not realities.
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## Part 5 — Integration with `UNION ALL`
-
-    Now that schemas and values are aligned, we can integrate all years into one combined Silver candidate table.
-    """)
-    return
-
-
-@app.cell
-def _(c2021, c2022, c2023, c2024, pd):
-    silver_candidate = pd.concat([c2021, c2022, c2023, c2024], ignore_index=True)
-    silver_candidate.head()
-    return (silver_candidate,)
-
-
-@app.cell
-def _(duckdb, silver_candidate):
-    con = duckdb.connect()
-    con.register("silver_candidate", silver_candidate)
-
-    rows_by_year = con.execute('''
-    SELECT year, COUNT(*) AS row_count
-    FROM silver_candidate
-    GROUP BY year
+    q("""
+    WITH raw AS (SELECT _batch_id, COUNT(*) AS n FROM bronze.insurance GROUP BY 1),
+         raw_distinct AS (SELECT _batch_id, COUNT(*) AS n
+                          FROM (SELECT DISTINCT * EXCLUDE (_source_file, _ingested_at) FROM bronze.insurance) GROUP BY 1),
+         std_distinct AS (SELECT _batch_id, COUNT(*) AS n FROM silver.step2_dedup GROUP BY 1)
+    SELECT _batch_id AS year, raw.n - raw_distinct.n AS copies_raw, raw.n - std_distinct.n AS copies_standardized
+    FROM raw JOIN raw_distinct USING (_batch_id) JOIN std_distinct USING (_batch_id)
     ORDER BY year
-    ''').df()
-    rows_by_year
-    return (rows_by_year,)
+    """)
+    return
 
 
 @app.cell
-def _(plt, rows_by_year):
-    plt.figure(figsize=(8, 5))
-    plt.bar(rows_by_year["year"].astype(str), rows_by_year["row_count"])
-    plt.title("Integrated Row Count by Year")
-    plt.xlabel("Year")
-    plt.ylabel("Row count")
+def _(q):
+    q("""
+    WITH g AS (SELECT *, COUNT(*) OVER (PARTITION BY _batch_id, age, gender, bmi, children, smoker, region, charges) AS copies,
+                         COUNT(DISTINCT region_raw) OVER (PARTITION BY _batch_id, age, gender, bmi, children, smoker, region, charges) AS spellings
+               FROM silver.step1_standardized)
+    SELECT _batch_id AS year, age, gender, bmi, charges, region, region_raw
+    FROM g WHERE copies > 1 AND spellings > 1
+    ORDER BY year, charges, region_raw
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    **287 raw copies, 296 after standardizing.** The 9 extra copies (above, as pairs) have the same age, bmi and charges to the cent, and differ only in the
+    region spelling: `north-east` / `northeast`, or two unmappable labels such as `midwest` / `mars`. Same customer-year, sent twice.
+    (For order lines without a line id it is the other way round: see slides 2, Step 4.)
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Step 3 — Reject (Quarantine with a Reason) and Flag
+    """)
+    return
+
+
+@app.cell
+def _(con, q):
+    con.execute("""
+    CREATE OR REPLACE TABLE silver.insurance_rejected AS
+    SELECT *,
+           CASE WHEN age IS NULL OR bmi IS NULL OR children IS NULL OR charges IS NULL THEN 'missing value'
+                WHEN age NOT BETWEEN 18 AND 100     THEN 'age outside 18-100'
+                WHEN bmi NOT BETWEEN 12 AND 70      THEN 'bmi outside 12-70'
+                WHEN children NOT BETWEEN 0 AND 10  THEN 'children outside 0-10'
+                ELSE 'charges <= 0' END AS reject_reason
+    FROM silver.step2_dedup
+    WHERE age IS NULL OR bmi IS NULL OR children IS NULL OR charges IS NULL
+       OR age NOT BETWEEN 18 AND 100 OR bmi NOT BETWEEN 12 AND 70
+       OR children NOT BETWEEN 0 AND 10 OR charges <= 0;
+
+    CREATE OR REPLACE TABLE silver.insurance AS
+    SELECT _batch_id AS year, age, gender, bmi, children, smoker, region, charges, region_raw,
+           gender = 'unknown' AS is_gender_unknown,
+           smoker = 'unknown' AS is_smoker_unknown,
+           region = 'unknown' AS is_region_unknown
+    FROM silver.step2_dedup
+    WHERE NOT (age IS NULL OR bmi IS NULL OR children IS NULL OR charges IS NULL
+               OR age NOT BETWEEN 18 AND 100 OR bmi NOT BETWEEN 12 AND 70
+               OR children NOT BETWEEN 0 AND 10 OR charges <= 0);
+    """)
+    q("""
+    PIVOT (SELECT _batch_id AS year, reject_reason FROM silver.insurance_rejected)
+    ON year USING COUNT(*) GROUP BY reject_reason ORDER BY reject_reason
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## ⚖️ Reconcile Each Source: Bronze = Valid + Flagged + Rejected + Duplicates
+    """)
+    return
+
+
+@app.cell
+def _(q):
+    recon = q("""
+    WITH b AS (SELECT _batch_id AS year, COUNT(*) AS bronze FROM bronze.insurance GROUP BY 1),
+         s AS (SELECT year,
+                      COUNT(*) FILTER (WHERE NOT (is_gender_unknown OR is_smoker_unknown OR is_region_unknown)) AS valid,
+                      COUNT(*) FILTER (WHERE is_gender_unknown OR is_smoker_unknown OR is_region_unknown)     AS flagged
+               FROM silver.insurance GROUP BY 1),
+         r AS (SELECT _batch_id AS year, COUNT(*) AS rejected FROM silver.insurance_rejected GROUP BY 1),
+         d AS (SELECT a._batch_id AS year, a.n - c.n AS duplicates
+               FROM (SELECT _batch_id, COUNT(*) AS n FROM silver.step1_standardized GROUP BY 1) a
+               JOIN (SELECT _batch_id, COUNT(*) AS n FROM silver.step2_dedup GROUP BY 1) c USING (_batch_id))
+    SELECT CAST(year AS VARCHAR) AS source_year, bronze, valid, flagged, rejected, duplicates,
+           bronze = valid + flagged + rejected + duplicates AS reconciled
+    FROM b JOIN s USING (year) JOIN r USING (year) JOIN d USING (year)
+    UNION ALL
+    SELECT 'all sources', SUM(bronze)::BIGINT, SUM(valid)::BIGINT, SUM(flagged)::BIGINT, SUM(rejected)::BIGINT, SUM(duplicates)::BIGINT,
+           SUM(bronze) = SUM(valid + flagged + rejected + duplicates)
+    FROM b JOIN s USING (year) JOIN r USING (year) JOIN d USING (year)
+    ORDER BY source_year
+    """)
+    recon
+    return (recon,)
+
+
+@app.cell
+def _(plt, recon):
+    _per_year = recon[recon["source_year"] != "all sources"].set_index("source_year")[["valid", "flagged", "rejected", "duplicates"]]
+    _ax = _per_year.plot.bar(stacked=True, figsize=(8, 4), rot=0)
+    _ax.set_title("Every Bronze row has exactly one fate, per source")
+    _ax.set_ylabel("rows")
     plt.tight_layout()
-    plt.show()
+    _ax.figure
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Business insight
-    A correct `UNION ALL` preserves source row counts while making the years analytically comparable.
-    This is one of the most common real-world Silver patterns.
+    **6,467 = 4,160 valid + 1,037 flagged + 974 rejected + 296 duplicates**, and every source reconciles on its own (the last line is the total).
+    Silver holds the valid and flagged rows: **5,197**.
     """)
     return
 
@@ -470,60 +318,44 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Part 6 — Cleaning after integration
-
-    Once data is integrated, we can clean it consistently across all years.
-
-    We will:
-    1. remove NULL charges
-    2. remove obvious outliers
-    3. deduplicate exact duplicates
+    ## 🚩 Why Flag the Unknown Regions Instead of Dropping Them?
     """)
     return
 
 
 @app.cell
-def _(pd, silver_candidate):
-    silver = silver_candidate.copy()
-
-    before_clean_rows = len(silver)
-
-    # Remove NULL metric
-    silver = silver[silver["charges"].notna()].copy()
-
-    # Remove obvious outliers for teaching purposes
-    silver = silver[silver["charges"] < 100000].copy()
-
-    # Deduplicate exact duplicates
-    silver = silver.drop_duplicates()
-
-    after_clean_rows = len(silver)
-
-    pd.DataFrame({
-        "stage": ["before cleaning", "after cleaning"],
-        "row_count": [before_clean_rows, after_clean_rows]
-    })
-    return after_clean_rows, before_clean_rows, silver
+def _(q):
+    by_region = q("""
+    SELECT region, COUNT(*) AS customers, ROUND(AVG(charges), 2) AS avg_charges,
+           ROUND(AVG((smoker = 'yes')::INT), 3) AS smoker_share
+    FROM silver.insurance GROUP BY 1 ORDER BY 1
+    """)
+    by_region
+    return (by_region,)
 
 
 @app.cell
-def _(after_clean_rows, before_clean_rows, plt):
-    plt.figure(figsize=(8, 5))
-    plt.bar(["before", "after"], [before_clean_rows, after_clean_rows])
-    plt.title("Row Count Before vs After Integrated Cleaning")
-    plt.xlabel("Stage")
-    plt.ylabel("Rows")
+def _(by_region, plt):
+    _df = by_region
+    _fig, (_a, _b) = plt.subplots(1, 2, figsize=(12, 4))
+    _colors = ["tab:red" if r == "unknown" else "tab:blue" for r in _df["region"]]
+    _a.bar(_df["region"], _df["smoker_share"], color=_colors)
+    _a.set_title("Smoker share by region (Silver)")
+    _b.bar(_df["region"], _df["avg_charges"], color=_colors)
+    _b.set_title("Average charges by region (Silver)")
     plt.tight_layout()
-    plt.show()
+    _fig
     return
 
 
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ### Business insight
-    Cleaning after integration ensures that all sources are treated under the same rules.
-    This is often more consistent than cleaning each source differently.
+@app.cell
+def _(q):
+    q("""
+    SELECT 'all Silver rows (flags kept)' AS population, COUNT(*) AS customers, ROUND(AVG(charges), 2) AS avg_charges
+    FROM silver.insurance
+    UNION ALL
+    SELECT 'unknown regions dropped', COUNT(*), ROUND(AVG(charges), 2)
+    FROM silver.insurance WHERE NOT is_region_unknown
     """)
     return
 
@@ -531,73 +363,9 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Part 7 — Enrichment
-
-    Now we add derived columns that increase business usability.
-
-    We create:
-    - `age_group`
-    - `bmi_group`
-    """)
-    return
-
-
-@app.cell
-def _(pd, silver):
-    def age_group(age):
-        if age < 30:
-            return "young"
-        elif age < 60:
-            return "adult"
-        return "senior"
-
-    def bmi_group(bmi):
-        if pd.isna(bmi):
-            return pd.NA
-        if bmi < 18.5:
-            return "underweight"
-        elif bmi < 25:
-            return "normal"
-        elif bmi < 30:
-            return "overweight"
-        return "obese"
-
-    silver["age_group"] = silver["age"].apply(age_group)
-    silver["bmi_group"] = silver["bmi"].apply(bmi_group)
-
-    silver.head()
-    return
-
-
-@app.cell
-def _(plt, silver):
-    age_group_year = (
-        silver.groupby(["year", "age_group"])
-        .size()
-        .reset_index(name="count")
-    )
-
-    for grp in age_group_year["age_group"].dropna().unique():
-        subset = age_group_year[age_group_year["age_group"] == grp]
-        plt.plot(subset["year"], subset["count"], marker="o", label=grp)
-
-    plt.title("Population by Age Group Across Years")
-    plt.xlabel("Year")
-    plt.ylabel("Count")
-    plt.legend()
-    plt.tight_layout()
-    plt.show()
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ### Business insight
-    Enrichment converts raw attributes into business-friendly categories that can support:
-    - segmentation
-    - cohort analysis
-    - later Gold models
+    The 813 `unknown`-region customers are **53%** smokers (17.5–19.4% in the real regions) and average **$25,961** in charges.
+    Dropping them would lower the average charge of the whole book from **$18,481.91 to $17,094.97**: a 7.5% understatement, with no trace.
+    Flagged, they stay in every total, and a region report can still show them as their own `unknown` bar.
     """)
     return
 
@@ -605,78 +373,22 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Part 8 — Validation
-
-    Validation is what makes Silver trustworthy.
-
-    We now check:
-    - row counts
-    - NULLs
-    - distinct canonical categories
-    - distribution sanity
+    ## ✅ Tests (All Must Be 0)
     """)
     return
 
 
 @app.cell
-def _(pd, silver, silver_candidate):
-    validation = pd.DataFrame({
-        "metric": [
-            "bronze_total_rows_all_sources",
-            "silver_total_rows",
-            "silver_null_charges",
-            "silver_distinct_region_labels",
-            "silver_distinct_smoker_labels"
-        ],
-        "value": [
-            len(silver_candidate),
-            len(silver),
-            silver["charges"].isnull().sum(),
-            silver["region"].nunique(dropna=True),
-            silver["smoker"].nunique(dropna=True)
-        ]
-    })
-    validation
-    return
-
-
-@app.cell
-def _(pd, silver, silver_candidate):
-    bronze_avg = silver_candidate["charges"].dropna().mean()
-    silver_avg = silver["charges"].mean()
-
-    kpi_compare = pd.DataFrame({
-        "layer": ["Integrated Bronze candidate", "Silver"],
-        "avg_charges": [bronze_avg, silver_avg]
-    })
-    kpi_compare
-    return (kpi_compare,)
-
-
-@app.cell
-def _(kpi_compare, plt):
-    plt.figure(figsize=(8, 5))
-    plt.bar(kpi_compare["layer"], kpi_compare["avg_charges"])
-    plt.title("Average Charges Before vs After Silver Processing")
-    plt.ylabel("Average charges")
-    plt.xticks(rotation=10)
-    plt.tight_layout()
-    plt.show()
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ### Business insight
-    This is one of the most important lessons in Week 7:
-
-    **integration + conformance + cleaning change KPIs**
-
-    That is why these steps must be:
-    - explicit
-    - justified
-    - validated
+def _(q):
+    q("""
+    SELECT 'region not canonical' AS test, COUNT(*) AS failures FROM silver.insurance
+    WHERE region NOT IN (SELECT region FROM silver.map_region) AND NOT is_region_unknown
+    UNION ALL SELECT 'missing measure', COUNT(*) FROM silver.insurance
+    WHERE age IS NULL OR bmi IS NULL OR children IS NULL OR charges IS NULL
+    UNION ALL SELECT 'impossible value', COUNT(*) FROM silver.insurance
+    WHERE age NOT BETWEEN 18 AND 100 OR bmi NOT BETWEEN 12 AND 70 OR children NOT BETWEEN 0 AND 10 OR charges <= 0
+    UNION ALL SELECT 'duplicate rows', COUNT(*) - COUNT(DISTINCT (year, age, gender, bmi, children, smoker, region, charges))
+    FROM silver.insurance
     """)
     return
 
@@ -684,65 +396,23 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Part 9 — Region KPI before vs after conformance
-
-    This is the clearest way to show why conformance matters.
+    ## 📊 Before / After: One KPI, Three Answers
     """)
     return
 
 
 @app.cell
-def _(a2021, a2022, a2023, a2024, pd, silver):
-    # Before conformance (aligned but not conformed)
-    aligned_union = pd.concat([a2021, a2022, a2023, a2024], ignore_index=True)
-
-    bronze_region_kpi = (
-        aligned_union.groupby("region")["charges"]
-        .mean()
-        .reset_index(name="avg_charges")
-    )
-
-    silver_region_kpi = (
-        silver.groupby("region")["charges"]
-        .mean()
-        .reset_index(name="avg_charges")
-    )
-
-    bronze_region_kpi
-    return bronze_region_kpi, silver_region_kpi
-
-
-@app.cell
-def _(bronze_region_kpi, plt):
-    plt.figure(figsize=(10, 5))
-    plt.bar(bronze_region_kpi["region"].astype(str), bronze_region_kpi["avg_charges"])
-    plt.title("Average Charges by Region Before Conformance")
-    plt.xlabel("Region label")
-    plt.ylabel("Average charges")
-    plt.xticks(rotation=30)
-    plt.tight_layout()
-    plt.show()
-    return
-
-
-@app.cell
-def _(plt, silver_region_kpi):
-    plt.figure(figsize=(8, 5))
-    plt.bar(silver_region_kpi["region"], silver_region_kpi["avg_charges"])
-    plt.title("Average Charges by Region After Conformance")
-    plt.xlabel("Canonical region")
-    plt.ylabel("Average charges")
-    plt.tight_layout()
-    plt.show()
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ### Business insight
-    Before conformance, one real business category can fragment into several fake reporting categories.
-    After conformance, the KPI reflects the real business grouping.
+def _(q):
+    q("""
+    SELECT 'Bronze, region = ''northeast''' AS answer_from, COUNT(*) AS n_rows,
+           ROUND(AVG(TRY_CAST(charges AS DOUBLE)), 2) AS avg_charges
+    FROM bronze.insurance WHERE region = 'northeast'
+    UNION ALL
+    SELECT 'Bronze, all 4 spellings', COUNT(*), ROUND(AVG(TRY_CAST(charges AS DOUBLE)), 2)
+    FROM bronze.insurance WHERE norm_region(region) = 'northeast'
+    UNION ALL
+    SELECT 'Silver', COUNT(*), ROUND(AVG(charges), 2)
+    FROM silver.insurance WHERE region = 'northeast'
     """)
     return
 
@@ -750,47 +420,13 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Part 10 — Final Silver table
+    ## What to Remember
 
-    At this point, the Silver dataset is:
-    - integrated across years
-    - standardized
-    - cleaned
-    - enriched
-    - validated
-    """)
-    return
-
-
-@app.cell
-def _(silver):
-    silver.info()
-    return
-
-
-@app.cell
-def _(silver):
-    silver.head(10)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## Final summary
-
-    ### What we did
-    1. Profiled each source independently
-    2. Aligned schemas
-    3. Conformed inconsistent values
-    4. Integrated all years with `UNION ALL`
-    5. Cleaned and deduplicated the result
-    6. Added business-friendly features
-    7. Validated the final Silver dataset
-
-    ### Final lesson
-    Week 7 is not just about cleaning.
-    It is about making **multiple datasets agree** so that the final analytical dataset is trustworthy.
+    - **Profile each source** first: the rules come from the numbers, and similar problems across sources mean one set of rules.
+    - **Conform with a macro and mapping tables**: 16 spellings → 4 regions + `unknown`; the tables are data the business can review.
+    - **Deduplicate after standardizing** when two different customers can't look identical: 296 copies, not 287.
+    - **Reject with a reason, flag what is still useful**: the flagged rows are not a random sample (53% smokers).
+    - **Reconcile per source and test** after every load: 6,467 = 4,160 + 1,037 + 974 + 296, every test 0.
     """)
     return
 

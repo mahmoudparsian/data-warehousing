@@ -8,7 +8,7 @@ title: Week 10 — From Gold to a Story (in practice)
 # Week 10
 ## From Gold to a Story: in Practice
 
-Examples use the online-sales star from week 4 (`week04…/OLAP/OLAP_by_DuckDB/`).
+Examples use the online-sales star from week 4 (`week04…/OLAP/OLAP_by_DuckDB/csv/`); the query runs.
 Labs 10.1 and 10.2 apply the same steps to the pizza shop's Gold layer.
 
 ---
@@ -45,10 +45,26 @@ Labs 10.1 and 10.2 apply the same steps to the pizza shop's Gold layer.
 
 Revenue = **volume × value**. Example (online sales, 2023 → 2024):
 
-| Year | Sales lines | Revenue per line | Revenue |
-|---|---|---|---|
-| 2023 | 300,400 | $236.69 | $71.1 M |
-| 2024 | 500,083 | $235.49 | $117.8 M |
+```sql
+CREATE OR REPLACE VIEW sales AS SELECT * FROM read_csv('../week04-Star-Schema-and-OLAP/OLAP/OLAP_by_DuckDB/csv/sales.csv');
+WITH y AS (SELECT date_key // 10000 AS year, COUNT(*) AS sales_lines, SUM(total_amount) AS revenue
+           FROM sales WHERE date_key // 10000 IN (2023, 2024) GROUP BY 1)
+SELECT year, sales_lines, ROUND(revenue / sales_lines, 2) AS revenue_per_line, ROUND(revenue / 1e6, 1) AS revenue_millions,
+       ROUND(sales_lines / LAG(sales_lines) OVER (ORDER BY year), 3) AS lines_ratio,
+       ROUND((revenue / sales_lines) / LAG(revenue / sales_lines) OVER (ORDER BY year), 3) AS per_line_ratio
+FROM y ORDER BY year;
+```
+
+<!-- RESULT -->
+
+| year | sales_lines | revenue_per_line | revenue_millions | lines_ratio | per_line_ratio |
+|-----:|------------:|-----------------:|-----------------:|------------:|---------------:|
+| 2023 |      300400 |           236.69 |             71.1 |        NULL |           NULL |
+| 2024 |      500083 |           235.49 |            117.8 |       1.665 |          0.995 |
+
+*(2 rows)*
+
+<!-- /RESULT -->
 
 Revenue +65.6% = lines ×1.665 × revenue per line ×0.995
 
