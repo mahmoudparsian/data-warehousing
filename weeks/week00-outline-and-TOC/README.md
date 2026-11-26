@@ -71,10 +71,9 @@ Check your setup by running [`notebook_01_messy_data_demo.py`](notebook_01_messy
 
 | File | What it is |
 |---|---|
-| [`lecture_notes_01_table_of_contents.md`](lecture_notes_01_table_of_contents.md) | Course structure: why SQL → warehousing → Medallion (slides) |
-| [`lecture_notes_02_course_roadmap.md`](lecture_notes_02_course_roadmap.md) | Week-by-week outline with one example per week (slides) |
-| [`lecture_notes_03_dw_vs_medallion.md`](lecture_notes_03_dw_vs_medallion.md) | Classic DW vs Medallion architecture, and what a KPI is, with 11 KPI examples (slides) |
-| [`lecture_notes_04_how_sql_executes_select.md`](lecture_notes_04_how_sql_executes_select.md) | How a SQL engine executes a `SELECT`: the logical order step by step, `EXPLAIN` vs `EXPLAIN ANALYZE` (slides; notebook version: `notebook_03_how_sql_executes_select.py`) |
+| [`lecture_notes_01_outline_and_TOC.md`](lecture_notes_01_outline_and_TOC.md) | Course outline and table of contents: objectives, the 4 blocks (why SQL → warehousing → Medallion), and each week with one example (slides) |
+| [`lecture_notes_02_dw_vs_medallion.md`](lecture_notes_02_dw_vs_medallion.md) | Classic DW vs Medallion architecture, and what a KPI is, with 11 KPI examples (slides) |
+| [`lecture_notes_03_how_sql_executes_select.md`](lecture_notes_03_how_sql_executes_select.md) | How a SQL engine executes a `SELECT`: the logical order step by step, `EXPLAIN` vs `EXPLAIN ANALYZE` (slides; notebook version: `notebook_03_how_sql_executes_select.py`) |
 | `notebook_01_messy_data_demo.py` | Live demo: messy data → wrong answer → cleaned → right answer |
 | `notebook_02_sql_to_plot.py` | The **SQL → DataFrame → plot** pattern used all quarter |
 | [`notebook_03_how_sql_executes_select.py`](notebook_03_how_sql_executes_select.py) | How a SQL engine executes a `SELECT`: the logical order step by step, and `EXPLAIN` vs `EXPLAIN ANALYZE` (no data files) |
