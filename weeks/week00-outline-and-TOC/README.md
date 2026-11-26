@@ -76,3 +76,4 @@ Check your setup by running [`notebook_01_messy_data_demo.py`](notebook_01_messy
 | [`lecture_notes_03_dw_vs_medallion.md`](lecture_notes_03_dw_vs_medallion.md) | Classic DW vs Medallion architecture, and what a KPI is, with 11 KPI examples (slides) |
 | `notebook_01_messy_data_demo.py` | Live demo: messy data → wrong answer → cleaned → right answer |
 | `notebook_02_sql_to_plot.py` | The **SQL → DataFrame → plot** pattern used all quarter |
+| [`notebook_03_how_sql_executes_select.py`](notebook_03_how_sql_executes_select.py) | How a SQL engine executes a `SELECT`: the logical order step by step, and `EXPLAIN` vs `EXPLAIN ANALYZE` (no data files) |
