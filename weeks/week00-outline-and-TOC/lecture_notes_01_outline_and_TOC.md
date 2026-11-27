@@ -1,10 +1,12 @@
 ---
+
 author: Mahmoud Parsian
 marp: true
 theme: default
 paginate: true
 title: Course Outline & Table of Contents
 class: lead
+
 ---
 
 # 🎯 Course Objectives
