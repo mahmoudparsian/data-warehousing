@@ -27,7 +27,7 @@
 | **Quarter** | Winter 2027 (January–March) · [dates & hours](course_information/class_meeting_dates_hours.md) |
 | **Instructor** | [Dr. Mahmoud Parsian](https://www.scu.edu/business/isa/faculty/parsian/) |
 | **Teaching assistant** | to be announced |
-| **Prerequisites** | ISBA 2401 (Data Analytics with Python) and ISBA 2402 / MSIS-2402 (Database Management Systems — Fundamentals of SQL) |
+| **Prerequisites** | ISBA 2401 (Data Analytics with Python) and MSIS-2402 (Database Management Systems — Fundamentals of SQL) |
 | **Primary tools** | [DuckDB](https://duckdb.org) · [Marimo](https://marimo.io) notebooks · Python · [Tableau](https://www.tableau.com) |
 
 

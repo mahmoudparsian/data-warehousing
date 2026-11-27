@@ -22,7 +22,7 @@ applies, and the instructor will correct this page.
 | **Format** | 10 weeks · 20 sessions (2 per week) · 95 minutes per session, each with a 30-minute in-class lab |
 | **Meetings** | Mondays and Wednesdays, 5:45–7:20 pm (Pacific Time) · first class Mon January 4, last class Wed March 17, 2027 · no class on Mon Jan 18 (Martin Luther King Jr. Day) and Mon Feb 15 (Presidents' Day) |
 | **Classroom** | *To be announced on Camino* <!-- TODO(syllabus): room --> |
-| **Prerequisites** | ISBA 2401 (Data Analytics with Python) and ISBA 2402 / MSIS-2402 (Database Management Systems — Fundamentals of SQL) — see [Prerequisites](prerequisite.md) |
+| **Prerequisites** | ISBA 2401 (Data Analytics with Python) and MSIS-2402 (Database Management Systems — Fundamentals of SQL) — see [Prerequisites](prerequisite.md) |
 | **Learning management system** | Camino (Canvas) — announcements, Discussions, gradebook |
 | **Course materials** | Course repository: <https://github.com/mahmoudparsian/data-warehousing> — or one ZIP per week ([`DOWNLOADING_COURSE_FILES.md`](DOWNLOADING_COURSE_FILES.md)) |
 
